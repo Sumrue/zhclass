@@ -1,0 +1,8 @@
+$_W['uniacid'] 全局变量，获取用户id
+
+通过用户Id来查询用户的全部信息，包括 头像(avatar) 微信名称(nickname) 调用在html中{$memberinfo['nickname']}
+$memberid = $_W['member']['uid'];
+$memberinfo = pdo_fetch("SELECT uid,mobile,credit1,credit2,nickname,avatar FROM " .tablename($this->table_mc_members). " WHERE uid=:uid LIMIT 1", array(':uid'=>$memberid));
+
+输出对象或数组，不能直接输出
+{php echo json_encode($memberinfo);}

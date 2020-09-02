@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.1/weui.min.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/invitegift.css">
+		<title>
+      邀请有礼
+		</title>
+		<script type="text/javascript">
+		//去除系统弹出框网址标题
+		window.alert = function(name){
+			 var iframe = document.createElement("IFRAME");
+			 iframe.style.display="none";
+			 document.documentElement.appendChild(iframe);
+			 window.frames[0].window.alert(name);
+			 iframe.parentNode.removeChild(iframe)
+		}
+		</script>
+  </head>
+	<body data-weui-theme="light">
+		<div class="page-container" id="page-container">
+			<div class="invitegift_page">
+				<div class="navbar">
+					<div class="nav_item nav_item_on">邀约有礼</div>
+					<div class="nav_item">邀请排行榜</div>
+					<div class="nav_item">我的邀请</div>
+				</div>
+
+				<div class="panel_box">
+					<div class="panel panel_on">
+						<div class="panerl_one">
+							<!-- 邀约限时活动广告 -->
+							<div class="advert">
+								<p>
+									8月9日19:00 - 9月10日16:00期间，邀请好友报读缴费，额外奖励<span>15000积分</span></p>
+							</div>
+							<!-- 主要内容区 -->
+							<div class="content_box">
+								<div class="rules">活动规则</div>
+								<div class="content">
+									<div class="content_title">
+										·  邀请朋友上进还能拿智米  ·
+									</div>
+									<div class="content_flow">
+										<div class="content_flow_img">
+											<img src="{MODULE_URL}template/mobile/{$template}/images/index/invite_flow_bg.png" alt="">
+										</div>
+									</div>
+									<div class="content_question">
+										<p>* 积分可以在成功教育 <a>积分商城 </a>兑换京东卡等精美礼品</p>
+										<p>* <a>智米是什么？</a></p>
+									</div>
+								</div>
+							</div>
+							<!-- 活动规则 -->
+							<div class="rules_show rules_show_hidden">
+								<div class="rules_text">
+									<p class="title">活动规则</p>
+									<p class="t0">活动时间</p>
+									<p class="t1">8月19日19:00~~9月10日16:00</p>
+									<p class="t0">活动详情</p>
+									<p class="t2">活动期间<span>邀请人</span>每邀请一名新注册用户，在原有积分奖励基础上</p>
+									<p class="t2">
+										1、报读自考并缴费，再额外奖励15000积分； <br>
+										2、报读成教并购买成考辅导礼包，再额外奖励15000积分； <br>
+										3、报读国开并缴第1学期学费，再额外奖励15000积分；<br>
+										4、若被邀请人退学，则视为无效推荐，自动收回邀请人的相应积分；<br>
+										5、若被邀请人报读专本连读，则以第一次报读缴费记录为准，只赠送一次15000积分;<br>
+									</p>
+									<p class="t3">最终解释权归成功所有</p>
+									<img src="{MODULE_URL}template/mobile/{$template}/images/index/closeX.png" alt="" class="closeX">
+								</div>
+							</div>
+							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button>立即邀请</button></div>
+						</div>
+					</div>
+					<!-- 排行榜 -->
+					<div class="panel">
+						<div class="panel_two">
+							<div class="rank_top">
+								<div class="month">
+									八月排名
+								</div>
+								<div class="invite_friend">
+									<p class="t1">邀请好友报读</p>
+									<p class="t2">奖励好友同等支付的金额数积分</p>
+									<button class="invite_friend_btn">邀请好友</button>
+									<div data-v-90ad5ac0="" class="partner">
+										<div data-v-90ad5ac0="" class="head">
+											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
+											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
+											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
+											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
+											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
+										</div> 
+										<a href="" class="enrolled">
+											已邀请<span>0</span>位好友
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="rank_list">
+								<div class="rank_navbar">
+									<div class="rank_nav_item rank_nav_on">邀请奖励排行榜</div>
+									<div class="rank_nav_item">邀请人数排行榜</div>
+								</div>
+								<div class="rank_panel_box ">
+
+									<!-- 邀请奖励排行榜 -->
+									<div class="rank_panel rank_panel_on">
+										<div class="rank_list_title">
+											<span class="rank_rank">排名</span>
+											<span class="rank_user">邀请奖励</span>
+											<span class="rank_result">兑换记录</span>
+										</div>
+										<div class="rank_list_items">
+											<div class="rank_list_my">
+												<span class="rank_top_list">1000+</span>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+											</div>
+	
+											<div class="rank_list_item">
+												<div class="ranking">
+													<img src="{MODULE_URL}template/mobile/{$template}/images/index/ranking_first.png" alt="" class="ranking_top_pic">
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+												<div class="clear"></div>
+											</div>
+	
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">1</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+												<div class="clear"></div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">2</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+												<div class="clear"></div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">3</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+												<div class="clear"></div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">4</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+												<div class="clear"></div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">5</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content">
+														<div class="rank_content_lt">
+															<p>夏***</p>
+															<p class="bulu">奖励之谜:<span>0</span></p>
+														</div>
+														<div class="rank_content_rt">
+															<span>兑换礼品</span>
+															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
+														</div>
+														<div class="clear"></div>
+													</div>
+												</div>
+												<div class="clear"></div>
+											</div>
+										</div>
+									</div>
+
+									<!-- 邀请人数榜单 -->
+									<div class="rank_panel">
+										<div class="rank_list_title">
+											<span class="rank_rank">排名</span>
+											<span class="rank_user">用户</span>
+											<span class="rank_result">邀请成绩</span>
+										</div>
+										<div class="rank_list_items">
+											<div class="rank_list_my">
+												<span class="rank_top_list">1000+</span>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											
+											<div class="rank_list_item">
+												<div class="ranking">
+													<img src="{MODULE_URL}template/mobile/{$template}/images/index/ranking_first.png" alt="" class="ranking_top_pic">
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+	
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">1</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">2</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">3</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">4</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">5</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">6</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">7</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">8</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+											<div class="rank_list_item">
+												<div class="ranking">
+													<div class="ranking_num">9</div>
+												</div>
+												<div class="rank_msg">
+													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+												</div>
+											</div>
+	
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="footer_rank_update">排行榜数据每小时更新</div>
+							<!-- 排行榜轮播 -->
+							<div class="banner_apply">
+								<ul class="banner_apply_box">
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									<li class="banner_apply_item banner_tt_i">
+										<div class="img_box">
+											<img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
+										</div>
+										<div class="apply_text"><span class="apply_name">夏1**</span> <span> 成功用666积分兑换了老腊肉</span></div>
+									</li>
+									
+									
+								</ul>
+							</div>
+
+							<!-- 邀请攻略 -->
+							<a href="{php echo $this->createMobileUrl('strategy', array('do'=>'strategy'));}" class="invite_method">邀请攻略</a>
+						</div>
+					</div>
+					<div class="panel">
+						<div class="my_invite">
+							<div class="my_invite_head">
+								<div class="integral">
+									<div class="integral_lt">
+										<div class="view1" id="dig2">获得总积分</div>
+										<div class="view2">123</div>
+									</div>
+									<div class="integral_rt">
+										<div class="view1">累计到账积分</div>
+										<div class="view2">0</div>
+									</div>
+								</div>
+								<div class="view3">
+									共邀请 <span>0</span> 人
+								</div>
+							</div>
+
+							<div class="my_invite_items">
+								<div class="nodata">
+									<img src="{MODULE_URL}template/mobile/{$template}/images/index/invite_no-data.png" alt="">
+									<p>暂无邀请学员～<br>快去邀请好友赚积分吧</p>
+								</div>
+							</div>
+							<div class="footer"><button>生成邀请专属海报</button> <button>立即邀请</button></div>
+							<div class="js_dialog" id="iosDialog2" style="display: none;">
+								<div class="weui-mask"></div>
+								<div class="weui-dialog">
+										<div class="weui-dialog__bd">
+											<i class="weui-icon-warn weui-icon_msg"></i>
+											<p>实际到账奖励积分数 = 学院实际缴纳金额数</p>
+										</div>
+										<div class="weui-dialog__ft">
+												<a href="javascript:" class="weui-dialog__btn weui-dialog__btn_primary" id="close_my">知道了</a>
+										</div>
+								</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+</body>
+
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// 导航及对应页面切换
+		let navItem = $('.nav_item')
+		let panelItem = $('.panel')
+		navItem.on('click', function () {
+			let $this = $(this)
+			let index = $this.index()
+			$this.addClass('nav_item_on').siblings('.nav_item_on').removeClass('nav_item_on'); // 切换导航
+			panelItem.eq(index).addClass('panel_on').siblings('.panel_on').removeClass('panel_on'); // 导航对应内容页切换
+			});
+
+		// 活动规则盒子弹出和关闭
+		let rulseShow = $('.rules')
+		let rulseClose = $('.closeX')
+		let rulseBox = $('.rules_show')
+		rulseShow.click(
+			function(){
+				rulseBox.fadeIn(200)
+			}
+		)
+		rulseClose.click(function(){
+			rulseBox.fadeOut(200)
+		})
+
+		// 排行榜中部排行榜单切换
+		let rankNavItem = $('.rank_nav_item')
+		let rankPanel = $('.rank_panel')
+		rankNavItem.click(
+			function(){
+				let $this = $(this)
+				let index = $this.index()
+				$this.addClass('rank_nav_on').siblings('.rank_nav_on').removeClass('rank_nav_on')
+				rankPanel.eq(index).addClass('rank_panel_on').siblings('.rank_panel_on').removeClass('rank_panel_on')
+			}
+		)
+
+		// 排行榜轮播
+		let banner = function(){
+      let bannerApplyItems = $('.banner_apply_box')
+      let itemIndex = $('.banner_tt_i').length
+      let newItemIndex = itemIndex
+      let itemHt = $('.banner_apply_item').height()
+      var n = 0
+      setInterval(() => {
+        n ++
+        if(n>newItemIndex-1) {
+          n = 0
+          bannerApplyItems.css('top',0)
+        }
+        bannerApplyItems.animate(
+          {top: -itemHt*n}
+        )
+      },2000);
+     }
+    banner()
+
+		let $iosDialog2 = $('#iosDialog2')
+		$('#dig2').on('click', function(){
+            $iosDialog2.fadeIn(200);
+    });
+		$('#close_my').click(function(){
+			$('.js_dialog').fadeOut(200)
+		})
+	});
+</script>
+</html>

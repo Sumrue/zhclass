@@ -1,0 +1,82 @@
+<!--
+ * ============================================================================
+ * 版权所有 2015-2020 风影科技，并保留所有权利。
+ * 网站地址: https://www.fylesson.com
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件，未购买授权用户无论是否用于商业行为都是侵权行为！
+ * 允许已购买用户对程序代码进行修改并在授权域名下使用，但是不允许对程序代码以
+ * 任何形式任何目的进行二次发售，作者将依法保留追究法律责任的权力和最终解释权。
+ * ============================================================================
+-->
+{template $template.'/_headerv2'}
+<link href="{MODULE_URL}template/mobile/{$template}/style/cssv2/signin.css?v={$versions}" rel="stylesheet"/>
+
+<div class="header-2 cbox">
+	<a href="javascript:history.go(-1);" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 clearPadding">
+			<div class="top flex flex-align-end flex-pack-center flex-warp">
+				<div class="rule" id="btn-rule">
+					<span class="rule-btn">
+						<span class="rule-text">?</span>
+					</span>签到规则
+				</div>
+				<div class="out-1 flex flex-align-center flex-pack-center" id="signIn">
+					<div class="out-2 flex flex-align-center flex-pack-center">
+						<div class="signBtn">
+							<strong id="sign-txt">{php echo $today_log ? '已签到' : '签到';}</strong>
+							<span>连续{$sign_count}天</span>
+						</div>
+					</div>
+				</div>
+				<div class="sign-tips">{if $today_log}今天已签到，获得{$today_log['award']}个积分{/if}</div>
+			</div>
+			<div class="calendar">
+				<div class="calenbox">
+					<div id="calendar"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/calendar.js?v={$versions}"></script>
+<script type="text/javascript">
+
+{if !$today_log}
+	$("#signIn").click(function(){
+		$.ajax({
+			type: "post",
+			url: "{php echo $this->createMobileUrl('signin', array('op'=>'sign'));}",
+			dataType: "json",
+			success:function(res){
+				if(res.code == -1){
+					if(res.message){
+						$(this).openWindow('系统提示',res.message,'["确定"]','javascript:;','javascript:;');
+					}
+					return;
+				}else if(res.code == 0){
+					$(this).openWindow('系统提示',res.message,'["确定"]','javascript:;', "{php echo $this->createMobileUrl('signin');}");
+				}
+			}, 
+			error:function(){
+				$(this).openWindow('系统提示','网络异常，请稍候重试','["确定"]','javascript:;','javascript:;');
+			},   
+		});
+	});
+{/if}
+
+	$("#btn-rule").click(function(){
+		$(this).openWindow('签到规则',"{$rule}",'["确定"]','javascript:;','javascript:;');
+	});
+
+	$(function(){
+		calUtil.init({$signDay});
+	});
+</script>
+
+{template $template.'/_footerv2'}

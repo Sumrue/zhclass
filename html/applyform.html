@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.1/weui.min.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/applyform.css">
+		<title>
+      报名信息填写
+		</title>
+				{php echo register_jssdk(false);}
+		<script type="text/javascript">
+		document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+			var miniprogram_environment = false;
+			wx.miniProgram.getEnv(function(res) {
+				if(res.miniprogram) {
+					miniprogram_environment = true;
+				}
+			})
+			if((window.__wxjs_environment === 'miniprogram' || miniprogram_environment)) {
+				wx.miniProgram.getEnv(function(res) {
+					wx.miniProgram.postMessage({ 
+						data: {
+							'title': "{$title}",
+							'images': "",
+						}
+					})
+				});
+
+			}
+		});
+
+		//去除系统弹出框网址标题
+		window.alert = function(name){
+			 var iframe = document.createElement("IFRAME");
+			 iframe.style.display="none";
+			 document.documentElement.appendChild(iframe);
+			 window.frames[0].window.alert(name);
+			 iframe.parentNode.removeChild(iframe)
+		}
+		</script>
+  </head>
+	<body data-weui-theme="light">
+		<div class="page-container" id="page-container">
+      <div class="apply_form">
+        <div class="weui-form">
+          <div class="weui-form__control-area">
+            <div class="weui-cells__group weui-cells__group_form">
+              <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                  <div class="weui-cell__bd" id="my_name">
+                      <input id="js_input" class="weui-input my_name" placeholder="请输入您的姓名" maxlength="6" type="text"/>
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">身份证</label></div>
+                  <div class="weui-cell__bd" id="identity_card">
+                      <input id="js_input" class="weui-input identity_card" placeholder="请输入您的身份证" type="" maxlength="18"/>
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">报考省份</label></div>
+                  <div class="weui-cell__bd" id="province">
+                      <input id="js_input" class="weui-input province" placeholder="四川省"" disabled/>
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active adu">
+                  <div class="weui-cell__hd"><label class="weui-label">主考院校</label></div>
+                  <div class="weui-cell__bd" id="academy">
+                      <input id="js_input" class="weui-input academy" readonly/>
+                      <img src="{MODULE_URL}template/mobile/{$template}/images/index/right_form_icon.png" alt="" class="academy_img">
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">层次</label></div>
+                  <div class="weui-cell__bd" id="level">
+                      <input id="js_input" class="weui-input level" readonly/>
+                      <img src="{MODULE_URL}template/mobile/{$template}/images/index/right_form_icon.png" alt="" class="level_img">
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">专业</label></div>
+                  <div class="weui-cell__bd" id="major">
+                      <input id="js_input" class="weui-input major" readonly/>
+                      <img src="{MODULE_URL}template/mobile/{$template}/images/index/right_form_icon.png" alt="" class="major_img">
+
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">城市</label></div>
+                  <div class="weui-cell__bd" id="city">
+                      <input id="js_input" class="weui-input city" readonly/>
+                      <img src="{MODULE_URL}template/mobile/{$template}/images/index/right_form_icon.png" alt="" class="city_img">
+
+                  </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                  <div class="weui-cell__hd"><label class="weui-label">考试县区</label></div>
+                  <div class="weui-cell__bd" id="city2">
+                      <input id="js_input" class="weui-input city2" readonly/>
+                      <img src="{MODULE_URL}template/mobile/{$template}/images/index/right_form_icon.png" alt="" class="city2_img">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div id="toast" style="display: none;">
+          <div class="weui-mask_transparent"></div>
+          <div class="weui-toast">
+            <i class="weui-icon-info weui-icon_msg"></i>
+            <p class="weui-toast__content"></p>
+          </div>
+        </div>
+    </div>
+    <div class="applyform_footer">下一步</div>
+</body>
+
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+<script>
+  $(function(){
+    // 开始时初始化表单值 避免用户进入下一步后返回此页面表单值出现错误情况
+    let restVal = function(){
+      $('.my_name').val('')
+      $('.identity_card').val('')
+      $('.academy').val('')
+      $('.level').val('')
+      $('.major').val('')
+      $('.city').val('')
+      $('.city2').val('')
+    }
+    restVal();
+
+    // 下方下一步按钮的显示控制
+    $('.identity_card').on('input',function(){
+      let myNameVal = $('.my_name').val()
+      let identityCardVal = $('.identity_card').val()
+      let city2Val = $('.city2').val()
+      let identityCardValLt = identityCardVal.length
+      // 当输入框内容达到18位身份证要求时，且姓名和city2部位空时才加入样式
+      if(myNameVal !== '' && identityCardVal !== '' && city2Val !== '' &&identityCardValLt == 18){
+        $('.applyform_footer').addClass('next')
+      } else {
+        console.log('身份证未填写')
+      }
+    })
+
+    // 错误信息弹出框
+    let $toast = $('#toast')
+    let $toastMsg = $('#toast .weui-toast__content')
+    let tostShow = function(msg) {
+      $toastMsg.html(msg)
+      $toast.fadeIn(100);
+        setTimeout(function () {
+            $toast.fadeOut(100);
+        }, 2000);
+    }
+        
+    // 单个选项的验证，最后再验证真个表单是否有空余项
+    // 获取各个表单项
+    let myName = $('#my_name') //姓名
+    let identityCard = $('#identity_card') // 身份证
+    let province = $('#province') // 省份
+    let academy = $('#academy') // 院校
+    let level = $('#level') // 层次
+    let major = $('#major') // 专业
+    let city = $('#city') // 城市
+    let city2 = $('#city2') // 考试区县
+
+    // 院校选则
+    academy.on('click', function () {
+      let myNameVal = $('.my_name').val()
+      let identityCardVal = $('.identity_card').val()
+      if(myNameVal == '' || identityCardVal == ''){
+        tostShow('请先将身份信息填写完整')
+      } else {
+        weui.picker([{
+          label: '华南农业大学 （自）',
+          value: 0
+        }, {
+            label: '广东外语外贸大学 （自）',
+            value: 1
+        }, {
+            label: '广东工业大学 （自）',
+            value: 2
+        },{
+            label: '广东财经大学 （自）',
+            disabled: true,
+            value: 3
+        }, {
+            label: '暨南大学 （自）',
+            value: 4
+        }], {
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                $('.academy').val(result[0].label)
+                $('.academy_img').addClass('hide')
+            },
+            title: '院校选择'
+        });
+      }
+    });
+
+    // 层次选则
+    level.on('click', function () {
+      if($('.academy').val() == '') {
+        tostShow('请先选择主考院校')
+        return
+      } else {
+        weui.picker([{
+            label: '1>专科升本科类',
+            value: 0
+        }, {
+            label: '5>高中七点高职高专',
+            value: 1
+        }], {
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                $('.level').val(result[0].label)
+                $('.level_img').addClass('hide')
+
+            },
+            title: '层次选择'
+        });
+      }
+    });
+
+    // 专业选则
+    major.on('click', function () {
+      if($('.level').val() == '') {
+        tostShow('请先选择层次')
+        return
+      } else {
+        weui.picker([{
+            label: '经济管理',
+            value: 0
+        }, {
+            label: '财务管理',
+            value: 1
+        }], {
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                $('.major').val(result[0].label)
+                $('.major_img').addClass('hide')
+
+            },
+            title: '专业选择'
+        });
+      }
+    });
+    
+    // 城市选则
+    city.on('click', function () {
+      if($('.major').val() == '') {
+        tostShow('请先选择专业')
+        return
+      } else {
+        weui.picker(
+          [
+            {
+              label: '成都市',
+              value: 0
+            },
+            {
+              label: '绵阳市',
+              value: 1
+            },
+            {
+              label: '自贡市',
+              value: 2
+            },
+            {
+              label: '攀枝花市',
+              value: 3
+            },
+            {
+              label: '泸州市',
+              value: 4
+            },
+            {
+              label: '德阳市',
+              value: 5
+            },
+            {
+              label: '广元市',
+              value: 6
+            },
+            {
+              label: '遂宁市',
+              value: 7
+            },
+            {
+              label: '内江市',
+              value: 8
+            },
+            {
+              label: '乐山市',
+              value: 9
+            },
+            {
+              label: '资阳市',
+              value: 10
+            },
+            {
+              label: '宜宾市',
+              value: 11
+            },
+            {
+              label: '南充市',
+              value: 12
+            },
+            {
+              label: '雅安市',
+              value: 13
+            },
+            {
+              label: '达州市',
+              value: 14
+            },
+            {
+              label: '广安市',
+              value: 15
+            },
+            {
+              label: '巴中市',
+              value: 16
+            },
+            {
+              label: '眉山市',
+              value: 17
+            }
+          ], 
+        {
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                $('.city').val(result[0].label)
+                $('.city_img').addClass('hide')
+
+            },
+            title: '城市选择'
+        });
+      }
+    });
+
+    city2.on('click', function () {
+      if($('.city').val() == '') {
+        tostShow('请先选择城市')
+        return
+      } else {
+        let arr = [
+          { 
+            label: '经济管理',
+            value: 0
+          },
+          { 
+            label: '经济管理1',
+            value: 1
+          },
+          { 
+            label: '经济管理2',
+            value: 2
+          },
+        ]
+        weui.picker(arr, {
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                $('.city2').val(result[0].label)
+                $('.city2_img').addClass('hide')
+                let $this = $(this)
+                let myNameVal = $('.my_name').val()
+                let identityCardVal = $('.identity_card').val()
+                if(myNameVal !== '' &&identityCardVal !== '') {
+                  $('.applyform_footer').addClass('next')
+                } else {
+                  $('.applyform_footer').removeClass('next')
+                }
+
+            },
+            title: '考试区县选择'
+        });
+      }
+    })
+
+        // 身份证正则
+    var idcardReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+
+    // 点击下一步按钮，判断身份证信息是否有误，无误则提交
+    $('.applyform_footer').click(
+        function(){
+          let $this = $(this)
+          let myNameVal = $('.my_name').val()
+          let identityCardVal = $('.identity_card').val()
+          let provinceVal = $('.province').val()
+          let academyVal = $('.academy').val()
+          let levelVal = $('.level').val()
+          let majorVal = $('.major').val()
+          let cityVal = $('.city').val()
+          let city2Val = $('.city2').val()
+          if(idcardReg.test(identityCardVal)) {
+            let userMsg = {
+              myName:myNameVal,
+              identityCard:identityCardVal,
+              province:provinceVal,
+              academy:academyVal,
+              level:levelVal,
+              major:majorVal,
+              city:cityVal,
+              city2:city2Val
+            }
+            let url = '{php echo $this->createMobileUrl("selectplan", array("do"=>"selectplan"));}' + '&province=' + provinceVal + '&academy=' + academyVal + '&major=' + majorVal
+            window.location.href = url
+          } else {
+            tostShow('请确认您的信息是否正确或完整')
+            $('.identity_card').val('')
+            $this.removeClass('next')
+          }
+        }
+      )
+  });
+</script>
+</html>

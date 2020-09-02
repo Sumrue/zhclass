@@ -1,0 +1,181 @@
+<!-- 
+ * 个人中心
+ * ============================================================================
+ * 版权所有 2015-2018 微课堂团队，并保留所有权利。
+ * 网站地址: https://www.fylesson.com
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件！不允许对程序代码以任何形式任何目的的再发布，作者将保留
+ * 追究法律责任的权力和最终解释权。
+-->
+{template $template.'/_headerv2'}
+<link href="{MODULE_URL}template/mobile/{$template}/style/cssv2/new_self.css?v={$versions}" rel="stylesheet" />
+
+<div class="global-content-c">
+	<div class="my-main fadeIn animated">
+		<div class="my-head" {if !empty($config['ucenter_bg'])}style="background-image:url({$_W['attachurl']}{$config['ucenter_bg']});"{/if}>
+			<div class="my-head-c">
+				{if in_array('setting',$self_item)}
+				<div class="setting" id="mc-profile" onclick="location.href='{php echo url('mc/profile')}'">
+					<i class="fa fa-cog fa-spin fa-lg"></i>
+				</div>
+				{/if}
+				<div>
+					<span id="my-set-avatar" class="my-head-c-avatar img-bgloading">
+						<i><img class="qmavatar" src="{$avatar}" ></i>
+					</span>
+					<span>
+						<strong class="nickname">{php echo $memberinfo['nickname'] ? $memberinfo['nickname'] : '未设置';}</strong>
+						<span class="studentno">{php echo $common['self_page']['studentno'] ? $common['self_page']['studentno'] : '学号';}:{$studentno}</span>
+					</span>
+				</div>
+			</div>
+			<div class="water">
+				<div class="water-1"></div>
+				<div class="water-2"></div>
+			</div>
+			{if $memberVipCount || in_array('vip',$self_item)}
+			<a class="my-head-vip slideInRight" href="{php echo $this->createMobileUrl('vip');}"></a>
+			{/if}
+		</div>
+		<div class="my-message-scroll">
+			<div class="my-data">
+				<ul class="weui-flex">
+					<li class="wallet weui-flex__item bottom-line">
+						<a href="{php echo url('mc/bond/credits', array('credittype' => 'credit2', 'type' => 'record', 'period' => '1'))}" id="go-credit2">
+							<strong class="c-main">￥{$memberinfo['credit2']}</strong>
+							<span>{php echo $common['self_page']['credit2'] ? $common['self_page']['credit2'] : '会员余额';}</span>
+						</a>
+					</li>
+					<li class="credit weui-flex__item bottom-line">
+						<a href="{php echo url('mc/bond/credits', array('credittype' => 'credit1', 'type' => 'record', 'period' => '1'))}" id="go-credit1">
+							<strong>{$memberinfo['credit1']}</strong>
+							<span>{php echo $common['self_page']['credit1'] ? $common['self_page']['credit1'] : '会员积分';}</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="my-apps clear">
+				{if $memberVipCount || in_array('vip',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('vip');}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-orange fa-diamond"></i> {php echo $common['self_page']['vip'] ? $common['self_page']['vip'] : 'VIP服务';} <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+
+				{if in_array('history',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('history');}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-blue fa-hourglass-half"></i> {php echo $common['self_page']['history'] ? $common['self_page']['history'] : '我的足迹';} <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+				{if in_array('lesson',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('collect', array('ctype'=>1));}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-red fa-heart"></i> {php echo $common['self_page']['collectLesson'] ? $common['self_page']['collectLesson'] : '收藏课程';} <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+				{if in_array('teacher',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('collect', array('ctype'=>2));}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-red fa-gratipay"></i> {php echo $common['self_page']['collectTeacher'] ? $common['self_page']['collectTeacher'] : '收藏讲师';} <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+				{if in_array('teachercenter',$self_item) || !empty($teacher)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('teachercenter');}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-orange fa-free-code-camp"></i> {php echo $common['self_page']['teacherCenter'] ? $common['self_page']['teacherCenter'] : '讲师中心';} <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+
+				{if in_array('sale',$self_item) || ($comsetting['is_sale']==1 && (($comsetting['sale_rank']==1) || ($comsetting['sale_rank']==2 && $memberVipCount)))}
+		  			<a class="my-apps-a" href="{php echo $this->createMobileUrl('commission');}">
+						<div class="my-apps-c clear">
+							<span class="z"><i class="fa red-color fa-share-alt"></i> {php echo $font['sale_center'] ? $font['sale_center']:'分销中心';} <i class="fa fa-angle-right"></i></span>
+						</div>
+					</a>
+		  		{/if}
+
+				{if in_array('studyDuration',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('studyduration');}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-pink fa-youtube-play"></i>&nbsp;{php echo $common['self_page']['studyDuration'] ? $common['self_page']['studyDuration'] : '学习时长';} <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+
+				{if in_array('coupon',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('coupon');}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-pink fa-money"></i>&nbsp;{php echo $common['self_page']['coupon'] ? $common['self_page']['coupon'] : '优惠券';}&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+				{if in_array('mobile',$self_item)}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('writemsg', array('op'=>'modifyMobile'));}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-pink fa-mobile-phone"></i> {php echo $memberinfo['mobile'] ? '修改':'绑定';}手机 <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+				{if $company_teachers}
+				<a class="my-apps-a" href="{php echo $this->createMobileUrl('company');}">
+					<div class="my-apps-c clear">
+						<span class="z"><i class="fa fa-orange fa-bank"></i> 机构中心 <i class="fa fa-angle-right"></i></span>
+					</div>
+				</a>
+				{/if}
+
+				{if !empty($self_diy)}
+					{loop $self_diy $item}
+					<a class="my-apps-a" href="{$item['diy_link']}">
+						<div class="my-apps-c clear">
+							<span class="z"><i class="fa fa-blue fa-{php echo $item['diy_image'] ? $item['diy_image'] : 'link';}"></i> {$item['diy_name']} <i class="fa fa-angle-right"></i></span>
+						</div>
+					</a>
+					{/loop}
+				{/if}
+			</div>
+			{if !$userAgent}
+			<div class="logout">
+				<a href="{php echo url('mc/home/login_out');}">退出登录</a>
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$("#my-set-avatar").click(function(){
+	var agent = <?php echo $agent; ?>;
+	if(!agent){
+		return;
+	}
+	if(!confirm('更新头像信息?')){
+		return;
+	}
+	location.href = "{php echo $this->createMobileUrl('self', array('updateInfo'=>1));}";
+});
+
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	var miniprogram_environment = false;
+	wx.miniProgram.getEnv(function(res) {
+		if(res.miniprogram) {
+			miniprogram_environment = true;
+		}
+	})
+	if(window.__wxjs_environment === 'miniprogram' || miniprogram_environment) {
+		$("#mc-profile").hide();
+		$("#go-credit1").attr("href","javascript:;");
+		$("#go-credit2").attr("href","javascript:;");
+	}
+});
+
+</script>
+
+
+{template $template.'/_footerv2'}

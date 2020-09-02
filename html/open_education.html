@@ -1,0 +1,527 @@
+<style>
+.new_banner>img {
+  width: 100%;
+  object-fit: cover;
+}
+.new_banner .banner_apply_num {
+  left: .2rem;
+}
+.open_education_switch {
+  position: relative;
+}
+
+.open_switch_cbox,.open_switch_items {
+  width: 100%;
+  height:1rem;
+}
+.open_switch_cbox {
+  position: relative;
+}
+.open_switch_items {
+  position: absolute;
+  width: 100%;
+  background-color: #fbdada;
+  color: #ff4c50;
+  top: 0;
+  z-index: 21;
+}
+.open_switch_item {
+  float: left;
+  width: 50%;
+	height: 1rem;
+	font-size: 16px;
+	font-weight: 700;
+  line-height: 1rem;
+  text-align: center;
+}
+.open_switch_line {
+  position: absolute;
+	height: 2px;
+	box-sizing: border-box;
+  background-color: #ffffff;
+  bottom: .1rem;
+	border-radius: 1px;
+}
+.open_switch_item_on {
+  background-color: #ff4c50;
+  color: #fff;
+}
+
+.open_education .switch_item {
+  background-color: #fbdada;
+  color: #ff4c50;
+}
+
+.open_education .switch_item_nav_on {
+  background-color: #ff4c50;
+  color: #fff;
+}
+
+/* 学校优势 */
+.open_education_advantage {
+  padding: .5rem .2rem;
+  width: 95%;
+  margin: 0 auto;
+  background: url({MODULE_URL}template/mobile/default/images/index/open_education/open_advantage_bg.jpg) no-repeat;
+  background-size: cover;
+}
+.open_education .head_img {
+  width: 3rem;
+  margin: .7rem auto .4rem;
+}
+
+.open_education .head_img img{
+  width: 100%;
+  object-fit: cover;
+}
+
+.open_education_advantage .content_view {
+  width: 100%;
+}
+
+.open_education_advantage .content_view .fl,.open_education_advantage .content_view .fr {
+  width: 2.5rem;
+  padding: .3rem .5rem .3rem .2rem;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.view_title_num {
+  float: left;
+  width: 0.6rem;
+  height: .6rem;
+  font-size: .3rem;
+  font-weight: 900;
+  color: #fff;
+  background: url({MODULE_URL}template/mobile/default/images/index/open_education/open_message_icoe.png) no-repeat;
+  background-size: 100%;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.open_education_advantage .content_view .iew_title_text {
+  font-size: .34rem;
+  font-weight: 900;
+  color: #FF4C50;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+.open_education_advantage .content_view .text {
+  font-size: .3rem;
+  display: inline-block;
+  color: #363636;
+  text-align: left
+}
+
+.open_education_advantage .content_view .middView {
+  width: 6.45rem;
+  margin: 0 auto;
+  background-color: #fff;
+  margin-top: .2rem;
+  padding: .2rem .2rem;
+  border-radius: 5px;
+}
+
+/* 院校专业和收费 */
+.open_education_charge {
+  padding: .1rem 0 .1rem;
+  background-color: #fff;
+}
+.charge_pic_box {
+  width: 6.7rem;
+  margin: 0 auto;
+}
+.charge_pic_box img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* 院校介绍 */
+.open_education_referral {
+  padding: .2rem .2rem;
+  background-color: #fff;
+}
+.open_education_referral .title_img{
+  width: 100%;
+}
+.open_education_referral .title_img img {
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.open_education_referral .content_text {
+  width: 6rem;
+  height: 4.1rem;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.more  {
+  width: .8rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.more .down img{
+  width: .8rem;
+  margin-bottom: -.2rem;
+}
+
+.more .up {
+  width: .8rem;
+  height: .8rem;
+  line-height: .8rem;
+  font-weight: 700;
+  font-size: .36rem;
+}
+</style>
+<!-- 开放教育 -->
+<div class="open_education">
+  <!-- newBanner -->
+  <div class="new_banner">
+    <img src="{MODULE_URL}template/mobile/default/images/index/open_education/new_banner_pic.jpg" alt="">
+    {template $template.'/banner/banner_apply'}
+    {template $template.'/banner/banner_apply_num'}
+  </div>
+
+  <div class="main_content_box main_content_open">
+    <!-- 切换按钮 -->
+    <div class="content_switch">
+      <div class="switch_cbox"></div>
+      <div class="switch_item">
+        <div class="switch_item_nav switch_item_nav_on">
+          招生主页
+          <div class="switch_item_line"></div>
+        </div>
+        <div class="switch_item_nav">院校介绍</div>
+      </div>
+    </div>
+    <div class="main_content">
+      <!-- 2011级招生 -->
+      <div class="switch_content block ">
+        <div class="switch_content_2011box">
+
+          <!-- 学校优势 -->
+          <div class="open_education_advantage">
+            <div class="head_img">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_advantage.png" alt="">
+            </div>
+            <div class="content_view">
+              <div class="topView">
+                <div class="fl">
+                  <div class="view_title">
+                    <span class="view_title_num">1</span>
+                    <span class="iew_title_text">信誉高</span>
+                  </div>
+                  <p class="text">教育部直属,权威有保障</p>
+                </div>
+                <div class="fr">
+                  <div class="view_title">
+                    <span class="view_title_num">2</span>
+                    <span class="iew_title_text">信誉高</span>
+                  </div>
+                  <p class="text">直接入学，不用参加考试</p>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="middView">
+                <div class="view_title">
+                  <span class="view_title_num">3</span>
+                  <span class="iew_title_text">证书含金量高</span>
+                </div>
+                <p class="text">
+                  国家开放大学颁发, 证书可在国家教育部学信网网查, 学历国家承认, 符合相关条件的本科毕业生还可获授学士学位
+                </p>
+              </div>
+
+              <div class="middView">
+                <div></div>
+                <div class="view_title">
+                  <span class="view_title_num">4</span>
+                  <span class="iew_title_text">学习模式灵活</span>
+                </div>
+                <p class="text">
+                  网络自主学习、远程学习支持服务与面授辅导相结合的新型学习模式
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 院校专业和收费 -->
+          <div class="open_education_charge">
+            <div class="head_img">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_fee.png" alt="">
+            </div>
+            <div class="charge_pic_box">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_charge.png" alt="">
+            </div>
+          </div>
+
+          <!-- 广告区域 -->
+          <div></div>
+          <!-- 证书展示 -->
+          {template $template.'/index/certificate'}
+        </div>
+      </div>
+
+      <!-- 院校介绍 -->
+      <div class="switch_content">
+        <div class="dream_build_box">
+          <!-- 原先介绍头部图片及文字介绍 -->
+          <div class="open_education_referral">
+            <div class="title_img"><img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_ referral.png" alt=""></div>
+            <p class="content_text">
+                  国家开放大学是中华人民共和国教育部直属的，以现代信息技术为支撑，学历教育与非学历教育并举，实施远程开放教育的新型高等学校。学校是在中央广播电视大学和地方广播电视大学的基础上组建，以现代信息技术为支撑，办学网络立体覆盖全国城乡，学历与非学历教育并重，面向全体社会成员，没有围墙的新型大学。国家开放大学有权授予学士学位，由学校向北京市学位委员会申请并获批后，报国务院学位委员会备案。目前，注册在学生359万人，其中本科学生105万人，专科学生254万人，包括近20万农民学生，10万士官学生，6000多残疾学生。国家开放大学的组建成立，标志着广播电视大学系统在新的历史起点上踏上了新的征途。
+                <br><br> <strong>历史使命</strong><br><br>
+                  国家开放大学强调“开放、责任、质量、多样化、国际化”的办学理念，大力发展非学历继续教育，稳步发展学历继续教育，推进现代科技与教育的深度融合，搭建终身学习“立交桥”，适应国家经济社会发展和人的全面发展需要，促进终身教育体系建设，促进全民学习、终身学习的学习型社会形成。经过10年努力，把国家开放大学建设成为我国高等教育体系中一所新型大学；世界开放大学体系中富有中国特色的开放大学；我国学习型社会的重要支柱。
+                <br><br> <strong>学习模式</strong><br><br >
+                  国家开放大学致力于实现有支持的开放式学习，探索以学习者为中心，基于网络自主学习、远程学习支持服务与面授辅导相结合的新型学习模式。以需求为导向，以能力培养为核心，改革教学内容和课程体系，与行业企业合作，科学、灵活、有针对性地开设国家开放大学特色专业。改进教学方法，为学习者提供集多媒体资源、教学交互、学习评价和学习支持服务于一体的海量、优质网络课程。通过遍布全国的学习中心提供面授辅导，也可以通过高清、快速的双向视频系统促进师生实时交流，为学习者提供随时随地的远程学习支持服务。推进以终结性考试为主向形成性考核为主的多元评价模式转变。
+                <br><br> <strong >公共服务</strong><br ><br >
+                 国家开放大学也是一所新型的公益性大学，扎根基层，服务社会。利用国家开放大学网络平台和数字化学习资源库，开设网上大讲堂，向全体社会成员提供形式多样、内容丰富的网络讲座、公开课，提升公民科学文化素质，满足社会成员多样化、个性化学习需求。为普通高校、中高职院校、社会培训机构、行业企业、城乡社区提供包括远程学习支持、相关教育培训、信息咨询等各类公共服务。与相关国际组织、大学和机构开展针对性、多层次、宽领域的教育交流与合作。加强基于网络的孔子学院建设，大力推进对外汉语教学，促进中华文化走向世界。
+            </p>
+          </div>
+          <div class="more">
+            <div class="down">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/down_more.png" alt="">
+              <span>更多</span>
+            </div>
+            <div class="up hide">
+              收起
+            </div>
+          </div>
+          <!-- 学员故事 -->
+          {template $template.'/index/student_story'}
+          <!-- 学员风采 -->
+          {template $template.'/index/student_show'}
+          <!-- 广告位 -->
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="open_education_voice">
+    <div class="open_education_switch">
+      <div class="open_switch_cbox"></div>
+      <div class="open_switch_items">
+        <div class="open_switch_item open_switch_item_on">留言区
+        </div>
+        <div class="open_switch_item">常见问题</div>
+        <div class="open_switch_line"></div>
+      </div>
+    </div>
+    <div class="main_content">
+      <div class="switch_content block">
+        <div class="switch_content_box">
+          <!-- 留言区内容 -->
+          <div class="voice_message">
+            <div class="swiper-container voice_message_swiper">
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="voice_message_item">
+                      <div class="message_item_pic fl">
+                        <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                      </div>
+                      <div class="message_item fr">
+                        <p class="name">风**</p>
+                        <p class="question">问：即可洒家发圣诞节</p>
+                        <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                      </div>
+                    </div>
+                  </div>			
+                  <div class="swiper-slide">
+                    <div class="voice_message_item">
+                      <div class="message_item_pic fl">
+                        <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                      </div>
+                      <div class="message_item fr">
+                        <p class="name">风**</p>
+                        <p class="question">问：即可洒家发圣诞节</p>
+                        <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                      </div>
+                    </div>
+                  </div>			
+                  <div class="swiper-slide">
+                    <div class="voice_message_item">
+                      <div class="message_item_pic fl">
+                        <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                      </div>
+                      <div class="message_item fr">
+                        <p class="name">风**</p>
+                        <p class="question">问：即可洒家发圣诞节</p>
+                        <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                      </div>
+                    </div>
+                  </div>			
+                  <div class="swiper-slide">
+                    <div class="voice_message_item">
+                      <div class="message_item_pic fl">
+                        <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                      </div>
+                      <div class="message_item fr">
+                        <p class="name">风**</p>
+                        <p class="question">问：即可洒家发圣诞节</p>
+                        <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                      </div>
+                    </div>
+                  </div>			
+                  <div class="swiper-slide">
+                    <div class="voice_message_item">
+                      <div class="message_item_pic fl">
+                        <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                      </div>
+                      <div class="message_item fr">
+                        <p class="name">风**</p>
+                        <p class="question">问：即可洒家发圣诞节</p>
+                        <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                      </div>
+                    </div>
+                  </div>			
+              </div>
+            </div>
+            <div class="voice_message_item voice_enter_box">
+              <div class="message_item_pic fl">
+                <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+              </div>
+              <div class="message_item fr voice_enter">
+                <p class="voice_message_line"></p>
+                <textarea maxlength="50" placeholder="说上两句吧..." class="voice_box"></textarea>
+                <span class="main_num">0/50</span>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="voice_message_btn">提交留言</div>
+          </div>
+        </div>
+      </div>
+      <!-- 常见问题 -->
+      <div class="switch_content">
+        <div class="question_list">
+          <div class="weui-cells">
+            <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                <div class="weui-cell__hd" class="my_collapse_picbox">
+                    <div class="my_collapse_num">1</div>
+                    <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                </div>
+                <div class="weui-cell__bd">
+                    <p>自考会不会比较好</p>
+                </div>
+                <div class="weui-cell__ft left_icon"></div>
+            </a>
+            <div class="collapse_content">
+                <div class="padding_box">
+                    <p>口浪尖经安徽省答复哈四季豆发哈市电话费阿克苏京东方看见爱上饭</p>
+                </div>
+            </div>
+          </div>
+          <div class="weui-cells">
+            <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                <div class="weui-cell__hd" class="my_collapse_picbox">
+                    <div class="my_collapse_num">2</div>
+                    <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                </div>
+                <div class="weui-cell__bd">
+                    <p>自考会不会比较好</p>
+                </div>
+                <div class="weui-cell__ft left_icon"></div>
+            </a>
+            <div class="collapse_content">
+                <div class="padding_box">
+                    <p> 我是面板内容的发动机发神经的弗兰克到232ad副科级阿斯蒂芬哈快速减肥的空间按时发卡机顺丰科技暗红色的风口浪尖经安徽省答复哈四季豆发哈市电话费阿克苏京东方看见爱上饭</p>
+                </div>
+            </div>
+          </div>
+          <div class="weui-cells">
+            <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                <div class="weui-cell__hd" class="my_collapse_picbox">
+                    <div class="my_collapse_num">3</div>
+                    <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                </div>
+                <div class="weui-cell__bd">
+                    <p>自考会不会比较好</p>
+                </div>
+                <div class="weui-cell__ft left_icon"></div>
+            </a>
+            <div class="collapse_content">
+                <div class="padding_box">
+                    <p> 我是面板内容的发动机发神经的弗兰克到232ad副科级阿斯蒂芬哈快速减肥的空间按时发卡机顺丰科技暗红色的风口浪尖经安徽省答复哈四季豆发哈市电话费阿克苏京东方看见爱上饭</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    $(window).scroll(
+      function(){
+        let windowHt = $(this).scrollTop()
+        let headerHt = $('#header').height()
+        // 开放教育页导航设置
+        let contentCenterHt = $('.main_content_open').height()
+        let mainContentBox3Wd = $('.main_content_open .main_content').height()
+        let switchItem3 = $('.main_content_open .switch_item') // 通用第一个导航到顶部设置
+        let newBanner = $('.new_banner')
+        let openItem = $('.open_switch_items')
+        let bannerOpenHt = $('.new_banner').height()
+        if(windowHt >  headerHt + bannerOpenHt){ 
+          switchItem3.addClass('fixed')
+        } else if(windowHt <  headerHt + bannerOpenHt) {
+          switchItem3.removeClass('fixed')
+				}
+
+        // 留言框的显示隐藏
+        if(windowHt > headerHt + bannerOpenHt + contentCenterHt) {
+          openItem.addClass('fixed')
+        } else if(windowHt < headerHt + bannerOpenHt + contentCenterHt) {
+          openItem.removeClass('fixed')
+        }
+      }
+    )
+
+    // 设置导航下划线初始的宽度，为导航块的60%
+    let openSwitchItem = $('.open_switch_item')
+    let openSwitchItemLine = $('.open_switch_line')
+    let openSwitchItemWd = openSwitchItem.width()
+
+    console.log(openSwitchItemWd)
+    openSwitchItemLine.css({
+      width:openSwitchItemWd*.45 + '%',
+      left:openSwitchItemWd*.275 + '%' // 初始居中，剩余百分比除以2        默认下滑线位置
+    })
+    
+    // 点击切换
+    openSwitchItem.click(function(){
+      let $this = $(this)
+			let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
+			$this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
+			let index = $this.index() // 获取下标
+			let moveWd = switchItemNavWd*index + switchItemNavWd*.275  + '%'// 定义移动的距离
+			// 下划线样式
+			let thisSwitchItemNavLine = $this.parent().find('.open_switch_line')
+			thisSwitchItemNavLine.animate(
+				{left: moveWd}, // 移动距离
+				{duration: 300} // 移动速度
+			)
+			// 内容区域切换
+			switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
+		})
+
+    // 学院介绍内容变多变少按钮
+    let openEducationText = $('.open_education_referral .content_text')
+    // 展开
+    $('.more .down').click(function(){
+      openEducationText.css('height','100%')
+      $(this).addClass('hide')
+      $('.more .up').removeClass('hide')
+    })
+    // 收起
+    $('.more .up').click(function(){
+      openEducationText.css('height','4.1rem')
+      $(this).addClass('hide')
+      $('.more .up').removeClass('hide')
+      $('html, body, .section').animate({scrollTop: 0},450)
+    })
+  })
+</script>

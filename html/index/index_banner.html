@@ -1,0 +1,60 @@
+<style>
+	/* banner */
+.swiper_index_banner {
+	width: 7.5rem;
+	overflow: hidden;
+}
+.index_banner_box {
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.index_banner_item {
+	width: 7.5rem;
+	float: left;
+}
+
+.index_banner_item img {
+	width: 100%;
+	display:block
+}
+</style>
+
+<div class="swiper_index_banner">
+	<ul class="index_banner_box">
+		{loop $banner $item}
+			<li class="index_banner_item">
+				<a href="{$item['link']}">
+					<img class="swiper-lazy" src="{$_W['attachurl']}{$item['picture']}">
+				</a>
+			</li>
+		{/loop}
+		<div class="clear"></div>
+	</ul>
+</div>
+
+<script>
+	$(function(){
+		let indexBanner = function(){
+			let indexBannerItem = $('.index_banner_item')
+			let indexBannerBox = $('.index_banner_box')
+			let indexBannerItemWd = indexBannerItem.width()
+			let indexBannerBoxWd = $('.index_banner_box').width()
+			let indexBannerItemIndex = indexBannerItem.length
+			indexBannerBoxWd = indexBannerItemIndex*indexBannerItemWd
+			indexBannerBox.css('width',indexBannerBoxWd)
+			let n = 0
+			setInterval(() => {
+				n ++
+        if(n>indexBannerItemIndex-1) {
+          n = 0
+          indexBannerBox.css('left',0)
+        }
+        indexBannerBox.animate(
+          {left: -indexBannerItemWd*n}
+        )
+			}, 1500);
+		}
+		indexBanner()
+	})
+</script>

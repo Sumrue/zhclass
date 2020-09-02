@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.1/weui.min.css">
+		<title>
+      邀请攻略
+		</title>
+<style>
+	@charset "UTF-8";
+	.iconfont {
+		display: inline-block;
+		font-family: "iconfont";
+		font-size: 16px;
+		font-style: normal;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+	html,body {
+		height: 100%;
+		background: #F1F1F5;
+		-webkit-tap-highlight-color: transparent;
+	}
+	html {
+		-ms-text-size-adjust: 100%;
+		-webkit-text-size-adjust: 100%;
+	}
+	body {
+		color: #333333;
+		font-size: 14px;
+		font-family: "TrebuchetMS","Rotobo","Microsoft YaHei", "Hiragino Sans GB", "Hiragino Sans GB W3", sans-serif, "Helvetica Neue", Helvetica, Arial;
+	}
+
+	h1,h2,h3,h4,h5,h6,i,em {
+		font-weight: normal;
+		font-style: normal;
+	}
+	input[type=submit], input[type=reset], input[type=button], button,select {
+		-webkit-appearance: none;
+	}
+	ol,ul,menu {
+		list-style: none outside none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	a{text-decoration:none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+	a:focus{ outline:none; -moz-outline:none;}
+	a:visited{ outline:none; -moz-outline:none;} 
+	a img {
+		border: none;
+	}
+
+	/* 清除浮动 */
+	.clear { *zoom: 1; }
+	.clear:before, .clear:after { display: table; line-height: 0; content: "";}
+	.clear:after { clear: both; }
+
+	/* 页面整体布局 */
+	.page-container{
+		position: relative;
+		max-width: 640px;
+		margin: 0 auto;
+		height: 100%;
+	}
+
+	.head {
+		position: fixed;
+		top: 0 ;
+		left: 0;
+		width: 100%;
+		height: 1rem;
+		padding: 0 .3rem;
+		background-color: #fff;
+		display: flex;
+		align-items: center;
+	}
+	.back {
+		width: .45rem;
+		display: flex;
+		align-items: center;
+	}
+	.back img {
+		width: 100%;
+		object-fit: cover;
+	}
+	.strategy {
+		padding: .4rem .4rem;
+		font-size: .30rem;
+		background: url({MODULE_URL}template/mobile/{$template}/images/index/strategy_bg.png) no-repeat;
+		background-size: 100%;
+		margin: 1rem 0;
+	}
+	.strategy_item {
+		margin-bottom: .5rem;
+	}
+	.title_logo {
+		width: .5rem;
+		float: left;
+		margin-right: .2rem;
+	}
+	.title_logo img {
+		width: 100%;
+		object-fit: cover;
+	}
+	.text {
+		width: 5.4rem; 
+		float: left;
+	}
+	.title {
+		font-size: .36rem;
+		font-weight: 600;
+		margin-bottom: .2rem;
+	}
+	.content {
+		color: rgba(54,54,54,.8);
+	}
+	.footer{
+		position: fixed;
+    width: 100%;
+    max-width: 640px;
+    height: .55rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr="#FF7966",endColorStr="#EE5C4D",gradientType="1");
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#ff7966),to(#ee5c4d));
+    background-image: linear-gradient(180deg,#ff7966,#ee5c4d);
+    background-image: -webkit-liner-gradient(to bottom,#ff7966,#ee5c4d);
+    background-image: -moz-linear-gradient(to bottom,#ff7966,#ee5c4d);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: .14rem 0;
+	}
+	.footer_btn {
+		width: 6.7rem;
+		height: 1rem;
+		line-height: 1rem;
+		color: #fff;
+		border-radius: .5rem;
+		text-align: center;
+		font-size: .28rem;
+		margin: 0 auto ;
+		margin-top: -.5rem;
+		background-color: #F25562;
+		border: none;
+		box-sizing: border-box;
+	}
+</style>
+  </head>
+	<body data-weui-theme="light">
+		<div class="page-container" id="page-container">
+			<div class="head">
+				<a class="back" href="{php echo $this->createMobileUrl('invitegift', array('do'=>'invitegift'));}">
+					<img src="{MODULE_URL}template/mobile/{$template}/images/index/back.png" alt="">
+				</a>
+			</div>
+			<div class="strategy">
+        <div class="strategy_item">
+					<div class="title_logo">
+						<img src="{MODULE_URL}template/mobile/{$template}/images/index/strategy_icon1.png" alt="">
+					</div>
+					<div class="text">
+						<p class="title">如何获取积分奖励</p>
+						<p class="content">
+							1.好友缴费后还能获取同等金额 数智米哦！
+						</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+        <div class="strategy_item">
+					<div class="title_logo">
+						<img src="{MODULE_URL}template/mobile/{$template}/images/index/strategy_icon2.png" alt="">
+					</div>
+					<div class="text">
+						<p class="title">积分是什么?</p>
+						<p class="content">
+							积分是远智教育的虚拟积分, 可在远智教育平
+							台用于抵扣学费、兑换商品、活动、课程和教
+							材、参与抽奖和竞拍。
+						</p>
+						<p class="content">100智米 = 1元</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+        <div class="strategy_item">
+					<div class="title_logo">
+						<img src="{MODULE_URL}template/mobile/{$template}/images/index/strategy_icon3.png" alt="">
+					</div>
+					<div class="text">
+						<p class="title">积分如何花?</p>
+						<p class="content">
+							1.抵扣学费, 不花一分钱读大学; 只要你米多,
+							学费分分钟可以用智米全抵扣哦～
+						</p>
+						<p class="content">2.智米还可以兑换礼品, 苹果手机/ 京东e卡等
+							超值礼品等你来兑！</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+        <div class="strategy_item">
+					<div class="title_logo">
+						<img src="{MODULE_URL}template/mobile/{$template}/images/index/strategy_icon4.png" alt="">
+					</div>
+					<div class="text">
+						<p class="title">关于智米帐号封禁和解封</p>
+						<p class="content">
+							智米是远智教育的虚拟积分, 可在远智教育平
+							台用于抵扣学费、兑换商品、活动、课程和教
+							材、参与抽奖和竞拍。
+						</p>
+						<p class="content">100智米 = 1元</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="footer">
+				<a class="footer_btn" href="{php echo $this->createMobileUrl('invitegift', array('do'=>'invitegift'));}">马上助学</a>
+			</div>
+    </div>
+</body>
+
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+</html>

@@ -1,0 +1,126 @@
+<!-- 
+ * 分销中心
+ * ============================================================================
+ * 版权所有 2015-2020 风影科技，并保留所有权利。
+ * 网站地址: https://www.fylesson.com
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件，未购买授权用户无论是否用于商业行为都是侵权行为！
+ * 允许已购买用户对程序代码进行修改并在授权域名下使用，但是不允许对程序代码以
+ * 任何形式任何目的进行二次发售，作者将依法保留追究法律责任的权力和最终解释权。
+ * ============================================================================
+-->
+{template $template.'/_headerv2'}
+<link href="{MODULE_URL}template/mobile/{$template}/style/cssv2/cindex.css?v={$versions}" rel="stylesheet" />
+<div class="header-2 cbox">
+	<a href="javascript:history.go(-1);" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+</div>
+
+{if $setting['isfollow']>0 && $fans['follow']==0 && $userAgent}
+<div class="follow_topbar" style="display:none;">
+	<div class="headimg">
+		<img src="{$_W['attachurl']}{$setting['qrcode']}">
+	</div>
+	<div class="info">
+		<div class="i">{$_W['account']['name']}</div>
+		<div class="i">{$setting['follow_word']}</div>
+	</div>
+	<div class="sub" onclick="location.href='{php echo $this->createMobileUrl('follow');}'">立即关注</div>
+</div>
+{/if}
+
+<section class="aui-scrollView">
+	<div class="aui-flex-box aui-panel">
+		<a href="javascript:void(0);" class="aui-panel-cell">
+			<div class="aui-panel-cell-hd">
+				<img src="{$avatar}" alt="头像">
+			</div>
+			<div class="aui-panel-cell-bd">
+				<h4>{$member['nickname']}</h4>
+				<p>加入时间：{php echo date('Y-m-d H:i', $member['addtime']);}</p>
+			</div>
+			<div class="aui-panel-cell-fr">{$levelname}</div>
+		</a>
+	</div>
+	<div class="aui-flex-box">
+		<div class="aui-flex-box-bd">
+			<h2>{php echo $font['nopay_commission'] ? $font['nopay_commission'] : '可提现佣金';}(元) <!-- <i class="icon icon-eye"></i> --></h2>
+			<h3>{$member['nopay_commission']}</h3>
+			{if $latelyIncome['change_num']}
+			<p>最近收益 <em>{$latelyIncome['change_num']}</em></p>
+			{/if}
+		</div>
+		<div class="aui-flex-box-fr"></div>
+	</div>
+	<div class="aui-rankings">
+		<a href="javascript:;" class="aui-rankings-item clearfix">
+			<span>{php echo $font['total_commission'] ? $font['total_commission'] : '累计佣金';}(元)：</span>
+			<span class="aui-rankings-title">{php echo sprintf("%.2f", $member['pay_commission']+$member['nopay_commission']);}</span>
+		</a>
+	</div>
+	<div class="divHeight"></div>
+	<div class="aui-icon-box">
+		<a class="aui-flex-box aui-flex-box-title" href="{php echo $this->createMobileUrl('commission', array('op'=>'cash'));}">
+			<div class="aui-flex-box-hd">
+				<img src="{MODULE_URL}template/mobile/{$template}/images/ico-cash.png?v=2" alt="我要提现">
+			</div>
+			<div class="aui-flex-box-bd aui-icon-box-title">{php echo $font['cash'] ? $font['cash'] : '我要提现';}</div>
+			<div class="aui-flex-box-fr"></div>
+		</a>
+		<a class="aui-flex-box aui-flex-box-title" href="{php echo $this->createMobileUrl('commission', array('op'=>'cashlog'));}">
+			<div class="aui-flex-box-hd">
+				<img src="{MODULE_URL}template/mobile/{$template}/images/ico-cash-log.png?v=2" alt="提现明细">
+			</div>
+			<div class="aui-flex-box-bd aui-icon-box-title">{php echo $font['cash_log'] ? $font['cash_log'] : '提现明细';}</div>
+			<div class="aui-flex-box-fr"></div>
+		</a>
+		<div class="divHeight"></div>
+
+		<a class="aui-flex-box aui-flex-box-title" href="{php echo $this->createMobileUrl('team', array('level'=>'1'));}">
+			<div class="aui-flex-box-hd">
+				<img src="{MODULE_URL}template/mobile/{$template}/images/ico-team.png?v=2" alt="{php echo $font['my_team'] ? $font['my_team'] : '我的团队';}">
+			</div>
+			<div class="aui-flex-box-bd aui-icon-box-title">{php echo $font['my_team'] ? $font['my_team'] : '我的团队';}</div>
+			<div class="aui-flex-box-fr">{$total}个成员</div>
+		</a>
+		<a class="aui-flex-box aui-flex-box-title" href="{php echo $this->createMobileUrl('commission', array('op'=>'commissionlog'));}">
+			<div class="aui-flex-box-hd">
+				<img src="{MODULE_URL}template/mobile/{$template}/images/ico-commission.png?v=2" alt="{php echo $font['commission_log'] ? $font['commission_log'] : '佣金明细';}">
+			</div>
+			<div class="aui-flex-box-bd aui-icon-box-title">{php echo $font['commission_log'] ? $font['commission_log'] : '佣金明细';}</div>
+			<div class="aui-flex-box-fr"></div>
+		</a>
+		<a class="aui-flex-box aui-flex-box-title" href="{$posterUrl}">
+			<div class="aui-flex-box-hd">
+				<img src="{MODULE_URL}template/mobile/{$template}/images/ico-qrcode.png?v=2" alt="{php echo $font['poster'] ? $font['poster'] : '推广海报';}">
+			</div>
+			<div class="aui-flex-box-bd aui-icon-box-title">{php echo $font['poster'] ? $font['poster'] : '推广海报';}</div>
+			<div class="aui-flex-box-fr"></div>
+		</a>
+	</div>
+</section>
+
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+wx.ready(function(){
+	var shareData = {
+		title: "{$sharelink['title']} - {$setting['sitename']} - {$_W['account']['name']}",
+		desc: "{$sharelink['desc']}",
+		link: "{php echo $shareurl;}",
+		imgUrl: "{php echo $_W['attachurl'];}{$sharelink['images']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {},
+		cancel: function (res) {},
+		fail: function (res) {}
+	};
+	wx.onMenuShareTimeline(shareData);
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareQZone(shareData);
+	
+});
+</script>
+
+{template $template.'/_footerv2'}

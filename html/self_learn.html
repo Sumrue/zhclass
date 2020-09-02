@@ -1,0 +1,476 @@
+<style>
+.new_banner2>img {
+  width: 100%;
+  object-fit: cover;
+}
+.new_banner2 .banner_apply_num {
+  left: .2rem;
+}
+.self_learn .switch_item {
+  background-color: #075ab9;
+}
+.self_learn .switch_item_nav_on {
+  background: #2b90fc;
+}
+
+.self_learn .self_box {
+  width: 95%;
+  margin: 0 auto;
+}
+
+/* 2020招生 */
+  /* 卡片通用样式 */
+.self_card {
+  position: relative;
+  margin-top: 1.2rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 15px 0 rgba(140,85,86,.18)
+}
+
+.card_top {
+  position: absolute;
+  background: url({MODULE_URL}template/mobile/default/images/index/self_learn/card_top.png) no-repeat;
+  background-size: 100% 100%;
+  width: 158px;
+  height: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -21px;
+  line-height: 46px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 17px;
+  color: #fff;
+}
+
+/* 四大优势 */
+.self_foure_advantage {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: .45rem 0 .3rem 0 ;
+}
+.self_foure_advantage::after{
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 6.7rem;
+  background-color: rgba(54,54,54,.08);
+  left: 3.5rem;
+  top: .7rem;
+}
+.self_foure_advantage::before{
+  content: "";
+  position: absolute;
+  width: 6.5rem;
+  height: 1px;
+  background-color: rgba(54,54,54,.08);
+  left: .3rem;
+  top: 3.8rem;
+}
+.self_advantage_item {
+  width: 50%;
+  height: 3.5rem;
+  box-sizing: border-box;
+  line-height: 1;
+  padding: 10px 19px;
+  text-align: center;
+}
+
+.self_advantage_logo{
+  width: .9rem;
+  height: .9rem;
+  margin: 0 auto;
+}
+
+.self_advantage_logo img{
+  width: 100%;
+}
+.self_advantage_title {
+  font-size: .30rem;
+  font-weight: 700;
+  color: #000;
+  margin:.35rem 0 .2rem 0;
+}
+.self_advantage_des {
+  font-size: 12px;
+  color: #5d5d5d;
+  text-align: left;
+  line-height: 16px;
+  word-break: break-all;
+}
+
+/* 专业一览 */
+.self_major {
+  padding: .7rem .4rem .3rem .4rem;
+}
+.self_major_box {
+  margin-bottom: .3rem;
+}
+.self_major_title {
+  margin-bottom: .1rem;
+  font-size: .28rem;
+  font-weight: 700;
+}
+
+.self_major_item {
+  margin-right: .24rem;
+  text-align: center;
+  color: #2b90fc;
+  font-size: .24rem;
+}
+
+/* 院校一览 */
+.self_school {
+  padding: .95rem .4rem .3rem .4rem;
+}
+
+.self_school_item {
+  width: 25%;
+  float: left;
+  text-align: center;
+  margin-bottom: .5rem;
+  font-size: .24rem;
+}
+
+.self_school_img {
+  width: .85rem;
+  height: .85rem;
+  margin: 0 auto;
+}
+.self_school_img img {
+  width: 100%;
+}
+
+.school_name {
+  overflow:hidden;
+  text-overflow:ellipsis; /* 加省略号 */
+  white-space:nowrap; /* 强制不换行 */
+
+}
+
+/* 留言区 */
+.self_voice_message .voice_message .message_item_pic {
+    width: 1rem;
+}
+.self_voice_message .voice_message .message_item {
+    width: 5rem;
+}
+.self_voice_message {
+  padding: .95rem .4rem .3rem .4rem;
+}
+</style>
+  <!-- 自学考试 -->
+  <div class="self_learn">
+    <!-- newBanner -->
+    <div class="new_banner2">
+      <img src="{MODULE_URL}template/mobile/default/images/index/open_education/new_banner_pic.jpg" alt="">
+      {template $template.'/banner/banner_apply'}
+      {template $template.'/banner/banner_apply_num'}
+    </div>
+  
+    <div class="main_content_box main_content_self">
+      <!-- 切换按钮 -->
+      <div class="content_switch">
+        <div class="switch_cbox"></div>
+        <div class="switch_item">
+          <div class="switch_item_nav switch_item_nav_on">
+            2020招生
+            <div class="switch_item_line"></div>
+          </div>
+          <div class="switch_item_nav">常见问题</div>
+        </div>
+      </div>
+      <div class="main_content">
+        <!-- 2020招生 -->
+        <div class="switch_content block ">
+          <div class="switch_content_2011box self_box">
+            <!-- 四大优势 -->
+            <div class="self_card">
+              <div class="card_top">
+                四大优势
+              </div>
+              <ul class="self_foure_advantage">
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/wp.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">文凭质量</p>
+                  <p class="self_advantage_des">自考文凭国家承认，电子注册，由于考试难度大，社会认可度高。</p>
+                </li>
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/ks.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">快速领证</p>
+                  <p class="self_advantage_des">广东自考一年可考三次，最多考16科，如果顺利一年可考完全部科目，毕业时间最短。</p>
+                </li>
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/sx.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">手续方便</p>
+                  <p class="self_advantage_des">凭身份证、毕业证可报名参考，无需单位证明、街道证明、手续简便。</p>
+                </li>
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/zd.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">重点院校</p>
+                  <p class="self_advantage_des">暨南大学、华南师范大学、广东外语外贸大学、华南农业大学等近20余所高校。</p>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 招生专业 -->
+            <div class="self_card">
+              <div class="card_top">
+                招生专业一览
+              </div>
+              <div class="self_major">
+               <div class="self_major_box">
+                 <p class="self_major_title">本科专业</p>
+                 <div class="self_major_items">
+                   <a href="{php echo $this->createMobileUrl('majorintroduce', array('do'=>'majorintroduce'));}" class="self_major_item">行政专业</a>
+                   <a href="{php echo $this->createMobileUrl('majorintroduce', array('do'=>'majorintroduce'));}" class="self_major_item">汉语言大学</a>
+                 </div>
+               </div>
+               <div class="self_major_box">
+                 <p class="self_major_title">专科专业</p>
+                 <div class="self_major_items">
+                   <a href="{php echo $this->createMobileUrl('majorintroduce', array('do'=>'majorintroduce'));}" class="self_major_item">行政专业</a>
+                   <a href="{php echo $this->createMobileUrl('majorintroduce', array('do'=>'majorintroduce'));}" class="self_major_item">汉语言大学</a>
+                 </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 院校一览 -->
+            <div class="self_card">
+              <div class="card_top">
+                主考院校一览
+              </div>
+              <div class="self_school">
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                  </div>
+                  <p class="school_name">广东外语外贸学院</p>
+                </div>
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                  </div>
+                  <p class="school_name">广东外语外贸学院</p>
+                </div>
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                  </div>
+                  <p class="school_name">广东外语外贸学院</p>
+                </div>
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                  </div>
+                  <p class="school_name">广东外语外贸学院</p>
+                </div>
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                  </div>
+                  <p class="school_name">广东外语外贸学院</p>
+                </div>
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                  </div>
+                  <p class="school_name">广东外语外贸学院</p>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+
+            <div class="self_card">
+              <div class="card_top">
+                留言区
+              </div>
+              <div class="self_voice_message">
+                <div class="voice_message">
+                  <div class="swiper-container voice_message_swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                          <div class="voice_message_item">
+                            <div class="message_item_pic fl">
+                              <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                            </div>
+                            <div class="message_item fr">
+                              <p class="name">风**</p>
+                              <p class="question">问：即可洒家发圣诞节</p>
+                              <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                            </div>
+                          </div>
+                        </div>			
+                        <div class="swiper-slide">
+                          <div class="voice_message_item">
+                            <div class="message_item_pic fl">
+                              <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                            </div>
+                            <div class="message_item fr">
+                              <p class="name">风**</p>
+                              <p class="question">问：即可洒家发圣诞节</p>
+                              <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                            </div>
+                          </div>
+                        </div>			
+                        <div class="swiper-slide">
+                          <div class="voice_message_item">
+                            <div class="message_item_pic fl">
+                              <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                            </div>
+                            <div class="message_item fr">
+                              <p class="name">风**</p>
+                              <p class="question">问：即可洒家发圣诞节</p>
+                              <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                            </div>
+                          </div>
+                        </div>			
+                        <div class="swiper-slide">
+                          <div class="voice_message_item">
+                            <div class="message_item_pic fl">
+                              <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                            </div>
+                            <div class="message_item fr">
+                              <p class="name">风**</p>
+                              <p class="question">问：即可洒家发圣诞节</p>
+                              <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                            </div>
+                          </div>
+                        </div>			
+                        <div class="swiper-slide">
+                          <div class="voice_message_item">
+                            <div class="message_item_pic fl">
+                              <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                            </div>
+                            <div class="message_item fr">
+                              <p class="name">风**</p>
+                              <p class="question">问：即可洒家发圣诞节</p>
+                              <p class="reply">回复：<span>短阿斯顿发的说法是阿萨德法师法师地方发送到发送到发送发留阿斯顿发司法局</span></p>
+                            </div>
+                          </div>
+                        </div>			
+                    </div>
+                  </div>
+                  <div class="voice_message_item voice_enter_box">
+                    <div class="message_item_pic fl">
+                      <img src="{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg" alt="">
+                    </div>
+                    <div class="message_item fr voice_enter">
+                      <p class="voice_message_line"></p>
+                      <textarea maxlength="50" placeholder="说上两句吧..." class="voice_box"></textarea>
+                      <span class="main_num">0/50</span>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="voice_message_btn">提交留言</div>
+                </div>
+                <div class="man_footer">
+                  <p>
+                    Copyright: 广东省成人学历筑梦学历提升计划
+                  <br>
+                    承办单位: 广州远智教育科技有限公司
+                  <br>
+                    邮编: 516600 粤ICP05084359
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+  
+        <!-- 常见问题 -->
+        <div class="switch_content">
+          <div class="dream_build_box">
+            <div class="self_qs">
+              <div class="question_list">
+                <div class="weui-cells">
+                  <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                      <div class="weui-cell__hd" class="my_collapse_picbox">
+                          <div class="my_collapse_num">1</div>
+                          <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                      </div>
+                      <div class="weui-cell__bd">
+                          <p>自考会不会比较好</p>
+                      </div>
+                      <div class="weui-cell__ft left_icon"></div>
+                  </a>
+                  <div class="collapse_content">
+                      <div class="padding_box">
+                          <p>口浪尖经安徽省答复哈四季豆发哈市电话费阿克苏京东方看见爱上饭</p>
+                      </div>
+                  </div>
+                </div>
+                <div class="weui-cells">
+                  <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                      <div class="weui-cell__hd" class="my_collapse_picbox">
+                          <div class="my_collapse_num">2</div>
+                          <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                      </div>
+                      <div class="weui-cell__bd">
+                          <p>自考会不会比较好</p>
+                      </div>
+                      <div class="weui-cell__ft left_icon"></div>
+                  </a>
+                  <div class="collapse_content">
+                      <div class="padding_box">
+                          <p> 我是面板内容的发动机发神经的弗兰克到232ad副科级阿斯蒂芬哈快速减肥的空间按时发卡机顺丰科技暗红色的风口浪尖经安徽省答复哈四季豆发哈市电话费阿克苏京东方看见爱上饭</p>
+                      </div>
+                  </div>
+                </div>
+                <div class="weui-cells">
+                  <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                      <div class="weui-cell__hd" class="my_collapse_picbox">
+                          <div class="my_collapse_num">3</div>
+                          <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                      </div>
+                      <div class="weui-cell__bd">
+                          <p>自考会不会比较好</p>
+                      </div>
+                      <div class="weui-cell__ft left_icon"></div>
+                  </a>
+                  <div class="collapse_content">
+                      <div class="padding_box">
+                          <p> 我是面板内容的发动机发神经的弗兰克到232ad副科级阿斯蒂芬哈快速减肥的空间按时发卡机顺丰科技暗红色的风口浪尖经安徽省答复哈四季豆发哈市电话费阿克苏京东方看见爱上饭</p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 广告位 -->
+      <div></div>
+    </div>
+  </div>
+  
+  <script>
+    $(function(){
+      $(window).scroll(
+        function(){ 
+          let windowHt = $(this).scrollTop()
+          let headerHt = $('#header').height()
+          let bannerHt = $('.new_banner2').height()
+          let switchItem = $('.self_learn .switch_item')
+          // 中部内容切换导航到顶部时固定顶部，header消失
+          if(windowHt >  headerHt + bannerHt){ 
+            switchItem.addClass('fixed')
+          } else if(windowHt <  headerHt + bannerHt) {
+            switchItem.removeClass('fixed')
+          }
+        }
+      )
+    })
+  </script>
