@@ -185,7 +185,7 @@
           <div class="footer_icon"><img src="{MODULE_URL}template/mobile/{$template}/images/index/major_footer_phone.png" alt=""></div>
           咨询
         </a>
-        <a class="box_rt" href="{php echo $this->createMobileUrl('applyform', array('do'=>'applyform'));}">
+        <a class="box_rt" href="javascript::;">
           <div class="footer_icon"><img src="{MODULE_URL}template/mobile/{$template}/images/index/major_footer_tv.png" alt=""></div>
           马上报名
         </a>
@@ -194,4 +194,15 @@
 </body>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+  $(function(){
+    $('.box_rt').click(function(){
+      // 传值为中文，先转码，再传值
+      let dd = '汉语言'
+      let str = escape(dd)
+      let url = '{php echo $this->createMobileUrl("applyform", array("do"=>"applyform"));}' + '&major='  + str
+      window.location.href = url
+    })
+  })
+</script>
 </html>

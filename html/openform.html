@@ -27,7 +27,8 @@
 						show-error=false
 						:rules="[{ required: true, message: '用户名不能为空' }]" 
 						input-align="right"
-						error-message-align="right"
+            error-message-align="right"
+            show-error=false
 					/>
 					</van-popup>
 				</van-cell-group>
@@ -43,24 +44,33 @@
 						error-message-align="right"
 						mame="idcard"
 					/>
-        </van-cell-group>
-        
-        <!-- 报考省份 -->
+				</van-cell-group>
+				<!-- 报读类型 -->
 				<van-cell-group>
 					<van-field 
-						v-model="sf" 
-						label="报考省份" 
+						v-model="type" 
+						label="报读类型" 
 						readonly
 						input-align="right"
 						error-message-align="right"
+						mame="type"
 					/>
+				</van-cell-group>
+				<!-- 年级 -->
+				<van-cell-group>
+					<van-field 
+						v-model="grade" 
+						mame="grade"
+						label="年级"  
+						readonly 
+						input-align="right"/>
 				</van-cell-group>
 				<!-- 院校 -->
 				<van-cell-group>
 					<van-field 
 						v-model="school" 
 						mame="school" 
-						label="主考院校" 
+						label="院校" 
 						placeholder="请点击选择院校"
 						input-align="right" 
 						clickable readonly
@@ -120,7 +130,7 @@
 					/>
 				</van-cell-group>
 				<div style="margin: 16px;">
-					<van-button round block color="#FF5A53" native-type="submit">
+					<van-button round block color="#FFDB46" native-type="submit">
 						下一步
 					</van-button>
 				</div>
@@ -188,7 +198,8 @@
 					return {
 						name: '',
 						idcard: '',
-            sf: '四川省',
+						type: '普通全额',
+						grade: '202009',
 						school: '',
 						level: '',
 						major: '',
@@ -207,9 +218,6 @@
 					}
 				},
 				created () {
-					// 接收时，是中文需要解码
-					let dd = unescape(this.getParameter ('major'))
-					console.log(dd)
 				},
         methods: {
 					// 身份证正则验证
@@ -227,17 +235,16 @@
 						let userMsg = {
 							name: _this.name,
 							idcard: _this.idcard,
-							type: '2021筑梦计划',
-							grade: '2021',
+              type: '普通全额',
+              // 自动获取当前月
+							grade: '202009',
 							school: _this.school,
 							level: _this.level,
 							major: _this.major,
 							city: _this.city,
 							testing: _this.testing
 						}
-            console.log(userMsg)
-            let url = '{php echo $this->createMobileUrl("selectplan", array("do"=>"selectplan"));}'
-            window.location.href = url
+						console.log(userMsg)
 					},
 					// 学校选择
 					schoolSelect(){
@@ -313,7 +320,7 @@
 						this.testing = val
 						this.showPicker5 = false
 					},
-
+					
 					// 获取url参数的函数
 					getParameter (name) {
 						let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i") // 配置正则
@@ -324,7 +331,7 @@
 								return null // 参数不存在，返回null
 						}
 					}
-        }
+				}
     })
 </script> 
 </html>

@@ -121,27 +121,68 @@
      }
     banner()
 
-		// 报名人数滚动效果
-		// 数字滚动效果内容插入
-		let rollBox = $('.roll_box')
-		let res = [6,6,6,6,6]
-		let rollItems = $('.roll_small_items')
-		// 根据传入值滚动
+		// 成人教育报名人数滚动效果
 		let numRoll = function(){
+			let rollItems = $('.roll_small_items')
+			rollItems.css('marginTop',0)
+			let rollBox = $('.roll_box')
+					// 根据传入值滚动
+			let res = [1,3,2,6]
 			rollItems.each(
 				function(index){
 					let $this = $(this)
 					setTimeout(function(){
-						console.log('没动？')
 						$this.animate(
 							{marginTop: - (5 + res[index] * 0.5) + 'rem'},
-							{duration: 2500}
+							{duration: 2000}
 						)
 					},300*index)
 				}
 			)
 		}
 		numRoll()
+
+		// 开放教育报名人数滚动效果
+		let openNumRoll = function(){
+			let rollItems = $('.openroll_small_items')
+			rollItems.css('marginTop',0)
+			let rollBox = $('.openroll_box')
+					// 根据传入值滚动
+			let res = [4,6,9,0]
+			rollItems.each(
+				function(index){
+					let $this = $(this)
+					setTimeout(function(){
+						$this.animate(
+							{marginTop: - (5 + res[index] * 0.5) + 'rem'},
+							{duration: 2000}
+						)
+					},300*index)
+				}
+			)
+		}
+		openNumRoll()
+
+		// 自我考试报名人数滚动效果
+		let selfNumRoll = function(){
+			let rollItems = $('.selfroll_small_items')
+			rollItems.css('marginTop',0)
+			let rollBox = $('.selfroll_box')
+					// 根据传入值滚动
+			let res = [4,6,5,0]
+			rollItems.each(
+				function(index){
+					let $this = $(this)
+					setTimeout(function(){
+						$this.animate(
+							{marginTop: - (5 + res[index] * 0.5) + 'rem'},
+							{duration: 2000}
+						)
+					},300*index)
+				}
+			)
+		}
+		selfNumRoll()
 
 		// 评论区内容及数据的插入
 		let voiceMsgHtml = function(){
@@ -251,37 +292,38 @@
     navItem.click(
       function(){
 				let $this = $(this)
-				// let oldLeft = parseInt(navItemLine.css('left'))// 获取下划线当前的位置
 				let num = $this.index() // 获取当前nav的下标
+				// 根据index来判断数字滚送效果是否重置
+				if (num == 0 ) {
+					numRoll()
+				} else if (num == 1) {
+					openNumRoll()
+				} else if (num == 2) {
+					selfNumRoll()
+				} else {
+					console.log('第四个页面')
+				}
+				// let oldLeft = parseInt(navItemLine.css('left'))// 获取下划线当前的位置
 				$this.addClass('nav_item_on').siblings().removeClass('nav_item_on') //  添加移除nav选中样式
-				panelBox.eq(num).addClass('panel_box_on').siblings().removeClass('panel_box_on') // 显示隐藏对应主面板
-				// let itemLineMove = navItemWd * num + navItemWd *.275 // 计算left距离
-				// const setDelay = () => {
-				// 	return new Promise((resolve)=>{
-				// 		// 初始化轮播
-				// 		for(let i in studentShowSwiper){
-				// 			studentShowSwiper[i].init();
-				// 		}
-				// 		for(let i in voiceSwiper){
-				// 			voiceSwiper[i].init();
-				// 		}
-				// 		resolve('数据已接收') // 注意：一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。
 
-				// 	})
-				// }
-				// setDelay().then(resolve => {
-				// 	console.log(resolve) // 必须要接收
-				// 	navItemLine.animate(
-				// 				{left:itemLineMove}, // 移动距离
-				// 				{duration:200}
-				// 			)
-				// })
+				// let itemLineMove = navItemWd * num + navItemWd *.275 // 计算left距离
+
+				// 设置回调来重置swiper轮播，当页面切换成功之后在调用重置swiper轮播
+				const setDelay = () => {
+					return new Promise((resolve)=>{
+						panelBox.eq(num).addClass('panel_box_on').siblings().removeClass('panel_box_on') // 显示隐藏对应主面板
+						// 初始化轮播
+						resolve('数据已接收') // 注意：一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。
+					})
+				}
+				setDelay().then(resolve => {
 					for(let i in studentShowSwiper){
 						studentShowSwiper[i].init();
 					}
 					for(let i in voiceSwiper){
 							voiceSwiper[i].init();
 					}
+				})
       }
 		)
 

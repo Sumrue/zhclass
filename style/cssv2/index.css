@@ -1610,9 +1610,9 @@ ope .btn_home.btn_home_on {
 
 .num_roll>.text,.roll_box {
 	float: left;
-	font-size: .32rem;
+	font-size: .28rem;
 	font-weight: 600;
-	color: #900606;
+	color: #000;
 }
 
 .roll_item {
@@ -1628,8 +1628,71 @@ ope .btn_home.btn_home_on {
 	line-height: .5rem;
 }
 .adult_university .num_roll {
-	left: 4.2rem;
+	left: 4.6rem;
 	top: .1rem;
+}
+
+
+/* 自我考试滚动 */
+.selfnum_roll {
+	position: absolute;
+	top: .2rem;
+	left: .2rem;
+}
+
+.selfnum_roll>.selftext,.selfroll_box {
+	float: left;
+	font-size: .28rem;
+	font-weight: 600;
+	color: #000;
+}
+
+.selfroll_item {
+	float: left;
+	height: .5rem;
+	width: .3rem;
+	overflow: hidden;
+	text-align: center;
+}
+
+.selfroll_small_items li {
+	height: .5rem;
+	line-height: .5rem;
+}
+.self_education .selfnum_roll {
+	left: .2rem;
+	top: .2rem;
+}
+
+/* 开放教育 */
+.opennum_roll {
+	position: absolute;
+	top: .2rem;
+	left: .2rem;
+}
+
+.opennum_roll>.opentext,.openroll_box {
+	float: left;
+	font-size: .28rem;
+	font-weight: 600;
+	color: #000;
+}
+
+.openroll_item {
+	float: left;
+	height: .5rem;
+	width: .3rem;
+	overflow: hidden;
+	text-align: center;
+}
+
+.openroll_small_items li {
+	height: .5rem;
+	line-height: .5rem;
+}
+.open_education .opennum_roll {
+	left: .2rem;
+	top: .2rem;
 }
  /* 中间内容区域和切换内容导航*/
  .content_switch {
