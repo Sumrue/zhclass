@@ -72,70 +72,7 @@
 
         <!-- 院校一览 -->
         <div class="school_items">
-          <a class="school_item" href="#school1">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职业学院</p>
-            </div>
-          </a>
-          <a class="school_item" href="#school2">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职业学院</p>
-            </div>
-          </a>
-          <a class="school_item" href="#school3">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职业学院</p>
-            </div>
-          </a>
-          <a class="school_item" href="#school5">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职业学院</p>
-            </div>
-          </a>
-          <a class="school_item">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工</p>
-            </div>
-          </a>
-          <a class="school_item">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工</p>
-            </div>
-          </a>
-          <a class="school_item">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程</p>
-            </div>
-          </a>
-          <a class="school_item">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职</p>
-            </div>
-          </a>
-          <a class="school_item">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职</p>
-            </div>
-          </a>
-          <a class="school_item">
-            <img src="https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png" alt="" class="school_logo">
-            <div class="school_name">
-              <p>广东生态工程职业学院</p>
-            </div>
-          </a>
-
-
-
-
+          
           <div class="clear"></div>
         </div>
 
@@ -338,6 +275,34 @@
           },3500);
         }
         banner()
+        
+
+        // 内容插入
+        let schoolData = [
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'},
+          {schoolName: '广东生态工程学院', logo: 'https://kt.lecz.top/addons/fy_lessonv2/template/mobile/default/images/index/self_learn/school_1.png'}
+        ]
+        let schoolHtml = ''
+        let schoolItems = $('.school_items')
+        for(let i = 0; i < schoolData.length; i ++){
+          schoolHtml += `
+          <a class="school_item" href="#school${i+1}">
+            <img src="${schoolData[i].logo}" alt="" class="school_logo">
+            <div class="school_name">
+              <p>${schoolData[i].schoolName}</p>
+            </div>
+          </a>
+          `
+        }
+        schoolItems.append(schoolHtml)
 
 
         // 兼容iphoneX、XSMax、XR底部菜单

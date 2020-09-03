@@ -185,12 +185,18 @@
       }
       .good_story_item {
         width: 3.1rem;
+        height: 5.2rem;
         margin-right: .3rem;
         border-radius: 5px;
+        position: relative;
         -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,.06), 0 2px 3px 0 rgba(0,0,0,.04), 0 4px 6px 0 rgba(0,0,0,.04);
         box-shadow: 0 2px 3px 0 rgba(0,0,0,.06), 0 2px 3px 0 rgba(0,0,0,.04), 0 4px 6px 0 rgba(0,0,0,.04);
       }
+      .good_story_item>.pic {
+        width: 3.1rem;
+      }
       .good_story_item>.pic img{
+        width: 100%;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
       }
@@ -205,9 +211,11 @@
         overflow: hidden;
       }
       .good_story_item>.date {
+        position: absolute;
         font-size: .24rem;
         color: rgb(0,0,0,.4);
-        margin: 0 0 .1rem .1rem;
+        left: .05rem;
+        bottom: .1rem;
       }
 
       /* 留言区 */
@@ -378,54 +386,7 @@
                 </div>
                 <div class="good_story_banner">
                   <ul class="good_story_items">
-                    <li class="good_story_item">
-                      <div class="pic">
-                        <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/good_story_banner.jpg" alt="">
-                      </div>
-                      <p class="text">弃考、休学、叛逆！美少女用亲身经历告诉你如何改变人生</p>
-                     
-                      <p class="date">2020-8-17</p>
-                    </li>
-                    <li class="good_story_item">
-                      <div class="pic">
-                        <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/good_story_banner.jpg" alt="">
-                      </div>
-                      <p class="text">弃考、休学、叛逆！美少女用亲身经历告诉你如何改变人生</p>
-                     
-                      <p class="date">2020-8-17</p>
-                    </li>
-                    <li class="good_story_item">
-                      <div class="pic">
-                        <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/good_story_banner.jpg" alt="">
-                      </div>
-                      <p class="text">弃考、休学、叛逆！美少女用亲身经历告诉你如何改变人生</p>
-                     
-                      <p class="date">2020-8-17</p>
-                    </li>
-                    <li class="good_story_item">
-                      <div class="pic">
-                        <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/good_story_banner.jpg" alt="">
-                      </div>
-                      <p class="text">弃考、休学、叛逆！美少女用亲身经历告诉你如何改变人生</p>
-                     
-                      <p class="date">2020-8-17</p>
-                    </li>
-                    <li class="good_story_item">
-                      <div class="pic">
-                        <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/good_story_banner.jpg" alt="">
-                      </div>
-                      <p class="text">弃考、休学、叛逆！美少女用亲身经历告诉你如何改变人生</p>
-                     
-                      <p class="date">2020-8-17</p>
-                    </li>
-                    <li class="good_story_item">
-                      <div class="pic">
-                        <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/good_story_banner.jpg" alt="">
-                      </div>
-                      <p class="text">弃考、休学、叛逆！美少女用亲身经历告诉你如何改变人生</p>
-                     
-                      <p class="date">2020-8-17</p>
-                    </li>
+                    
                     <div class="clear"></div>
                   </ul>
 
@@ -614,7 +575,94 @@
 							)
             }
           }
-        )	
+        )
+        // 留言区内容加载
+        let voiceMsgHtml = function(){
+          let vioceHtml = ''
+          let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
+          let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
+          let voiceData = [
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '阿斯蒂芬', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '按地方撒', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没嘎达啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '刚打', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶第三个', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: 'gas打发', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶发送到', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '啥都干的', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'}
+          ]
+          for(let i = 0; i < voiceData.length; i ++){
+            let myname = voiceData[i].name
+            vioceHtml += `
+              <div class="swiper-slide">
+                <div class="voice_message_item">
+                  <div class="message_item_pic fl">
+                    <img src="${voiceData[i].userHead}" alt="">
+                  </div>
+                  <div class="message_item fr">
+                    <p class="name">${myname.slice(0,1)}**</p>
+                    <p class="question">问：${voiceData[i].question}</p>
+                    <p class="reply">回复：<span>${voiceData[i].answer}</span></p>
+                  </div>
+                </div>
+              </div>	
+            `
+          }
+          voiceMsg.append(vioceHtml)
+        }
+        voiceMsgHtml()
+
+        // 学员上进故事分享
+        // 学员故事分享
+        let articHtml = function(){
+          let ajaxurl = "{php echo $this->createMobileUrl('article', array('op'=>'list',cate_id=>$_GPC['cate_id'],'method'=>'ajaxgetlist'));}";
+          let articleurl = "{php echo $this->createMobileUrl('article');}";
+          let get_status = true; //允许获取状态
+          let getData = function () {  
+            $.get(ajaxurl, function (data) {
+              let jsonObj = JSON.parse(data);
+              if (jsonObj.length !== 0) {
+                insertDiv(jsonObj);
+                console.log(jsonObj)
+              }else{
+                console.log('获取数据失败')  //没有数据后，禁止请求获取数据
+              }
+            })
+          }
+          getData()
+          // 内容插入
+          let insertDiv =  function(res){
+            let storeItems = $('.good_story_items')
+            let html = ''
+            for(let i = 0; i<res.length; i++){
+              html += `
+                <li class="good_story_item">
+                      <div class="pic">
+                        <img src="${res[i].images}" alt="">
+                      </div>
+                      <p class="text">${res[i].title}</p>
+                      <p class="date">${res[i].addtime}</p>
+                </li>
+              `
+            }
+            storeItems.append(html)
+          }
+        }
+        articHtml()
       })
     </script>
 {template $template.'/_footerv2'}

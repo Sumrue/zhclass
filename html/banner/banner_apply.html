@@ -47,41 +47,40 @@
 </style>
 <div class="banner_apply">
   <ul class="banner_apply_box">
-    <li class="banner_apply_item banner_tt_i">
-      <div class="img_box">
-        <img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
-      </div>
-      <div class="apply_text"><span class="apply_name">夏1**</span> <span> 报读成功</span></div>
-    </li>
-    <li class="banner_apply_item  banner_tt_i">
-      <div class="img_box">
-        <img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
-      </div>
-      <div class="apply_text"><span class="apply_name">夏2**</span> <span> 报读成功</span></div>
-    </li>
-    <li class="banner_apply_item  banner_tt_i">
-      <div class="img_box">
-        <img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
-      </div>
-      <div class="apply_text"><span class="apply_name">夏3**</span> <span> 报读成功</span></div>
-    </li>
-    <li class="banner_apply_item banner_tt_i">
-      <div class="img_box">
-        <img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
-      </div>
-      <div class="apply_text"><span class="apply_name">夏4**</span> <span> 报读成功</span></div>
-    </li>
-    <li class="banner_apply_item banner_tt_i">
-      <div class="img_box">
-        <img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
-      </div>
-      <div class="apply_text"><span class="apply_name">夏5**</span> <span> 报读成功</span></div>
-    </li>
-    <li class="banner_apply_item banner_tt_i">
-      <div class="img_box">
-        <img src="{MODULE_URL}template/mobile/default/images/xd.jpeg" alt="">
-      </div>
-      <div class="apply_text"><span class="apply_name">夏6**</span> <span> 报读成功</span></div>
-    </li>
   </ul>
 </div>
+<script>
+  $(function(){
+    let bannerItemBox = $('.banner_apply_box')
+    let bannerItem = $('.banner_apply_item')
+    // 数据
+    let applyBannerData = [
+      {name: '大快递费',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: 'aasdf',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '大快打发大水递费',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '阿斯蒂芬',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '嘎达',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: 'gadget',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '个案是',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: 'gas打发',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '发生过',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '粉红色的花',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '好发送',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'},
+      {name: '红烧豆腐',headpic: '{MODULE_URL}template/mobile/default/images/xd.jpeg'}
+    ]
+    // 内容处理及插入
+    let html = ''
+    for(let i = 0; i < applyBannerData.length; i ++){
+      let myname = applyBannerData[i].name
+      html += `
+      <li class="banner_apply_item banner_tt_i">
+        <div class="img_box">
+          <img src="${applyBannerData[i].headpic}" alt="">
+        </div>
+        <div class="apply_text"><span class="apply_name">${myname.slice(0,1)}**</span> <span> 报读成功</span></div>
+      </li>
+      `
+    }
+    bannerItemBox.append(html)
+  }) 
+</script>

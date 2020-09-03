@@ -10,7 +10,7 @@
 				<li class="nav_item">开放教育</li>
 				<li class="nav_item">自学考试</li>
 				<li class="nav_item">职业教育</li>
-				<div class="nav_item_line"></div>
+				<!-- <div class="nav_item_line"></div> -->
 			</ul>
 		</nav>
 	</header>
@@ -38,40 +38,70 @@
 
 <script>
   $(function(){
-				// 学员风采通用轮播 (包括证书展示)
-				var studentShowSwiper = new Swiper ('.student_show_swiper', {
-						loop: true,
-						direction: 'horizontal', // 方向
-						autoplay: 2000, // 切换时间
-						slidesPerView :'auto',
-						loopedSlides :3,
-						centeredSlides: true,
-						spaceBetween : 40,
-						effect : 'coverflow',
-						coverflow: {
-											rotate: 0,
-											depth: 130,
-											slideShadows: false
-									},
-						observer:true,//修改swiper自己或子元素时，自动初始化swiper
-						observeParents:true,//修改swiper的父元素时，自动初始化swiper
-					})
-				
+		// 学员风采通用轮播 (包括证书展示)
+		var studentShowSwiper = new Swiper ('.student_show_swiper', {
+				loop: true,
+				direction: 'horizontal', // 方向
+				autoplay: 2000, // 切换时间
+				slidesPerView :'auto',
+				loopedSlides :3,
+				centeredSlides: true,
+				spaceBetween : 40,
+				effect : 'coverflow',
+				coverflow: {
+									rotate: 0,
+									depth: 130,
+									slideShadows: false
+							},
+				observer:true,//修改swiper自己或子元素时，自动初始化swiper
+				observeParents:true,//修改swiper的父元素时，自动初始化swiper
+			})
+		
 
-				var voiceSwiper = new Swiper ('.voice_message_swiper', {
-					loop: true,
-					disableOnInteraction: false,
-					direction: 'vertical', // 方向
-					autoplay: 3000, // 切换时间
-					slidesPerView: 3,
-					spaceBetween : 40,
-					onlyExternal: true,
-					observer:true,//修改swiper自己或子元素时，自动初始化swiper
-					observeParents:true,//修改swiper的父元素时，自动初始化swiper	
+		var voiceSwiper = new Swiper ('.voice_message_swiper', {
+			loop: true,
+			disableOnInteraction: false,
+			direction: 'vertical', // 方向
+			autoplay: 3000, // 切换时间
+			slidesPerView: 3,
+			spaceBetween : 40,
+			onlyExternal: true,
+			observer:true,//修改swiper自己或子元素时，自动初始化swiper
+			observeParents:true,//修改swiper的父元素时，自动初始化swiper	
 
-				})
+		})
 
-			// 报名成功轮播
+		// 定义获取url参数的函数
+		function getParameter (name) {
+		let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i") // 配置正则
+		let r = window.location.search.substr(1).match(reg) // 获取url,根据正则匹配url中的参数
+		if (r != null) {
+			return unescape(r[2]) //如果参数存在，则解码返回参数
+			} else {
+				return null // 参数不存在，返回null
+			}
+    }
+
+		// 默认设置显示页面
+		let panelBoxOnIndex = 0
+		let navItem = $('.nav_item')
+    // let navItemLine = $('.nav_item_line')
+    let navItemWd = navItem.width()
+    let panelBox = $('.panel_box')
+		console.log(panelBoxOnIndex)
+    // 默认显示顶部导航设置，根据传入参数来设置
+
+		navItem.eq(panelBoxOnIndex).addClass('nav_item_on').siblings().removeClass('nav_item_on') //  
+		panelBox.eq(panelBoxOnIndex).addClass('panel_box_on').siblings().removeClass('panel_box_on') // 显示隐藏对应主面板
+
+    // 设置导航下划线初始的宽度，为导航块的60%
+    // navItemLine.css({
+    //   width:navItemWd *.45,
+    //   left:navItemWd * panelBoxOnIndex + navItemWd *.275 // 初始居中，剩余百分比除以2        默认下滑线位置
+    // })
+
+
+		// 报名成功轮播
 		let banner = function(){
       let bannerApplyItems = $('.banner_apply_box')
       let itemIndex = $('.banner_tt_i').length
@@ -92,23 +122,76 @@
     banner()
 
 		// 报名人数滚动效果
-		let applyNumBg = function(){
-			let applyNum = $('.num_box')
-			let applyNewNum = 2000
-			let applyOldNum = applyNewNum - 91
-			applyNum.html(applyOldNum)
-			let applyTime = setInterval(function(){
-				if(applyOldNum>=applyNewNum){
-					clearInterval(applyTime)
-					applyNum.html(applyOldNum)
-				} else {
-					applyOldNum = applyOldNum +1
-					applyNum.html(Math.round(applyOldNum))
+		// 数字滚动效果内容插入
+		let rollBox = $('.roll_box')
+		let res = [6,6,6,6,6]
+		let rollItems = $('.roll_small_items')
+		// 根据传入值滚动
+		let numRoll = function(){
+			rollItems.each(
+				function(index){
+					let $this = $(this)
+					setTimeout(function(){
+						console.log('没动？')
+						$this.animate(
+							{marginTop: - (5 + res[index] * 0.5) + 'rem'},
+							{duration: 2500}
+						)
+					},300*index)
 				}
-			},20)
+			)
 		}
+		numRoll()
 
-		applyNumBg()
+		// 评论区内容及数据的插入
+		let voiceMsgHtml = function(){
+      let vioceHtml = ''
+      let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
+      let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
+      let voiceData = [
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '阿斯蒂芬', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '按地方撒', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没嘎达啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '刚打', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶第三个', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: 'gas打发', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶发送到', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '啥都干的', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
+        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'}
+      ]
+      for(let i = 0; i < voiceData.length; i ++){
+        let myname = voiceData[i].name
+        vioceHtml += `
+          <div class="swiper-slide">
+            <div class="voice_message_item">
+              <div class="message_item_pic fl">
+                <img src="${voiceData[i].userHead}" alt="">
+              </div>
+              <div class="message_item fr">
+                <p class="name">${myname.slice(0,1)}**</p>
+                <p class="question">问：${voiceData[i].question}</p>
+                <p class="reply">回复：<span>${voiceData[i].answer}</span></p>
+              </div>
+            </div>
+          </div>	
+        `
+      }
+      voiceMsg.append(vioceHtml)
+    }
+    voiceMsgHtml()
 
 		// 学员故事分享
 		let articHtml = function(){
@@ -127,7 +210,7 @@
         })
       }
       getData()
-
+			// 内容插入
       let insertDiv =  function(res){
         let storeItems = $('.student_story_items')
         let html = ''
@@ -162,67 +245,77 @@
     }
 		articHtml()
 		
-
-		// 定义获取url参数的函数
-		function getParameter (name) {
-		let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i") // 配置正则
-		let r = window.location.search.substr(1).match(reg) // 获取url,根据正则匹配url中的参数
-		if (r != null) {
-			return unescape(r[2]) //如果参数存在，则解码返回参数
-			} else {
-				return null // 参数不存在，返回null
-			}
-    }
-
-		let panelBoxOnIndex = 2
-		let navItem = $('.nav_item')
-    let navItemLine = $('.nav_item_line')
-    let navItemWd = navItem.width()
-    let panelBox = $('.panel_box')
-		console.log(panelBoxOnIndex)
-    // 默认显示顶部导航设置，根据传入参数来设置
-
-		navItem.eq(panelBoxOnIndex).addClass('nav_item_on').siblings().removeClass('nav_item_on') //  
-		panelBox.eq(panelBoxOnIndex).addClass('panel_box_on').siblings().removeClass('panel_box_on') // 显示隐藏对应主面板
-
-    // 设置导航下划线初始的宽度，为导航块的60%
-    navItemLine.css({
-      width:navItemWd *.45,
-      left:navItemWd * panelBoxOnIndex + navItemWd *.275 // 初始居中，剩余百分比除以2        默认下滑线位置
-    })
 		
 	// 点击切换顶部导航
 		// 点击
     navItem.click(
       function(){
 				let $this = $(this)
-				let oldLeft = parseInt(navItemLine.css('left'))// 获取下划线当前的位置
+				// let oldLeft = parseInt(navItemLine.css('left'))// 获取下划线当前的位置
 				let num = $this.index() // 获取当前nav的下标
 				$this.addClass('nav_item_on').siblings().removeClass('nav_item_on') //  添加移除nav选中样式
 				panelBox.eq(num).addClass('panel_box_on').siblings().removeClass('panel_box_on') // 显示隐藏对应主面板
-				let itemLineMove = navItemWd * num + navItemWd *.275 // 计算left距离
-				const setDelay = () => {
-					return new Promise((resolve)=>{
-						// 初始化轮播
-						for(let i in studentShowSwiper){
-							studentShowSwiper[i].init();
-						}
-						for(let i in voiceSwiper){
-							voiceSwiper[i].init();
-						}
-						resolve('数据已接收') // 注意：一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。
+				// let itemLineMove = navItemWd * num + navItemWd *.275 // 计算left距离
+				// const setDelay = () => {
+				// 	return new Promise((resolve)=>{
+				// 		// 初始化轮播
+				// 		for(let i in studentShowSwiper){
+				// 			studentShowSwiper[i].init();
+				// 		}
+				// 		for(let i in voiceSwiper){
+				// 			voiceSwiper[i].init();
+				// 		}
+				// 		resolve('数据已接收') // 注意：一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。
 
-					})
-				}
-				setDelay().then(resolve => {
-					console.log(resolve) // 必须要接收
-					navItemLine.animate(
-								{left:itemLineMove}, // 移动距离
-								{duration:200}
-							)
-				})
+				// 	})
+				// }
+				// setDelay().then(resolve => {
+				// 	console.log(resolve) // 必须要接收
+				// 	navItemLine.animate(
+				// 				{left:itemLineMove}, // 移动距离
+				// 				{duration:200}
+				// 			)
+				// })
+					for(let i in studentShowSwiper){
+						studentShowSwiper[i].init();
+					}
+					for(let i in voiceSwiper){
+							voiceSwiper[i].init();
+					}
       }
 		)
+
+			// 中部内容导航切换
+			let switchItemNav = $('.switch_item_nav')
+			// let switchItemNavLine = $('.switch_item_line')
+			// switchItemNavWd = switchItemNav.width()
+			// switchItemNavLine.css({ 			// 下划线默认样式
+			//   width:switchItemNavWd *.45 + '%', 
+			//   left: switchItemNavWd *.275 + '%'// 初始居中，剩余百分比除以2        默认下滑线位置
+			// })
+			
+			switchItemNav.click(function(){ // 点击时，切换导航时间
+				let $this = $(this)
+				let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
+				$this.addClass('switch_item_nav_on').siblings().removeClass('switch_item_nav_on') // 选中样式的添加和移除
+				let index = $this.index() // 获取下标
+				// let moveWd = switchItemNavWd*index + switchItemNavWd *.275 + '%'// 定义移动的距离
+				// // 下划线样式
+				// let thisSwitchItemNavLine = $this.parent().find('.switch_item_line')
+				// thisSwitchItemNavLine.animate(
+				// 	{left: moveWd}, // 移动距离
+				// 	{duration: 300} // 移动速度
+				// )
+				for(let i in studentShowSwiper){
+							studentShowSwiper[i].init();
+						}
+				for(let i in voiceSwiper){
+						voiceSwiper[i].init();
+				}
+				// 内容区域切换
+				switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
+			})
+
 		// 合作学院点击展开效果
 			let schoolItemBtn = $('.school_item_btn')
 			schoolItemBtn.click(function(){
@@ -323,32 +416,5 @@
 		)
 	})
 </script>
-<script>
-	$(function(){
-		// 中部内容导航切换
-		let switchItemNav = $('.switch_item_nav')
-		let switchItemNavLine = $('.switch_item_line')
-		switchItemNavWd = switchItemNav.width()
-		switchItemNavLine.css({ 			// 下划线默认样式
-      width:switchItemNavWd *.45 + '%', 
-      left: switchItemNavWd *.275 + '%'// 初始居中，剩余百分比除以2        默认下滑线位置
-		})
-		
-		switchItemNav.click(function(){ // 点击时，切换导航时间
-			let $this = $(this)
-			let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
-			$this.addClass('switch_item_nav_on').siblings().removeClass('switch_item_nav_on') // 选中样式的添加和移除
-			let index = $this.index() // 获取下标
-			let moveWd = switchItemNavWd*index + switchItemNavWd *.275 + '%'// 定义移动的距离
-			// 下划线样式
-			let thisSwitchItemNavLine = $this.parent().find('.switch_item_line')
-			thisSwitchItemNavLine.animate(
-				{left: moveWd}, // 移动距离
-				{duration: 300} // 移动速度
-			)
-			// 内容区域切换
-			switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
-		})
-	})
-</script>
+
 {template $template.'/_footerv2'}
