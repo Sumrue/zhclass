@@ -14,5 +14,13 @@
     </div>
     <div class="clear"></div>
   </div>
-  <div class="voice_message_btn">提交留言</div>
+  <div class="voice_message_btn" onclick="voiceSbmit()">提交留言</div>
 </div>
+
+<script>
+  function voiceSbmit(){
+    // 获取留言框中的内容
+    let voiceText = $('.voice_box').val()
+    console.log(voiceText)
+  }
+</script>

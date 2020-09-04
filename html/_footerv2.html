@@ -15,7 +15,7 @@
 
 	<!-- 底部导航 -->
 	<div id="footer-nav" class="footer-nav {if ($_GPC['do']=='lesson' && $section['sectiontype']!=2) || $_GPC['do']=='qrcode' || $_GPC['do']=='qrcoderec' || $_GPC['do']=='lessonqrcode'}hidden{/if}">
-		<a href="{$navigation['index']['url_link']}" class="weui-tabbar__item {if $foot_params['index']}weui-bar__item_on{/if}">
+		<a href="javascript::;" class="apply_form_url weui-tabbar__item {if $foot_params['index']}weui-bar__item_on{/if}" onclick="toApplyForm()">
 			{if $foot_params['index']}
 				<img src="{$navigation['index']['selected_icon']}" class="weui-tabbar__icon" />
 			{else}
@@ -110,6 +110,18 @@
 		var iphonex_system = document.createElement('style');
 		iphonex_system.innerHTML = '.page-container{margin-bottom:20px;}.footer-nav{height:' + footer_nav_height + 'px;}';
 		iphonex_head.appendChild(iphonex_system);
+	}
+
+	let applyForm = $('.apply_form_url')
+	function toApplyForm(){
+		let applyIndex = sessionStorage.getItem('apply_form_url')
+		if(applyIndex == 0 || applyIndex == 3) {
+			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform"));}'
+		} else if(applyIndex == 1){
+			location.href = '{php echo $this->createMobileUrl("openform", array("do"=>"openform"));}'
+		} else {
+			location.href = '{php echo $this->createMobileUrl("applyform", array("do"=>"applyform"));}'
+		}
 	}
 </script>
 

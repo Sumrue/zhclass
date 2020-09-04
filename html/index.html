@@ -84,6 +84,8 @@
 
 		// 默认设置显示页面
 		let panelBoxOnIndex = 0
+		// 底部报读页面的选中，根据主页面选中，存入session中,设置ulr
+		window.sessionStorage.setItem('apply_form_url',panelBoxOnIndex)
 		let navItem = $('.nav_item')
     // let navItemLine = $('.nav_item_line')
     let navItemWd = navItem.width()
@@ -303,6 +305,8 @@
 				} else {
 					console.log('第四个页面')
 				}
+				// 存入下标，根据下标跳转页面
+				window.sessionStorage.setItem('apply_form_url',num)
 				// let oldLeft = parseInt(navItemLine.css('left'))// 获取下划线当前的位置
 				$this.addClass('nav_item_on').siblings().removeClass('nav_item_on') //  添加移除nav选中样式
 

@@ -506,7 +506,7 @@ a img {
 			/* 排行榜轮播  */
 .banner_apply  {
 	position: absolute;
-  width: 4.5rem;
+  width: 5rem;
   font-size: 11px;
   height: .5rem;
   top: 1.2rem;
@@ -522,7 +522,7 @@ a img {
 .banner_apply_item {
   background-color: rgb(0, 0, 0, 0.4);
   border-radius: .24rem;
-  width: 4.5rem;
+  width: 5rem;
   height: .5rem;
 }
 
@@ -535,9 +535,9 @@ a img {
 }
 .banner_apply .apply_text{
   height: .5rem;
-  width: 4.2rem;
+  width: 4.8rem;
   line-height: .5rem;
-  color: #ffffff;
+	color: #ffffff;
 }
 .banner_apply .img_box img {
   width: 100%;
