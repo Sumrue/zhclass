@@ -641,6 +641,11 @@ margin-right: .3rem;
 <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
 <script>
 	$(function(){
+		// 底部设置个人中心头像
+		let userAA = {php echo json_encode($_W["fans"]["avatar"])}
+		// window.localStorage.setItem('headImg',userAA)
+		let footerSelfIcon = $('.self_footer_navbar')
+		footerSelfIcon.attr("src",userAA)
 		// 学院风采
 		var studentShowSwiper = new Swiper ('.student_show_swiper', {
 			loop: true,

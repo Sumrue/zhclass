@@ -444,6 +444,7 @@ a img {
 .rank_item_head img {
 	width: 100%;
 	object-fit: cover;
+	border-radius: 50%;
 }
 .rank_item_content .invite_num {
 	float: right;

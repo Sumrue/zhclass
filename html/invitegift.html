@@ -125,11 +125,11 @@
 											<div class="rank_list_my">
 												<span class="rank_top_list">1000+</span>
 												<div class="rank_msg">
-													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
+													<div class="rank_item_head"><img src="{php echo $userMsg['headimgurl']}" alt=""></div>
 													<div class="rank_item_content">
 														<div class="rank_content_lt">
-															<p>夏***</p>
-															<p class="bulu">奖励之谜:<span>0</span></p>
+															<p>{php echo $userMsg['nickname']}</p>
+															<p class="bulu">奖励积分:<span>{php echo $userMsg2['credit1'];}</span></p>
 														</div>
 														<div class="rank_content_rt">
 															<span>兑换礼品</span>
@@ -175,8 +175,8 @@
 											<div class="rank_list_my">
 												<span class="rank_top_list">1000+</span>
 												<div class="rank_msg">
-													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
-													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
+													<div class="rank_item_head"><img src="{php echo $userMsg['headimgurl']}" alt=""></div>
+													<div class="rank_item_content"><span>{php echo $userMsg['nickname']}</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
 												</div>
 											</div>
 											
@@ -358,6 +358,9 @@
 			`
 		}
 		bannerItems.append(bannerItemHtm)
+
+		let wpc = '{php echo json_encode($_W);}'
+		console.log(wpc)
 		// 导航及对应页面切换
 		let navItem = $('.nav_item')
 		let panelItem = $('.panel')

@@ -6,3 +6,5 @@ $memberinfo = pdo_fetch("SELECT uid,mobile,credit1,credit2,nickname,avatar FROM 
 
 输出对象或数组，不能直接输出
 {php echo json_encode($memberinfo);}
+
+$_W["fans"] 下存放了用户的一些信息

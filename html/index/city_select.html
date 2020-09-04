@@ -73,7 +73,7 @@
         let $this = $(this)
         let cityName = $this.attr('data-city') // 获取当点点击对象的自定义属性
         console.log(cityName)
-        let url = '{php echo $this->createMobileUrl("citydetail", array("do"=>citydetail));}' + '&name=' + cityName
+        let url = '{php echo $this->createMobileUrl("citydetail", array("do"=>"citydetail"));}' + '&name=' + cityName
         window.location.href = url
       }
     )

@@ -38,6 +38,11 @@
 
 <script>
   $(function(){
+		// 底部设置个人中心头像
+		let userAA = {php echo json_encode($_W["fans"]["avatar"])}
+		// window.localStorage.setItem('headImg',userAA)
+		let footerSelfIcon = $('.self_footer_navbar')
+		footerSelfIcon.attr("src",userAA)
 		// 学员风采通用轮播 (包括证书展示)
 		var studentShowSwiper = new Swiper ('.student_show_swiper', {
 				loop: true,
@@ -238,7 +243,7 @@
 
 		// 学员故事分享
 		let articHtml = function(){
-      let ajaxurl = "{php echo $this->createMobileUrl('article', array('op'=>'list',cate_id=>$_GPC['cate_id'],'method'=>'ajaxgetlist'));}";
+      let ajaxurl = "{php echo $this->createMobileUrl('article', array('op'=>'list','cate_id'=>$_GPC['cate_id'],'method'=>'ajaxgetlist'));}";
       let articleurl = "{php echo $this->createMobileUrl('article');}";
       let get_status = true; //允许获取状态
       let getData = function () {  

@@ -1903,11 +1903,12 @@ ope .btn_home.btn_home_on {
 	}
 }
 .school_item_pic {
-	width: 75%;
+	width: 100%;
 	margin: 0 auto;
 }
 .school_item_pic img{
-	width: 100%;
+	width: .84rem;
+	height: .84rem;
 }
 
 .school_item p {
