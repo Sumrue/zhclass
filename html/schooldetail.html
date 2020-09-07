@@ -27,6 +27,7 @@
       }
       .school_detail .top_pic img{
         width: 100%;
+        height: 2.3rem;
         object-fit: cover;
         display: block
       }
@@ -330,7 +331,7 @@
 		<div class="page-container" id="page-container">
 			<div class="school_detail">
         <div class="top_pic">
-          <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/school_detail_top.png" alt="">
+          <img src="{$_W['attachurl']}{$school['banner']}" alt="">
         </div>
         <!-- 切换导航 -->
         <div class="school_detail_navbar">
@@ -386,7 +387,6 @@
                 </div>
                 <div class="good_story_banner">
                   <ul class="good_story_items">
-                    
                     <div class="clear"></div>
                   </ul>
 
@@ -404,15 +404,8 @@
                 <div class="img_box">
                   <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/school_detail_pic.png" alt="">
                 </div>
-                <div class="text">
-                  <p>
-                    广州城建职业学院是经广东省人民政府批准、国家教育部备案的全日制普通高等职业院校。学校起源于1960年广州市建筑工程局主办的广州业余建筑工程学院，2007年在原广州大学城建学院基础上独立设置，是一所工科类民办高职院校。
-                  </p>
-                  <p>学校位于广州市从化区，校园环境优美，办学条件优越，基础设施完备，服务保障高效。2012年学校以优异成绩通过了广东省高职院校人才培养工作评估，是教育部现代学徒制试点高校、广东省教育厅自主招生试点院校、广东省唯一获批开展四年制应用型本科人才培养试点的民办高职院校。
-                  </p>
-                  <p>
-                    学校积极探索“产教融合、校企合作”的协同育人机制，与国际著名企合作，加入了国家大数据百校计划；组建了以广州天马集团和广州市建筑集团为主导、行业协会为依托、名优企业为基础的广东城建职业教育集团，与政府、行业、企业联合打造了广东城建职业教育集团建筑产业园。
-                  </p>
+                <div class="text" id="mydiv">
+                  
                 </div>
               </div>
             </div>
@@ -459,6 +452,28 @@
     <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
     <script>
       $(function(){
+
+        
+          // 底部设置个人中心头像
+          let userAA = {php echo json_encode($_W["fans"]["avatar"])};
+          // window.localStorage.setItem('headImg',userAA)
+          let footerSelfIcon = $('.self_footer_navbar')
+          footerSelfIcon.attr("src",userAA)
+
+
+          // 对接收到的文章进行处理
+          function escape2Html(str) { 
+            var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'}; 
+            return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];}); 
+            }
+          let strrr = {php echo json_encode($school)};
+          let schollText = $('.detail_content_head .text')
+          console.log(strrr)
+          let contenttext = '{php echo json_encode($school['content'])}'
+          let text = escape2Html(contenttext)
+          let length = text.length
+          let text2 = text.substr(1,length-2)
+          $('#mydiv').html(text2)
         // 留言区swiper滚动
           let voiceSwiper = new Swiper ('.voice_message_swiper', {
             loop: true,
@@ -491,6 +506,46 @@
           }) 
         
 
+
+          function htmlspecialchars_decode(string, quote_style) {
+            var optTemp = 0
+                , i = 0
+                , noquotes = false;
+            if (typeof quote_style === 'undefined') {
+                quote_style = 2;
+            }
+            string = string.toString().replace(/</g, '<').replace(/>/g, '>');
+            var OPTS = {
+                'ENT_NOQUOTES': 0,
+                'ENT_HTML_QUOTE_SINGLE': 1,
+                'ENT_HTML_QUOTE_DOUBLE': 2,
+                'ENT_COMPAT': 2,
+                'ENT_QUOTES': 3,
+                'ENT_IGNORE': 4	
+            };
+            if (quote_style === 0) {
+                noquotes = true;
+            }
+            if (typeof quote_style !== 'number') {
+                quote_style = [].concat(quote_style);
+                for (i = 0; i < quote_style.length; i++) {
+                    if (OPTS[quote_style[i]] === 0) {
+                        noquotes = true;
+                    } else if (OPTS[quote_style[i]]) {
+                        optTemp = optTemp | OPTS[quote_style[i]];
+                    }
+                }
+                quote_style = optTemp;
+            }
+            if (quote_style & OPTS.ENT_HTML_QUOTE_SINGLE) {
+                string = string.replace(/&#0*39;/g, "'");
+            }
+            if (!noquotes) {
+                string = string.replace(/"/g, '"');
+            }
+            string = string.replace(/&/g, '&');
+            return string;
+        }
 
         // 监听评论功能输入时的输入限制显示
         $(".voice_box").on('input propertychange', function () {

@@ -218,7 +218,15 @@
 	<a href="{php echo url('mc/home/login_out');}">退出登录</a>
 </div>
 {/if}
-
+<script>
+$(function(){
+	// 底部设置个人中心头像
+	let userAA = {php echo json_encode($_W["fans"]["avatar"])};
+	console.log(userAA)
+	let footerSelfIcon = $('.self_footer_navbar')
+	footerSelfIcon.attr("src",userAA)
+})
+</script>
 <script type="text/javascript">
 $("#btn-avatar").click(function(){
 	var agent = <?php echo intval($userAgent); ?>;

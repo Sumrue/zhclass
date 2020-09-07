@@ -1,12 +1,12 @@
 <!-- 合作学院 -->
 <div class="school_cooperate">
   <div class="foure_advantage_title">
-    <img sr c="{MODULE_URL}template/mobile/default/images/index/school_hz.png" alt="">
+    <img src="{MODULE_URL}template/mobile/default/images/index/school_hz.png" alt="">
   </div>
   <div class="school_hz_box">
     <div class="school_item_box">
       {loop $school_list $index $item}
-    <div class="school_item">
+      <div class="school_item" data-id="{$item['id']}">
         <div class="school_item_pic">
           <img src="{$_W['attachurl']}{$item['logo']}" alt="">
         </div>
@@ -18,19 +18,3 @@
     <div class="school_item_btn">查看全部院校</div>
   </div>
 </div>
-<script>
-  $(function(){
-    let strSchool = '{php echo json_encode($school_list);}'
-    console.log(strSchool)
-    // 点击时获取当前的参数，传参跳转
-    let schooChoiceItem = $('.school_item')
-    schooChoiceItem.click(function(){
-      console.log('学校选择失败')
-      let $this = $(this)
-      let index = $this.index()
-      let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&schoolIndex=' + index
-      console.log(url)
-      window.location.href = url
-    })
-  })
-</script>

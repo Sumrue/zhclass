@@ -10,6 +10,7 @@
 		<meta name="x5-fullscreen" content="true">
     <meta name="x5-page-mode" content="app">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
 		<title>
       报名信息填写
 		</title>
@@ -139,9 +140,11 @@
 			<van-popup v-model="showPicker" position="bottom">
 				<van-picker
 					show-toolbar
-					:columns="schoolData"
+					:columns="schoolName"
 					@confirm="schoolSelectClose"
 					@cancel="showPicker = false"
+					ref="school"
+
 				/>
 			</van-popup>
 
@@ -195,8 +198,8 @@
         el: '#page-container',
         data (){
 					return {
-						name: '',
-						idcard: '',
+						name: '大哥',
+						idcard: '510184199110230412',
 						type: '2021筑梦计划',
 						grade: '2021',
 						school: '',
@@ -204,19 +207,29 @@
 						major: '',
 						city: '',
 						testing: '',
-						schoolData: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
-						levelData: ['专升本','高升专'],
-						majorData: ['专业一','专业2','专业3','专业4','专业5','专业6'],
+						schoolData: [],
+						majorDetail: [],
+						schoolName: [],
+						levelData: [],
+						majorData: [],
+						cityData: ['成都','新都','云南'],
+						testingData: ['温江区','高新区','青羊区','青白江'],
+						schoolId: null,
+						levelId: null,
 						showPicker: false,
 						showPicker2: false,
 						showPicker3: false,
 						showPicker4: false,
 						showPicker5: false,
-						cityData: ['成都','新都','云南'],
-						testingData: ['温江区','高新区','青羊区','青白江']
+						selectIndex: null,
+						majorIndex:null
 					}
 				},
 				created () {
+					let _this = this
+					let schoolData = {php echo json_encode($school)};
+					_this.schoolData = schoolData
+					console.log(schoolData)
 				},
         methods: {
 					// 身份证正则验证
@@ -247,16 +260,28 @@
 					// 学校选择
 					schoolSelect(){
 						let _this = this
+						// 置空，避免重复添加进入数组
+						_this.schoolName = []
 						if(_this.name == '' || _this.idcard == ''){
 							_this.$notify({ type: 'warning', message: '请将姓名或身份证信息填写完整'})
 							return
 						} else{
+							for(let i = 0; i < _this.schoolData.length; i++){
+								_this.schoolName.push(_this.schoolData[i].name)
+							}
 							_this.showPicker = true
 						}
 					},
 
-					schoolSelectClose(val){
-						this.school = val
+					schoolSelectClose(val,index){
+						let _this = this
+						_this.school = val
+						// 保存一个index,方便查询层次
+						_this.selectIndex = index
+						// 学校重选之后置空
+						_this.level = ''
+						// 获取并存储当前学校的ID
+						_this.schoolId = _this.schoolData[index].id
 						this.showPicker = false
 					},
 
@@ -267,26 +292,57 @@
 							_this.$notify({ type: 'warning', message: '学校不能为空'})
 							return
 						} else {
+							_this.levelData = []
+							// 根据学校的index查找对应的学校的层次
+							let leveArr = _this.schoolData[_this.selectIndex].lid
+							for(let i = 0; i < leveArr.length; i++) {
+								_this.levelData.push(leveArr[i].name)
+							}
 							_this.showPicker2 = true
 						}
 					},
-					levelSelectClose(val){
+					levelSelectClose(val,index){
+						let _this = this
 						this.level = val
-						this.showPicker2 = false
+						// 获取设置层次ID
+						let leveArr = _this.schoolData[_this.selectIndex].lid
+						_this.leveId = leveArr[index].id
+						console.log(_this.leveId)
+						_this.showPicker2 = false
 					},
 
 					// 专业选择
 					majorSelect() {
 						let _this = this
+						let ajaxurl = "{php echo $this->createMobileUrl('adultuserform', array('at'=>'pro','method'=>'ajaxgetlist'));}" + '&id=' + this.schoolId + '&lid=' + this.leveId
+						console.log(ajaxurl)
+						let getData = function () {
+							$.get(ajaxurl, function (data) {
+								if (data.length !== 0) {
+									_this.majorDetail = JSON.parse(data)
+								}else{
+									console.log('获取数据失败')  //没有数据后，禁止请求获取数据
+									_this.$notify({ type: 'warning', message: '无专业'})
+								}
+							}).then(res=>{
+								// 请求成功，将专业的数据传入
+								console.log(_this.majorDetail)
+								for(let i = 0; i < _this.majorDetail.length; i++){
+									_this.majorData.push(_this.majorDetail[0].name)
+								}
+							})
+						}
 						if(_this.level == ''){
 							_this.$notify({ type: 'warning', message: '层次不能为空'})
 							return
 						} else {
+							getData()
 							_this.showPicker3 = true
 						}
 					},
-					majorSelectClose(val){
+					majorSelectClose(val,index){
 						this.major = val
+						this.majorIndex = index
 						this.showPicker3 = false
 					},
 

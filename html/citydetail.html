@@ -223,6 +223,12 @@
     <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
     <script>
       $(function(){
+        // 底部设置个人中心头像
+        let userAA = {php echo json_encode($_W["fans"]["avatar"])};
+        // window.localStorage.setItem('headImg',userAA)
+        let footerSelfIcon = $('.self_footer_navbar')
+        footerSelfIcon.attr("src",userAA)
+
         // 轮播数字滚动
         let numRoll2 = $('.num_roll_item2')
         let numRoll1 = $('.num_roll_item1')

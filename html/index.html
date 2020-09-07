@@ -39,7 +39,7 @@
 <script>
   $(function(){
 		// 底部设置个人中心头像
-		let userAA = {php echo json_encode($_W["fans"]["avatar"])}
+		let userAA = {php echo json_encode($_W["fans"]["avatar"])};
 		// window.localStorage.setItem('headImg',userAA)
 		let footerSelfIcon = $('.self_footer_navbar')
 		footerSelfIcon.attr("src",userAA)
@@ -375,6 +375,13 @@
 					{height:'100%'},
 					{direction: 1200}
 				)
+			})
+			// 点击学校跳转至学校详情页
+			let schoolHzitem = $('.school_hz_box .school_item')
+			schoolHzitem.click(function(){
+				let id = schoolHzitem.attr('data-id')
+				let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
+				location.href = url
 			})
 
 		// 常见问题手风情效果
