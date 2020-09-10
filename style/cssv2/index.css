@@ -42,6 +42,31 @@ a:visited{ outline:none; -moz-outline:none;}
 a img {
 	border: none;
 }
+.panel_box_on {
+	display: block !important;
+}
+
+.fixed {
+  position: fixed !important;
+  width: 100%;
+  max-width: 640px;
+  top: 0;
+  z-index: 20;
+}
+
+.hidden {
+	overflow: hidden !important;
+}
+
+.block {
+	display: block !important;
+}
+.z-index0 {
+  z-index: 4 !important;
+}
+.hide{
+	display: none;
+}
 
 
 /* 常见样式定义 */
@@ -1873,11 +1898,10 @@ ope .btn_home.btn_home_on {
 	word-break: break-all
 }
 
-.school_item_box {
-	height: 4.2rem;
-	overflow: hidden;
-}
 	/* 合作院校 */
+.school_cooperate {
+	margin-top: .5rem;
+}
 .school_item {
 	width: 17%;
 	float: left;
@@ -1897,11 +1921,6 @@ ope .btn_home.btn_home_on {
 	}
 }
 
-@media(min-width: 400px){
-	.school_item_box {
-		height: 4.1rem;
-	}
-}
 .school_item_pic {
 	width: 100%;
 	margin: 0 auto;
@@ -2635,30 +2654,37 @@ margin-right: .3rem;
 .self_voice_message {
   padding: .95rem .4rem .3rem .4rem;
 }
+
+/* 网络教学 */
+
+/* 网络教学数字滚动 */
+.onlinenum_roll {
+	position: absolute;
+	top: .2rem;
+	left: .2rem;
+}
+
+.onlinenum_roll>.onlinetext,.onlineroll_box {
+	float: left;
+	font-size: .28rem;
+	font-weight: 600;
+	color: #000;
+}
+
+.onlineroll_item {
+	float: left;
+	height: .5rem;
+	width: .3rem;
+	overflow: hidden;
+	text-align: center;
+}
+
+.onlineroll_small_items li {
+	height: .5rem;
+	line-height: .5rem;
+}
+.online_education .onlinenum_roll {
+	left: .2rem;
+	top: .2rem;
+}
 /* addClass or rremoClass */
-
-.panel_box_on {
-	display: block !important;
-}
-
-.fixed {
-  position: fixed !important;
-  width: 100%;
-  max-width: 640px;
-  top: 0;
-  z-index: 20;
-}
-
-.hidden {
-	overflow: hidden !important;
-}
-
-.block {
-	display: block !important;
-}
-.z-index0 {
-  z-index: 4 !important;
-}
-.hide{
-	display: none;
-}

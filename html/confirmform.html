@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+		<title>
+      请确认您的信息
+		</title>
+  </head>
+  <style>
+    #confirm_text {
+      width: 96%;
+      margin: 10px auto;
+      font-size: 12px;
+      color: rgb(0,0,0,.6);
+    }
+    #confirm_text p,#confirm_text span {
+      margin: 0;
+      padding: 0;
+    }
+    #confirm_text>#title {
+      font-weight: 700;
+      color: #000;
+    }
+    .van-cell__value {
+      color: #1989fa;
+    }
+    .van-cell__label {
+      color: #d61838ba;
+    }
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <div>
+        <van-nav-bar
+        title="请确认您的报读信息"
+        left-text="返回"
+        right-text="主页"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+        />
+      </div>
+      <div>
+        <van-cell-group>
+          <van-cell title="报读类型" :value="contentData.type" />
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell title="专业" :value="contentData.major" />
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell title="学费" value="7900" label="是否可分期（是）"/>
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell title="报读层次" :value="contentData.level" />
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell title="姓名" :value="contentData.type" />
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell title="电话号码" value="182876186381" />
+        </van-cell-group>
+        <van-cell-group>
+          <van-cell title="身份证信息" :value="contentData.idcard" />
+        </van-cell-group>
+      </div>
+      <div id="confirm_text">
+        <p id="title">备注：</p>
+        <p>
+          报名成功后将会有专业老师与您联系，帮助您办理就读手续，办理成功后系统将自动返还积分到您的账号当中，请到个人中心查看积分情况，以实际到账为准。积分可用于兑换各种精美礼品。
+        </p>
+      </div>
+      <div style="margin: 16px;">
+        <van-button round block color="linear-gradient(to right, #ff6034, #ee0a24)" @click="confirmBtn">
+          确认
+        </van-button>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script>
+		var vm = new Vue({
+        el: '#page-container',
+        data (){
+					return {
+            contentData: [
+            ],
+            idData:[]
+					}
+				},
+        created() {
+          // 进入页面时再进行一次判断，防止已存在订单直接进入此页面
+          let _this = this
+          _this.idData = JSON.parse(window.sessionStorage.getItem('userId'))
+          _this.contentData = JSON.parse(window.sessionStorage.getItem('userData'))
+          console.log(_this.contentData)
+        },
+        methods: {
+          onClickLeft(){
+            console.log(1)
+          },
+          onClickRight(){
+            console.log(2)
+          },
+          //信息确认，提交信息
+          confirmBtn(){
+            let _this = this
+            console.log(_this.contentData)
+            _this.$toast.success({
+              message: '报名成功',
+              onClose: function(){
+                console.log('已成功提交')
+              }
+            });
+          }
+        }
+    })
+</script> 
+</html>

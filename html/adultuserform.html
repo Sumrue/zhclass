@@ -17,7 +17,7 @@
   </head>
 	<body>
 		<div class="page-container" id="page-container">
-			<van-form @failed="formSubmit" @submit="submitData">
+			<van-form @failed="failedSubmit" @submit="sucessSubmit" :show-error='false'>
 				<!-- 姓名 -->
 				<van-cell-group>
 					<van-field 
@@ -62,32 +62,32 @@
 						v-model="grade" 
 						mame="grade"
 						label="年级"  
-						readonly 
+						readonly
 						input-align="right"/>
 				</van-cell-group>
 				<!-- 院校 -->
 				<van-cell-group>
 					<van-field 
 						v-model="school" 
-						mame="school" 
-						label="院校" 
+						mame="school"
+						label="院校"
 						placeholder="请点击选择院校"
 						input-align="right" 
 						clickable readonly
-						@click="schoolSelect"
+						@click="clickSchool"
 					/>
 				</van-cell-group>
 				<!-- 层次 -->
 				<van-cell-group>
 					<van-field 
-						v-model="level" 
-						mame="level" 
-						label="层次" 
+						v-model="level"
+						mame="level"
+						label="层次"
 						placeholder="请点击选择层次"
-						input-align="right" 
-						clickable 
+						input-align="right"
+						clickable
 						readonly
-						@click="levelSelect"
+						@click="clickLevel"
 					/>
 				</van-cell-group>
 				<!-- 专业 -->
@@ -100,7 +100,7 @@
 						input-align="right"
 						clickable 
 						readonly
-						@click="majorSelect"
+						@click="clickMajor"
 					/>
 				</van-cell-group>
 				<!-- 城市 -->
@@ -113,7 +113,7 @@
 						input-align="right"
 						clickable 
 						readonly
-						@click="citySelect"
+						@click="clickCity"
 						/>
 				</van-cell-group>
 				<!-- 考试区县 -->
@@ -126,7 +126,7 @@
 						input-align="right"
 						clickable 
 						readonly
-						@click="testingSelect"
+						@click="clickTesting"
 					/>
 				</van-cell-group>
 				<div style="margin: 16px;">
@@ -137,55 +137,55 @@
 			</van-form>
 
 			<!-- 学校选择器 -->
-			<van-popup v-model="showPicker" position="bottom">
+			<van-popup v-model="schoolPicker" position="bottom">
 				<van-picker
 					show-toolbar
 					:columns="schoolName"
-					@confirm="schoolSelectClose"
-					@cancel="showPicker = false"
+					@confirm="selectSchool"
+					@cancel="schoolPicker = false"
 					ref="school"
 
 				/>
 			</van-popup>
 
 			<!-- 层次选择器 -->
-			<van-popup v-model="showPicker2" position="bottom">
+			<van-popup v-model="levelPicker" position="bottom">
 				<van-picker
 					show-toolbar
-					:columns="levelData"
-					@confirm="levelSelectClose"
-					@cancel="showPicker = false"
+					:columns="levelName"
+					@confirm="selectLevel"
+					@cancel="levelPicker = false"
 				/>
 			</van-popup>
 
 			
 			<!-- 专业选择器 -->
-			<van-popup v-model="showPicker3" position="bottom">
+			<van-popup v-model="majorPicker" position="bottom">
 				<van-picker
 					show-toolbar
-					:columns="majorData"
-					@confirm="majorSelectClose"
-					@cancel="showPicker = false"
+					:columns="majorName"
+					@confirm="selectMajor"
+					@cancel="majorPicker = false"
 				/>
 			</van-popup>
 
 			<!-- 城市选择器 -->
-			<van-popup v-model="showPicker4" position="bottom">
+			<van-popup v-model="cityPicker" position="bottom">
 				<van-picker
 					show-toolbar
-					:columns="cityData"
-					@confirm="citySelectClose"
-					@cancel="showPicker = false"
+					:columns="cityName"
+					@confirm="selectCity"
+					@cancel="cityPicker = false"
 				/>
 			</van-popup>
 
 			<!-- 考试区县选择器 -->
-			<van-popup v-model="showPicker5" position="bottom">
+			<van-popup v-model="testingPicker" position="bottom">
 				<van-picker
 					show-toolbar
-					:columns="testingData"
-					@confirm="testingSelectClose"
-					@cancel="showPicker = false"
+					:columns="testingName"
+					@confirm="selectTesting"
+					@cancel="testingPicker = false"
 				/>
 			</van-popup>
     </div>
@@ -198,38 +198,108 @@
         el: '#page-container',
         data (){
 					return {
-						name: '大哥',
-						idcard: '510184199110230412',
-						type: '2021筑梦计划',
+						formData: {
+							name: '',
+							idcard: '',
+							type: '',
+							grade: '',
+							school: '',
+							level: '',
+							major: '',
+							city: '',
+							testing: '',
+						},
+						formID: {
+							name: '',
+							idcard: '',
+							typeId:null,
+							gradeID: null,
+							schoolID: null,
+							levelID: null,
+							majorID: null,
+							cityID: null,
+							testingID: null
+						},
+						// 绑定的内容数据
+						name: '奥特曼',
+						idcard: '510184199003120322',
+						type: '',
 						grade: '2021',
 						school: '',
 						level: '',
 						major: '',
 						city: '',
 						testing: '',
-						schoolData: [],
-						majorDetail: [],
-						schoolName: [],
-						levelData: [],
-						majorData: [],
-						cityData: ['成都','新都','云南'],
-						testingData: ['温江区','高新区','青羊区','青白江'],
 						schoolId: null,
 						levelId: null,
-						showPicker: false,
-						showPicker2: false,
-						showPicker3: false,
-						showPicker4: false,
-						showPicker5: false,
+						majorId: null,
+						testingId: null,
+						cityId: null,
+
+						// 选择器数据
+						schoolName: [],
+						levelName: [],
+						majorName: [],
+						cityName: [],
+						testingName: [],
+
+						// 选择器绑定展示和隐藏的数据
+						schoolPicker: false,
+						levelPicker: false,
+						majorPicker: false,
+						cityPicker: false,
+						testingPicker: false,
+
+						//其他数据
+						typeId: null,
+							// 299存的参数，true时则是299,提交表单后则跳转至支付
+						TF299adult: false,
 						selectIndex: null,
-						majorIndex:null
+						schoolData: [],
+						schoolIdData: [],
+						levelData: [],
+						levelIDdata: [],
+						cityData:[],
+						majorIdData: [],
+						cityIdData: [],
+						testingIdData: [],
+						testingData: [],
+						testingObj: {}
 					}
 				},
 				created () {
 					let _this = this
-					let schoolData = {php echo json_encode($school)};
-					_this.schoolData = schoolData
-					console.log(schoolData)
+					let myDate = new Date()
+					_this.grade = myDate.getFullYear() // 获取当前年份
+					let type = '{php echo $_GPC["type"]}'
+					let exist299 = '{php echo $_GPC["exist299"]}'
+					_this.schoolData ={php echo json_encode($school)};
+
+					// 在此之前增加一个判断，判断是否是299,如果是，则存一个参数表示有299，则需要去支付页面。
+					if(exist299 !== ''){
+						_this.TF299adult = true
+					}
+
+					// 这里就是判断正常的信息页面
+					if ( type === 'adult') {
+						_this.type = '成人高考'
+						// 存入一个参数，方便传后台和下一级
+						_this.typeId = 'adult'
+					} else if( type == 'open'){
+						_this.type = '开放教育'
+						_this.typeId = 'open'
+					} else if( type == 'self'){
+						_this.type = '自学考试'
+						_this.typeId = 'self'
+					} else if( type == 'online'){
+						_this.type = '网络教学'
+						_this.typeId = 'online'
+					} else if(type == ''){ // 传入类型不存在时默认为成人高考
+						_this.type = '成人高考?'
+						_this.typeId = 'adult'
+						console.log('类型不存在')
+					}
+
 				},
         methods: {
 					// 身份证正则验证
@@ -237,154 +307,228 @@
 						let Reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
 						return Reg.test(val)
 					},
-					formSubmit(val) {
-						console.log(val)
-						this.$notify({ type: 'warning', message: '请先将信息填写完整'})
-					},
-					// 验证通过后提交信息
-					submitData() {
-						let _this = this
-						let userMsg = {
-							name: _this.name,
-							idcard: _this.idcard,
-							type: '2021筑梦计划',
-							grade: '2021',
-							school: _this.school,
-							level: _this.level,
-							major: _this.major,
-							city: _this.city,
-							testing: _this.testing
-						}
-						console.log(userMsg)
-					},
-					// 学校选择
-					schoolSelect(){
-						let _this = this
-						// 置空，避免重复添加进入数组
-						_this.schoolName = []
-						if(_this.name == '' || _this.idcard == ''){
-							_this.$notify({ type: 'warning', message: '请将姓名或身份证信息填写完整'})
-							return
-						} else{
-							for(let i = 0; i < _this.schoolData.length; i++){
-								_this.schoolName.push(_this.schoolData[i].name)
-							}
-							_this.showPicker = true
-						}
-					},
 
-					schoolSelectClose(val,index){
+					// 点击对应input时
+						// 学校内容的选择
+					clickSchool(){
+						let _this = this
+						if(_this.name == '' || _this.idcard == ''){ // 当姓名或者身份证为空时，返回错误信息
+							_this.$notify({ type: 'warning', message: '请将信息完善后再选取学校'})
+							return
+						}else { // 姓名身份证都填写了后，弹出显示学校选择信息
+							// 置空
+							_this.schoolName = []
+							_this.levelName = [] 
+							_this.majorName = []
+							_this.cityName = []
+							_this.testingName =[]
+
+							let data = _this.schoolData
+							for(let i = 0; i < data.length; i++) {
+								// 学校名称push近数组
+								_this.schoolName.push(data[i].name)
+								// 学校IDpush进数组
+								_this.schoolIdData.push(data[i].id)
+								// 层次数据push进数组
+								_this.levelData.push(data[i].lid)
+							}
+							_this.schoolPicker = true
+						}
+					},
+					selectSchool(val,index){ // 内容选中后
 						let _this = this
 						_this.school = val
-						// 保存一个index,方便查询层次
 						_this.selectIndex = index
-						// 学校重选之后置空
+						_this.schoolId = _this.schoolIdData[index]// 取学校ID
+						//置空
 						_this.level = ''
-						// 获取并存储当前学校的ID
-						_this.schoolId = _this.schoolData[index].id
-						this.showPicker = false
-					},
-
-					// 层次选择
-					levelSelect() {
-						let _this = this
-						if(_this.school == ''){
-							_this.$notify({ type: 'warning', message: '学校不能为空'})
-							return
-						} else {
-							_this.levelData = []
-							// 根据学校的index查找对应的学校的层次
-							let leveArr = _this.schoolData[_this.selectIndex].lid
-							for(let i = 0; i < leveArr.length; i++) {
-								_this.levelData.push(leveArr[i].name)
-							}
-							_this.showPicker2 = true
-						}
-					},
-					levelSelectClose(val,index){
-						let _this = this
-						this.level = val
-						// 获取设置层次ID
-						let leveArr = _this.schoolData[_this.selectIndex].lid
-						_this.leveId = leveArr[index].id
-						console.log(_this.leveId)
-						_this.showPicker2 = false
-					},
-
-					// 专业选择
-					majorSelect() {
-						let _this = this
-						let ajaxurl = "{php echo $this->createMobileUrl('adultuserform', array('at'=>'pro','method'=>'ajaxgetlist'));}" + '&id=' + this.schoolId + '&lid=' + this.leveId
-						console.log(ajaxurl)
-						let getData = function () {
-							$.get(ajaxurl, function (data) {
-								if (data.length !== 0) {
-									_this.majorDetail = JSON.parse(data)
-								}else{
-									console.log('获取数据失败')  //没有数据后，禁止请求获取数据
-									_this.$notify({ type: 'warning', message: '无专业'})
-								}
-							}).then(res=>{
-								// 请求成功，将专业的数据传入
-								console.log(_this.majorDetail)
-								for(let i = 0; i < _this.majorDetail.length; i++){
-									_this.majorData.push(_this.majorDetail[0].name)
-								}
-							})
-						}
-						if(_this.level == ''){
-							_this.$notify({ type: 'warning', message: '层次不能为空'})
-							return
-						} else {
-							getData()
-							_this.showPicker3 = true
-						}
-					},
-					majorSelectClose(val,index){
-						this.major = val
-						this.majorIndex = index
-						this.showPicker3 = false
-					},
-
-					// 城市选择
-					citySelect() {
-						let _this = this
-						if(_this.major == ''){
-							_this.$notify({ type: 'warning', message: '专业不能为空'})
-							return
-						} else {
-							_this.showPicker4 = true
-						}
-					},
-					citySelectClose(val){
-						this.city = val
-						this.showPicker4 = false
-					},
-
-					// 考试区县选择
-					testingSelect() {
-						let _this = this
-						if(_this.city == '') {
-							_this.$notify({ type: 'warning', message: '城市不能为空'})
-						} else {
-							_this.showPicker5 = true
-						}
-					},
-					testingSelectClose(val){
-						this.testing = val
-						this.showPicker5 = false
+						_this.major = ''
+						_this.city = ''
+						_this.testing =''
+						_this.schoolPicker = false
 					},
 					
-					// 获取url参数的函数
-					getParameter (name) {
-						let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i") // 配置正则
-						let r = window.location.search.substr(1).match(reg) // 获取url,根据正则匹配url中的参数
-						if (r != null) {
-							return unescape(r[2]) //如果参数存在，则解码返回参数
-						} else {
-								return null // 参数不存在，返回null
+						// 层次内容的选择
+					clickLevel(){
+						let _this = this
+						let selectIndex = _this.selectIndex
+						if(_this.school == ''){ // 当学校信息为空时，弹出错误信息
+							_this.$notify({ type: 'warning', message: '请先选择学校'})
+							return
+						}else {
+							// 置空
+							_this.levelName = [] 
+							_this.majorName = []
+							_this.cityName = []
+							_this.testingName =[]
+							// 根据上一级保存的index来查找对应学校的层次
+							let data = _this.schoolData[selectIndex].lid
+							for(let i =0; i < data.length; i++) {
+								_this.levelName.push(data[i].name) // 取层次列表
+								_this.levelIDdata.push(data[i].id) // 取ID
+							}
+							_this.levelPicker = true
 						}
+					},
+					selectLevel(val,index){
+						let _this = this
+						_this.level = val
+						_this.levelId = _this.levelIDdata[index]
+						// 置空
+						_this.major = ''
+						_this.city = ''
+						_this.testing =''
+						_this.levelPicker = false
+					},
+
+						// 专业内容的选择
+					clickMajor(){
+						let _this = this
+						if(_this.level == ''){ // 当学校信息为空时，弹出错误信息
+							_this.$notify({ type: 'warning', message: '请先选择层次'})
+							return
+						}else {
+							// 置空
+							_this.majorName = []
+							_this.cityName = []
+							_this.testingName =[]
+							// 根据学校ID和层次ID请求专业数据
+							let ajaxUrl = "{php echo $this->createMobileUrl('adultuserform', array('at'=>'pro'));}" + '&id=' + _this.schoolId + '&lid=' + _this.levelId
+							$.get(ajaxUrl,function(data){
+								console.log('查询数据')
+							}).then(res => {
+								let data = JSON.parse(res)
+								console.log('数据查询成功')
+								for(let i = 0; i < data.length; i++) {
+									_this.majorName.push(data[i].name)
+									_this.majorIdData.push(data[i].id)
+								}
+							})
+							_this.majorPicker = true
+						}
+					},
+					selectMajor(val,index){
+						let _this = this
+						_this.major = val
+						_this.majorId = _this.majorIdData[index]
+
+						// 置空
+						_this.city = ''
+						_this.testing =''
+						_this.majorPicker = false
+					},
+
+						// 城市内容的选择
+					clickCity(){
+						let _this = this
+						if(_this.major == ''){ // 当学校信息为空时，弹出错误信息
+							_this.$notify({ type: 'warning', message: '请先选择专业'})
+							return
+						}else {
+							// 置空
+							_this.cityName = []
+							_this.testingName =[]
+							let index = _this.selectIndex
+							let data = JSON.parse(JSON.stringify(_this.schoolData))
+							let city = data[index].area
+							for(key in city) {
+								_this.cityIdData.push(key)
+								_this.cityName.push(city[key].name)
+								_this.testingData.push(city[key].tid)
+							}
+						}
+						console.log(_this.cityIdData)
+						_this.cityPicker = true
+					},
+					selectCity(val,index){
+						let _this = this
+						_this.city = val
+						_this.cityId = _this.cityIdData[index]
+						console.log(_this.cityId)
+						_this.testingObj = _this.testingData[index]
+						
+						// 置空 ，
+						_this.testing = ''
+						_this.cityPicker = false
+					},
+
+						// 考点内容的选择
+					clickTesting(){
+						let _this = this
+						if(_this.city == ''){ // 当学校信息为空时，弹出错误信息
+							_this.$notify({ type: 'warning', message: '请先选择城市'})
+							return
+						}else {
+							// 置空
+							_this.testingName =[]
+							for(key in _this.testingObj) {
+								_this.testingIdData.push(key)
+								_this.testingName.push(_this.testingObj[key])
+							}
+							_this.testingPicker = true
+						}
+					},
+					selectTesting(val,index){
+						let _this = this
+						_this.testing = val
+						_this.testingId = _this.testingIdData[index]
+						_this.testingPicker = false
+					},
+
+					// 表单的提交
+					failedSubmit(){ // 当信息不通过时
+						let _this = this
+						_this.$notify({ type: 'warning', message: '您提交的信息不完整，暂时无法提交'})
+					},
+
+					sucessSubmit(){ // 信息通过时
+						let _this = this
+						if(_this.testing == '') {
+							_this.$notify({ type: 'warning', message: '您提交的信息不完整，暂时无法提交'})
+							return
+						}
+						// 还需判断是否已存在订单，已存在则进入订单页，不存在则可进行下一步
+						_this.formData.name = _this.name
+						_this.formData.idcard = _this.idcard
+						_this.formData.type = _this.type
+						_this.formData.grade = _this.grade
+						_this.formData.school = _this.school
+						_this.formData.level = _this.level
+						_this.formData.major = _this.major
+						_this.formData.city = _this.city
+						_this.formData.testing = _this.testing
+
+						_this.formID.name= _this.name
+						_this.formID.idcard = _this.idcard
+						_this.formID.typeId = _this.type
+						_this.formID.gradeID = _this.grade
+						_this.formID.schoolID = _this.schoolId
+						_this.formID.levelID = _this.levelId
+						_this.formID.majorID = _this.majorId
+						_this.formID.cityID = _this.cityId
+						_this.formID.testingID = _this.testingId
+
+						
+						if(_this.TF299adult == true){
+							console.log('299礼包')
+						} else {
+							if( _this.typeId == 'adult' ){ // 成人高考
+								console.log('提交类型为成人高考')
+							} else if( _this.typeId == 'open' ){
+								console.log('提交类型为开放教育')
+							} else if( _this.typeId == 'self' ){
+								console.log('提交类型为自学考试')
+							} else if( _this.typeId == 'online' ){
+								console.log('提交类型为网络教学')
+							}
+						}
+						// 将信息存到sessionStore中，方便一步当中获取
+						window.sessionStorage.setItem('userId',JSON.stringify(_this.formID))
+						window.sessionStorage.setItem('userData',JSON.stringify(_this.formData))
+						let url ='{php echo $this->createMobileUrl("confirmform", array("do"=>"confirmform"));}'
+						location.href = url
 					}
+
 				}
     })
 </script> 

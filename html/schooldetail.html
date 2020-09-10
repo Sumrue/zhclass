@@ -504,48 +504,6 @@
             observer:true,//修改swiper自己或子元素时，自动初始化swiper
             observeParents:true,//修改swiper的父元素时，自动初始化swiper
           }) 
-        
-
-
-          function htmlspecialchars_decode(string, quote_style) {
-            var optTemp = 0
-                , i = 0
-                , noquotes = false;
-            if (typeof quote_style === 'undefined') {
-                quote_style = 2;
-            }
-            string = string.toString().replace(/</g, '<').replace(/>/g, '>');
-            var OPTS = {
-                'ENT_NOQUOTES': 0,
-                'ENT_HTML_QUOTE_SINGLE': 1,
-                'ENT_HTML_QUOTE_DOUBLE': 2,
-                'ENT_COMPAT': 2,
-                'ENT_QUOTES': 3,
-                'ENT_IGNORE': 4	
-            };
-            if (quote_style === 0) {
-                noquotes = true;
-            }
-            if (typeof quote_style !== 'number') {
-                quote_style = [].concat(quote_style);
-                for (i = 0; i < quote_style.length; i++) {
-                    if (OPTS[quote_style[i]] === 0) {
-                        noquotes = true;
-                    } else if (OPTS[quote_style[i]]) {
-                        optTemp = optTemp | OPTS[quote_style[i]];
-                    }
-                }
-                quote_style = optTemp;
-            }
-            if (quote_style & OPTS.ENT_HTML_QUOTE_SINGLE) {
-                string = string.replace(/&#0*39;/g, "'");
-            }
-            if (!noquotes) {
-                string = string.replace(/"/g, '"');
-            }
-            string = string.replace(/&/g, '&');
-            return string;
-        }
 
         // 监听评论功能输入时的输入限制显示
         $(".voice_box").on('input propertychange', function () {
@@ -631,55 +589,82 @@
             }
           }
         )
-        // 留言区内容加载
-        let voiceMsgHtml = function(){
-          let vioceHtml = ''
-          let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
-          let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
-          let voiceData = [
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '阿斯蒂芬', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '按地方撒', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没嘎达啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '刚打', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶第三个', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: 'gas打发', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶发送到', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '啥都干的', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-            {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'}
-          ]
-          for(let i = 0; i < voiceData.length; i ++){
-            let myname = voiceData[i].name
+        
+        // 主页留言的请求与提交
+        let voiceAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'getfree','method'=>'ajaxgetlist'));}"
+        let voiceGetData = function () {
+          $.get(voiceAjaxurl, function (data) {
+            let voiceData = []
+            if (data.length !== 0) {
+              voiceData = JSON.parse(data)
+              console.log(voiceData)
+            }else{
+              console.log('获取数据失败')  //没有数据后，禁止请求获取数据
+            }
+          }).then(res=>{
+            let voiceData = JSON.parse(res)
+            let data = voiceData.list
+            console.log(data)
+            let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
+            let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
+            let vioceHtml = ''
+            for(let i = 0; i < data.length; i ++){
+            let myname = data[i].nickname
+            let reply = data[i].reply
+            if(data[i].reply == null ) {
+              reply = ''
+            } else {
+              reply = data[i].reply
+            }
             vioceHtml += `
               <div class="swiper-slide">
                 <div class="voice_message_item">
                   <div class="message_item_pic fl">
-                    <img src="${voiceData[i].userHead}" alt="">
+                    <img src="${data[i].avatar}" alt="">
                   </div>
                   <div class="message_item fr">
                     <p class="name">${myname.slice(0,1)}**</p>
-                    <p class="question">问：${voiceData[i].question}</p>
-                    <p class="reply">回复：<span>${voiceData[i].answer}</span></p>
+                    <p class="question">问：${data[i].content}</p>
+                    <p class="reply">回复：<span>${reply}</span></p>
                   </div>
                 </div>
               </div>	
             `
           }
           voiceMsg.append(vioceHtml)
+          })
         }
-        voiceMsgHtml()
+        voiceGetData()
+
+        // 提交
+        let voiceSubmit = $('.voice_message_btn')
+        voiceSubmit.click(function(){
+              // 获取留言框中的内容
+          let content = $('.voice_box').val()
+          // let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}" + '&grade=' + 1 + '&global_score=' + 1 + '&content_score=' + 1 + '&understand_score=' + 1 + '&content=' + content
+          let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}"
+          if(content == '') {
+            console.log(1111)
+            return
+          } else {
+            $.post(voicePostAjaxurl,{
+              content: content
+            },function (data) {
+              console.log(data)
+          }).then(res=>{
+            let $toast = $('#toast')
+            if ($toast.css('display') != 'none') return;
+              $toast.fadeIn(100);
+              setTimeout(function () {
+                  $toast.fadeOut(100);
+              }, 2000);
+          })
+          // 提交后清空
+          $('.voice_box').val('')
+          // 隐藏按钮，避免恶意提交
+          $('.voice_message_btn').css('display','none')
+          }
+        })
 
         // 学员上进故事分享
         // 学员故事分享

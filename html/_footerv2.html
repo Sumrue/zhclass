@@ -115,12 +115,16 @@
 	let applyForm = $('.apply_form_url')
 	function toApplyForm(){
 		let applyIndex = sessionStorage.getItem('apply_form_url')
-		if(applyIndex == 0 || applyIndex == 3) {
-			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform"));}'
+		if(applyIndex == 0) {
+			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult"));}'
 		} else if(applyIndex == 1){
-			location.href = '{php echo $this->createMobileUrl("openform", array("do"=>"openform"));}'
-		} else {
-			location.href = '{php echo $this->createMobileUrl("applyform", array("do"=>"applyform"));}'
+			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"open"));}'
+		} else if(applyIndex == 2){
+			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"self"));}'
+		} else if(applyIndex == 3) {
+			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"online"));}'
+		}else {
+			location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult"));}'
 		}
 	}
 </script>

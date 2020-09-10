@@ -9,7 +9,7 @@
 				<li class="nav_item">成人高考</li>
 				<li class="nav_item">开放教育</li>
 				<li class="nav_item">自学考试</li>
-				<li class="nav_item">职业教育</li>
+				<li class="nav_item">网络教学</li>
 				<!-- <div class="nav_item_line"></div> -->
 			</ul>
 		</nav>
@@ -29,7 +29,10 @@
 				<!-- 自学考试 -->
 				{template $template.'/self_learn'}
 			</div>
-			<div class="panel_box"><h1>4</h1></div>
+				<!-- 网络学习 -->
+			<div class="panel_box">
+				{template $template.'/online_education'}
+			</div>
 		</div>
 
 	</main>
@@ -191,55 +194,26 @@
 		}
 		selfNumRoll()
 
-		// 评论区内容及数据的插入
-		let voiceMsgHtml = function(){
-      let vioceHtml = ''
-      let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
-      let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
-      let voiceData = [
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '阿斯蒂芬', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '按地方撒', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没嘎达啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '刚打', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶第三个', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: 'gas打发', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '噶发送到', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '啥都干的', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'},
-        {userHead: '{MODULE_URL}template/mobile/default/images/index/voic_message_pic.jpeg',name: '没啊啊', question: '打发接收的阿斯顿发斯蒂芬阿道夫',answer: '打发接收的房间辣看时间傅雷家书阿萨德积分卡设计费拉卡机阿萨德解放啦'}
-      ]
-      for(let i = 0; i < voiceData.length; i ++){
-        let myname = voiceData[i].name
-        vioceHtml += `
-          <div class="swiper-slide">
-            <div class="voice_message_item">
-              <div class="message_item_pic fl">
-                <img src="${voiceData[i].userHead}" alt="">
-              </div>
-              <div class="message_item fr">
-                <p class="name">${myname.slice(0,1)}**</p>
-                <p class="question">问：${voiceData[i].question}</p>
-                <p class="reply">回复：<span>${voiceData[i].answer}</span></p>
-              </div>
-            </div>
-          </div>	
-        `
-      }
-      voiceMsg.append(vioceHtml)
-    }
-    voiceMsgHtml()
+		// 网络教学报名人数滚动效果
+		let onlineNumRoll = function(){
+			let rollItems = $('.onlineroll_small_items')
+			rollItems.css('marginTop',0)
+			let rollBox = $('.onlineroll_box')
+					// 根据传入值滚动
+			let res = [1,3,5,2]
+			rollItems.each(
+				function(index){
+					let $this = $(this)
+					setTimeout(function(){
+						$this.animate(
+							{marginTop: - (5 + res[index] * 0.5) + 'rem'},
+							{duration: 2000}
+						)
+					},300*index)
+				}
+			)
+		}
+		onlineNumRoll()
 
 		// 学员故事分享
 		let articHtml = function(){
@@ -293,7 +267,82 @@
     }
 		articHtml()
 		
-		
+		// 主页留言的请求与提交
+		let voiceAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'getfree','method'=>'ajaxgetlist'));}"
+    let voiceGetData = function () {
+      $.get(voiceAjaxurl, function (data) {
+        let voiceData = []
+        if (data.length !== 0) {
+          voiceData = JSON.parse(data)
+          console.log(voiceData)
+        }else{
+          console.log('获取数据失败')  //没有数据后，禁止请求获取数据
+        }
+      }).then(res=>{
+				let voiceData = JSON.parse(res)
+				let data = voiceData.list
+				console.log(data)
+				let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
+   			let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
+				let vioceHtml = ''
+				for(let i = 0; i < data.length; i ++){
+				let myname = data[i].nickname
+				let reply = data[i].reply
+				if(data[i].reply == null ) {
+					reply = ''
+				} else {
+					reply = data[i].reply
+				}
+        vioceHtml += `
+          <div class="swiper-slide">
+            <div class="voice_message_item">
+              <div class="message_item_pic fl">
+                <img src="${data[i].avatar}" alt="">
+              </div>
+              <div class="message_item fr">
+                <p class="name">${myname.slice(0,1)}**</p>
+                <p class="question">问：${data[i].content}</p>
+                <p class="reply">回复：<span>${reply}</span></p>
+              </div>
+            </div>
+          </div>	
+        `
+      }
+      voiceMsg.append(vioceHtml)
+      })
+    }
+    voiceGetData()
+
+		// 提交
+		let voiceSubmit = $('.voice_message_btn')
+		voiceSubmit.click(function(){
+			    // 获取留言框中的内容
+			let content = $('.voice_box').val()
+			// let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}" + '&grade=' + 1 + '&global_score=' + 1 + '&content_score=' + 1 + '&understand_score=' + 1 + '&content=' + content
+			let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}"
+			if(content == '') {
+				console.log(1111)
+				return
+			} else {
+				$.post(voicePostAjaxurl,{
+					content: content
+				},function (data) {
+					console.log(data)
+      }).then(res=>{
+				let $toast = $('#toast')
+				if ($toast.css('display') != 'none') return;
+					$toast.fadeIn(100);
+					setTimeout(function () {
+							$toast.fadeOut(100);
+					}, 2000);
+      })
+			// 提交后清空
+			$('.voice_box').val('')
+			// 隐藏按钮，避免恶意提交
+			$('.voice_message_btn').css('display','none')
+			}
+		})
+  	
 	// 点击切换顶部导航
 		// 点击
     navItem.click(
@@ -308,7 +357,7 @@
 				} else if (num == 2) {
 					selfNumRoll()
 				} else {
-					console.log('第四个页面')
+					onlineNumRoll()
 				}
 				// 存入下标，根据下标跳转页面
 				window.sessionStorage.setItem('apply_form_url',num)
@@ -366,16 +415,6 @@
 				// 内容区域切换
 				switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
 			})
-
-		// 合作学院点击展开效果
-			let schoolItemBtn = $('.school_item_btn')
-			schoolItemBtn.click(function(){
-				let schoolItemBox = $('.school_item_box')
-				schoolItemBox.animate(
-					{height:'100%'},
-					{direction: 1200}
-				)
-			})
 			// 点击学校跳转至学校详情页
 			let schoolHzitem = $('.school_hz_box .school_item')
 			schoolHzitem.click(function(){
@@ -384,6 +423,15 @@
 				location.href = url
 			})
 
+			// 主页成人高考礼包跳转
+			let adultApplyBtn = $('.apply_gift_buy')
+			adultApplyBtn.click(
+				function(){
+					// 根据商品ID来创建订单，跳转至订单页面
+					let url = '{php echo $this->createMobileUrl("confirm", array("id"=>"6110","spec_id"=>"8577"));}'
+      		location.href = url
+				}
+			)
 		// 常见问题手风情效果
 			$('.weui-cell').click(
 				function(){

@@ -24,6 +24,34 @@
 			 iframe.parentNode.removeChild(iframe)
 		}
 		</script>
+		<style>
+			.nowinvi {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgb(0, 0, 0,.7);
+				display: none;
+			}
+			.nowinvi>.bg {
+				position: absolute;
+				top: .2rem;
+				right: .2rem;
+				width: 1.6rem;
+			}
+			.nowinvi>.bg>img {
+				width: 100%;
+			}
+			.nowinvi>.content {
+				position: absolute;
+				text-align: center;
+				color: #fff;
+				width: 2.8rem;
+				top: 1.6rem;
+				right: 1.3rem;
+			}
+		</style>
   </head>
 	<body data-weui-theme="light">
 		<div class="page-container" id="page-container">
@@ -79,7 +107,7 @@
 									<img src="{MODULE_URL}template/mobile/{$template}/images/index/closeX.png" alt="" class="closeX">
 								</div>
 							</div>
-							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button>立即邀请</button></div>
+							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 						</div>
 					</div>
 					<!-- 排行榜 -->
@@ -229,7 +257,7 @@
 									<p>暂无邀请学员～<br>快去邀请好友赚积分吧</p>
 								</div>
 							</div>
-							<div class="footer"><button>生成邀请专属海报</button> <button>立即邀请</button></div>
+							<div class="footer"><button>生成邀请专属海报</button> <button class="nowinvi_btn">立即邀请</button></div>
 							<div class="js_dialog" id="iosDialog2" style="display: none;">
 								<div class="weui-mask"></div>
 								<div class="weui-dialog">
@@ -243,6 +271,18 @@
 								</div>
 						</div>
 						</div>
+					</div>
+				</div>
+				<div class="nowinvi">
+					<div class="bg">
+						<img src="{MODULE_URL}template/mobile/{$template}/images/index/invitgift_invitbg.png" alt="">
+					</div>
+					<div class="content">
+						请点击右上角
+						<br>
+						将它发送给指定朋友
+						<br>
+						或者分享到朋友圈
 					</div>
 				</div>
 			</div>
@@ -360,7 +400,6 @@
 		bannerItems.append(bannerItemHtm)
 
 		let wpc = '{php echo json_encode($_W);}'
-		console.log(wpc)
 		// 导航及对应页面切换
 		let navItem = $('.nav_item')
 		let panelItem = $('.panel')
@@ -422,6 +461,15 @@
     });
 		$('#close_my').click(function(){
 			$('.js_dialog').fadeOut(200)
+		})
+
+		$('.nowinvi_btn').on('click',function(){
+			console.log(1)
+			$('.nowinvi').css('display','block')
+		})
+		$('.nowinvi').on('click',function(){
+			console.log(2)
+			$('.nowinvi').css('display','none')
 		})
 	});
 </script>

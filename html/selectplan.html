@@ -108,7 +108,7 @@
         </div>
         <div class="text-tip"><p class="t1">温馨提醒：</p> <p class="t2">若您报读自考前已在远智教育报读过成教、国家开放大学、全日制，报读自考保障计划赠送的成教学籍有可能会替代您当前的成教/国家开放大学/全日制学籍。</p> <p class="t2">若您当前是专科学籍，报读自考本科保障计划赠送的成教学历服务将会在合适的时机中送出。</p> <p class="t2">获取更多信息可咨询您的助学老师</p></div>
       </div>
-      <button class="bottom-btn">
+      <button class="bottom-btn" data-pay="7980">
         ¥ 7980 报读
       </button>
     </div>
@@ -132,11 +132,18 @@
         item.eq(0).addClass('item_on')
         item.eq(1).removeClass('item_on')
         bottomBtn.text('¥ 11980 报读')
+        bottomBtn.attr('data-pay','11980')
       } else {
         item.eq(1).addClass('item_on')
         item.eq(0).removeClass('item_on')
         bottomBtn.text('¥ 7980 报读')
+        bottomBtn.attr('data-pay','7980')
       }
+    })
+    bottomBtn.click(function(){
+      let goodsId = bottomBtn.attr('data-pay')
+      let url = '{php echo $this->createMobileUrl("confirm", array("id"=>"6110","spec_id"=>"8577"));}' + '&goodsId=' + goodsId
+      location.href = url
     })
   })
 </script>
