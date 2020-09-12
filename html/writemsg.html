@@ -42,19 +42,6 @@
 				{/if}
 			{/if}
 		{/loop}
-		{if $setting['privacy_agreement']}
-			<div class="weui-cells weui-cells_checkbox">
-				<label class="weui-cell weui-cell_active weui-check__label" for="privacy_agreement">
-					<div class="weui-cell__hd" style="padding-right:10px;">
-						<input type="checkbox" class="weui-check" id="privacy_agreement" checked />
-						<i class="weui-icon-checked privacy_agreement_checked"></i>
-					</div>
-					<div class="weui-cell__bd agreement_tips">
-						<p>我已阅读并同意<a href="javascript:;" id="view_agreement">《用户服务(隐私)协议》</a></p>
-					</div>
-				</label>
-			</div>
-		{/if}
 		</div>
 		<div class="weui-btn-area">
 			<input type="hidden" name="token" value="{$_W['token']}" />
@@ -133,60 +120,23 @@ function checkSubmit(){
 <div class="login_wrap">
 	<form method="post" onsubmit="return checknum();">
 		<div class="weui-cells weui-cells_form">
-			{if $member['mobile']}
 			<div class="weui-cell">
-				<div class="weui-cell__hd"><label class="weui-label" for="registerform-mobile">原手机号码</label></div>
+				<div class="weui-cell__hd"><label class="weui-label" for="registerform-mobile">手机号码</label></div>
 				<div class="weui-cell__bd">
-					{$member['mobile']}
-				</div>
-			</div>
-			{/if}
-			<div class="weui-cell">
-				<div class="weui-cell__hd"><label class="weui-label" for="registerform-mobile">新手机号码</label></div>
-				<div class="weui-cell__bd">
-					<input type="tel" class="weui-input" name="mobile" placeholder="不修改请留空">
+					<input type="tel" class="weui-input" name="mobile" placeholder="请输入您的手机号">
 				</div>
 			</div>
 			<div class="weui-cell weui-cell_vcode">
-                <div class="weui-cell__hd">
-                    <label class="weui-label">验证码</label>
-                </div>
-                <div class="weui-cell__bd">
-                    <input type="number" class="weui-input" name="verify_code" placeholder="请输入验证码">
-                </div>
-                <div class="weui-cell__ft">
-                    <a href="javascript:;" class="weui-vcode-btn" id="weui_btn_send" onclick="sendcode()">获取验证码</a>
-                </div>
-            </div>
-
-			{if $userAgent}
-			<div class="weui-cell">
-				<div class="weui-cell__hd"><label class="weui-label" for="registerform-mobile">重置密码</label></div>
+				<div class="weui-cell__hd">
+						<label class="weui-label">验证码</label>
+				</div>
 				<div class="weui-cell__bd">
-					<input type="password" class="weui-input" id="password" name="password" placeholder="不重置密码请留空">
+						<input type="number" class="weui-input" name="verify_code" placeholder="请输入验证码">
 				</div>
-			</div>
-			<div class="weui-cell">
-				<div class="weui-cell__hd"><label class="weui-label" for="registerform-mobile">确认密码</label></div>
-				<div class="weui-cell__bd ">
-					<input type="password" class="weui-input" name="password2" placeholder="请再次输入密码">
+				<div class="weui-cell__ft">
+						<a href="javascript:;" class="weui-vcode-btn" id="weui_btn_send" onclick="sendcode()">获取验证码</a>
 				</div>
-			</div>
-			{/if}
-
-			{if $setting['privacy_agreement']}
-			<div class="weui-cells weui-cells_checkbox">
-				<label class="weui-cell weui-cell_active weui-check__label" for="privacy_agreement">
-					<div class="weui-cell__hd" style="padding-right:10px;">
-						<input type="checkbox" class="weui-check" id="privacy_agreement" checked />
-						<i class="weui-icon-checked privacy_agreement_checked"></i>
-					</div>
-					<div class="weui-cell__bd agreement_tips">
-						<p>我已阅读并同意<a href="javascript:;" id="view_agreement">《用户服务(隐私)协议》</a></p>
-					</div>
-				</label>
-			</div>
-			{/if}
+      </div>
 		</div>
 		<div class="weui-btn-area">
 			<input type="hidden" name="token" value="{$_W['token']}" />
@@ -213,22 +163,6 @@ function checknum(){
 			return false;
 		}
 	}
-
-<?php if($userAgent){ ?>
-	var password = document.getElementById("password").value.length;
-	if($("input[name=password]").val()!='' && password<6){
-		alert("密码长度不能小于6位");
-		return false;
-	}
-	if($("input[name=password]").val()!='' && password>20){
-		alert("密码长度不能大于20位");
-		return false;
-	}
-	if($("input[name=password]").val()!='' && $("input[name=password]").val()!=$("input[name=password2]").val()){
-		alert("两次密码不一致");
-		return false;
-	}
-<?php } ?>
 	
 	<?php if($setting['privacy_agreement']){ ?>
 	if(!$("#privacy_agreement").is(':checked')){
@@ -293,25 +227,5 @@ function checkMobile() {
 }
 </script>
 {/if}
-
-<div class="privacy_agreement_notice-mask" style="display:none;">
-	<div class="privacy_agreement_notice">
-		<div class="close">
-			<img src="{MODULE_URL}template/mobile/default/images/btn-close.png?v=6" width="32" height="32">
-		</div>
-		<h3 class="notice-title">用户服务(隐私)协议</h3>
-		<ul class="notice-body">
-			{php echo htmlspecialchars_decode($setting['privacy_agreement'])}<p><br></p>
-		</ul>
-	</div>
-</div>
-<script type="text/javascript">
-	//查看用户隐私协议
-	$("#view_agreement").click(function(){
-		$('.privacy_agreement_notice-mask').fadeIn(200).unbind('click').click(function(){
-			$(this).fadeOut(100);
-		})
-	});
-</script>
 
 {template $template.'/_footerv2'}

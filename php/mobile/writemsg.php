@@ -94,7 +94,7 @@ if($op=='display'){
 	}
 
 }elseif($op=='modifyMobile'){
-	$title = $member['mobile'] ? '修改手机号码':'绑定手机号码';
+	$title = '绑定手机';
 	$userAgent = $this->checkUserAgent();
 
 	if(empty($sms['template_id'])){
@@ -146,7 +146,7 @@ if($op=='display'){
 			unset($_SESSION['mobile_record']);
 			unset($_SESSION['mobile_code']);
 
-			message($member['mobile'] ? "修改成功" : '绑定成功', $this->createMobileUrl('self'), "success");
+			message($member['mobile'] ? "修改成功" : '绑定成功', $this->createMobileUrl('index'), "success");
 		}else{
 			message($member['mobile'] ? "修改失败" : '绑定失败', "", "error");
 		}

@@ -41,11 +41,7 @@
 
 <script>
   $(function(){
-		// 底部设置个人中心头像
-		let userAA = {php echo json_encode($_W["fans"]["avatar"])};
-		// window.localStorage.setItem('headImg',userAA)
-		let footerSelfIcon = $('.self_footer_navbar')
-		footerSelfIcon.attr("src",userAA)
+
 		// 学员风采通用轮播 (包括证书展示)
 		var studentShowSwiper = new Swiper ('.student_show_swiper', {
 				loop: true,
@@ -90,8 +86,11 @@
 			}
     }
 
-		// 默认设置显示页面
-		let panelBoxOnIndex = 0
+		// 主页默认显示pannel页面
+		let panelBoxOnIndex = '{php echo $_GPC["indextype"]}'
+		if(panelBoxOnIndex == '') {
+			panelBoxOnIndex = 0
+		}
 		// 底部报读页面的选中，根据主页面选中，存入session中,设置ulr
 		window.sessionStorage.setItem('apply_form_url',panelBoxOnIndex)
 		let navItem = $('.nav_item')
@@ -110,7 +109,7 @@
     //   left:navItemWd * panelBoxOnIndex + navItemWd *.275 // 初始居中，剩余百分比除以2        默认下滑线位置
     // })
 
-
+		
 		// 报名成功轮播
 		let banner = function(){
       let bannerApplyItems = $('.banner_apply_box')
@@ -316,30 +315,36 @@
 		// 提交
 		let voiceSubmit = $('.voice_message_btn')
 		voiceSubmit.click(function(){
-			    // 获取留言框中的内容
-			let content = $('.voice_box').val()
-			// let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}" + '&grade=' + 1 + '&global_score=' + 1 + '&content_score=' + 1 + '&understand_score=' + 1 + '&content=' + content
-			let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}"
-			if(content == '') {
-				console.log(1111)
-				return
-			} else {
+			// 注册手机号后才可以提交评论
+			let phone = {php echo json_encode($_W['member']['mobile'])};
+			if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
+			location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+			}else {
+				// 获取留言框中的内容
+				let content = $('.voice_box').val()
+				// let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}" + '&grade=' + 1 + '&global_score=' + 1 + '&content_score=' + 1 + '&understand_score=' + 1 + '&content=' + content
+				let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}"
+				if(content == '') {
+					console.log(1111)
+					return
+				} else {
 				$.post(voicePostAjaxurl,{
-					content: content
-				},function (data) {
-					console.log(data)
-      }).then(res=>{
-				let $toast = $('#toast')
-				if ($toast.css('display') != 'none') return;
-					$toast.fadeIn(100);
-					setTimeout(function () {
-							$toast.fadeOut(100);
-					}, 2000);
-      })
-			// 提交后清空
-			$('.voice_box').val('')
-			// 隐藏按钮，避免恶意提交
-			$('.voice_message_btn').css('display','none')
+						content: content
+					},function (data) {
+						console.log(data)
+				}).then(res=>{
+					let $toast = $('#toast')
+					if ($toast.css('display') != 'none') return;
+						$toast.fadeIn(100);
+						setTimeout(function () {
+								$toast.fadeOut(100);
+						}, 2000);
+				})
+				// 提交后清空
+				$('.voice_box').val('')
+				// 隐藏按钮，避免恶意提交
+				$('.voice_message_btn').css('display','none')
+				}
 			}
 		})
   	
@@ -418,9 +423,15 @@
 			// 点击学校跳转至学校详情页
 			let schoolHzitem = $('.school_hz_box .school_item')
 			schoolHzitem.click(function(){
-				let id = schoolHzitem.attr('data-id')
-				let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
-				location.href = url
+				// 注册手机号后才可以提交评论
+				let phone = {php echo json_encode($_W['member']['mobile'])};
+				if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
+				location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+				}else {
+					let id = schoolHzitem.attr('data-id')
+					let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
+					location.href = url
+				}
 			})
 
 			// 主页成人高考礼包跳转
@@ -428,7 +439,7 @@
 			adultApplyBtn.click(
 				function(){
 					// 根据商品ID来创建订单，跳转至订单页面
-					let url = '{php echo $this->createMobileUrl("confirm", array("id"=>"6110","spec_id"=>"8577"));}'
+					let url = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","exist299"=>"true","cid"=>"1"));}'
       		location.href = url
 				}
 			)

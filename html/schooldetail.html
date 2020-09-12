@@ -363,7 +363,7 @@
                   </p>
                   <p class="bottom_text">(上述考分不含政策性加分)</p>
                 </div>
-                  <a href="" class="gift_btn">
+                  <a href="{php echo $this->createMobileUrl('adultuserform', array('do'=>'adultuserform','type'=>'adult','exist299'=>'true','cid'=>'1'));}" class="gift_btn">
                     立即购买
                   </a>
               </div>
@@ -452,15 +452,6 @@
     <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
     <script>
       $(function(){
-
-        
-          // 底部设置个人中心头像
-          let userAA = {php echo json_encode($_W["fans"]["avatar"])};
-          // window.localStorage.setItem('headImg',userAA)
-          let footerSelfIcon = $('.self_footer_navbar')
-          footerSelfIcon.attr("src",userAA)
-
-
           // 对接收到的文章进行处理
           function escape2Html(str) { 
             var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'}; 

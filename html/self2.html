@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/weui.css?v={$versions}" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<title>
+      服务大厅
+		</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,Hiragino Sans GB,Microsoft Yahei,sans-serif;
+      background: #F2F2F2;
+    }
+    html {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    } 
+    p,span {
+      margin: 0;
+      padding: 0;
+    }
+    h1,h2,h3,h4,h5,h6,i,em {
+      font-weight: normal;
+      font-style: normal;
+    }
+    input[type=submit], input[type=reset], input[type=button], button,select {
+      -webkit-appearance: none;
+    }
+    ol,ul,menu {
+      list-style: none outside none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    a{text-decoration:none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+    a:focus{ outline:none; -moz-outline:none;}
+    a:visited{ outline:none; -moz-outline:none;} 
+    a img {
+      border: none;
+    }
+    a:link,
+    a:visited,
+    a:hover,
+    a:active{
+      color: #000;
+      text-decoration: none;
+    }
+    .fl {
+      float: left;
+    }
+    .fr {
+      float: right;
+    }
+    .text-center{
+      text-align: center;
+    }
+    /* 清除浮动 */
+    .clear { *zoom: 1; }
+    .clear:before, .clear:after { display: table; line-height: 0; content: "";}
+    .clear:after { clear: both; }
+    .weui-tabbar__item.weui-bar__item_on .weui-tabbar__label{
+	    color: #f16722;
+    }
+    .footer-nav .weui-tabbar__icon {
+      border-radius: 50%;
+    }
+    .footer-nav{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      max-width:640px;
+        background-color: #fff;
+        z-index: 101;
+        color: #f16722;
+      border-top: 1px solid #f1f0f5;
+    }
+    .footer-nav .weui-tabbar__label {
+      color: #f16722;
+      font-family: 'STSongti-SC-Light';
+      font-weight: 700;
+    }
+    #page-container {
+      background: #F2F2F2;
+      width: 100%;
+      max-width: 640px;
+      font-size: .28rem;
+      padding-bottom: 1rem;
+    }
+    .head {
+      padding: .18rem .2rem;
+      background: #F2F2F2;
+      background: url({MODULE_URL}template/mobile/{$template}/images/self_topbg.png) no-repeat;
+      background-size: 100% 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .head_left {
+      display: flex;
+      align-items: center;
+    }
+  
+    .head_header {
+      width: 1.45rem;
+      height: 1.45rem;
+      margin: 0 .2rem 0 .05rem;
+    }
+    .head_header img {
+      width: 100%;
+      border-radius: 50%;
+    }
+    .head .name {
+      font-size: .36rem;
+      font-weight: 700;
+      color: rgba(23,6,6,.8);
+    }
+    .my_msg>p {
+      font-size: .24rem;
+      color: rgba(23,6,6,.4);
+    }
+    .signin {
+      width: 1.6rem;
+      height:.7rem ;
+      line-height: .7rem;
+      color: #fff;
+      background-color: #F07A7A;
+      border-radius: .4rem;
+      display: flex;
+      align-items: center;
+    }
+    .signin .icon {
+      margin-left: .25rem;
+      margin-right: .05rem;
+    }
+
+    .main_container {
+      padding: 0 .17rem;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: .2rem .2rem;
+      margin: .2rem 0;
+    }
+    .card_title {
+      width: 100%;
+      height: .9rem;
+      line-height: .7rem;
+      border-bottom: 1px solid rgba(23,6,6,.07);
+    }
+    .title {
+      width: 3rem;
+      font-size: .36rem;
+      font-weight: 700;
+      color: rgba(23,6,6,.8);
+      float: left;
+    }
+    .toshopping {
+      float: right;
+      width: 2.5rem;
+    }
+    .toshopping img {
+      width: 100%;
+    }
+    .my_point {
+      display: flex;
+      align-items: center;
+      margin: .3rem 0 0 .2rem;
+      position: relative;
+    }
+    .my_point::after {
+      content: "";
+      width: 1px;
+      height: 1.2rem;
+      background-color: rgba(23,6,6,.07);
+      position: absolute;
+      top: .1rem;
+      left: 2.8rem;
+    }
+    .my_point>div {
+      flex: 1;
+    }
+    .my_point p{
+      margin-bottom: .3rem;
+      display: flex;
+      align-items: center;
+    }
+    .my_point .van-icon {
+      margin-right: .2rem;
+    }
+    .point_num {
+      font-size: .4rem;
+      font-weight: 700;
+      color: rgba(23,6,6,.8);
+    }
+
+    .menu_list>.item {
+      float: left;
+      width: 25%;
+      text-align: center;
+      margin: .2rem 0;
+    }
+    .head_icon {
+      width: .66rem;
+      height: .66rem;
+      background-color: #f08e8e69;
+      border-radius: 50%;
+      margin: 0 auto;
+      margin-bottom: .2rem;
+    }
+    .head_icon .van-icon {
+      margin-top: .13rem;
+    }
+    .item_name {
+      font-weight: 600;
+      font-size: .24rem;
+    }
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <div class="head">
+        <div class="head_left">
+          <div class="head_header">
+            <img :src="myHeader" alt="">
+          </div>
+          <div class="my_msg">
+            <span class="name">{{name}}</span>
+            <p>学院学号:{{id}}</p>
+            <p>手机号码:{{phoneSelect}}</p>
+          </div>
+        </div>
+        <div class="head_right">
+          <a class="signin" href="{php echo $this->createMobileUrl('signin');}">
+            <van-icon name="records" size="20" class="icon" color="#fff">
+            </van-icon>
+            <span style="color: #fff;">{php echo $signin_log ? '已签到' : '签到';}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="main_container">
+        <div class="card">
+          <div class="card_title">
+            <div class="title">我的资产</div>
+            <a class="toshopping" href="{php echo $this->createMobileUrl('shoppingmall');}">
+              <img src="{MODULE_URL}template/mobile/{$template}/images/toshopping.png" alt="">
+            </a>
+          </div>
+          <div class="my_point">
+            <div>
+              <p>
+                <van-icon name="points" color="#F07A7A" size="20"></van-icon>
+                <span>获得积分</span>
+              </p>
+              <p><span class="point_num">{{point}}</span></p>
+            </div>
+            <div>
+              <p>
+                <van-icon name="like-o" color="#F07A7A" size="20"></van-icon>
+                <span>我的邀请</span>
+              </p>
+              <p><span class="point_num">0</span>个</p>
+            </div>
+          </div>
+        </div>
+        <!-- 广告位 -->
+        <!-- <div>
+          <h1>广告位</h1>
+        </div> -->
+
+        <div class="card">
+          <div class="card_title">
+            <div class="title">个人业务</div>
+          </div>
+          <div class="menu_list">
+            <a class="item" href="{php echo $this->createMobileUrl('confirm2');}">
+              <div class="head_icon">
+                <van-icon name="description" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">报名信息</span>
+            </a>
+            <a class="item">
+              <div class="head_icon">
+                <van-icon name="location-o" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">地址管理</span>
+            </a>
+            <a class="item" href="{php echo $this->createMobileUrl('invitegift');}">
+              <div class="head_icon">
+                <van-icon name="medal-o" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">邀请排行榜</span>
+            </a>
+            
+          </div>
+
+          <!-- 清除浮动 -->
+          <div class="clear"></div>
+        </div>
+
+        <div class="card">
+          <div class="card_title">
+            <div class="title">其他功能</div>
+          </div>
+          <div class="menu_list">
+            <a class="item">
+              <div class="head_icon">
+                <van-icon name="down" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">APP下载</span>
+            </a>
+            <a class="item">
+              <div class="head_icon">
+                <van-icon name="service-o" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">联系客服</span>
+            </a>
+            
+          </div>
+
+          <!-- 清除浮动 -->
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          myHeader: '',
+          name: '',
+          id: '',
+          phone: null,
+          point: null
+        }
+      },
+      created () {
+        let _this = this
+        _this.dataFirst()
+      },
+      methods: {
+        // 初始化时需要的数据
+        dataFirst () {
+          let _this = this
+          let arr = {php echo json_encode($_W["fans"])};
+          _this.point = {php echo json_encode($_W["member"]["credit1"])};
+          _this.phone = {php echo json_encode($_W["member"]["mobile"])};
+          _this.myHeader = arr.avatar
+          _this.name = arr.nickname
+          _this.id = arr.uid
+        }
+      },
+      computed: {
+        phoneSelect () {
+          let idcard = this.phone
+            let str1 = idcard.substring(0,3)
+            let str2 = idcard.substring(8,11)
+            let str = str1 + '******' + str2
+            return str
+        }
+      }
+  })
+</script> 
+{template $template.'/_footerv2'}

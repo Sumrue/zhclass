@@ -585,6 +585,12 @@ class fy_lessonv2ModuleSite extends WeModuleSite
 	public function doMobileConfirmform() {
         $this->__mobile(__FUNCTION__);
     }
+	public function doMobileConfirm2() {
+        $this->__mobile(__FUNCTION__);
+    }
+	public function doMobileSelf2() {
+        $this->__mobile(__FUNCTION__);
+    }
     // 新添加结束
     /************************************************ 公共方法 ************************************ */
     public function __web($f_name)

@@ -87,117 +87,33 @@
 {/if}
 
 <div class="mine_unit">
-	{if in_array('subscribe',$self_item)}
-	<a class="line-grid flex1" href="javascript:;" id="subscribe-btn">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-subscribe.png?v=8" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">订阅消息</div>
-		<i class="fa {php echo $is_subscribe ? 'fa-toggle-on' : 'fa-toggle-off'}" id="subscribe-status" data-subscribe="{$is_subscribe}"></i>
-	</a>
-	{/if}
-	{if $memberVipCount || in_array('vip',$self_item)}
-	<a href="{php echo $this->createMobileUrl('vip');}" class="line-grid icon_right flex1">
+	<a href="{php echo $this->createMobileUrl('confirm2');}" class="line-grid icon_right flex1">
 		<div class="img flex0">
 			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-vip-service.png?v=8" style="width: 16px;" />
 		</div>
-		<div class="flex-al1">{php echo $common['self_page']['vip'] ? $common['self_page']['vip'] : 'VIP服务';}</div>
+		<div class="flex-al1">我的报读信息</div>
 	</a>
-	{/if}
-	{if in_array('myteacher',$self_item)}
-	<a href="{php echo $this->createMobileUrl('myteacher');}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-teacher-buy.png?v=8" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $common['self_page']['myteacher'] ? $common['self_page']['myteacher'] : '讲师服务';}</div>
-	</a>
-	{/if}
-	{if in_array('reclesson',$self_item)}
 	<a href="{php echo $this->createMobileUrl('reclesson');}" class="line-grid icon_right flex1">
 		<div class="img flex0">
 			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-lesson-invite.png?v=8" style="width: 16px;" />
 		</div>
-		<div class="flex-al1">{php echo $common['self_page']['reclesson'] ? $common['self_page']['reclesson'] : '课程邀请';}</div>
+		<div class="flex-al1">{php echo $common['self_page']['reclesson'] ? $common['self_page']['reclesson'] : '我的邀请';}</div>
 	</a>
-	{/if}
-	{if in_array('history',$self_item)}
-	<a href="{php echo $this->createMobileUrl('history');}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-history.png?v=6" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $common['self_page']['history'] ? $common['self_page']['history'] : '我的足迹';}</div>
-	</a>
-	{/if}
-	{if in_array('lesson',$self_item)}
-	<a href="{php echo $this->createMobileUrl('collect', array('ctype'=>1));}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-collect-lesson.png?v=6" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $common['self_page']['collectLesson'] ? $common['self_page']['collectLesson'] : '收藏课程';}</div>
-	</a>
-	{/if}
-	{if in_array('teacher',$self_item)}
-	<a href="{php echo $this->createMobileUrl('collect', array('ctype'=>2));}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-collect-teacher.png?v=8" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $common['self_page']['collectTeacher'] ? $common['self_page']['collectTeacher'] : '收藏讲师';}</div>
-	</a>
-	{/if}
 </div>
 
 <div class="mine_unit">
-	{if in_array('teachercenter',$self_item) || !empty($teacher)}
 	<a href="{php echo $this->createMobileUrl('teachercenter');}" class="line-grid icon_right flex1">
 		<div class="img flex0">
 			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-collect-teachercenter.png?v=8" style="width: 16px;" />
 		</div>
-		<div class="flex-al1">{php echo $common['self_page']['teacherCenter'] ? $common['self_page']['teacherCenter'] : '讲师中心';}</div>
+		<div class="flex-al1">{php echo $common['self_page']['teacherCenter'] ? $common['self_page']['teacherCenter'] : '导师中心';}</div>
 	</a>
-	{/if}
-	{if in_array('sale',$self_item) || ($comsetting['is_sale']==1 && (($comsetting['sale_rank']==1) || ($comsetting['sale_rank']==2 && $memberVipCount)))}
-	<a href="{php echo $this->createMobileUrl('commission');}" class="line-grid icon_right flex1">
+	<a href="{php echo $this->createMobileUrl('teachercenter');}" class="line-grid icon_right flex1">
 		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-commission.png?v=6" style="width: 16px;" />
+			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-collect-teachercenter.png?v=8" style="width: 16px;" />
 		</div>
-		<div class="flex-al1">{php echo $font['sale_center'] ? $font['sale_center']:'分销中心';}</div>
+		<div class="flex-al1">积分商城</div>
 	</a>
-	{/if}
-	{if in_array('studyDuration',$self_item)}
-	<a href="{php echo $this->createMobileUrl('studyduration');}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-study-duration.png?v=8" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $common['self_page']['studyDuration'] ? $common['self_page']['studyDuration'] : '学习时长';}</div>
-	</a>
-	{/if}
-	{if in_array('coupon',$self_item)}
-	<a href="{php echo $this->createMobileUrl('coupon');}" class="line-grid icon_right flex1 ios-system">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-coupon.png?v=6" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $common['self_page']['coupon'] ? $common['self_page']['coupon'] : '优惠券';}</div>
-	</a>
-	{/if}
-	{if $company_teachers}
-	<a href="{php echo $this->createMobileUrl('company');}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-company.png?v=2" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">机构中心</div>
-	</a>
-	{/if}
-</div>
-
-<div class="mine_unit">
-	{if in_array('mobile',$self_item)}
-	<a href="{php echo $this->createMobileUrl('writemsg', array('op'=>'modifyMobile'));}" class="line-grid icon_right flex1">
-		<div class="img flex0">
-			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/self-icon-modify-mobile.png?v=8" style="width: 16px;" />
-		</div>
-		<div class="flex-al1">{php echo $memberinfo['mobile'] ? '修改':'绑定';}手机</div>
-	</a>
-	{/if}
 </div>
 
 {if !empty($self_menu)}

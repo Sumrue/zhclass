@@ -14,6 +14,107 @@
 		<title>
       报名信息填写
 		</title>
+		<style>
+			p {
+				margin: 0;
+				padding: 0;
+			}
+			button {
+				border: none;
+			}
+			.content {
+				position: absolute;
+				font-size: .28rem;
+				width: 100%;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+			}
+			.gift299 {
+				width: 7.1rem;
+    		min-height: 7.24rem;
+				text-align: center;
+				margin: 0 auto;
+				background: url({MODULE_URL}template/mobile/{$template}/images/299gift.png) no-repeat;
+				background-size: 100% 100%;
+			}
+			.p1 {
+				font-size: .54rem;
+				font-weight: 700;
+				color: #e81733;
+				padding-top: .26rem;
+			}
+			.p2 {
+				color: #e81733;
+				font-weight: 500;
+			}
+			.text {
+				margin-top: .4rem;
+				padding: 0 .9rem;
+				text-align: left;
+			}
+			.text>div {
+				padding: .1rem .2rem;
+				background-color: #fff;
+				border-radius: 5px;
+				margin-top: .1rem;
+				padding-left: .4rem;
+				position: relative;
+			}
+			.text>div::before {
+				position: absolute;
+				content: "";
+				width: 5px;
+				height: 5px;
+				border-radius: 50%;
+				top: .2rem;
+				left: .2rem;
+				background-color: #c22338;
+			}
+			.btn_box {
+				margin-top: .3rem;
+				padding: 0 .9rem;
+			}
+			.close {
+				width: 100%;
+				height: .86rem;
+				font-weight: 600;
+				font-size: .30rem;
+				line-height: .76rem;
+				text-align: center;
+				color: #fdf2b9;
+				background: none;
+				border: solid 2px #fdf2b9;
+				border-radius: 5px;
+				box-sizing: border-box;
+			}
+			.buy_it {
+				width: 100%;
+				height: .86rem;
+				font-size: .30rem;
+				line-height: .76rem;
+				text-align: center;
+				box-sizing: border-box;
+				color: #6b420b;
+				font-weight: 500;
+				background: -webkit-gradient(linear,right top,left top,from(#f0c664),to(#fef3be));
+				background: linear-gradient(270deg,#f0c664,#fef3be);
+				-webkit-box-shadow: 0 4px 4px 0 #ea1527;
+				box-shadow: 0 4px 4px 0 #ea1527;
+				border-radius: 5px;
+				margin-top: .2rem;
+			}
+			.txt_bottom {
+				color: #fff;
+				font-size: .24rem;
+				margin-top: .2rem;
+			}
+			.close_box {
+				width: 100%;
+				text-align: center;
+				margin-top: .3rem;
+			}
+		</style>
   </head>
 	<body>
 		<div class="page-container" id="page-container">
@@ -188,11 +289,33 @@
 					@cancel="testingPicker = false"
 				/>
 			</van-popup>
+			<van-overlay :show="show">
+				<div class="content">
+					<div class="gift299">
+						<p class="p1">上进辅导礼包</p>
+						<p class="p2">备考科目:(数学、语文、专科外语)</p>
+						<div class="text">
+							<div>考前辅导课(原价600, 抢购价199)</div>
+							<div>三本教材(原价114, 抢购价100)</div>
+							<div>成考分过295分,奖励三年全额奖学金券(不含政策加分)</div>
+						</div>
+						<div class="btn_box">
+							<!-- <button class="close" @click="show = false">自信裸考</button> -->
+							<button class="buy_it" @click="giftBuy()">¥299 购买上进礼包</button>
+						</div>
+						<p class="txt_bottom">自愿购买，购买后不予退还</p>
+					</div>
+					<div class="close_box">
+						<van-icon name="close" size=".7rem" @click="show = false" color="#fff"/>
+					</div>
+				</div>
+			</van-overlay>
     </div>
 </body>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
 <script>
 		var vm = new Vue({
         el: '#page-container',
@@ -264,7 +387,8 @@
 						cityIdData: [],
 						testingIdData: [],
 						testingData: [],
-						testingObj: {}
+						testingObj: {},
+						show: false
 					}
 				},
 				created () {
@@ -274,7 +398,6 @@
 					let type = '{php echo $_GPC["type"]}'
 					let exist299 = '{php echo $_GPC["exist299"]}'
 					_this.schoolData ={php echo json_encode($school)};
-
 					// 在此之前增加一个判断，判断是否是299,如果是，则存一个参数表示有299，则需要去支付页面。
 					if(exist299 !== ''){
 						_this.TF299adult = true
@@ -292,10 +415,10 @@
 						_this.type = '自学考试'
 						_this.typeId = 'self'
 					} else if( type == 'online'){
-						_this.type = '网络教学'
+						_this.type = '网络教育'
 						_this.typeId = 'online'
 					} else if(type == ''){ // 传入类型不存在时默认为成人高考
-						_this.type = '成人高考?'
+						_this.type = '成人高考'
 						_this.typeId = 'adult'
 						console.log('类型不存在')
 					}
@@ -508,10 +631,15 @@
 						_this.formID.cityID = _this.cityId
 						_this.formID.testingID = _this.testingId
 
-						
-						if(_this.TF299adult == true){
+						// 将信息存到sessionStore中，方便一步当中获取
+						window.sessionStorage.setItem('userId',JSON.stringify(_this.formID))
+						window.sessionStorage.setItem('userData',JSON.stringify(_this.formData))
+						if(_this.TF299adult == true){ // 是299礼包进来的
 							console.log('299礼包')
+							_this.show = true // 299礼包弹出层弹出
 						} else {
+							let url ='{php echo $this->createMobileUrl("confirmform", array("do"=>"confirmform"));}'
+							location.href = url
 							if( _this.typeId == 'adult' ){ // 成人高考
 								console.log('提交类型为成人高考')
 							} else if( _this.typeId == 'open' ){
@@ -522,10 +650,10 @@
 								console.log('提交类型为网络教学')
 							}
 						}
-						// 将信息存到sessionStore中，方便一步当中获取
-						window.sessionStorage.setItem('userId',JSON.stringify(_this.formID))
-						window.sessionStorage.setItem('userData',JSON.stringify(_this.formData))
-						let url ='{php echo $this->createMobileUrl("confirmform", array("do"=>"confirmform"));}'
+					},
+					giftBuy() {
+						console.log(this.formID)
+						let url ='{php echo $this->createMobileUrl("confirmform", array("do"=>"confirmform","gift"=>"exist"));}'
 						location.href = url
 					}
 

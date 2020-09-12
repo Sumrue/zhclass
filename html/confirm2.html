@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+		<title>
+      我的报读信息
+		</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,Hiragino Sans GB,Microsoft Yahei,sans-serif;
+    }
+    p,span {
+      margin: 0;
+      padding: 0;
+    }
+    #page-container {
+      max-width: 640px;
+      font-size: .28rem;
+      background-color: #f8f7f7;
+      color: #2a2a2a;
+    }
+    .header_msg {
+      width: 100%;
+      text-align: left;
+      padding: 0 .2rem;
+      color: #eead60;
+      background-color: #fdf0e1;
+      box-sizing: border-box;
+    }
+    .title {
+      width: 100%;
+      height: .6rem;
+      margin: 0 auto;
+      line-height: .7rem;
+      color: #999;
+      font-size: .24rem;
+      padding: 0 .2rem;
+      box-sizing: border-box;
+    }
+    .title_rt {
+      float: right;
+      color: #00aeef;
+    }
+    .list_container {
+      width: 100%;
+      padding: .2rem .2rem;
+      box-sizing: border-box;
+      background-color: #fff;
+      font-size: .24rem;
+      overflow: hidden;
+    }
+    .my_msg {
+      width: 5rem;
+      float: left;
+    }
+    .my_msg p {
+      margin-bottom: .05rem;
+    }
+    .my_msg span {
+      margin-right: .2rem;
+    } 
+    .my_head {
+      float: right;
+      width: 1.15rem;
+      margin-right: .3rem;
+    }
+    .my_head>img {
+      width: 100%;
+    }
+    .list_container span {
+      color: #999;
+    }
+    .list_detail {
+      padding: .24rem 0;
+      border-top: 1px dotted #e7e7e7;
+      border-bottom: 1px dotted #e7e7e7;
+    }
+    .list_detail span{
+      margin-right: .4rem;
+    }
+    .list_detail>p {
+      margin-bottom: .05rem;
+    }
+    .list_title {
+      height: .6rem;
+      line-height: .6rem;
+      font-size: .30rem;
+      font-weight: 500;
+    }
+    .list_title span{
+      color: #2a2a2a;
+    }
+    .van-tabbar-item--active{
+      color: #646566;
+    }
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <div class="header_msg">
+        亲：报名信息以实际报名后的信息为准，若要修改请联系报考老师哟。
+      </div>
+      <div class="title_box">
+        <div class="title">
+          <span class="title_lf">我的基本信息:</span>
+        </div>
+      </div>
+      <div class="list_container">
+        <div class="my_msg">
+          <p><span>姓名:</span>{{userData.name}}</p>
+          <p><span>手机号:</span>{{userData.phone}}</p>
+          <p><span>证件号:</span>{{idcardCm}}</p>
+        </div>
+        <div class="my_head">
+          <img :src="userHead" alt="">
+        </div>
+      </div>
+      <div class="title_box">
+        <div class="title">
+          <span class="title_lf">报读信息:</span>
+          <span class="title_rt" @click="flow()">报读流程<van-icon name="arrow" size="10"/></span>
+        </div>
+      </div>
+      <div class="list_container">
+        <div class="list_title">
+          <span>[{{userData.grade}}级]</span><span>{{userData.school}}</span>
+        </div>
+        <div class="list_detail">
+          <p><span>学校:</span>{{userData.school}}</p>
+          <p><span>专业:</span>{{userData.major}}[{{userData.level}}]</p>
+          <p><span>报读类型:</span>{{userData.type}}</p>
+          <p><span>我的状态:</span>意向学员 <van-icon name="question-o" color="#00aeef" size="14" @click="toast()"/></p>
+          <p><span>备注:</span></p>
+        </div>
+      </div>
+      <van-tabbar @change="onChange">
+        <van-tabbar-item icon="wap-home-o" class="tabbar" name="index">主页</van-tabbar-item>
+        <van-tabbar-item icon="gift-o" class="tabbar" name="gift">邀请有礼</van-tabbar-item>
+        <van-tabbar-item icon="shopping-cart-o" class="tabbar" name="shop">积分商城</van-tabbar-item>
+        <van-tabbar-item icon="contact" class="tabbar" name="self">个人中心</van-tabbar-item>
+      </van-tabbar>
+    </div>
+</body>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+		var vm = new Vue({
+        el: '#page-container',
+        data (){
+					return {
+            userHead: '',
+            userData: {
+              name: '夏天',
+              phone: 15198246419,
+              idcard: '510184199111020171',
+              school: '清华大学',
+              type: '成人高考',
+              level: '>3 专升本',
+              major: '软件工程',
+              grade: '2021'
+            }
+          }
+				},
+				created () {
+          // 头像获取
+          this.userHead = {php echo json_encode($_W["fans"]["avatar"])};
+          // 获取其他数据
+				},
+        methods: {
+          // 点击问好小图标时所弹出的信息
+          toast(){
+            this.$toast('已报名，未缴费')
+          },
+          // 报读流程的弹出
+          flow(){
+            this.$dialog.alert({
+              title: '报读流程',
+              message: '首先->然后->再然后',
+            })
+          },
+          onChange(name) {
+            if(name == 'index') {
+              let url = '{php echo $this->createMobileUrl("index", array("do"=>"index"));}'
+              location.href = url
+            } else if(name == 'gift') {
+              let url = '{php echo $this->createMobileUrl("invitegift", array("do"=>"invitegift"));}'
+              location.href = url
+            } else if(name == 'shop') {
+              let url = '{php echo $this->createMobileUrl("shoppingmall", array("do"=>"shoppingmall"));}'
+              location.href = url
+            } else {
+              let url = '{php echo $this->createMobileUrl("self", array("do"=>"self"));}'
+              location.href = url
+            }
+          }
+        },
+        computed: {
+          idcardCm () { // 身份证处理
+            let idcard = this.userData.idcard
+            let str1 = idcard.substring(0,6)
+            let str2 = idcard.substring(13,17)
+            let str = str1 + '********' + str2
+            return str
+          }
+        }
+    })
+</script> 
+</html>

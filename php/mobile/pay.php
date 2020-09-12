@@ -40,7 +40,7 @@ if($_GPC['ordertype'] == "buyvip"){
 	$params['tid']     = $order['ordersn'];
 	$params['user']    = $_W['openid'] ? $_W['openid'] : $order['uid'];
 	$params['fee']     = $order['price'];
-	$params['title']   = '购买['.$order['bookname'].']课程';
+	$params['title']   = '['.$order['bookname'].']';
 	$params['ordersn'] = $order['ordersn'];
 
 }elseif($_GPC['ordertype'] == "buyteacher"){
