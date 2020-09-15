@@ -131,7 +131,6 @@
 						input-align="right"
 						error-message-align="right"
 					/>
-					</van-popup>
 				</van-cell-group>
 				<!-- 身份证 -->
 				<van-cell-group>
@@ -344,10 +343,10 @@
 							testingID: null
 						},
 						// 绑定的内容数据
-						name: '奥特曼',
-						idcard: '510184199003120322',
+						name: '',
+						idcard: '',
 						type: '',
-						grade: '2021',
+						grade: '',
 						school: '',
 						level: '',
 						major: '',
@@ -427,7 +426,7 @@
         methods: {
 					// 身份证正则验证
 					idcardReg(val){
-						let Reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+						let Reg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|x|X)$/
 						return Reg.test(val)
 					},
 

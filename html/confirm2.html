@@ -105,7 +105,9 @@
     }
   </style>
 	<body>
+    
 		<div class="page-container" id="page-container">
+      {if $enter['name'] !== ''}
       <div class="header_msg">
         亲：报名信息以实际报名后的信息为准，若要修改请联系报考老师哟。
       </div>
@@ -142,6 +144,9 @@
           <p><span>备注:</span></p>
         </div>
       </div>
+      {else}     
+      <van-empty image="error" description="无报名信息" />
+      {/if}
       <van-tabbar @change="onChange">
         <van-tabbar-item icon="wap-home-o" class="tabbar" name="index">主页</van-tabbar-item>
         <van-tabbar-item icon="gift-o" class="tabbar" name="gift">邀请有礼</van-tabbar-item>
@@ -161,21 +166,20 @@
 					return {
             userHead: '',
             userData: {
-              name: '夏天',
-              phone: 15198246419,
-              idcard: '510184199111020171',
-              school: '清华大学',
-              type: '成人高考',
-              level: '>3 专升本',
-              major: '软件工程',
-              grade: '2021'
+              name: '',
+              phone: null,
+              idcard: '510184199211250311',
+              school: '',
+              type: '',
+              level: '',
+              major: '',
+              grade: ''
             }
           }
 				},
 				created () {
-          // 头像获取
-          this.userHead = {php echo json_encode($_W["fans"]["avatar"])};
-          // 获取其他数据
+          // 初始化数据获取
+          this.dataBegin()
 				},
         methods: {
           // 点击问好小图标时所弹出的信息
@@ -189,6 +193,20 @@
               message: '首先->然后->再然后',
             })
           },
+          dataBegin() {
+            let _this = this
+            // 头像获取
+            _this.userHead = {php echo json_encode($_W["fans"]["avatar"])};
+            let confirmData = {php echo json_encode($enter)};
+            console.log(confirmData)
+            _this.userData.name = confirmData.name
+            _this.userData.phone = confirmData.mobile
+            // _this.userData.idcard = confirmData.code
+            _this.userData.school = confirmData.sname
+            _this.userData.level = confirmData.lname
+            _this.userData.major = confirmData.pname
+            _this.userData.type = confirmData.cname
+          },
           onChange(name) {
             if(name == 'index') {
               let url = '{php echo $this->createMobileUrl("index", array("do"=>"index"));}'
@@ -200,7 +218,7 @@
               let url = '{php echo $this->createMobileUrl("shoppingmall", array("do"=>"shoppingmall"));}'
               location.href = url
             } else {
-              let url = '{php echo $this->createMobileUrl("self", array("do"=>"self"));}'
+              let url = '{php echo $this->createMobileUrl("self2", array("do"=>"self2"));}'
               location.href = url
             }
           }
@@ -209,7 +227,7 @@
           idcardCm () { // 身份证处理
             let idcard = this.userData.idcard
             let str1 = idcard.substring(0,6)
-            let str2 = idcard.substring(13,17)
+            let str2 = idcard.substring(14,18)
             let str = str1 + '********' + str2
             return str
           }

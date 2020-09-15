@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<title>
+      商品详情
+		</title>
+  </head>
+  <style>
+html,body {
+  height: 100%;
+  background: #F1F1F5;
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+} 
+body {
+	color: #333333;
+  font-size: 14px;
+	font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,Hiragino Sans GB,Microsoft Yahei,sans-serif;
+}
+p,span {
+  margin: 0;
+  padding: 0;
+}
+h1,h2,h3,h4,h5,h6,i,em {
+	font-weight: normal;
+	font-style: normal;
+}
+input[type=submit], input[type=reset], input[type=button], button,select {
+	-webkit-appearance: none;
+}
+ol,ul,menu {
+	list-style: none outside none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{text-decoration:none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
+a:focus{ outline:none; -moz-outline:none;}
+a:visited{ outline:none; -moz-outline:none;} 
+a img {
+	border: none;
+}
+/* 页面整体布局 */
+.page-container{
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  height: 100%;
+}
+/* 清除浮动 */
+.clear { *zoom: 1; }
+.clear:before, .clear:after { display: table; line-height: 0; content: "";}
+.clear:after { clear: both; }
+
+.goods_detail {
+  width: 100%;
+  padding: .15rem .2rem;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.goods_img {
+  width: 3.4rem;
+  height: 3.4rem;
+  float: left;
+  margin-right: .3rem;
+}
+.goods_img img {
+  width: 100%;
+}
+
+.goods_msg {
+  float: left;
+  width: 3.4rem;
+}
+.goods_msg>.title {
+  font-weight: 600;
+  text-align: center;
+  margin: .15rem 0 .3rem;
+  color: #ee0a24;
+}
+.goods_msg>.des {
+  font-size: .24rem;
+  color: rgb(0,0,0,.5);
+}
+
+.point {
+  position: absolute;
+  bottom: .3rem;
+  left: 3.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 3.4rem;
+}
+
+.point>div {
+  display: flex;
+  align-items: center;
+  color: #ee0a25bd;
+}
+.point>div>.van-icon {
+  margin-right: .1rem;
+}
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <div class="goods_detail">
+        <div class="goods_img">
+          <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
+        </div>
+        <div class="goods_msg">
+          <p class="title">商品标题</p>
+          <p class="des">登记核发加水电费接口卡时间段发了看见爱上打开了房间阿萨德咖啡机卡萨丁</p>
+          <div class="point">
+            <div>
+              <van-icon name="gold-coin" color="#ee0a24" size="16"></van-icon>
+              6666 <span>积分</span>
+            </div>
+            <van-stepper v-model="value" min="1" max="10"  button-size="22"/>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div>
+        <div>请填写您的收货信息</div>
+        <van-form @failed="failedSubmit" @submit="sucessSubmit" :show-error='false'>
+          <!-- 姓名 -->
+          <van-cell-group>
+            <van-field 
+              v-model="name" 
+              label="姓名" 
+              placeholder="请输入您的姓名" 
+              maxlength = 8 
+              show-error=false
+              :rules="[{ required: true, message: '姓名不能为空' }]" 
+              input-align="right"
+              error-message-align="right"
+            />
+          </van-cell-group>
+
+          <van-cell-group>
+            <van-field 
+              v-model="phone"
+              label="电话号码" 
+              placeholder="请输入您的电话号码"
+              show-error="false"
+              maxlength = 11 :rules="[{ required: true, message: '电话号码不能为空' },{ validator: phoneReg, message: '请输入正确的电话号码' }]"  
+              input-align="right"
+              error-message-align="right"
+              mame="phone"
+            />
+          </van-cell-group>
+
+          <van-cell-group>
+            <van-field 
+              v-model="address"
+              label="收货地址" 
+              placeholder="请输入您的详细地址"
+              show-error="false"
+              maxlength = 30 :rules="[{ required: true, message: '地址不能为空' }]"  
+              input-align="right"
+              error-message-align="right"
+            />
+          </van-cell-group>
+        </van-form>
+        
+        <div v-if="address !== ''">
+          <van-tag color="#ffe1e1" text-color="#ad0000" size="large">请核实您的地址信息</van-tag>
+          <p>{{address}}</p>
+        </div>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          value: 1,
+          name: '',
+          phone: null,
+          address: ''
+        }
+      },
+      methods: {
+        // 身份证正则验证
+        phoneReg(val){
+          let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/
+          return Reg.test(val)
+        },
+        failedSubmit () {
+          console.log(1)
+        },
+        sucessSubmit () {
+          console.log(2)
+        }
+      }
+  })
+</script> 
+</html>
