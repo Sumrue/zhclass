@@ -14,16 +14,6 @@
 		<title>
       邀请有礼
 		</title>
-		<script type="text/javascript">
-		//去除系统弹出框网址标题
-		window.alert = function(name){
-			 var iframe = document.createElement("IFRAME");
-			 iframe.style.display="none";
-			 document.documentElement.appendChild(iframe);
-			 window.frames[0].window.alert(name);
-			 iframe.parentNode.removeChild(iframe)
-		}
-		</script>
 		<style>
 			.nowinvi {
 				position: fixed;
@@ -107,6 +97,7 @@
 									<img src="{MODULE_URL}template/mobile/{$template}/images/index/closeX.png" alt="" class="closeX">
 								</div>
 							</div>
+							<div style="height: .7rem;"></div>
 							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 						</div>
 					</div>
@@ -286,7 +277,7 @@
 					</div>
 				</div>
 			</div>
-    </div>
+		</div>
 </body>
 
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>

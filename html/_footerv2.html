@@ -15,30 +15,23 @@
 
 	<!-- 底部导航 -->
 	<div id="footer-nav" class="footer-nav {if ($_GPC['do']=='lesson' && $section['sectiontype']!=2) || $_GPC['do']=='qrcode' || $_GPC['do']=='qrcoderec' || $_GPC['do']=='lessonqrcode'}hidden{/if}">
+		{if $_GPC['do'] == 'self2' || $_GPC['do'] == 'signin'}
+		<a href="{php echo $this->createMobileUrl('index', array('t'=>1));}" class="weui-tabbar__item {if $foot_params['index']}weui-bar__item_on{/if}" onclick="toApplyForm()">
+			<img src="{MODULE_URL}template/mobile/{$template}/images/main_icon.png" class="weui-tabbar__icon" />
+			<p class="weui-tabbar__label">主页</p>
+		</a>
+		{else}
 		<a href="javascript::;" class="weui-tabbar__item {if $foot_params['index']}weui-bar__item_on{/if}" onclick="toApplyForm()">
-			{if $foot_params['index']}
-				<img src="{$navigation['index']['selected_icon']}" class="weui-tabbar__icon" />
-			{else}
-				<img src="{$navigation['index']['unselected_icon']}" class="weui-tabbar__icon" />
-			{/if}
+			<img src="{$navigation['index']['unselected_icon']}" class="weui-tabbar__icon" />
 			<p class="weui-tabbar__label">{$navigation['index']['nav_name']}</p>
 		</a>
-		{if $navigation['diynav']}
+		{/if}
 		<a href="{$navigation['diynav']['url_link']}" class="weui-tabbar__item {if $foot_params['diynav']}weui-bar__item_on{/if}">
-			{if $foot_params['diynav']}
 				<img src="{$navigation['diynav']['selected_icon']}" class="weui-tabbar__icon" />
-			{else}
-				<img src="{$navigation['diynav']['unselected_icon']}" class="weui-tabbar__icon" />
-			{/if}
 			<p class="weui-tabbar__label">{$navigation['diynav']['nav_name']}</p>
 		</a>
-		{/if}
 		<a href="tel:15198246419" class="weui-tabbar__item {if $foot_params['search']}weui-bar__item_on{/if}">
-			{if $foot_params['search']}
 				<img src="{$navigation['search']['selected_icon']}" class="weui-tabbar__icon" />
-			{else}
-				<img src="{$navigation['search']['unselected_icon']}" class="weui-tabbar__icon" />
-			{/if}
 			<p class="weui-tabbar__label">{$navigation['search']['nav_name']}</p>
 		</a>
 		<a href="javascript::;" class="weui-tabbar__item {if $foot_params['self']}weui-bar__item_on{/if}" onclick="toself()">
@@ -134,6 +127,5 @@
 		}
 	}
 </script>
-
 </body>
 </html>

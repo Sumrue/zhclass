@@ -95,6 +95,8 @@
 					$toastSuccess.fadeIn(100);
 					setTimeout(function () {
 							$toastSuccess.fadeOut(100);
+							// 签到成功，返回个人中心
+							location.href = '{php echo $this->createMobileUrl("self2", array("do"=>"self2"));}'
 					}, 2000);
 					
 				}
@@ -108,7 +110,7 @@
 							$toast.fadeOut(100);
 					}, 2000);
 			},   
-		});
+		})
 	});
 {/if}
 

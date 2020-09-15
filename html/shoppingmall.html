@@ -87,6 +87,9 @@ a img {
       font-weight: 700;
       color: #f85731;
     }
+    .goods_box_title>.van-icon{
+      margin-right: .1rem;
+    }
     .goods_items {
       width: 3.45rem;
       margin-left: .2rem;
@@ -153,7 +156,7 @@ a img {
           <van-swipe-item>3</van-swipe-item>
           <van-swipe-item>4</van-swipe-item>
         </van-swipe>   
-        <div class="goods_box_title"><van-icon name="fire-o" color="#f85731" size="25"></van-icon>热门礼品兑换</div>
+        <div class="goods_box_title"><van-icon name="fire" color="#f85731" size="25"></van-icon>热门礼品兑换</div>
         <div class="goods_list_items">
           <div class="goods_items" @click="toDetail(goodsID)">
             <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
@@ -203,7 +206,7 @@ a img {
           <div class="clear"></div>
         </div>
 
-        <div class="goods_box_title"><van-icon name="fire-o" color="#f85731" size="25"></van-icon>全部礼品</div>
+        <div class="goods_box_title"><van-icon name="shopping-cart" color="#f85731" size="25"></van-icon>全部礼品</div>
         <div class="goods_list_items">
           <div class="goods_items">
             <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
@@ -264,7 +267,7 @@ a img {
       },
       methods: {
         toDetail (id) {
-          let url = '{php echo $this->createMobileUrl("goodsdetail", array("do"=>"goodsdetail"));}' + '&goodsid=' + id
+          let url = '{php echo $this->createMobileUrl("mygoods", array("do"=>"mygoods"));}' + '&goodsid=' + id
           location.href = url
         }
       }

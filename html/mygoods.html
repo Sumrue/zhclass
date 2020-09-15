@@ -9,127 +9,26 @@
 		<meta name="x5-orientation" content="portrait">
 		<meta name="x5-fullscreen" content="true">
     <meta name="x5-page-mode" content="app">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/mygoods.css">
 		<title>
       商品详情
 		</title>
   </head>
-  <style>
-html,body {
-  height: 100%;
-  background: #F1F1F5;
-  -webkit-tap-highlight-color: transparent;
-}
-html {
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
-} 
-body {
-	color: #333333;
-  font-size: 14px;
-	font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,Hiragino Sans GB,Microsoft Yahei,sans-serif;
-}
-p,span {
-  margin: 0;
-  padding: 0;
-}
-h1,h2,h3,h4,h5,h6,i,em {
-	font-weight: normal;
-	font-style: normal;
-}
-input[type=submit], input[type=reset], input[type=button], button,select {
-	-webkit-appearance: none;
-}
-ol,ul,menu {
-	list-style: none outside none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-a{text-decoration:none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
-a:focus{ outline:none; -moz-outline:none;}
-a:visited{ outline:none; -moz-outline:none;} 
-a img {
-	border: none;
-}
-/* 页面整体布局 */
-.page-container{
-  position: relative;
-  max-width: 640px;
-  margin: 0 auto;
-  height: 100%;
-}
-/* 清除浮动 */
-.clear { *zoom: 1; }
-.clear:before, .clear:after { display: table; line-height: 0; content: "";}
-.clear:after { clear: both; }
-
-.goods_detail {
-  width: 100%;
-  padding: .15rem .2rem;
-  background-color: #fafafa;
-  box-sizing: border-box;
-  position: relative;
-}
-
-.goods_img {
-  width: 3.4rem;
-  height: 3.4rem;
-  float: left;
-  margin-right: .3rem;
-}
-.goods_img img {
-  width: 100%;
-}
-
-.goods_msg {
-  float: left;
-  width: 3.4rem;
-}
-.goods_msg>.title {
-  font-weight: 600;
-  text-align: center;
-  margin: .15rem 0 .3rem;
-  color: #ee0a24;
-}
-.goods_msg>.des {
-  font-size: .24rem;
-  color: rgb(0,0,0,.5);
-}
-
-.point {
-  position: absolute;
-  bottom: .3rem;
-  left: 3.9rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 3.4rem;
-}
-
-.point>div {
-  display: flex;
-  align-items: center;
-  color: #ee0a25bd;
-}
-.point>div>.van-icon {
-  margin-right: .1rem;
-}
-  </style>
 	<body>
 		<div class="page-container" id="page-container">
+      <div class="top_title">商品兑换</div>
       <div class="goods_detail">
         <div class="goods_img">
           <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
         </div>
         <div class="goods_msg">
           <p class="title">商品标题</p>
-          <p class="des">登记核发加水电费接口卡时间段发了看见爱上打开了房间阿萨德咖啡机卡萨丁</p>
+          <p class="des">这个是一件商品，一件商品，一件商品</p>
           <div class="point">
             <div>
               <van-icon name="gold-coin" color="#ee0a24" size="16"></van-icon>
-              6666 <span>积分</span>
+              {{computedPoint}}
             </div>
             <van-stepper v-model="value" min="1" max="10"  button-size="22"/>
           </div>
@@ -138,7 +37,7 @@ a img {
       </div>
 
       <div>
-        <div>请填写您的收货信息</div>
+        <div class="mes_title">请填写您的收货信息</div>
         <van-form @failed="failedSubmit" @submit="sucessSubmit" :show-error='false'>
           <!-- 姓名 -->
           <van-cell-group>
@@ -178,12 +77,17 @@ a img {
               error-message-align="right"
             />
           </van-cell-group>
-        </van-form>
-        
-        <div v-if="address !== ''">
-          <van-tag color="#ffe1e1" text-color="#ad0000" size="large">请核实您的地址信息</van-tag>
-          <p>{{address}}</p>
+                  
+        <div v-if="address !== ''" class="address">
+          <p><span class="text1">确认地址:</span>{{address}}</p>
         </div>
+
+          <div style="margin: 16px;">
+            <van-button round block type="info" native-type="submit" color="#c22338" :disabled="btnTF">
+              立即兑换
+            </van-button>
+          </div>
+        </van-form>
       </div>
     </div>
 </body>
@@ -200,8 +104,15 @@ a img {
           value: 1,
           name: '',
           phone: null,
-          address: ''
+          address: '',
+          btnTF: false,
+          goodsPoint: 3000,
+          mypoint: 5000
         }
+      },
+      created () {
+        // 页面初始化时就判断用户积分是否能兑换此礼品，不足则禁用按钮。
+        this.myPoint()
       },
       methods: {
         // 身份证正则验证
@@ -209,11 +120,43 @@ a img {
           let Reg = /^1(3|4|5|6|7|8|9)\d{9}$/
           return Reg.test(val)
         },
-        failedSubmit () {
+        // 信息提交
+        failedSubmit () { // 验证未通过时
           console.log(1)
         },
-        sucessSubmit () {
+        sucessSubmit () { // 验证通过时
           console.log(2)
+        },
+
+        // 积分比较
+        myPoint() {
+          let _this = this
+          if(_this.mypoint > _this.goodsPoint) {
+            _this.btnTF = false
+          } else {
+            _this.btnTF = true
+            _this.$notify({ type: 'warning', message: '您的积分不足，无法兑换此商品'})
+            console.log(_this.mypoint)
+            console.log(_this.goodsPoint)
+          }
+        }
+      },
+      computed: {
+        // 计算兑换所用总积分
+        computedPoint () {
+          return this.goodsPoint * this.value
+        }
+      },
+      watch: {
+        // 监听value数量变化，发生变化时，看积分是否足够，不足则禁用按钮。
+        value(val){
+          let allPoint = this.goodsPoint * val
+          if(allPoint > this.mypoint){ // 积分大于兑换总额，禁用按钮
+            this.btnTF = true
+            this.$notify({ type: 'warning', message: '积分不足'})
+          } else {
+            this.btnTF = false
+          }
         }
       }
   })
