@@ -17,6 +17,73 @@
       学院详情
     </title>
   </head>
+  <style>
+    .school_major_item {
+  margin-bottom: .5rem;
+}
+.school_major_head {
+  width: 100%;
+  height: 1.2rem;
+  padding: 0 .1rem;
+  border: solid 1px #ffb2b2;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: none;
+  text-align: center;
+  border-top-left-radius: .2rem;
+  border-top-right-radius: .2rem;
+  background-color: #ffb2b23d;
+}
+.school_major_head .text_title {
+  font-weight: 700;
+  margin: 0 auto;
+}
+.school_table table {
+  width: 100%;
+  border:solid 1px #ffb2b2;
+  border-bottom-left-radius: .2rem;
+  border-bottom-right-radius: .2rem;
+}
+
+.school_table table th {
+  border-bottom: solid 1px #ffb2b2;
+  border-right: #ffb2b2 1px solid;
+  font-weight: 400;
+}
+.school_table table td {
+  border-bottom: solid 1px #ffb2b2;
+  border-right: #ffb2b2 1px solid;
+  text-align: center;
+  padding: .05rem .05rem;
+  font-weight: 400;
+}
+.bottom_text {
+  padding: .2rem .2rem;
+  box-sizing: border-box;
+}
+.bottom_text_li {
+  position: relative;
+  padding-left:.2rem ;
+  margin-bottom: .1rem;
+  color: rgba(0, 0, 0,.5);
+  box-sizing: border-box;
+}
+
+.bottom_text_li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .2rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #F25562;
+}
+.table_major {
+  text-align: left !important;
+}
+  </style>
 	<body data-weui-theme="light">
 		<div class="page-container" id="page-container">
 			<div class="school_detail">
@@ -64,11 +131,61 @@
                   <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/major_money_title.png" alt="">
                   <span>院校专业及收费</span>
                 </div>
-                <div class="content">
-                  <img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/major_money_center.png" alt="">
+                <div>
+                  <div class="school_major_item">
+                    <div class="school_major_head">
+                     <span class="text_title">广东生态工程职业学院</span>
+                    </div>
+                    <div class="school_table">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th width="60">招生层次</th>
+                            <th width="150">招生专业</th>
+                            <th width="80">学费 <br>(元/学年)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>高起专</td>
+                            <td class="table_major">会计、工商企业管理、行政管理、阿斯顿发生、噶的大、额嘎达</td>
+                            <td><span>2800</span></td>
+                          </tr>
+                          
+                        </tbody>
+                        <tbody>
+                          <tr>
+                            <td>专升本</td>
+                            <td class="table_major">会计、工商企业管理、行政管理</td>
+                            <td><span>2800</span></td>
+                          </tr>
+                          
+                        </tbody>
+                      </table>
+                      <ul class="bottom_text">
+                        <li class="bottom_text_li">书杂费:
+                          <span>300</span>
+                        </li>
+                        <li class="bottom_text_li">学制:
+                          <span>3</span>
+                        </li>
+                        <li class="bottom_text_li">考区: 
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>、
+                          <span>温江</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-
               <!-- 上进故事 -->
               <div class="good_story">
                 <div class="title">

@@ -115,15 +115,114 @@
       </ul>
     </div>
   </div>
-  <div class="main_container">
-    <div>
-      <div class="main_cbox"></div>
-      <div class="main_switch">
-        <div class="main_switch_item">
-          招生主页
+  <div class="main_content_box main_content_online">
+    <!-- 切换按钮 -->
+    <div class="content_switch">
+      <div class="switch_cbox"></div>
+      <div class="switch_item">
+        <div class="switch_item_nav switch_item_nav_on">
+          网络招生
+          <div class="switch_item_line"></div>
         </div>
-        <div class="main_switch_item">
-          院校介绍
+        <div class="switch_item_nav">模式介绍</div>
+      </div>
+    </div>
+    <div class="main_content">
+      <!-- 2011级招生 -->
+      <div class="switch_content block ">
+        <div class="switch_content_2011box">
+
+          <!-- 学校优势 -->
+          <div class="open_education_advantage">
+            <div class="head_img">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_advantage.png" alt="">
+            </div>
+            <div class="content_view">
+              <div class="topView">
+                <div class="fl">
+                  <div class="view_title">
+                    <span class="view_title_num">1</span>
+                    <span class="iew_title_text">信誉高</span>
+                  </div>
+                  <p class="text">教育部直属,权威有保障</p>
+                </div>
+                <div class="fr">
+                  <div class="view_title">
+                    <span class="view_title_num">2</span>
+                    <span class="iew_title_text">信誉高</span>
+                  </div>
+                  <p class="text">直接入学，不用参加考试</p>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="middView">
+                <div class="view_title">
+                  <span class="view_title_num">3</span>
+                  <span class="iew_title_text">证书含金量高</span>
+                </div>
+                <p class="text">
+                  国家开放大学颁发, 证书可在国家教育部学信网网查, 学历国家承认, 符合相关条件的本科毕业生还可获授学士学位
+                </p>
+              </div>
+
+              <div class="middView">
+                <div></div>
+                <div class="view_title">
+                  <span class="view_title_num">4</span>
+                  <span class="iew_title_text">学习模式灵活</span>
+                </div>
+                <p class="text">
+                  网络自主学习、远程学习支持服务与面授辅导相结合的新型学习模式
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 院校专业和收费 -->
+          <div class="open_education_charge">
+            <div class="head_img">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_fee.png" alt="">
+            </div>
+            <div class="charge_pic_box">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_charge.png" alt="">
+            </div>
+          </div>
+
+          <!-- 广告区域 -->
+          <div></div>
+        </div>
+      </div>
+
+      <!-- 院校介绍 -->
+      <div class="switch_content">
+        <div class="dream_build_box">
+          <!-- 原先介绍头部图片及文字介绍 -->
+          <div class="open_education_referral">
+            <div class="title_img"><img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_ referral.png" alt=""></div>
+            <p class="content_text">
+                远程教育是学生与教师、学生与教育组织之间主要采取多种媒体方式进行系统教学和通信联系的教育形式，是将课程传送给校园外的一处或多处学生的教育。
+              <br>
+                现代远程教育则是指通过音频、视频（直播或录像）以及包括实时和非实时在内的计算机技术把课程传送到校园外的教育。现代远程教育是随着现代信息技术的发展而产生的一种新型教育方式。
+              <br>
+                计算机技术、多媒体技术、通信技术的发展，特别是因特网(internet)的迅猛发展，使远程教育的手段有了质的飞跃，成为高新技术条件下的远程教育。
+              <br>
+                现代远程教育是以现代远程教育手段为主，兼容面授、函授和自学等传统教学形式，多种媒体优化组合的教育方式。
+              <br>
+                现代远程教育可以有效地发挥远程教育的特点，是一种相对于面授教育、师生分离、非面对面组织的教学活动，它是一种跨学校、跨地区的教育体制和教学模式，它的特点是：学生与教师分离；采用特定的传输系统和传播媒体进行教学；信息的传输方式多种多样；学习的场所和形式灵活多变。
+              <br>
+                与面授教育相比，远距离教育的优势在于它可以突破时空的限制；提供更多的学习机会；扩大教学规模；提高教学质量；降低教学的成本。基于远程教育的特点和优势，许多有识之士已经认识到发展远程教育的重要意义和广阔前景。
+          </div>
+          <div class="more">
+            <div class="down">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/down_more.png" alt="">
+              <span>更多</span>
+            </div>
+            <div class="up hide">
+              收起
+            </div>
+          </div>
+          <!-- 广告位 -->
+          <div></div>
         </div>
       </div>
     </div>
@@ -132,10 +231,67 @@
 
 <script>
   $(function(){
+    $(window).scroll(
+      function(){
+        let windowHt = $(this).scrollTop()
+        let headerHt = $('#header').height()
+        // 开放教育页导航设置
+        let contentCenterHt = $('.main_content_online').height()
+        let mainContentBox3Wd = $('.main_content_online .main_content').height()
+        let switchItem3 = $('.main_content_online .switch_item') // 通用第一个导航到顶部设置
+        let newBanner = $('.online_banner')
+        let openItem = $('.open_switch_items')
+        let bannerOpenHt = $('.online_banner').height()
+        if(windowHt >  headerHt + bannerOpenHt){ 
+          switchItem3.addClass('fixed')
+        } else if(windowHt <  headerHt + bannerOpenHt) {
+          switchItem3.removeClass('fixed')
+				}
+      }
+    )
 
-    // 监听发生滚动事件
-    $(window).scroll(()=>{
-      
+    // 设置导航下划线初始的宽度，为导航块的60%
+    let openSwitchItem = $('.open_switch_item')
+    let openSwitchItemLine = $('.open_switch_line')
+    // let openSwitchItemWd = openSwitchItem.width()
+
+    // console.log(openSwitchItemWd)
+    // openSwitchItemLine.css({
+    //   width:openSwitchItemWd*.45 + '%',
+    //   left:openSwitchItemWd*.275 + '%' // 初始居中，剩余百分比除以2        默认下滑线位置
+    // })
+    
+    // 点击切换
+    openSwitchItem.click(function(){
+      let $this = $(this)
+			let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
+			$this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
+			let index = $this.index() // 获取下标
+			// let moveWd = switchItemNavWd*index + switchItemNavWd*.275  + '%'// 定义移动的距离
+			// // 下划线样式
+			// let thisSwitchItemNavLine = $this.parent().find('.open_switch_line')
+			// thisSwitchItemNavLine.animate(
+			// 	{left: moveWd}, // 移动距离
+			// 	{duration: 300} // 移动速度
+			// )
+			// 内容区域切换
+			switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
+		})
+
+    // 学院介绍内容变多变少按钮
+    let openEducationText = $('.open_education_referral .content_text')
+    // 展开
+    $('.more .down').click(function(){
+      openEducationText.css('height','100%')
+      $(this).addClass('hide')
+      $('.more .up').removeClass('hide')
+    })
+    // 收起
+    $('.more .up').click(function(){
+      openEducationText.css('height','4.1rem')
+      $(this).addClass('hide')
+      $('.more .up').removeClass('hide')
+      $('html, body, .section').animate({scrollTop: 0},450)
     })
   })
 </script>

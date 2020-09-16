@@ -1761,12 +1761,26 @@ ope .btn_home.btn_home_on {
 	border-radius: 1px;
 }
 .switch_item_nav_on {
-  background-color: #F16622;
+	background-color: #F16622;
+	position: relative;
+	
 }
+.switch_item_nav_on::after{
+	content: "";
+	position: absolute;
+	width: 1rem;
+	height: 2px;
+	bottom: .1rem;
+	left: 1.4rem;
+	background-color: #fff;
+}
+
 .main_content_box {
 	height: 100%;
 }
-
+.switch_item_nav_on::after {
+	
+}
 		/* 切换内容框 */
 .main_content {
 	width: 100%;
@@ -2361,8 +2375,18 @@ margin-right: .3rem;
 	border-radius: 1px;
 }
 .open_switch_item_on {
+	position: relative;
   background-color: #ff4c50;
   color: #fff;
+}
+.open_switch_item_on::after {
+	position: absolute;
+	content: "";
+	width: 1rem;
+	height: 2px;
+	left: 1.4rem;
+	bottom: .1rem;
+	background-color: #fff;
 }
 
 .open_education .switch_item {
@@ -2371,10 +2395,19 @@ margin-right: .3rem;
 }
 
 .open_education .switch_item_nav_on {
-  background-color: #ff4c50;
+	background-color: #ff4c50;
+	position: relative;
   color: #fff;
 }
-
+.open_education .switch_item_nav_on::after {
+	content: "";
+	position: absolute;
+	width: 1rem;
+	height: 2px;
+	bottom: .1rem;
+	left: 1.4rem;
+	background-color: #fff;
+}
 /* 学校优势 */
 .open_education_advantage {
   padding: .5rem .2rem;
@@ -2686,5 +2719,26 @@ margin-right: .3rem;
 .online_education .onlinenum_roll {
 	left: .2rem;
 	top: .2rem;
+}
+
+.main_content_online .head_img {
+  width: 3rem;
+  margin: .7rem auto .4rem;
+}
+
+.main_content_online .head_img img{
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.main_content_online .switch_item {
+  background-color: #075ab9;
+  color: #000;
+}
+
+.main_content_online .switch_item_nav_on {
+  background-color: #2b90fc;
+  color: #000;
 }
 /* addClass or rremoClass */

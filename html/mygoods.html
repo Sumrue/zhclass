@@ -107,7 +107,7 @@
           address: '',
           btnTF: false,
           goodsPoint: 3000,
-          mypoint: 5000
+          mypoint: null
         }
       },
       created () {
@@ -131,6 +131,9 @@
         // 积分比较
         myPoint() {
           let _this = this
+          // 获取个人积分
+          _this.mypoint = {php echo json_encode($_W["member"]["credit1"])};
+          // 比较我的积分是否能兑换此商品
           if(_this.mypoint > _this.goodsPoint) {
             _this.btnTF = false
           } else {

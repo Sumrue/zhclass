@@ -56,10 +56,10 @@
 					<div class="panel panel_on">
 						<div class="panerl_one">
 							<!-- 邀约限时活动广告 -->
-							<div class="advert">
+							<!-- <div class="advert">
 								<p>
 									8月9日19:00 - 9月10日16:00期间，邀请好友报读缴费，额外奖励<span>15000积分</span></p>
-							</div>
+							</div> -->
 							<!-- 主要内容区 -->
 							<div class="content_box">
 								<div class="rules">活动规则</div>
@@ -73,8 +73,8 @@
 										</div>
 									</div>
 									<div class="content_question">
-										<p>* 积分可以在成功教育 <a>积分商城 </a>兑换京东卡等精美礼品</p>
-										<p>* <a>智米是什么？</a></p>
+										<p>* 积分可以在四川联合教育 <a href="{php echo $this->createMobileUrl('shoppingmall');}">积分商城 </a>兑换精美礼品</p>
+										<p>* <a href="{php echo $this->createMobileUrl('strategy');}">什么是积分？</a></p>
 									</div>
 								</div>
 							</div>
@@ -82,8 +82,8 @@
 							<div class="rules_show rules_show_hidden">
 								<div class="rules_text">
 									<p class="title">活动规则</p>
-									<p class="t0">活动时间</p>
-									<p class="t1">8月19日19:00~~9月10日16:00</p>
+									<!-- <p class="t0">活动时间</p>
+									<p class="t1">8月19日19:00~~9月10日16:00</p> -->
 									<p class="t0">活动详情</p>
 									<p class="t2">活动期间<span>邀请人</span>每邀请一名新注册用户，在原有积分奖励基础上</p>
 									<p class="t2">
@@ -93,7 +93,7 @@
 										4、若被邀请人退学，则视为无效推荐，自动收回邀请人的相应积分；<br>
 										5、若被邀请人报读专本连读，则以第一次报读缴费记录为准，只赠送一次15000积分;<br>
 									</p>
-									<p class="t3">最终解释权归成功所有</p>
+									<p class="t3">最终解释权归四川联合教育所有</p>
 									<img src="{MODULE_URL}template/mobile/{$template}/images/index/closeX.png" alt="" class="closeX">
 								</div>
 							</div>
@@ -111,7 +111,7 @@
 								<div class="invite_friend">
 									<p class="t1">邀请好友报读</p>
 									<p class="t2">奖励好友同等支付的金额数积分</p>
-									<button class="invite_friend_btn">邀请好友</button>
+									<!-- <button class="invite_friend_btn">邀请好友</button> -->
 									<div data-v-90ad5ac0="" class="partner">
 										<div data-v-90ad5ac0="" class="head">
 											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
@@ -223,6 +223,8 @@
 							<!-- 邀请攻略 -->
 							<a href="{php echo $this->createMobileUrl('strategy', array('do'=>'strategy'));}" class="invite_method">邀请攻略</a>
 						</div>
+						<div style="height: .8rem;"></div>
+						<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 					</div>
 					<div class="panel">
 						<div class="my_invite">
@@ -248,7 +250,7 @@
 									<p>暂无邀请学员～<br>快去邀请好友赚积分吧</p>
 								</div>
 							</div>
-							<div class="footer"><button>生成邀请专属海报</button> <button class="nowinvi_btn">立即邀请</button></div>
+							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 							<div class="js_dialog" id="iosDialog2" style="display: none;">
 								<div class="weui-mask"></div>
 								<div class="weui-dialog">

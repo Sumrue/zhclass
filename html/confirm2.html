@@ -134,7 +134,7 @@
       </div>
       <div class="list_container">
         <div class="list_title">
-          <span>[{{userData.grade}}级]</span><span>{{userData.school}}</span>
+          <span>{{userData.school}}</span>
         </div>
         <div class="list_detail">
           <p><span>学校:</span>{{userData.school}}</p>
@@ -168,7 +168,7 @@
             userData: {
               name: '',
               phone: null,
-              idcard: '510184199211250311',
+              idcard: '',
               school: '',
               type: '',
               level: '',
@@ -201,7 +201,7 @@
             console.log(confirmData)
             _this.userData.name = confirmData.name
             _this.userData.phone = confirmData.mobile
-            // _this.userData.idcard = confirmData.code
+            _this.userData.idcard = confirmData.code
             _this.userData.school = confirmData.sname
             _this.userData.level = confirmData.lname
             _this.userData.major = confirmData.pname
