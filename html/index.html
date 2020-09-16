@@ -62,30 +62,6 @@
 			})
 		
 
-		var voiceSwiper = new Swiper ('.voice_message_swiper', {
-			loop: true,
-			disableOnInteraction: false,
-			direction: 'vertical', // 方向
-			autoplay: 3000, // 切换时间
-			slidesPerView: 3,
-			spaceBetween : 40,
-			onlyExternal: true,
-			observer:true,//修改swiper自己或子元素时，自动初始化swiper
-			observeParents:true,//修改swiper的父元素时，自动初始化swiper	
-
-		})
-
-		// 定义获取url参数的函数
-		function getParameter (name) {
-		let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i") // 配置正则
-		let r = window.location.search.substr(1).match(reg) // 获取url,根据正则匹配url中的参数
-		if (r != null) {
-			return unescape(r[2]) //如果参数存在，则解码返回参数
-			} else {
-				return null // 参数不存在，返回null
-			}
-    }
-
 		// 主页默认显示pannel页面
 		let panelBoxOnIndex = '{php echo $_GPC["indextype"]}'
 		if(panelBoxOnIndex == '') {
@@ -259,8 +235,8 @@
     }
 		articHtml()
 		
-		// 主页留言的请求与提交
-		let voiceAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'getfree','method'=>'ajaxgetlist'));}"
+  	// 主页留言的请求与提交
+    let voiceAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'getfree','method'=>'ajaxgetlist'));}"
     let voiceGetData = function () {
       $.get(voiceAjaxurl, function (data) {
         let voiceData = []
@@ -270,40 +246,61 @@
           console.log('获取数据失败')  //没有数据后，禁止请求获取数据
         }
       }).then(res=>{
-				let voiceData = JSON.parse(res)
-				let data = voiceData.list
-				let voiceMsg = $('.voice_message_swiper>.swiper-wrapper')
-   			let voiceItem = $('.voice_message_swiper>.swiper-wrapper>.swiper-slide')
-				let vioceHtml = ''
-				for(let i = 0; i < data.length; i ++){
-				let myname = data[i].nickname
-				let reply = data[i].reply
-				if(data[i].reply == null ) {
-					reply = ''
-				} else {
-					reply = data[i].reply
-				}
-        vioceHtml += `
-          <div class="swiper-slide">
-            <div class="voice_message_item">
-              <div class="message_item_pic fl">
-                <img src="${data[i].avatar}" alt="">
-              </div>
-              <div class="message_item fr">
-                <p class="name">${myname.slice(0,1)}**</p>
-                <p class="question">问：${data[i].content}</p>
-                <p class="reply">回复：<span>${reply}</span></p>
-              </div>
+          let voiceData = JSON.parse(res)
+          let data = voiceData.list
+          let voiceMsg = $('.voice_msg_ul')
+          let voiceItem = $('.voice_li')
+          let voiceItemIndex = data.length
+					console.log(voiceItemIndex)
+					voiceMsg.html('') // 重新请求后数据重新加载做准备，避免数据重复
+          let vioceHtml = ''
+          for(let i = 0; i < data.length; i ++){
+          let myname = data[i].nickname
+          let reply = data[i].reply
+          if(data[i].reply == null ) {
+            reply = ''
+          } else {
+            reply = data[i].reply
+          }
+          vioceHtml += `
+          <li class="voice_message_item voice_li">
+            <div class="message_item_pic">
+              <img src="${data[i].avatar}" alt="">
             </div>
-          </div>	
-        `
-      }
-      voiceMsg.append(vioceHtml)
+            <div class="message_item">
+              <p class="name">${myname.slice(0,1)}**</p>
+              <p class="question">问：${data[i].content}</p>
+              <p class="reply">回复：<span>${reply}</span></p>
+            </div>
+          </li>
+          `
+        }
+				voiceMsg.append(vioceHtml) // 插入内容
+
+				// 轮播动画
+				// 避免数据过多 给出一个限制
+        if(voiceItemIndex > 15) {
+            voiceItemIndex = 15
+					} else {
+						voiceItemIndex -= 2
+					}
+					console.log(voiceItemIndex)
+          let i = 0
+          setInterval(() => {
+            i ++
+            if(i > voiceItemIndex - 1) {
+              i = 0
+              voiceMsg.css('top',0)
+            }
+            voiceMsg.animate(
+              {top: -3*i + 'rem'}
+            )
+          }, 3000);
       })
     }
     voiceGetData()
-
-		// 提交
+		
+		// 提交评论
 		let voiceSubmit = $('.voice_message_btn')
 		voiceSubmit.click(function(){
 			// 注册手机号后才可以提交评论
@@ -323,6 +320,7 @@
 					},function (data) {
 						console.log('提交的评论' + data)
 				}).then(res=>{
+					voiceGetData() // 成功提交后，数据重新渲染
 					let $toast = $('#toast')
 					if ($toast.css('display') != 'none') return;
 						$toast.fadeIn(100);
@@ -337,7 +335,7 @@
 				}
 			}
 		})
-  	
+
 	// 点击切换顶部导航
 		// 点击
     navItem.click(
@@ -359,7 +357,6 @@
 				// let oldLeft = parseInt(navItemLine.css('left'))// 获取下划线当前的位置
 				$this.addClass('nav_item_on').siblings().removeClass('nav_item_on') //  添加移除nav选中样式
 
-				// let itemLineMove = navItemWd * num + navItemWd *.275 // 计算left距离
 
 				// 设置回调来重置swiper轮播，当页面切换成功之后在调用重置swiper轮播
 				const setDelay = () => {
@@ -373,9 +370,6 @@
 					// 切换导航时初始化轮播
 					for(let i in studentShowSwiper){
 						studentShowSwiper[i].init();
-					}
-					for(let i in voiceSwiper){
-							voiceSwiper[i].init();
 					}
 				})
       }
@@ -393,9 +387,6 @@
 				for(let i in studentShowSwiper){
 							studentShowSwiper[i].init();
 						}
-				for(let i in voiceSwiper){
-						voiceSwiper[i].init();
-				}
 				// 内容区域切换
 				switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
 			})

@@ -212,7 +212,7 @@
               <br>
                 与面授教育相比，远距离教育的优势在于它可以突破时空的限制；提供更多的学习机会；扩大教学规模；提高教学质量；降低教学的成本。基于远程教育的特点和优势，许多有识之士已经认识到发展远程教育的重要意义和广阔前景。
           </div>
-          <div class="more">
+          <div class="more online_more">
             <div class="down">
               <img src="{MODULE_URL}template/mobile/default/images/index/open_education/down_more.png" alt="">
               <span>更多</span>
@@ -255,11 +255,7 @@
     let openSwitchItemLine = $('.open_switch_line')
     // let openSwitchItemWd = openSwitchItem.width()
 
-    // console.log(openSwitchItemWd)
-    // openSwitchItemLine.css({
-    //   width:openSwitchItemWd*.45 + '%',
-    //   left:openSwitchItemWd*.275 + '%' // 初始居中，剩余百分比除以2        默认下滑线位置
-    // })
+  
     
     // 点击切换
     openSwitchItem.click(function(){
@@ -267,30 +263,24 @@
 			let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
 			$this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
 			let index = $this.index() // 获取下标
-			// let moveWd = switchItemNavWd*index + switchItemNavWd*.275  + '%'// 定义移动的距离
-			// // 下划线样式
-			// let thisSwitchItemNavLine = $this.parent().find('.open_switch_line')
-			// thisSwitchItemNavLine.animate(
-			// 	{left: moveWd}, // 移动距离
-			// 	{duration: 300} // 移动速度
-			// )
+
 			// 内容区域切换
 			switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
 		})
 
-    // 学院介绍内容变多变少按钮
-    let openEducationText = $('.open_education_referral .content_text')
+     // 学院介绍内容变多变少按钮
+     let openEducationText = $('.online_eduction .content_text')
     // 展开
-    $('.more .down').click(function(){
+    $('.online_more .down').click(function(){
       openEducationText.css('height','100%')
       $(this).addClass('hide')
-      $('.more .up').removeClass('hide')
+      $('.online_more .up').removeClass('hide')
     })
     // 收起
-    $('.more .up').click(function(){
-      openEducationText.css('height','4.1rem')
+    $('.online_more .up').click(function(){
+      openEducationText.css('height','3rem')
       $(this).addClass('hide')
-      $('.more .up').removeClass('hide')
+      $('.online_more .down').removeClass('hide')
       $('html, body, .section').animate({scrollTop: 0},450)
     })
   })

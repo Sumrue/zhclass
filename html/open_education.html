@@ -203,7 +203,7 @@
                  国家开放大学也是一所新型的公益性大学，扎根基层，服务社会。利用国家开放大学网络平台和数字化学习资源库，开设网上大讲堂，向全体社会成员提供形式多样、内容丰富的网络讲座、公开课，提升公民科学文化素质，满足社会成员多样化、个性化学习需求。为普通高校、中高职院校、社会培训机构、行业企业、城乡社区提供包括远程学习支持、相关教育培训、信息咨询等各类公共服务。与相关国际组织、大学和机构开展针对性、多层次、宽领域的教育交流与合作。加强基于网络的孔子学院建设，大力推进对外汉语教学，促进中华文化走向世界。
             </p>
           </div>
-          <div class="more">
+          <div class="open_more more">
             <div class="down">
               <img src="{MODULE_URL}template/mobile/default/images/index/open_education/down_more.png" alt="">
               <span>更多</span>
@@ -278,13 +278,7 @@
     // 设置导航下划线初始的宽度，为导航块的60%
     let openSwitchItem = $('.open_switch_item')
     let openSwitchItemLine = $('.open_switch_line')
-    // let openSwitchItemWd = openSwitchItem.width()
 
-    // console.log(openSwitchItemWd)
-    // openSwitchItemLine.css({
-    //   width:openSwitchItemWd*.45 + '%',
-    //   left:openSwitchItemWd*.275 + '%' // 初始居中，剩余百分比除以2        默认下滑线位置
-    // })
     
     // 点击切换
     openSwitchItem.click(function(){
@@ -292,13 +286,7 @@
 			let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
 			$this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
 			let index = $this.index() // 获取下标
-			// let moveWd = switchItemNavWd*index + switchItemNavWd*.275  + '%'// 定义移动的距离
-			// // 下划线样式
-			// let thisSwitchItemNavLine = $this.parent().find('.open_switch_line')
-			// thisSwitchItemNavLine.animate(
-			// 	{left: moveWd}, // 移动距离
-			// 	{duration: 300} // 移动速度
-			// )
+
 			// 内容区域切换
 			switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
 		})
@@ -306,16 +294,16 @@
     // 学院介绍内容变多变少按钮
     let openEducationText = $('.open_education_referral .content_text')
     // 展开
-    $('.more .down').click(function(){
+    $('.open_more .down').click(function(){
       openEducationText.css('height','100%')
       $(this).addClass('hide')
-      $('.more .up').removeClass('hide')
+      $('.open_more .up').removeClass('hide')
     })
     // 收起
-    $('.more .up').click(function(){
-      openEducationText.css('height','4.1rem')
+    $('.open_more .up').click(function(){
+      openEducationText.css('height','3rem')
       $(this).addClass('hide')
-      $('.more .up').removeClass('hide')
+      $('.open_more .down').removeClass('hide')
       $('html, body, .section').animate({scrollTop: 0},450)
     })
   })
