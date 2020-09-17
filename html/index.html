@@ -394,16 +394,11 @@
 			// 点击学校跳转至学校详情页
 			let schoolHzitem = $('.school_hz_box .school_item')
 			schoolHzitem.click(function(){
-				// 注册手机号后才可以提交评论
-				let phone = {php echo json_encode($_W['member']['mobile'])};
-				if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
-				location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
-				}else {
 					// 传入学校ID
 					let id = schoolHzitem.attr('data-id')
 					let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
 					location.href = url
-				}
+				
 			})
 
 
@@ -411,9 +406,15 @@
 			let adultApplyBtn = $('.apply_gift_buy')
 			adultApplyBtn.click(
 				function(){
-					// 根据商品ID来创建订单，跳转至订单页面
-					let url = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","exist299"=>"true","cid"=>"1"));}'
-      		location.href = url
+					// 注册手机号后才可以提交评论
+					let phone = {php echo json_encode($_W['member']['mobile'])};
+					if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
+						location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+					}else {
+						// 根据商品ID来创建订单，跳转至订单页面
+						let url = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","exist299"=>"true","cid"=>"1"));}'
+						location.href = url
+					}
 				}
 			)
 			

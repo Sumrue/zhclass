@@ -34,7 +34,7 @@
 				<img src="{$navigation['search']['selected_icon']}" class="weui-tabbar__icon" />
 			<p class="weui-tabbar__label">{$navigation['search']['nav_name']}</p>
 		</a>
-		<a href="javascript::;" class="weui-tabbar__item {if $foot_params['self']}weui-bar__item_on{/if}" onclick="toself()">
+		<a href="{php echo $this->createMobileUrl('self2');}" class="weui-tabbar__item {if $foot_params['self']}weui-bar__item_on{/if}">
 				<img src="" class="weui-tabbar__icon self_footer_navbar" style="border-radius: 50%;"/>
 			<p class="weui-tabbar__label">{$navigation['self']['nav_name']}</p>
 		</a>
@@ -98,14 +98,6 @@
 	// 跳转前，先判断用户是否注册手机号
 	let phone = {php echo json_encode($_W['member']['mobile'])};
 
-	// 进入个人中心时判断
-	function toself(){
-		if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
-			location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
-		}else {
-			location.href = '{php echo $this->createMobileUrl("self2");}'
-		}
-	}
 	// 进入注册页面前先判断类型
 	function toApplyForm(){
 		if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面

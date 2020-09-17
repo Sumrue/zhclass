@@ -26,11 +26,11 @@
           <div class="my_msg">
             <span class="name">{{name}}</span>
             <p>学院学号:{{id}}</p>
-            <p>手机号码:{{phoneSelect}}</p>
+            <p>手机号码:<span v-if="phonShow">{{phoneSelect}}</span> <a href="{php echo $this->createMobileUrl('writemsg', array('do'=>'writemsg','op'=>'modifyMobile'));}" v-else class="phonebd">绑定手机号</a></p>
           </div>
         </div>
         <div class="head_right">
-          <a class="signin" href="{php echo $this->createMobileUrl('signin');}">
+          <a class="signin" href="javascript:;;" @click="tosignin">
             <van-icon name="records" size="20" class="icon" color="#fff">
             </van-icon>
             <span style="color: #fff;">{php echo $signin_log ? '已签到' : '签到';}</span>
@@ -79,12 +79,12 @@
               </div>
               <span class="item_name">报名信息</span>
             </a>
-            <!-- <a class="item">
+            <a class="item" href="{php echo $this->createMobileUrl('address');}">
               <div class="head_icon">
                 <van-icon name="location-o" size="21" color="#FF6B67"/>
               </div>
               <span class="item_name">地址管理</span>
-            </a> -->
+            </a>
             <a class="item" href="{php echo $this->createMobileUrl('invitegift');}">
               <div class="head_icon">
                 <van-icon name="medal-o" size="21" color="#FF6B67"/>
@@ -137,7 +137,8 @@
           name: '',
           id: '',
           phone: null,
-          point: null
+          point: null,
+          phonShow: false
         }
       },
       created () {
@@ -154,6 +155,19 @@
           _this.myHeader = arr.avatar
           _this.name = arr.nickname
           _this.id = arr.uid
+          // 手机号是否注册
+          if(_this.phone !== '') {
+            _this.phonShow = true
+          }
+        },
+        // 签到功能判定权限，没绑定手机号，不能参加签到活动
+        tosignin() {
+          let _this = this
+          if(_this.phone == '') {
+            location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+          } else {
+            location.href = '{php echo $this->createMobileUrl("signin");}'
+          }
         }
       },
       computed: {

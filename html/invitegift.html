@@ -98,7 +98,7 @@
 								</div>
 							</div>
 							<div style="height: .7rem;"></div>
-							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
+							<div class="footer"><button class="totoqrode"><a href="javascript::;">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 						</div>
 					</div>
 					<!-- 排行榜 -->
@@ -224,7 +224,7 @@
 							<a href="{php echo $this->createMobileUrl('strategy', array('do'=>'strategy'));}" class="invite_method">邀请攻略</a>
 						</div>
 						<div style="height: .8rem;"></div>
-						<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
+						<div class="footer"><button class="totoqrode"><a href="javascript::;">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 					</div>
 					<div class="panel">
 						<div class="my_invite">
@@ -250,7 +250,7 @@
 									<p>暂无邀请学员～<br>快去邀请好友赚积分吧</p>
 								</div>
 							</div>
-							<div class="footer"><button><a href="{php echo $this->createMobileUrl('qrcode', array('do'=>'qrcode'));}">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
+							<div class="footer"><button class="totoqrode"><a href="javascript::;">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 							<div class="js_dialog" id="iosDialog2" style="display: none;">
 								<div class="weui-mask"></div>
 								<div class="weui-dialog">
@@ -457,12 +457,27 @@
 		})
 
 		$('.nowinvi_btn').on('click',function(){
-			console.log(1)
-			$('.nowinvi').css('display','block')
+			let phone = {php echo json_encode($_W["member"]["mobile"])};
+			if(phone == '') {
+				location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+			} else {
+				$('.nowinvi').css('display','block')
+			}
 		})
 		$('.nowinvi').on('click',function(){
 			console.log(2)
 			$('.nowinvi').css('display','none')
+		})
+
+		// 生成海报时的东西时判定权限
+		let totoqrode = $('.totoqrode')
+		totoqrode.click(function(){
+			let phone = {php echo json_encode($_W["member"]["mobile"])};
+			if(phone == '') {
+				location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+			} else {
+				location.href = '{php echo $this->createMobileUrl("qrcode");}'
+			}
 		})
 	});
 </script>

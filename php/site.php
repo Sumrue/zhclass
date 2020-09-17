@@ -597,6 +597,9 @@ class fy_lessonv2ModuleSite extends WeModuleSite
 	public function doMobileMygoods() {
         $this->__mobile(__FUNCTION__);
     }
+	public function doMobileAddress() {
+        $this->__mobile(__FUNCTION__);
+    }
     // 新添加结束
     /************************************************ 公共方法 ************************************ */
     public function __web($f_name)

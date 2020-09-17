@@ -120,7 +120,7 @@
                   </p>
                   <p class="bottom_text">(上述考分不含政策性加分)</p>
                 </div>
-                  <a href="{php echo $this->createMobileUrl('adultuserform', array('do'=>'adultuserform','type'=>'adult','exist299'=>'true','cid'=>'1'));}" class="gift_btn">
+                  <a href="javascript::;" class="gift_btn">
                     立即购买
                   </a>
               </div>
@@ -503,6 +503,21 @@
           }
         }
         articHtml()
+        // 购买礼包跳转
+        let giftBtn = $('.gift_btn')
+        giftBtn.click(
+          function(){
+            // 注册手机号后才可以提交评论
+            let phone = {php echo json_encode($_W['member']['mobile'])};
+            if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
+              location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+            }else {
+              // 根据商品ID来创建订单，跳转至订单页面
+              let url = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","exist299"=>"true","cid"=>"1"));}'
+              location.href = url
+            }
+          }
+        )
       })
     </script>
 {template $template.'/_footerv2'}

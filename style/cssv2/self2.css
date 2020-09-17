@@ -85,7 +85,7 @@ a:active{
 .head {
   padding: .18rem .2rem;
   background: #F2F2F2;
-  background: url({MODULE_URL}template/mobile/{$template}/images/self_topbg.png) no-repeat;
+  background: url(../../images/self_topbg.png) no-repeat;
   background-size: 100% 100%;
   display: flex;
   align-items: center;
@@ -210,4 +210,10 @@ a:active{
 .item_name {
   font-weight: 600;
   font-size: .24rem;
+}
+.phonebd {
+  margin-left: .2rem;
+  font-size: .3rem;
+  font-weight: 600;
+  color: rgb(255, 107, 103) !important;
 }
