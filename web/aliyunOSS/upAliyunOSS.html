@@ -1,0 +1,24 @@
+<div class="main">
+	<div class="alert alert-info">
+	    音频请上传<span style="color:red;">mp3</span>格式文件，视频请上传<span style="color:red;">H.264编码的mp4</span>格式文件，否则部分ios系统手机将无法识别音视频格式。
+	</div>
+	<div class="panel admin-panel">
+		<form name="theform" class="hide">
+			<input type="radio" name="myradio" value="local_name" checked=true/> 上传文件名字保持本地文件名字
+		</form>
+		<h4 style="font-size:15px;">您所选择的文件列表：</h4>
+		<div id="ossfile">你的浏览器不支持flash或Silverlight！</div>
+		<br/>
+		<div id="container">
+			<a id="selectfiles" href="javascript:void(0);" class='btn btn-default' style="border-color:#d8d8d8; margin-right:10px;">选择文件</a>
+			<a id="postfiles" href="javascript:void(0);" class='btn btn-primary'>开始上传</a>
+		</div>
+		<pre id="console" style="margin-top:25px; display:none;"></pre>
+	</div>
+</div>
+
+<script type="text/javascript">
+	window.uploadConfig = {php echo json_encode($uploadConfig);};
+</script>
+<script type="text/javascript" src="{MODULE_URL}library/aliyunOSS/oss-h5-upload-js/plupload-2.1.2/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}static/web/js/aliyunOSS.upload.js?v={$versions}"></script>

@@ -1,0 +1,130 @@
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" onkeydown="if(event.keyCode==13){return false;}">
+        <div class="panel panel-default">
+            <div class="panel-heading">课程通知</div>
+            <div class="panel-body">
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择课程</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class='input-group'>
+                            <input type="text" id='bookname' value="{$bookname}" maxlength="30" class="form-control" readonly />
+							<input type="hidden" id='lesson_id' name="lesson_id" value="{$lessonid}" />
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-menus').modal();">选择课程</button>
+                            </div>
+                        </div>
+                        <div id="modal-module-menus"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择课程</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="keyword" value="" id="search-kwd" placeholder="请输入课程名称" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_lesson();">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-menus" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="javascript:;" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">发送对象</label>
+					<div class="col-sm-9">
+						<label class="radio-inline"><input type="radio" name="user_type" value="1" /> 全部粉丝</label> &nbsp;
+						<label class="radio-inline"><input type="radio" name="user_type" value="2" /> 全部VIP粉丝</label> &nbsp;
+						<label class="radio-inline"><input type="radio" name="user_type" value="3" /> 购买该讲师任意课程的粉丝</label>
+						<label class="radio-inline"><input type="radio" name="user_type" value="4" /> 购买该课程的粉丝</label>
+						<label class="radio-inline"><input type="radio" name="user_type" value="5" /> 购买该讲师服务的粉丝</label>
+					</div>
+				</div>
+            </div>
+        </div>
+
+		<div class="panel panel-default">
+            <div class="panel-heading">模版消息设置</div>
+            <div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 开头语</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[first]" value="{$first}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 课程名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[keyword1]" value="{$bookname}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 地点</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[keyword2]" value="{$setting['sitename']}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 讲师</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[keyword3]" value="{$teacher['teacher']}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 时间</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[keyword4]" value="{$today}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 备注</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[remark]" value="{$remark}" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"> 链接</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="content[link]" value="{$link}" class="form-control">
+						<span class="help-block">链接请以http://或https://开头，链接为空时，点击模版消息详情将跳转到课程详情页面</span>
+					</div>
+				</div>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" onclick="showOverlay()"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </form>
+</div>
+<div class="mloading-bar" style="margin-top: -31px; margin-left: -140px;"><img src="{MODULE_URL}template/mobile/{$template}/images/download.gif"><span class="mloading-text">正在处理，请勿关闭或刷新...</span></div>
+<div id="overlay"></div>
+<script type="text/javascript">
+/* 显示遮罩层 */
+function showOverlay() {
+    $("#overlay").height("100%");
+    $("#overlay").width("100%");
+    $("#overlay").fadeTo(200, 0);
+	$(".mloading-bar").show();
+}
+function search_lesson() {
+	var uniacid = {php echo $uniacid};
+	if ($.trim($('#search-kwd').val()) == '') {
+		document.getElementById('search-kwd').focus();
+		return;
+	}
+	$("#module-menus").html("正在搜索....");
+	$.get("{php echo $this->createWebUrl('getlessonormember', array('op'=>'getLesson'))}", { 
+		uniacid:uniacid,keyword: $.trim($('#search-kwd').val())
+	}, function (dat) {
+		$('#module-menus').html(dat);
+	});
+}
+function select_lesson(obj) {
+	$("#bookname").val(obj.bookname);
+	$("#lesson_id").val(obj.id);
+}
+</script>

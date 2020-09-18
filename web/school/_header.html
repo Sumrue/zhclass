@@ -1,0 +1,20 @@
+<ul class="nav nav-tabs">
+	<li {if $op=='display'}class="active"{/if}><a href="{php echo $this->createWebUrl('school');}">学校列表</a></li>
+	{if $op=='post'}
+	<li {if $op=='post'}class="active"{/if}><a href="{php echo $this->createWebUrl('school', array('op'=>'post'));}">{if $_GPC['id']>0}编辑{else}添加{/if}学校</a></li>
+	{/if}
+	<li {if ($op=='class' && empty($at))}class="active"{/if}><a href="{php echo $this->createWebUrl('school',array('op'=>'class'));}">分类管理</a></li>
+	<li {if ($op=='class' && $at=='add')}class="active"{/if}><a href="{php echo $this->createWebUrl('school', array('op'=>'class','at'=>'add'));}">{if $_GPC['id']>0}编辑{else}添加{/if}分类</a></li>
+	<li {if ($op=='level' && empty($at))}class="active"{/if}><a href="{php echo $this->createWebUrl('school', array('op'=>'level'));}">层次管理</a></li>
+	{if ($op=='level' && $at=='add')}
+	<li class="active"><a href="{php echo $this->createWebUrl('school', array('at'=>'add','op'=>'level','pid'=>$_GPC['pid'],'id'=>$_GPC['id']));}">{if $_GPC['id']>0}编辑{else}添加{/if}层次</a></li>
+    {/if}
+    <li {if ($op=='category' && empty($at))}class="active"{/if}><a href="{php echo $this->createWebUrl('school', array('op'=>'category'));}">专业分类管理</a></li>
+	{if ($op=='category' && $at=='add')}
+	<li class="active"><a href="{php echo $this->createWebUrl('school', array('at'=>'add','op'=>'category','pid'=>$_GPC['pid'],'id'=>$_GPC['id']));}">{if $_GPC['id']>0}编辑{else}添加{/if}专业分类</a></li>
+    {/if}
+    <li {if ($op=='pro' && empty($at))}class="active"{/if}><a href="{php echo $this->createWebUrl('school', array('op'=>'pro'));}">专业管理</a></li>
+	{if ($op=='pro' && $at=='add')}
+	<li class="active"><a href="{php echo $this->createWebUrl('school', array('at'=>'add','op'=>'pro','pid'=>$_GPC['pid'],'id'=>$_GPC['id']));}">{if $_GPC['id']>0}编辑{else}添加{/if}专业</a></li>
+    {/if}
+</ul>

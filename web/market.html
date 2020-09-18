@@ -1,0 +1,68 @@
+<!--
+ * 营销管理
+ * ============================================================================
+ * 版权所有 2015-2020 风影科技，并保留所有权利。
+ * 网站地址: https://www.fylesson.com
+ * ----------------------------------------------------------------------------
+ * 这不是一个自由软件，未购买授权用户无论是否用于商业行为都是侵权行为！
+ * 允许已购买用户对程序代码进行修改并在授权域名下使用，但是不允许对程序代码以
+ * 任何形式任何目的进行二次发售，作者将依法保留追究法律责任的权力和最终解释权。
+ * ============================================================================
+-->
+
+{template 'common/header'}
+{template 'web/market/_header'}
+
+
+<!-- 抵扣设置 -->
+{if $op=='display'}
+	{template 'web/market/display'}
+
+<!-- 优惠券列表 -->
+{elseif $op=='coupon'}
+	{template 'web/market/coupon'}
+
+<!-- 添加优惠券 -->
+{elseif $op=='addCoupon'}
+	{template 'web/market/addCoupon'}
+
+<!-- 优惠券规则 -->
+{elseif $op=='couponRule'}
+	{template 'web/market/couponRule'}
+
+<!-- 发放优惠券 -->
+{elseif $op=='sendCoupon'}
+	{template 'web/market/sendCoupon'}
+
+<!-- 优惠券记录 -->
+{elseif $op=='couponLog'}
+	{template 'web/market/couponLog'}
+
+<!-- 优惠券记录详情 -->
+{elseif $op=='couponDetail'}
+	{template 'web/market/couponDetail'}
+
+<!-- 限时折扣列表 -->
+{elseif $op=='discount'}
+	{template 'web/market/discount'}
+
+<!-- 添加限时折扣 -->
+{elseif $op=='addDiscount'}
+	{template 'web/market/addDiscount'}
+
+<!-- 限时折扣课程列表 -->
+{elseif $op=='discountLesson'}
+	{template 'web/market/discountLesson'}
+
+<!-- 添加限时折扣课程 -->
+{elseif $op=='addDiscountLesson'}
+	{template 'web/market/addDiscountLesson'}
+
+<!-- 签到明细 -->
+{elseif $op=='signin'}
+	{template 'web/market/signin'}
+
+{/if}
+
+
+{template 'common/footer'}

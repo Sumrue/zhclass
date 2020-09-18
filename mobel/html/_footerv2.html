@@ -1,0 +1,116 @@
+	{if !in_array($_GPC['do'], array('search','qrcode','qrcoderec','lessonqrcode'))}
+	<footer>
+		<a href="{php echo $this->createMobileUrl('index', array('t'=>1));}">{$setting['copyright']}</a>
+	</footer>
+	{/if}
+
+	{if $common['right_bar'] && $right_menu}
+		{template $template.'/rightBar'}
+	{/if}
+	<div class="btn-scroll-up" id="backtop" {if $_GPC['do']=='search'}style="display:block;"{/if}>
+		<div class="btn_scroll_home">
+			<i class="fa fa-angle-double-up"></i>
+		</div>
+	</div>
+
+	<!-- 底部导航 -->
+	<div id="footer-nav" class="footer-nav {if ($_GPC['do']=='lesson' && $section['sectiontype']!=2) || $_GPC['do']=='qrcode' || $_GPC['do']=='qrcoderec' || $_GPC['do']=='lessonqrcode'}hidden{/if}">
+		{if $_GPC['do'] == 'self2' || $_GPC['do'] == 'signin'}
+		<a href="{php echo $this->createMobileUrl('index', array('t'=>1));}" class="weui-tabbar__item {if $foot_params['index']}weui-bar__item_on{/if}" onclick="toApplyForm()">
+			<img src="{MODULE_URL}template/mobile/{$template}/images/main_icon.png" class="weui-tabbar__icon" />
+			<p class="weui-tabbar__label">主页</p>
+		</a>
+		{else}
+		<a href="javascript::;" class="weui-tabbar__item {if $foot_params['index']}weui-bar__item_on{/if}" onclick="toApplyForm()">
+			<img src="{$navigation['index']['unselected_icon']}" class="weui-tabbar__icon" />
+			<p class="weui-tabbar__label">{$navigation['index']['nav_name']}</p>
+		</a>
+		{/if}
+		<a href="{$navigation['diynav']['url_link']}" class="weui-tabbar__item {if $foot_params['diynav']}weui-bar__item_on{/if}">
+				<img src="{$navigation['diynav']['selected_icon']}" class="weui-tabbar__icon" />
+			<p class="weui-tabbar__label">{$navigation['diynav']['nav_name']}</p>
+		</a>
+		<a href="tel:15198246419" class="weui-tabbar__item {if $foot_params['search']}weui-bar__item_on{/if}">
+				<img src="{$navigation['search']['selected_icon']}" class="weui-tabbar__icon" />
+			<p class="weui-tabbar__label">{$navigation['search']['nav_name']}</p>
+		</a>
+		<a href="{php echo $this->createMobileUrl('self2');}" class="weui-tabbar__item {if $foot_params['self']}weui-bar__item_on{/if}">
+				<img src="" class="weui-tabbar__icon self_footer_navbar" style="border-radius: 50%;"/>
+			<p class="weui-tabbar__label">{$navigation['self']['nav_name']}</p>
+		</a>
+	</div>
+	<!-- /底部导航 -->
+</div>
+
+{if !empty($config['statis_code'])}
+	<div style="display:none;">
+		{php echo html_entity_decode($config['statis_code']);}
+	</div>
+{/if}
+
+<script type="text/javascript">
+	$(function() {
+		
+		// 底部设置个人中心头像
+		let userAA = {php echo json_encode($_W["fans"]["avatar"])};
+		let footerSelfIcon = $('.self_footer_navbar')
+		footerSelfIcon.attr("src",userAA)
+	})
+
+
+	var uniacid = "{$uniacid}";
+	<?php if($_GPC['do']=='lesson'){ ?>
+		var lastPage = localStorage.getItem('lastPage_' + uniacid);
+		$("#lesson-back").click(function(){
+			if(lastPage){
+				window.location.href = lastPage;
+			}else{
+				window.history.go(-1);
+			}
+		})
+
+		window.localStorage.setItem('lesson_back_' + uniacid, 1);
+	<?php }elseif($_GPC['do']=='index'){ ?>
+		localStorage.setItem('lastPage_' + uniacid, "");
+	<?php }else{ ?>
+		localStorage.setItem('lastPage_' + uniacid, "{$_W['siteurl']}");
+	<?php } ?>
+
+	<?php if(!in_array($_GPC['do'], array('lesson','search'))){ ?>
+		window.localStorage.setItem('lesson_back_' + uniacid, 0);
+	<?php } ?>
+
+	//兼容iphoneX、XSMax、XR底部菜单
+	var isIPhoneX = /iphone/gi.test(window.navigator.userAgent) && window.devicePixelRatio && window.devicePixelRatio === 3 && window.screen.width === 375 && window.screen.height === 812;
+	var isIPhoneXSMax = /iphone/gi.test(window.navigator.userAgent) && window.devicePixelRatio && window.devicePixelRatio === 3 && window.screen.width === 414 && window.screen.height === 896;
+	var isIPhoneXR = /iphone/gi.test(window.navigator.userAgent) && window.devicePixelRatio && window.devicePixelRatio === 2 && window.screen.width === 414 && window.screen.height === 896;
+	if(isIPhoneX || isIPhoneXSMax || isIPhoneXR){
+		var footer_nav = document.getElementById("footer-nav");
+		var footer_nav_height = (footer_nav.clientHeight || footer_nav.offsetHeight) * 1 + 20;
+
+		document.getElementById('page-container').style.marginBottom = '20px';
+		var iphonex_head = document.head || document.getElementsByTagName('head')[0];
+		var iphonex_system = document.createElement('style');
+		iphonex_system.innerHTML = '.page-container{margin-bottom:20px;}.footer-nav{height:' + footer_nav_height + 'px;}';
+		iphonex_head.appendChild(iphonex_system);
+	}
+
+	// 进入注册页面前先判断类型
+	function toApplyForm(){
+			// 判断当前注册的类型
+			let applyIndex = sessionStorage.getItem('apply_form_url')
+			if(applyIndex == 0) {
+				location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","cid"=>"1"));}'
+			} else if(applyIndex == 1){
+				location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"open","cid"=>"2"));}'
+			} else if(applyIndex == 2){
+				location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"self","cid"=>"3"));}'
+			} else if(applyIndex == 3) {
+				location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"online","cid"=>"4"));}'
+			}else {
+				location.href = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","cid"=>"5"));}'
+			}
+	}
+</script>
+</body>
+</html>

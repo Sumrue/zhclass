@@ -1,0 +1,80 @@
+<style type="text/css">
+.prism-big-play-btn{display:none;}
+</style>
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="fy_lessonv2" />
+                <input type="hidden" name="do" value="aliyunvod" />
+                <input type="hidden" name="op" value="display" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">视频名称</label>
+                    <div class="col-sm-2 col-lg-3">
+                        <input class="form-control" name="keyword" type="text" value="{$_GPC['keyword']}">
+                    </div>
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">讲师编号</label>
+                    <div class="col-sm-2 col-lg-3">
+                        <input class="form-control" name="teacherid" type="text" value="{$_GPC['teacherid']}" placeholder="留空将检索后台上传的视频">
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width: 100px;">上传时间</label>
+                    <div class="col-sm-8 col-lg-3 col-xs-12">
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>($starttime ? date('Y-m-d', $starttime) : false),'endtime'=> ($endtime ? date('Y-m-d', $endtime) : false)));}
+                    </div>
+                    <div class="col-sm-3 col-lg-3">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+						&nbsp;&nbsp;
+						<a href="{php echo $this->createWebUrl('aliyunvod',array('op'=>'upAliyunVod'));}" class="btn btn-success"><i class="fa fa-plus"></i> 上传视频</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <form action="" method="post" class="form-horizontal form" >
+        <div class="table-responsive panel-body">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th style="width:20%;font-size:14px;">视频预览</th>
+                    <th style="width:15%;font-size:14px;">视频名称</th>
+                    <th style="width:10%;font-size:14px;">视频大小</th>
+					<th style="width:14%;font-size:14px;">上传时间</th>
+                    <th style="width:28%;font-size:14px;">VideoId</th>
+					<th style="text-align:right;width:8%;font-size:14px;">操作</th>
+                </tr>
+                </thead>
+                <tbody style="font-size: 13px;">
+                {loop $list $key $item}
+                <tr>
+                    <td>
+						<a href="{php echo $this->createWebUrl('aliyunvod', array('op'=>'preview','id'=>$item['id']));}"><img src="{MODULE_URL}template/mobile/{$template}/images/videoCover.png?v=1" width="150"/></a>
+					</td>
+                    <td style="word-break:break-all;">{$item['name']}</td>
+					<td>{$item['size']} MB</td>
+					<td>{php echo date('Y-m-d H:i:s', $item['addtime'])}</td>
+                    <td>
+                        <textarea style="width:300px;height:85px; border-radius:5px;" id="content{$key}" style="overflow-y:auto;" onclick="selectTxt(this)">{$item['videoid']}</textarea>
+                    </td>
+					<td style="text-align:right;">
+                        <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('aliyunvod', array('op'=>'delVideo','id'=>$item['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])));}" title="删除" onclick="return confirm('确认删除？');return false;"><i class="fa fa-remove"></i></a>
+                    </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+function selectTxt(obj){
+	$(obj).select();
+}
+</script>

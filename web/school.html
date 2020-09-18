@@ -1,0 +1,26 @@
+{template 'common/header'}
+{template 'web/school/_header'}
+<link href="{MODULE_URL}template/web/style/fycommon.css" rel="stylesheet">
+{if $operation == 'display'}
+	{template 'web/school/display'}
+{elseif $op=='post'}
+	{template 'web/school/post'}
+{elseif ($op=='class' && empty($at))}
+	{template 'web/school/class'}
+{elseif ($op=='class' && $at=='add')}
+	{template 'web/school/postclass'}
+{elseif ($op=='level' && empty($at))}
+	{template 'web/school/level'}
+{elseif ($op=='level' && $at=='add')}
+	{template 'web/school/postlevel'}
+{elseif ($op=='pro' && empty($at))}
+	{template 'web/school/pro'}
+{elseif ($op=='pro' && $at=='add')}
+	{template 'web/school/postpro'}
+{elseif ($op=='category' && empty($at))}
+	{template 'web/school/category'}
+{elseif ($op=='category' && $at=='add')}
+	{template 'web/school/postcategory'}
+{/if}
+
+{template 'common/footer'}

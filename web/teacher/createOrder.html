@@ -1,0 +1,120 @@
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onkeydown="if(event.keyCode==13){return false;}">
+        <div class="panel panel-default">
+            <div class="panel-heading">创建订单</div>
+            <div class="panel-body">
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">讲师编号</label>
+                    <div class="col-sm-9 col-xs-12">
+						<input type="text" value="{$teacher['id']}" class="form-control" readonly />
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">讲师名称</label>
+                    <div class="col-sm-9 col-xs-12">
+						<input type="text" value="{$teacher['teacher']}" class="form-control" readonly />
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">服务价格</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="text" name="price" id="price" class="form-control" value="{$teacher_price['price']}" readonly />
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">服务有效期</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="text" name="validity" id="validity" class="form-control" value="{$teacher_price['validity_time']}" readonly />
+                            <span class="input-group-addon">天</span>
+                        </div>
+                        <div class="help-block">服务有效期是指从生成订单时起，指定天数内有效</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">讲师分成</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="text" name="teacher_income" id="teacher_income" class="form-control" value="{$teacher_price['teacher_income']}" readonly />
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择用户</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class='input-group'>
+                            <input type="text" id='nickname' maxlength="30" class="form-control" readonly />
+							<input type="hidden" id='open_uid' name="open_uid"/>
+                            <div class='input-group-btn'>
+                                <button class="btn btn-default" type="button" onclick="popwin = $('#modal-module-member').modal();">选择用户</button>
+                            </div>
+                        </div>
+                        <div id="modal-module-member"  class="modal fade" tabindex="-1">
+                            <div class="modal-dialog" style='width: 920px;'>
+                                <div class="modal-content">
+                                    <div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3>选择用户</h3></div>
+                                    <div class="modal-body" >
+                                        <div class="row">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="kmember" value="" id="search-km" placeholder="请输入用户昵称/姓名/手机号" />
+                                                <span class='input-group-btn'><button type="button" class="btn btn-default" onclick="search_member();">搜索</button></span>
+                                            </div>
+                                        </div>
+                                        <div id="module-member" style="padding-top:5px;"></div>
+                                    </div>
+                                    <div class="modal-footer"><a href="javascript:;" class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">讲师分成佣金</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline"><input type="radio" name="income_switch" value="1" checked /> 开启</label>
+                        &nbsp;
+                        <label class="radio-inline"><input type="radio" name="income_switch" value="0" /> 关闭</label>
+                        <span class="help-block">开启讲师分成佣金后，该讲师会收到佣金</span>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分销佣金</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline"><input type="radio" name="sale_switch" value="1" checked /> 开启</label>
+                        &nbsp;
+                        <label class="radio-inline"><input type="radio" name="sale_switch" value="0" /> 关闭</label>
+                        <span class="help-block">开启分销佣金后，该用户的上级会收到相关的分销佣金(注意：系统必须开启分销功能，该选项开启才生效)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-12">
+            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+function search_member() {
+	var uniacid = {php echo $uniacid};
+	if ($.trim($('#search-km').val()) == '') {
+		document.getElementById('search-km').focus();
+		return;
+	}
+	$("#module-member").html("正在搜索....");
+	$.get("{php echo $this->createWebUrl('getlessonormember', array('op'=>'getMember'))}", { 
+		uniacid:uniacid,keyword: $.trim($('#search-km').val())
+	}, function (dat) {
+		$('#module-member').html(dat);
+	});
+}
+function select_member(obj) {
+	$("#nickname").val('昵称: ' + obj.nickname + '；会员id: ' + obj.uid);
+	$("#open_uid").val(obj.uid);
+}
+</script>

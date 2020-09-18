@@ -1,0 +1,449 @@
+<link href="{MODULE_URL}template/web/style/lessonTab/lesson-tab.css?v={$versions}" rel="stylesheet">
+<script type="text/javascript" src="{MODULE_URL}template/web/style/lessonTab/prefixfree.min.js?v={$versions}"></script>
+<style type="text/css">
+	.flex{
+		display: flex;
+	}
+	.center{
+		text-align: center!important;
+	}
+	.wauto{
+		width: auto!important;
+	}
+	.flex-end{
+		justify-content: flex-end;
+	}
+	.add-areal{
+		margin-left: 5%!important;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 10px;
+	}
+	.mb20{
+		margin-bottom: 20px;
+	}
+	.ml20{
+		margin-left: 20px;
+	}
+</style>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+		<div class="tab-group">
+			<section id="tab1" title="学校基本信息" class="lesson-tab-section">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;">*</span> 学校名称</label>
+						<div class="col-sm-9">
+							<input type="text" name="name" class="form-control" value="{$school['name']}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>学校分类</label>
+						<div class="col-sm-3">
+							<select name="cid" class="form-control">
+								<option value="">请选择...</option>
+								{loop $class_list $class}
+								<option value="{$class['id']}" {if $class['id']==$school['cid']}selected{/if}>{$class['name']}</option>
+								{/loop}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;">*</span>层次</label>
+						<div class="col-xs-12 col-sm-9">
+							{loop $school_level $key=>$item}
+							<div class="flex mb20">
+								<label class="radio-inline"><input name="lid[]" type="checkbox" value="{$item['id']}" {if is_array($school['lid']) && array_key_exists($item['id'],$school['lid'])}checked{/if}/>{$item['name']}</label><span class="input-group-addon wauto  ml20">收费</span>
+								<input type="text" name="price_{$item['id']}" value="{$school['lid'][$item['id']]['price']}" class="form-control wauto">
+								<span class="input-group-addon wauto ml20">学杂费</span>
+								<input type="text" name="oprice_{$item['id']}" value="{$school['lid'][$item['id']]['oprice']}" class="form-control wauto">
+							</div>
+							{/loop}
+					   </div>
+					</div>
+					<div id="area_copy" style="display: none;">
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label center">考区</label>
+							<div class="col-sm-9 col-xs-12 flex">
+								<div class="row row-fix tpl-category-container" style="margin-left: -25px;width: 100%;">
+									<div class="col-sm-4">
+										<select class="form-control" id="pro_addr_p" onchange="render_pro(this,this.value)">
+											<option value="0">请选择省</option>
+											{loop $addr $item}
+											{if $item['pid']==0}
+											<option value="{$item['id']}">{$item['name']}</option>
+											{/if}
+											{/loop}
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" id="pro_addr_c" onchange="render_pro(this,this.value,2)">
+											<option value="0">请选择市</option>
+										</select>
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" id="pro_addr_t" onchange="check_area(this,this.value)">
+											<option value="0">请选择区/县</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-sm-3 col-xs-12 flex flex-end"><button type="button" onclick="del_area(######);" class="btn btn-warm">删除考区</button></div>
+							</div>
+						</div>
+					</div>
+					<div id="area_new">
+						<div id="area_list">
+							{loop $school['area'] $key $item}
+							<div id="area_item_{$key}">
+								<div class="form-group">
+									<input type="hidden" id="area_id" value="{$item['id']}" />
+									<label class="col-xs-12 col-sm-3 col-md-2 control-label center">考区</label>
+									<div class="col-sm-9 col-xs-12 flex">
+										<div class="row row-fix tpl-category-container" style="margin-left: -25px;width: 100%;">
+											<div class="col-sm-4">
+												<select class="form-control" id="pro_addr_p" onchange="render_pro(this,this.value)">
+													<option value="0">请选择省</option>
+													{loop $addr $ritem}
+													{if $ritem['pid']==0}
+													<option value="{$ritem['id']}" {if $item['pid']==$ritem['id']}selected{/if}>{$ritem['name']}</option>
+													{/if}
+													{/loop}
+												</select>
+											</div>
+											<div class="col-sm-4">
+												<select class="form-control" id="pro_addr_c" onchange="render_pro(this,this.value,2)">
+													<option value="0">请选择市</option>
+													{loop $addr $ritem}
+													{if $ritem['pid']==$item['pid']}
+													<option value="{$ritem['id']}" {if $item['cid']==$ritem['id']}selected{/if}>{$ritem['name']}</option>
+													{/if}
+													{/loop}
+												</select>
+											</div>
+											<div class="col-sm-4">
+												<select class="form-control" id="pro_addr_t" onchange="check_area(this,this.value)">
+													<option value="0">请选择区/县</option>
+													{loop $addr $ritem}
+													{if $ritem['pid']==$item['cid']}
+													<option value="{$ritem['id']}" {if $item['tid']==$ritem['id']}selected{/if}>{$ritem['name']}</option>
+													{/if}
+													{/loop}
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-3 col-xs-12 flex flex-end"><button type="button" onclick="del_area({$akey});">删除考区</button></div>
+									</div>
+								</div>
+							</div>
+							{/loop}
+						</div>
+						<div class="form-group add-areal">
+							<button type="button" onclick="add_area({$key});" class="btn btn-primary">添加考区</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;font-weight:bolder;">*</span>省/市/区</label>
+						<div class="col-sm-8 col-xs-12">
+							<div class="row row-fix tpl-category-container">
+								<div class="col-sm-4">
+									<select class="form-control" id="addr_p" name="addr_p" onchange="render(this.value)">
+										<option value="0">请选择省</option>
+										{loop $addr $item}
+										{if $item['pid']==0}
+										<option value="{$item['id']}">{$item['name']}</option>
+										{/if}
+										{/loop}
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<select class="form-control" id="addr_c" name="addr_c" onchange="render(this.value,2)">
+										<option value="0">请选择市</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<select class="form-control" id="addr_t" name="addr_t">
+										<option value="0">请选择区/县</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;">*</span> 详细地址</label>
+						<div class="col-sm-9">
+							<div class="input-group">
+								<input type="text" name="addr" class="form-control" value="{$school['addr']}" />
+								<span class="input-group-addon">%</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;font-weight:bolder;">*</span>LOGO</label>
+						<div class="col-sm-9">
+							{php echo tpl_form_field_image('logo', $school['logo'])}
+							<span class="help-block">建议尺寸 600 * 365px，也可根据自己的实际情况做图片尺寸</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;font-weight:bolder;">*</span>Banner</label>
+						<div class="col-sm-9">
+							{php echo tpl_form_field_image('banner', $school['banner'])}
+							<span class="help-block">建议尺寸 600 * 365px，也可根据自己的实际情况做图片尺寸</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center">学校介绍</label>
+						<div class="col-sm-9">
+							{php echo tpl_ueditor('content', $school['content']);}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label center">排序</label>
+						<div class="col-sm-9">
+							<input type="text" name="displayorder" class="form-control" value="{$teacher['displayorder']}" />
+							<span class="help-block">序号越大，排序越靠前</a></span>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="tab2" title="专业" class="lesson-tab-section">
+				<div class="panel-body">
+					<input type="hidden" id="pro_is" value="" />
+					<input type="hidden" id="addr_is" value="" />
+					<div id="pro_copy" style="display: none;">
+						<div class="form-group flex" id="pro_item_######">
+							<label class="col-xs-12 col-sm-2 col-md-2 control-label center">专业</label>
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="input-group flex">
+									<span class="input-group-addon wauto">专业名称</span>
+									<select class="form-control" id="pro_name" onchange="check_pro(this,this.value)" style="width: 260%;">
+										<option value="0">请选择专业</option>
+										{loop $pro_list $item}
+										<option value="{$item['id']}">{$item['lname']}-{$item['cname']}-{$item['name']}</option>
+										{/loop}
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<span class="input-group-addon wauto">学制</span>
+									<input type="text" id="pro_unit" value="" class="form-control">
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<button type="button" onclick="del_pro(######);" style="width: 100%;" class="btn btn-danger">删除专业</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="pro_new">
+						{if !empty($school['spec'])}
+							{loop $school['spec'] $key $item}
+							<div id="pro_item_{$key}">
+								<div class="form-group flex" id="pro_item_{$key}">
+									<input type="hidden" id="spec_id" value="{$item['id']}" />
+									<label class="col-xs-12 col-sm-2 col-md-2 control-label center">专业</label>
+									<div class="col-sm-12">
+										<div class="input-group flex">
+											<span class="input-group-addon wauto">专业名称</span>
+											<select class="form-control" id="pro_name" onchange="check_pro(this,this.value)">
+												<option value="0">请选择专业</option>
+												{loop $pro_list $pitem}
+												<option value="{$pitem['id']}" {if $item['pid']==$pitem['id']}selected{/if}>{$pitem['lname']}-{$pitem['cname']}-{$pitem['name']}</option>
+												{/loop}
+											</select>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<span class="input-group-addon wauto">学制</span>
+											<input type="text" id="pro_unit" value="{$item['unit']}" class="form-control">
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<button type="button" onclick="del_pro({$key});" style="width: 100%;" class="btn btn-danger">删除专业</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							{/loop}
+						{/if}
+					</div>
+					<div class="form-group" style="margin-left: 25px;">
+						<button type="button" onclick="add_pro();" class="btn btn-primary">添加专业</button>
+					</div>
+				</div>
+			</section>
+		</div>
+        <div class="form-group col-sm-12">
+            <input type="submit" name="submit" value="保存" class="btn btn-primary col-lg-1" onclick="return add_school();"/>
+            <input type="hidden" name="token" value="{$_W['token']}" />
+			<input type="hidden" name="id" value="{$id}" />
+			<input type="hidden" id="spec_list" name="spec_list" value="" />
+			<input type="hidden" id="area_all" name="area_all" value="" />
+        </div>
+	</form>
+</div>
+
+
+<script type="text/javascript" src="{MODULE_URL}template/web/style/lessonTab/jquery-tab.js?v={$versions}"></script>
+<script type="text/javascript">
+var addr = {php echo json_encode($addr);};
+var addr_p = {php echo $school['addr_p']?$school['addr_p']:0};
+var addr_c = {php echo $school['addr_c']?$school['addr_c']:0};
+var addr_t = {php echo $school['addr_t']?$school['addr_t']:0};
+var html = '<option value="0">请选择一级分类</option>';
+$(function(){
+	$("#addr_p").find("option[value='"+addr_p+"']").attr("selected",true);
+	$("#addr_c").find("option[value='"+addr_c+"']").attr("selected",true);
+	$("#addr_t").find("option[value='"+addr_t+"']").attr("selected",true);
+	document.getElementById("addr_p").onchange();
+	document.getElementById("addr_c").onchange();
+});
+function check_area(label,id){
+	var par=$(label).closest("div[id^='area_item_']").attr("id");
+	if(par==0){
+		return;
+	}
+	var area_list=$(label).closest("div[id^='area_list']").children();
+	for(var i=0;i<area_list.length;i++){
+		var area_item_id=$(area_list[i]).attr("id");
+		if(area_item_id==par){
+			continue;
+		}
+		var area_item_val=$(area_list[i]).find("#pro_addr_t").val();
+		if(id==area_item_val){
+			alert("不能选择重复的地区");
+			$(label).val(0)
+			break;
+		}
+	}
+}
+function check_pro(label,id){
+	var par=$(label).closest("div[id^='pro_item_']").attr("id");
+	var pro_item=$("#pro_new").children();
+	for(var i=0;i<pro_item.length;i++){
+		var pro_item_id=$(pro_item[i]).attr("id");
+		if(pro_item_id==par){
+			continue;
+		}
+		var pro_item_val=$(pro_item[i]).find("#pro_name").val();
+		if(id==pro_item_val){
+			alert("不能选择重复的专业");
+			$(label).val(0)
+			break;
+		}
+	}
+}
+function add_school(){
+	var school_list=[];
+	var pro_item=$("#pro_new").children();
+	for(var i=0;i<pro_item.length;i++){
+		var data={};
+		var spec_id=$(pro_item[i]).find("#spec_id").val();
+		if(spec_id!=null){
+			data["id"]=spec_id;
+		}
+		data["name"]=$(pro_item[i]).find("#pro_name").val();
+		data["price"]=$(pro_item[i]).find("#pro_price").val();
+		data["oprice"]=$(pro_item[i]).find("#pro_oprice").val();
+		data["unit"]=$(pro_item[i]).find("#pro_unit").val();
+		school_list.push(data);
+	}
+	var area_list=[];
+	var area_item=$("#area_list").children();
+	for(var j=0;j<area_item.length;j++){
+		var area={};
+		area["pid"]=$(area_item[j]).find("#pro_addr_p").val();
+		area["cid"]=$(area_item[j]).find("#pro_addr_c").val();
+		area["tid"]=$(area_item[j]).find("#pro_addr_t").val();
+		area_list.push(area);
+	}
+	$("#spec_list").val(JSON.stringify(school_list));
+	$("#area_all").val(JSON.stringify(area_list));
+	return true;
+}
+function del_pro(id){
+	$("#pro_item_"+id).remove();
+}
+function add_pro(){
+	var new_html=$("#pro_copy").html();
+	var item_count=$('#pro_new').children().length;
+	var new_html = new_html.replace(new RegExp("######","g"), item_count);
+	new_html="<div id=\"pro_item_"+item_count+"\">"+new_html+"</div>";
+	$("#pro_new").append(new_html);
+}
+function del_area(id){
+	$("#area_list > #area_item_"+id).remove();
+}
+function add_area(){
+	var new_html=$("#area_copy").html();
+	var item_count=$('#area_list').children().length;
+	var new_html = new_html.replace(new RegExp("######","g"), item_count);
+	new_html="<div id=\"area_item_"+item_count+"\">"+new_html+"</div>";
+	$("#area_list").append(new_html);
+}
+function render(id,level=1){
+	var se;
+	var ad;
+	if(level==1){
+		se=$("#addr_c");
+		ad=addr_c;
+	}else{
+		se=$("#addr_t");
+		ad=addr_t;
+	}
+	var chtml = '<option value="0">请选择下级分类</option>';
+	if(id>0){
+		for(var i in addr){
+			if(addr[i].pid==id){
+				if(addr[i].id==ad){
+				chtml += '<option value="' + addr[i].id+'" selected>' + addr[i].name + '</option>';
+				}else{
+					chtml += '<option value="' + addr[i].id+'">' + addr[i].name + '</option>';
+				}
+			}
+		}
+		se.html(chtml);
+	}else{
+		se.html(chtml);
+	}
+}
+function render_pro(label,id,level=1){
+	var se_pro;
+	var ad_pro;
+	var par=$(label).parent().next();
+	if(level==1){
+		se_pro=par.children("#pro_addr_c");
+		ad_pro=addr_c;
+	}else{
+		se_pro=par.children("#pro_addr_t");
+		ad_pro=addr_t;
+	}
+	var chtml = '<option value="0">请选择下级分类</option>';
+	if(id>0){
+		for(var i in addr){
+			if(addr[i].pid==id){
+				if(addr[i].id==ad_pro){
+				chtml += '<option value="' + addr[i].id+'" selected>' + addr[i].name + '</option>';
+				}else{
+					chtml += '<option value="' + addr[i].id+'">' + addr[i].name + '</option>';
+				}
+			}
+		}
+		se_pro.html(chtml);
+	}else{
+		se_pro.html(chtml);
+	}
+}
+$(function() {
+	$(':radio[name="status"]').click(function() {
+		if($(this).val() == '-1') {
+			$('.reason-div').show();
+		} else {
+			$('.reason-div').hide();
+		}
+	});
+	
+	$(':radio[name="is_distribution"]').click(function() {
+		if($(this).val() == '1') {
+			$('.distribution-div').show();
+		} else {
+			$('.distribution-div').hide();
+		}
+	});
+
+	$('.tab-group').tabify();
+});
+
+</script>
+

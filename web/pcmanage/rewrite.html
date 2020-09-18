@@ -1,0 +1,67 @@
+
+<div class="rewrite">
+	<h3 class="rewrite-head">
+		伪静态需要管理员手动设置，设置教程如下：
+	</h3>
+	<div class="rewrite-box">
+		<div class="rewrite-box-head">
+			【微课堂PC端】伪静态规则
+		</div>
+		<div class="rewrite-box-body rewrite-rule">
+			<h4>Apache服务器</h4>
+			<p>Apache 1.x 的用户请检查 conf/httpd.conf 中是否存在如下两段代码：</p>
+			<pre>
+LoadModule rewrite_module libexec/mod_rewrite.so
+AddModule mod_rewrite.c</pre>
+			<p>Apache 2.x 的用户请检查 conf/httpd.conf 中是否存在如下一段代码： </p>
+			<pre>
+LoadModule rewrite_module modules/mod_rewrite.so</pre>
+			<p>如果存在，且以#开头，请删除#。</p>
+			<p>后在配置文件 <b>（通常就是 conf/httpd.conf或者conf/extra/httpd-vhosts.conf）</b>中加入如下代码。此时请务必注意，如果网站使用通过虚拟主机来定义，请务必加到虚拟主机配置中去，如果加在虚拟主机配置外部将可能无法使用。改好后然后将 Apache 重启。</p>
+			<span>规则如下</span>
+			<div class="alert alert-info">
+				<code>
+RewriteEngine On <br />
+RewriteBase / <br />
+RewriteRule ^([0-9]+)-([0-9]+).html$				/app/index.php?i=$1&a=webapp&c=entry&eid=$2 <br>
+RewriteRule ^([0-9]+)/$								/app/index.php?i=$1&a=webapp&c=entry&do=index&m=fy_lessonv2 <br>
+RewriteRule ^([0-9]+)/([0-9a-zA-Z]+).html$			/app/index.php?i=$1&a=webapp&c=entry&do=$2&m=fy_lessonv2 <br>
+				</code>
+				<a href="javascript:;" clipboard-rewrite class="btn btn-primary">复制代码</a>
+			</div>
+			<h4>Nginx服务器</h4>
+			<span>规则如下</span>
+			<div class="alert alert-info">
+				<code>
+rewrite ^/([0-9]+)-([0-9]+).html$				  /app/index.php?i=$1&a=webapp&c=entry&eid=$2;<br>
+rewrite ^/([0-9]+)/$							  /app/index.php?i=$1&a=webapp&c=entry&do=index&m=fy_lessonv2;<br>
+rewrite ^/([0-9]+)/([0-9a-zA-Z]+).html$			  /app/index.php?i=$1&a=webapp&c=entry&do=$2&m=fy_lessonv2;<br>
+				</code>
+				<a href="javascript:;" clipboard-rewrite class="btn btn-primary">复制代码</a>
+			</div>
+			<h4>IIS7服务器（如果不会配置的请勿使用iis服务器）</h4>
+			<p>配置请参考<a href="https://jingyan.baidu.com/article/63f23628556b2f0209ab3d6b.html" target="_blank" class="color-default"> 这里</a></p>
+			<div class="alert alert-info">
+				IIS7服务器伪静态规则和Apache服务器伪静态规则一样，请自行配置
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	require(['clipboard'], function(Clipboard){
+		var clipboardRewrite = new Clipboard("[clipboard-rewrite]", {
+			text: function(v) {
+				return $(v).prev('code').text();
+			}
+		});
+		clipboardRewrite.on('success', function(e) {
+			if (!$(e.trigger).next('.cope-info').length) {
+				$(e.trigger).after('<a class="cope-info" style=" margin-left: 5px; vertical-align: middle;">复制成功, 粘贴到配置文件并重启网站服务器</a>')
+			}
+			setTimeout(function() {
+				$(e.trigger).next('.cope-info').remove()
+			}, 100110)
+			e.clearSelection()
+		})
+	})
+</script>

@@ -1,0 +1,94 @@
+{if $op=='studyDurationDetails'}
+	<script src="{MODULE_URL}template/web/style/echarts/echarts.common.min.js"></script>
+{/if}
+
+{if $op!='previewVideo'}
+	{template 'common/header'}
+	{template 'web/lesson/_header'}
+{/if}
+<link href="{MODULE_URL}template/web/style/fycommon.css" rel="stylesheet">
+
+
+{if $operation == 'display'}
+<!-- 课程列表 -->
+	{template 'web/lesson/display'}
+
+{elseif $operation == 'postlesson'}
+<!-- 发布课程 -->
+	{template 'web/lesson/postlesson'}
+
+{elseif $operation == 'auditsection'}
+<!-- 待审核章节 -->
+	{template 'web/lesson/auditsection'}
+
+{elseif $operation == 'viewsection'}
+<!-- 章节列表 -->
+	{template 'web/lesson/viewsection'}
+
+{elseif $operation == 'postsection'}
+<!-- 发布章节 -->
+	{template 'web/lesson/postsection'}
+
+{elseif $operation == 'sectionTitle'}
+<!-- 章节目录列表 -->
+	{template 'web/lesson/sectionTitle'}
+
+{elseif $operation == 'postSectionTitle'}
+<!-- 发布章节目录 -->
+	{template 'web/lesson/postSectionTitle'}
+
+{elseif $operation == 'document'}
+<!-- 课件资料 -->
+	{template 'web/lesson/document'}
+
+{elseif $op=='attribute'}
+<!-- 课程属性列表 -->
+	{template 'web/lesson/attribute'}
+
+{elseif $op=='addAttribute'}
+<!-- 添加课程属性 -->
+	{template 'web/lesson/addAttribute'}
+
+{elseif $op=='record'}
+<!-- 学习记录 -->
+	{template 'web/lesson/record'}
+
+{elseif $op=='studyDuration'}
+<!-- 学习时长汇总 -->
+	{template 'web/lesson/studyDuration'}
+
+{elseif $op=='studyDurationDetails'}
+<!-- 单个会员学习时长走势 -->
+	{template 'web/lesson/studyDurationDetails'}
+
+{elseif $op=='updomain'}
+<!-- 更新音视频域名 -->
+	{template 'web/lesson/updomain'}
+
+{elseif $op=='inform'}
+<!-- 开课提醒列表 -->
+	{template 'web/lesson/inform'}
+
+{elseif $op=='informStudent'}
+<!-- 发布开课课程 -->
+	{template 'web/lesson/informStudent'}
+
+{elseif $op=='previewVideo'}
+<!-- 预览课程音视频 -->
+	{template 'web/video/no-require-header'}
+	{template 'web/lesson/_header'}
+	{template 'web/lesson/previewVideo'}
+
+{elseif $op=='qrcodeList'}
+<!-- 课程海报 -->
+	{template 'web/lesson/qrcodeList'}
+
+{elseif $op=='editQrcode'}
+<!-- 课程海报 -->
+	{template 'web/lesson/editQrcode'}
+
+{/if}
+
+{if $op!='previewVideo'}
+	{template 'common/footer'}
+{/if}

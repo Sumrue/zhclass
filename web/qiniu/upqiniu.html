@@ -1,0 +1,175 @@
+<link rel="stylesheet" href="{MODULE_URL}template/web/style/Qiniu/main.css">
+<link rel="stylesheet" href="{MODULE_URL}template/web/style/Qiniu/highlight.css">
+
+<div class="main">
+	<div class="alert alert-info">
+	    音频请上传<span style="color:red;">mp3</span>格式文件，视频请上传<span style="color:red;">H.264编码的mp4</span>格式文件，否则部分ios系统手机将无法识别音视频格式。
+	</div>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">
+			<div class="row" style="margin-top: 20px;">
+				<input type="hidden" id="domain" value="{$qiniu['url']}">
+				<input type="hidden" id="uptoken_url" value="uptoken">
+				<div class="col-md-12">
+					<div id="container" style="position: relative;">
+						<input type="file" id="pickfiles" class="btn btn-default" name="video">
+					</div>
+				</div>
+				<div style="display:none" id="success" class="col-md-12">
+					<div class="alert-success">
+						队列全部文件处理完毕
+					</div>
+				</div>
+				<div class="col-md-12 ">
+					<table class="table table-striped table-hover text-left" style="margin-top:40px;display:none">
+						<thead>
+							<tr>
+								<th class="col-md-4">文件名称</th>
+								<th class="col-md-2">文件大小</th>
+								<th class="col-md-6">上传详情</th>
+							</tr>
+						</thead>
+						<tbody id="fsUploadProgress">
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane fade" id="code" aria-labelledby="code-tab">
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/bootstrap.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/moxie.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/plupload.full.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/zh_CN.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/ui.js?v=2"></script>
+{if $qiniu['qiniu_area']==1}
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/qiniu_huadong.js"></script>
+{elseif $qiniu['qiniu_area']==2}
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/qiniu_huabei.js"></script>
+{elseif $qiniu['qiniu_area']==3}
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/qiniu_huanan.js"></script>
+{elseif $qiniu['qiniu_area']==4}
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/qiniu_beimei.js"></script>
+{/if}
+<script type="text/javascript" src="{MODULE_URL}template/web/style/Qiniu/highlight.js"></script>
+<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+$(function() {
+    var uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',
+        browse_button: 'pickfiles',
+        container: 'container',
+        drop_element: 'container',
+        flash_swf_url: 'bower_components/plupload/js/Moxie.swf',
+        dragdrop: true,
+        chunk_size: '4mb',
+		uptoken: "<?php echo $token; ?>",
+        multi_selection: !(mOxie.Env.OS.toLowerCase()==="ios"),
+        filters : {
+            max_file_size : "2048mb",
+            prevent_duplicates: true,
+            mime_types: [
+                {title : "Audio files", extensions : "mp3"},
+                {title : "Video files", extensions : "mp4,wmv,flv"},
+			]
+        },
+        domain: $('#domain').val(),
+        get_new_uptoken: false,
+        auto_start: true,
+        log_level: 1,
+        init: {
+            'FilesAdded': function(up, files) {
+                $('table').show();
+                $('#success').hide();
+                plupload.each(files, function(file) {
+                    var progress = new FileProgress(file, 'fsUploadProgress');
+                    progress.setStatus("等待...");
+                    progress.bindUploadCancel(up);
+                });
+            },
+            'BeforeUpload': function(up, file) {
+                var progress = new FileProgress(file, 'fsUploadProgress');
+                var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                if (up.runtime === 'html5' && chunk_size) {
+                    progress.setChunkProgess(chunk_size);
+                }
+            },
+            'UploadProgress': function(up, file) {
+                var progress = new FileProgress(file, 'fsUploadProgress');
+                var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                progress.setProgress(file.percent + "%", file.speed, chunk_size);
+            },
+            'UploadComplete': function(file) {
+                $('#success').show();
+            },
+            'FileUploaded': function(up, file, info) {
+                var progress = new FileProgress(file, 'fsUploadProgress');
+                progress.setComplete(up, info);
+				
+            },
+			'Key': function(up, file) {
+				var key = "admin/"+file.name;
+				if(file.status==5){
+					$.ajax({
+						url:"<?php echo $this->createWebUrl('video', array('op'=>'saveQiniuUrl')); ?>",
+						data:{name:file.name, com_name:key, size:file.size},
+						type:'post',
+						dataType:'json',
+						success:function(res){
+							if(res.code == -1){
+								alert('已存在文件名：' + file.name);
+							}
+						}
+					});
+				}
+
+				return key;
+			},
+            'Error': function(up, err, errTip) {
+                $('table').show();
+                var progress = new FileProgress(err.file, 'fsUploadProgress');
+                progress.setError();
+                progress.setStatus(errTip);
+            }
+        }
+    });
+
+    uploader.bind('FileUploaded', function() {
+    });
+    $('#container').on(
+        'dragenter',
+        function(e) {
+            e.preventDefault();
+            $('#container').addClass('draging');
+            e.stopPropagation();
+        }
+    ).on('drop', function(e) {
+        e.preventDefault();
+        $('#container').removeClass('draging');
+        e.stopPropagation();
+    }).on('dragleave', function(e) {
+        e.preventDefault();
+        $('#container').removeClass('draging');
+        e.stopPropagation();
+    }).on('dragover', function(e) {
+        e.preventDefault();
+        $('#container').addClass('draging');
+        e.stopPropagation();
+    });
+
+    $('#show_code').on('click', function() {
+        $('#myModal-code').modal();
+        $('pre code').each(function(i, e) {
+            hljs.highlightBlock(e);
+        });
+    });
+
+    $('body').on('click', 'table button.btn', function() {
+        $(this).parents('tr').next().toggle();
+    });
+
+});
+</script>
