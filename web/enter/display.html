@@ -1,4 +1,64 @@
 <link href="{MODULE_URL}template/web/style/fycommon.css" rel="stylesheet">
+<style>
+	.remark {
+		position: relative;
+	}
+	.remark_show_box {
+		width: 100%;
+		min-height: 100px;
+		position: absolute;
+		top: 50px;
+		left: 5px;
+		padding: 5px 5px;
+		box-sizing: border-box;
+		background-color: rgb(255 238 238);
+		border-radius: 8px;
+		color: #9a6e09;
+		display: none;
+		z-index: 10;
+	}
+	.close_show {
+		margin-top: 20px;
+		color: #fff;
+	}
+	.remark_input {
+		min-height: 100px;
+		position: absolute;
+		top: 50px;
+		left: 5px;
+		padding: 5px 5px;
+		background-color: #079200d9;
+		box-sizing: border-box;
+		border-radius: 8px;
+		color: #9a6e09;
+		display: none;
+		z-index: 10;
+	}
+	.remark_input textarea {
+		width: 100%;
+		min-height: 70px;
+	}
+	.school_msg_box {
+		position: relative;
+	}
+	.school_msg {
+		width: 100%;
+		position: absolute;
+		top: 50px;
+		left: 5px;
+		text-align: left;
+		padding: 5px 5px;
+		box-sizing: border-box;
+		background-color: rgb(255 238 238);
+		border-radius: 8px;
+		color: #9a6e09;
+		z-index: 10;
+		display: none;
+	}
+	.school_msg_close {
+		margin: 0 auto;
+	}
+</style>
 <div class="main">
 	<div class="panel panel-info">
         <div class="panel-heading">筛选</div>
@@ -10,24 +70,24 @@
                 <input type="hidden" name="do" value="school" />
                 <input type="hidden" name="op" value="display" />
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">学校名称</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <input class="form-control" name="name" id="" type="text" value="{$_GPC['name']}">
-                    </div>
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">层次选择</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <select name="lid" class="form-control">
-                            <option value="">不限</option>
-							{loop $school_level $key $item}
-							<option value="{$item['id']}" {if $_GPC['lid']==$item['id']}selected{/if}>{$item['name']}</option>
-							{/loop}
-                        </select>
-					</div>
-					<div class="col-sm-3 col-lg-3">
-                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;
-						<a href="{php echo $this->createWebUrl('school', array('op'=>'post'));}" class="btn btn-success"><i class="fa fa-plus"></i> 添加学校</a>
-                    </div>
-                </div>
+									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">电话号码</label>
+									<div class="col-sm-2 col-lg-3">
+										<input class="form-control" name="name" id="" type="text" value="{$_GPC['name']}">
+									</div>
+									<div class="col-sm-1 col-lg-1">
+										<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;
+									</div>
+									<label class="col-xs-12 col-sm-2 col-md-1 col-lg-1 control-label" style="width:100px;">状态查询</label>
+									<div class="col-sm-3 col-lg-3">
+										<select name="lid" class="form-control">
+											<option value="">无</option>
+											<option value="1">报名未缴费</option>
+											<option value="2">咨询未缴费</option>
+											<option value="3">已缴费</option>
+										</select>
+									</div>
+									<a href="{php echo $this->createWebUrl('school', array('op'=>'post'));}" class="btn btn-success"><i class="fa fa-plus"></i>添加报名信息</a>
+								</div>
             </form>
         </div>
     </div>
@@ -37,32 +97,84 @@
 				<table class="table table-hover">
 					<thead class="navbar-inner">
 						<tr>
-							<th style="width:60px;">全选</th>
-							<th style="width:8%;text-align:center;">排序</th>
-							<th style="width:55%;">学校名称</th>
-							<th style="width:8%;text-align:center;">层次</th>
-							<th style="text-align:center;">操作</th>
+							<th style="width:50px;">选中</th>
+							<th style="width:8%;text-align:center;">姓名</th>
+							<th style="width:12%;">电话</th>
+							<th style="width:15%;text-align:left;">状态</th>
+							<th style="width:25%;text-align:left;">备注</th>
+							<th style="width:20%;text-align:center;">报读信息</th>
+							<th style="text-align:right;">操作</th>
 						</tr>
 					</thead>
 					<tbody>
-						{loop $list $parent}
+						<!-- 报名信息列表，以及操作列表 -->
+						{loop $list $item}
 						<tr>
-							<td><input type="checkbox" name="ids[]" value="{$parent['id']}" ></td>
-							<td style="text-align:center;"><input type="text" class="form-control" name="lessonorder[{$parent['id']}]" value="{$parent['displayorder']}" style="width: 70px;display:inline-block;"></td>
-							<td style="word-break:break-all;">[ID:{$parent['id']}] {$parent['name']}</td>
-							<td style="text-align:center;">
-								{loop $school_level $key $item}
-								{if in_array($item['id'],$parent['lid'])}
-								<span class="label label-info">{$item['name']}</span><br/>
+							<!-- 数据总id 1-->
+							<td><input type="checkbox" name="ids[]" value="{$item['id']}" ></td>
+							<td style="text-align:center;">{$item['name']}</td>
+							<!-- 姓名 3-->
+							<td style="word-break:break-all;">{$item['mobile']}</td>
+							<!-- 对应层次，已删除 4-->
+							<td style="text-align:left;">
+								{if $item['status'] == 0}
+									已报名
 								{/if}
-								{/loop}
 							</td>
-							<td style="text-align:center;">
+							<!-- 备注-->
+							<td style="text-align:left;" class="remark">
+								{if $item['remark'] !== null}
+								<button type="button" class="btn btn-success remark_btn_show">查看</button>
+								{else}
+								<button type="button" class="btn btn-success">无备注</button>
+								{/if}
+								<button type="button" class="btn btn-info change_remark">
+									{if $item['remark'] == null}
+										添加
+									{else}
+										修改
+									{/if}
+								</button>
+
+								<!-- 最后修改时间 -->
+								{if $item['lastmod'] !== '1970-01-01 08:00:00'}
+								<div style="font-size: 12px;color: rgba(20, 20, 20, 0.747);float: right;">
+									<p>最后修改时间</p>
+									<p>{$item['lastmod']}</p>
+								</div>
+								{/if}
+								{if $item['remark'] !== null}
+								<div class="remark_show_box">
+									<p>{$item['remark']}</p>
+									<button type="button" class="btn btn-danger close_show">关闭 X</button>
+								</div>
+								{/if}
+								<!-- 修改信息框 -->
+								<div class="remark_input">
+									<textarea class="remark_input_text"></textarea>
+									<button type="button" class="btn btn-primary change_remark_btn" data-remark-id={$item["id"]}>提交</button>
+									<button type="button" class="btn btn-danger change_remark_close">关闭 X</button>
+								</div>
+							</td>
+							<!-- 报读信息-->
+							<td style="text-align:center;" class="school_msg_box">
+								<button type="button" class="btn btn-success look_my_msg">查看报读信息</button>
+								<div class="school_msg">
+									<p>报读类型: <span>{$item['cname']}</span></p>
+									<p>报读学院: <span>{$item['sname']}</span></p>
+									<p>报读层次: <span>{$item['lname']}</span></p>
+									<p>报读专业: <span>{$item['pname']}</span></p>
+									<p>考试区县: <span>{$item['mobile']}</span></p>
+									<button type="button" class="btn btn-danger school_msg_close">关闭 X</button>
+								</div>
+							</td>
+							<!-- 操作选项，编辑或者删除 5-->
+							<td style="text-align:right;">
 								<div class="btn-group btn-group-sm">
 									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="javascript:;">功能列表 <span class="caret"></span></a>
 									<ul class="dropdown-menu dropdown-menu-left" role="menu" style="z-index:99999">
-										<li><a href="{php echo $this->createWebUrl('school', array('op'=>'post', 'id'=>$parent['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])));}"><i class="fa fa-edit"></i> 编辑学校</a></li>
-										<li><a href="{php echo $this->createWebUrl('school', array('op'=>'delete','id'=>$parent['id']));}" onclick="return confirm('确认删除此学校吗？');return false;"><i class="fa fa-remove"></i> &nbsp;删除学校</a></li>
+										<li><a href="{php echo $this->createWebUrl('enter', array('op'=>'studentdetail', 'id'=>$item[id]));}"><i class="fa fa-edit"></i> 编辑学员信息</a></li>
+										<li><a href="" onclick="return confirm('确认删除此学员信息吗？');return false;"><i class="fa fa-remove"></i> &nbsp;删除信息</a></li>
 									</ul>
 								</div>
 							</td>
@@ -75,11 +187,7 @@
 						<tr>
 							<td>
 								<input type="checkbox" id="selAll" style="margin-right:10px;">
-								<a href="javascript:;" id="online" data-type="online" class="btn btn-success" style="margin-right:13px;">启用</a>
-								<a href="javascript:;" id="offline" data-type="offline" class="btn btn-danger" style="margin-right:13px;">不启用</a>
-								<input name="submit" type="submit" class="btn btn-primary" value="批量排序">
-								<input type="hidden" name="token" value="{$_W['token']}">
-								<input type="hidden" name="pid" value="{$pid}">
+								<a href="javascript:;" id="online" data-type="online" class="btn btn-success" style="margin-right:13px;">全选</a>
 							</td>
 						</tr>
 					</tbody>
@@ -91,13 +199,102 @@
 </div>
 
 <script type="text/javascript">
-	function showOverlay(){
-		/* 显示遮罩层 */
-		$("#overlay").height("100%");
-		$("#overlay").width("100%");
-		$("#overlay").fadeTo(200, 0.2);
-		$(".mloading-bar").show();
-	}
+	// 注意，在操作事件时，得用父元素来找，不然会出现append进去的元素无法操作事件
+	// 备注信息的显示
+	$('.remark').on('click','.remark_btn_show',function(){
+			let $this = $(this)
+			console.log('找到了？')
+			console.log($this)
+			// 其他窗口的关闭
+			$('.remark_input').fadeOut() // 修改信息窗口关闭
+			$('.school_msg').fadeOut() // 报读信息窗口关闭
+			$this.parent().children('.remark_show_box').fadeIn()
+			$this.parent().parent().siblings().children('.remark').children('.remark_show_box').fadeOut()
+		}
+	)
+	// 备注信息的显示的关闭
+	$('.remark').on('click','.close_show',
+		function(){
+			$(this).parent().fadeOut()
+	})
+
+	// 修改备注窗口弹出
+	$('.remark').on('click','.change_remark',function(){
+		// 其他弹出框的关闭
+		$('.remark_show_box').fadeOut()
+		$('.school_msg').fadeOut()
+
+		let $this = $(this)
+		$this.parent().children('.remark_input').fadeIn()
+		$this.parent().parent().siblings().children('.remark').children('.remark_input').fadeOut()
+	})
+
+	// 修改备注窗口关闭
+	$('.remark').on('click','.change_remark_close',function(){
+			$('.remark_input').fadeOut()
+			$(this).siblings().val('')
+		}
+	)
+
+	// 修改备注窗口弹出中点击提交按钮时
+	$('.remark').on('click','.change_remark_btn',function(){
+		let $this = $(this)
+		let textval = $this.siblings().val()
+		let id = $this.attr('data-remark-id')
+		let url = '{php echo $this->createWebUrl("enter", array("op"=>"remark","method"=>"ajaxgetlist"));}'
+		// 发送请求
+		$.post(url,{remark:textval,id: id},function(data){
+			console.log('请求已发出')
+		}).then(res => {
+			let msg = JSON.parse(res)
+			if (msg.code == 1) { // 为1时则发送成功，重置当前列表内容，无刷新更新内容
+				let chtml = `
+								<button type="button" class="btn btn-success remark_btn_show">查看</button>
+								<button type="button" class="btn btn-info change_remark">修改</button>
+								<div style="font-size: 14px;color: #CA4242;float: right;text-align: left">
+									备注已修改
+								</div>
+								<!-- 查看信息框 -->
+								<div class="remark_show_box">
+									<p>${textval}</p>
+									<button type="button" class="btn btn-danger close_show">关闭 X</button>
+								</div>
+								<!-- 修改信息框 -->
+								<div class="remark_input">
+									<textarea class="remark_input_text"></textarea>
+									<button type="button" class="btn btn-primary change_remark_btn" data-remark-id=${id}>提交</button>
+									<button type="button" class="btn btn-danger change_remark_close">关闭 X</button>
+								</div>
+				`
+				let parent = $this.parent().parent()
+					console.log(parent)
+					parent.html('')
+					parent.append(chtml)
+			}
+		})
+	})
+
+	// 查看报读学校信息
+	$('.look_my_msg').click(
+		function(){
+			// 其他窗口的关闭
+			$('.remark_show_box').fadeOut()
+			$('.remark_input').fadeOut()
+
+			let $this = $(this)
+			$this.parent().children('.school_msg').fadeIn()
+			$this.parent().parent().siblings().children('.school_msg_box').children('.school_msg').fadeOut()
+		}
+	)
+	
+	// 报读信息窗口的关闭
+	$('.school_msg_close').click(
+		function(){
+			$('.school_msg').fadeOut()
+		}
+	)
+
+
 
 	var ids = document.getElementsByName("ids[]");
 	var selectAll = false;
@@ -122,35 +319,4 @@
 			return checkids;
 		}
 	}
-
-	var schoolids = '';
-	$("#online,#offline").click(function(){
-		schoolids = checkStatus();
-		var request_type = $(this).data('type');
-		if(request_type=='online'){
-			var confirm_msg = '确认批量显示?';
-		}else if(request_type=='offline'){
-			var confirm_msg = '确认批量隐藏?';
-		}
-
-		if(schoolids && confirm(confirm_msg)){
-			$.ajax({
-				type: "POST",
-				url: "{php echo $this->createWebUrl('school',array('op'=>'batchSetting'));}",
-				data: {schoolids:schoolids, type:request_type},
-				dataType:"json",
-				success: function(res){
-					if(res.code===0){
-						alert(res.msg);
-						location.reload();
-					}else{
-						alert('网络繁忙，操作失败');
-					}
-				},
-				error: function(error){
-					alert('网络请求超时，请稍后重试!');
-				}
-			});
-		}
-	});
 </script>

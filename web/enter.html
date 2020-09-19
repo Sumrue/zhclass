@@ -1,8 +1,10 @@
 {template 'common/header'}
-{template 'web/enter/_header'}
 <link href="{MODULE_URL}template/web/style/fycommon.css" rel="stylesheet">
 {if $operation == 'display'}
+	{template 'web/enter/_header'}
 	{template 'web/enter/display'}
+{else if $operation == 'studentdetail'}
+	{template 'web/enter/studentdetail'}
 {/if}
 
 {template 'common/footer'}
