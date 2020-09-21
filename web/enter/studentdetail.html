@@ -105,11 +105,20 @@
 					<div class="form-group">
 						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>报考学校</label>
 						<div class="col-sm-3">
-							<select name="cid" class="form-control" id="school">
-								<option value="">{$enter["sname"]}</option>
-								{loop $class_list $class}
-								<option value="{$class['id']}" {if $class['id']==$school['cid']}selected{/if}>{$class['name']}</option>
-								{/loop}
+              <select name="cid" class="form-control" id="school" onchange="schoolChange(value)">
+                <option value="{$enter['sid']}">{$enter["sname"]}</option>
+              </select>
+						</div>
+          </div>
+
+          
+
+          <!-- 报考层次 -->
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>报考层次</label>
+						<div class="col-sm-3">
+							<select name="cid" class="form-control" id="level" onchange="levelChange(value)">
+                <option value="{$enter["lid"]}">{$enter["lname"]}</option>
 							</select>
 						</div>
           </div>
@@ -119,36 +128,17 @@
 						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>报考专业</label>
 						<div class="col-sm-3">
 							<select name="cid" class="form-control" id="major">
-								<option value="">{$enter["pname"]}</option>
-								{loop $class_list $class}
-								<option value="{$class['id']}" {if $class['id']==$school['cid']}selected{/if}>{$class['name']}</option>
-								{/loop}
+								<option value="{$enter["pid"]}">{$enter["pname"]}</option>
 							</select>
 						</div>
           </div>
 
-          <!-- 报考层次 -->
-					<div class="form-group">
-						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>报考层次</label>
-						<div class="col-sm-3">
-							<select name="cid" class="form-control" id="level">
-                <option value="">{$enter["lname"]}</option>
-                {loop $class_list $class}
-								<option value="{$class['id']}" {if $class['id']==$school['cid']}selected{/if}>{$class['name']}</option>
-								{/loop}
-							</select>
-						</div>
-          </div>
 
           <!-- 考试区县 -->
           <div class="form-group">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>考试区县</label>
 						<div class="col-sm-3">
 							<select name="cid" class="form-control" id="address">
-                <option value="">{$enter["aid"]}</option>
-                {loop $class_list $class}
-								<option value="{$class['id']}" {if $class['id']==$school['cid']}selected{/if}>{$class['name']}</option>
-								{/loop}
 							</select>
 						</div>
           </div>
@@ -208,34 +198,6 @@ function check_pro(label,id){
 			break;
 		}
 	}
-}
-function add_school(){
-	var school_list=[];
-	var pro_item=$("#pro_new").children();
-	for(var i=0;i<pro_item.length;i++){
-		var data={};
-		var spec_id=$(pro_item[i]).find("#spec_id").val();
-		if(spec_id!=null){
-			data["id"]=spec_id;
-		}
-		data["name"]=$(pro_item[i]).find("#pro_name").val();
-		data["price"]=$(pro_item[i]).find("#pro_price").val();
-		data["oprice"]=$(pro_item[i]).find("#pro_oprice").val();
-		data["unit"]=$(pro_item[i]).find("#pro_unit").val();
-		school_list.push(data);
-	}
-	var area_list=[];
-	var area_item=$("#area_list").children();
-	for(var j=0;j<area_item.length;j++){
-		var area={};
-		area["pid"]=$(area_item[j]).find("#pro_addr_p").val();
-		area["cid"]=$(area_item[j]).find("#pro_addr_c").val();
-		area["tid"]=$(area_item[j]).find("#pro_addr_t").val();
-		area_list.push(area);
-	}
-	$("#spec_list").val(JSON.stringify(school_list));
-	$("#area_all").val(JSON.stringify(area_list));
-	return true;
 }
 
 function add_area(){
@@ -303,6 +265,8 @@ let school = $('#school')
 let major = $('#major')
 let level = $('#level')
 let address = $('#address')
+let schoolData = [] // 选择类型后的学校的数据
+let schoolID  = null; // 选中的学校的ID
 // 状态改变时 显示金额窗口
 function statusChange() {
   let val = $('#status').val()
@@ -317,38 +281,239 @@ function statusChange() {
 // 报读类型改变时 
 function typeChange(val){
   console.log(val)
+  // 改变时就渲染下一项选择的数据
   school.html('<option selected >---请选择---</option>')
   major.html('<option selected >---请选择---</option>')
   level.html('<option selected >---请选择---</option>')
   address.html('<option selected >---请选择---</option>')
-}
-
-// 报考学校的重选
-
-function schoolChange() {
-  // 根据报读类型查询数据
-}
-</script>
-
-<script>
-  $(function(){
-    let data = {php echo json_encode($enter)};
-    console.log(data)
-    // 页面初始化时就现根据报读类型来展示学校信息，避免在直接选择学校时无信息
-    let school = [ // 请求到的信息
-      {name: "学校1"},
-      {name: "学校2"},
-      {name: "学校3"},
-      {name: "学校4"},
-      {name: "学校5"}
-    ]
-    let schoolHtml = ''
-    for(let i = 0; i < school.length; i++){
-      schoolHtml = `
-        <option value="">${school[i].name}</option>
+  // 渲染学校数据
+  let url = '{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"school"));}' + "&cid=" + val
+  $.get(url, function(data){
+    console.log('学校数据请求')
+  }).then(res => {
+    // 请求成功，将学校数据保存
+    // 渲染学校名称和ID
+    let data = JSON.parse(res)
+    schoolData = data
+    let html = ''
+    for(let i = 0; i < data.length; i++) {
+      html = `
+        <option value="${data[i].id}" data-index="${i}">${data[i].name}</option>
       `
-      $('#school').append(schoolHtml)
+      school.append(html)
     }
   })
+}
+
+
+// 报考学校的重选
+function schoolChange(val) {
+  major.html('<option selected >---请选择---</option>')
+  level.html('<option selected >---请选择---</option>')
+  address.html('<option selected >---请选择---</option>')
+  // 记住当前的选择的数据的ID
+  // 根据选中项的index查找下一项的值
+  schoolID = val
+  let index = school.find('option:selected').attr('data-index')
+
+  let html = ''
+  let levelData = schoolData[index].lid
+  for(let i = 0; i < levelData.length; i++) {
+    html = `
+      <option value="${levelData[i].id}">${levelData[i].name}</option>
+    `
+    level.append(html)
+  }
+
+  // 渲染出最下级的地点数据
+  let cityData = schoolData[index].area
+  let chtml = ''
+  let city = []
+  for(key in cityData) {
+    city.push(cityData[key].tid)
+  }
+  for(key in city) {
+    console.log(city[key])
+    let mydata = city[key]
+    for(key in mydata) {
+      chtml = `
+        <option value="${key}">${mydata[key]}</option>
+      `
+      address.append(chtml)
+    }
+
+  }
+}
+
+// 报考层次的重选
+function levelChange(val){
+  let enter = {php echo json_encode($enter)};
+  console.log(enter)
+  // 获取当前学校ID，查找出对应专业
+  let mySchoolID = enter.sid
+  major.html('<option selected >---请选择---</option>')
+  let url = '{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"pro"));}' + "&lid=" + val + '&id=' + mySchoolID
+  $.get(url,function(data) {
+  }).then(res => {
+    let data = JSON.parse(res)
+    console.log(res)
+    let html = ''
+    for(let i = 0; i < data.length; i++) {
+      html = `
+        <option value="${data[i].id}">${data[i].name}</option>
+      `
+      major.append(html)
+    }
+  })
+}
+
+// 一开始考试区县的转化
+$(function() {
+  let enter = {php echo json_encode($enter)};
+  // 获取当前用户默认报名考试区县ID
+  cityID = enter.aid
+  for(let i = 0; i < addr.length; i++) {
+    if(addr[i].id == cityID) {
+      let html = `
+        <option value="${cityID}">${addr[i].ext_name}</option>
+      `
+      address.append(html)
+    }
+  }
+})
+
+
+// 初始化时的数据构成
+$(function(){
+  let enter = {php echo json_encode($enter)};
+  let addrData = {php echo json_encode($addr)};
+  console.log(enter)
+  let addr_last = []
+  let myschoolID = $('#school').val()
+  let cid = $('#type').val()
+  let levelID = $('#level').val()
+  // 当前报读类型下的学校数据
+  let url ='{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"school"));}' + "&cid=" + cid
+  $.get(url,function(data){
+  }).then(res => {
+    schoolData = JSON.parse(res)
+    let schoolVal = school.val()
+    let schoolHtml = ''
+    // 学校选择数据的初始化
+    for(let i = 0; i < schoolData.length; i++) {
+      if(schoolVal == schoolData[i].id ){
+        // 判断是否和默认重复，重复则隐藏
+        schoolHtml = `
+          <option value="${schoolData[i].id}" data-index="${i}" style="display:none">${schoolData[i].name}</option>
+        `
+      } else {
+        schoolHtml = `
+          <option value="${schoolData[i].id}" data-index="${i}">${schoolData[i].name}</option>
+        `
+      }
+      school.append(schoolHtml)
+    }
+  })
+
+  // 还需要根据学校ID查出学校对应下的层次。再根据层次查出专业信息
+  let levelurl ='{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"detail"));}' + "&id=" + myschoolID
+  $.get(levelurl,function(data){
+  }).then(res => {
+    schooldetail = JSON.parse(res)
+    let levelData = schooldetail.lid
+    let tidArr = JSON.parse(schooldetail.area)
+    let levelVal = level.val()
+    let levelHtml = ''
+    for(let i = 0; i < levelData.length; i++) {
+      if(levelVal == levelData[i].id){
+        levelHtml = `
+          <option value="${levelData[i].id}" style="display:none">${levelData[i].name}</option>
+        `
+      } else {
+        levelHtml = `
+          <option value="${levelData[i].id}">${levelData[i].name}</option>
+        `
+      }
+      level.append(levelHtml)
+
+      // 对应学校地区ID获取
+      addr_last.push(tidArr[i].tid)
+    }
+
+    // 根据地区ID循环出真正地区名
+    let addressVal = address.val()
+    for(let i = 0; i < addr_last.length; i++){
+      for(let j = 0; j < addrData.length; j++ ) {
+        if(addrData[j].id == addr_last[i]){
+          let adthtml = ''
+          if(addressVal == addr_last[i]) {
+            adthtml = `
+              <option value="${addr_last[i]}" style="display:none">${addrData[j].ext_name}</option>
+            `
+          } else {
+            adthtml = `
+              <option value="${addr_last[i]}">${addrData[j].ext_name}</option>
+            `
+          }
+          address.append(adthtml)
+        }
+      }
+    }
+  })
+
+  // 根据层次和学校初始化专业ID
+  let majorurl = '{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"pro"));}' + "&lid=" + levelID + '&id=' + myschoolID
+  $.get(majorurl,function(data) {
+  }).then(res => {
+    let data = JSON.parse(res)
+    let majorValue = major.val()
+    console.log(majorValue + '专业值')
+    let majorHtml = ''
+    let majorVal = major.val()
+    for(let i = 0; i < data.length; i++){
+      let did = data[i].id
+      if (majorVal == did) {
+        majorHtml = `
+          <option value="${data[i].id}" style="display:none">${data[i].name}</option>
+        `
+      } else {
+        majorHtml = `
+          <option value="${data[i].id}">${data[i].name}</option>
+        `
+      }
+      major.append(majorHtml)
+    }
+  })
+})
+
+// 提交保存数据
+function add_school(){
+	var school_list=[];
+	var pro_item=$("#pro_new").children();
+	for(var i=0;i<pro_item.length;i++){
+		var data={};
+		var spec_id=$(pro_item[i]).find("#spec_id").val();
+		if(spec_id!=null){
+			data["id"]=spec_id;
+		}
+		data["name"]=$(pro_item[i]).find("#pro_name").val();
+		data["price"]=$(pro_item[i]).find("#pro_price").val();
+		data["oprice"]=$(pro_item[i]).find("#pro_oprice").val();
+		data["unit"]=$(pro_item[i]).find("#pro_unit").val();
+		school_list.push(data);
+	}
+	var area_list=[];
+	var area_item=$("#area_list").children();
+	for(var j=0;j<area_item.length;j++){
+		var area={};
+		area["pid"]=$(area_item[j]).find("#pro_addr_p").val();
+		area["cid"]=$(area_item[j]).find("#pro_addr_c").val();
+		area["tid"]=$(area_item[j]).find("#pro_addr_t").val();
+		area_list.push(area);
+	}
+	$("#spec_list").val(JSON.stringify(school_list));
+	$("#area_all").val(JSON.stringify(area_list));
+	return true;
+}
 </script>
 
