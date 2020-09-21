@@ -147,7 +147,7 @@
 			</section>
 		</div>
         <div class="form-group col-sm-12">
-            <input type="submit" name="submit" value="保存" class="btn btn-primary col-lg-1" onclick="return add_school();"/>
+            <input value="保存" class="btn btn-primary col-lg-1" onclick="add_school();"/>
             <input type="hidden" name="token" value="{$_W['token']}" />
 			<input type="hidden" name="id" value="{$id}" />
 			<input type="hidden" id="spec_list" name="spec_list" value="" />
@@ -270,7 +270,7 @@ let schoolID  = null; // 选中的学校的ID
 // 状态改变时 显示金额窗口
 function statusChange() {
   let val = $('#status').val()
-  console.log(val)
+
   // 当选中状态为缴费状态时，金额窗口则显示
   if(val == 2 || val == 3) {
     $('.pay_box').css('display','block')
@@ -280,7 +280,7 @@ function statusChange() {
 }
 // 报读类型改变时 
 function typeChange(val){
-  console.log(val)
+
   // 改变时就渲染下一项选择的数据
   school.html('<option selected >---请选择---</option>')
   major.html('<option selected >---请选择---</option>')
@@ -333,7 +333,6 @@ function schoolChange(val) {
     city.push(cityData[key].tid)
   }
   for(key in city) {
-    console.log(city[key])
     let mydata = city[key]
     for(key in mydata) {
       chtml = `
@@ -348,7 +347,6 @@ function schoolChange(val) {
 // 报考层次的重选
 function levelChange(val){
   let enter = {php echo json_encode($enter)};
-  console.log(enter)
   // 获取当前学校ID，查找出对应专业
   let mySchoolID = enter.sid
   major.html('<option selected >---请选择---</option>')
@@ -356,7 +354,6 @@ function levelChange(val){
   $.get(url,function(data) {
   }).then(res => {
     let data = JSON.parse(res)
-    console.log(res)
     let html = ''
     for(let i = 0; i < data.length; i++) {
       html = `
@@ -387,7 +384,6 @@ $(function() {
 $(function(){
   let enter = {php echo json_encode($enter)};
   let addrData = {php echo json_encode($addr)};
-  console.log(enter)
   let addr_last = []
   let myschoolID = $('#school').val()
   let cid = $('#type').val()
@@ -467,7 +463,6 @@ $(function(){
   }).then(res => {
     let data = JSON.parse(res)
     let majorValue = major.val()
-    console.log(majorValue + '专业值')
     let majorHtml = ''
     let majorVal = major.val()
     for(let i = 0; i < data.length; i++){
@@ -488,32 +483,48 @@ $(function(){
 
 // 提交保存数据
 function add_school(){
-	var school_list=[];
-	var pro_item=$("#pro_new").children();
-	for(var i=0;i<pro_item.length;i++){
-		var data={};
-		var spec_id=$(pro_item[i]).find("#spec_id").val();
-		if(spec_id!=null){
-			data["id"]=spec_id;
-		}
-		data["name"]=$(pro_item[i]).find("#pro_name").val();
-		data["price"]=$(pro_item[i]).find("#pro_price").val();
-		data["oprice"]=$(pro_item[i]).find("#pro_oprice").val();
-		data["unit"]=$(pro_item[i]).find("#pro_unit").val();
-		school_list.push(data);
-	}
-	var area_list=[];
-	var area_item=$("#area_list").children();
-	for(var j=0;j<area_item.length;j++){
-		var area={};
-		area["pid"]=$(area_item[j]).find("#pro_addr_p").val();
-		area["cid"]=$(area_item[j]).find("#pro_addr_c").val();
-		area["tid"]=$(area_item[j]).find("#pro_addr_t").val();
-		area_list.push(area);
-	}
-	$("#spec_list").val(JSON.stringify(school_list));
-	$("#area_all").val(JSON.stringify(area_list));
-	return true;
+  let myData = {
+    nameValue: '',
+    mobileValue: '',
+    codeValue: '',
+    statusValue: '',
+    payValue: '',
+    typeValue: '',
+    schoolValue: '',
+    levelValue: '',
+    majorValue: '',
+    addressValue: ''
+  }
+  myData.nameValue = name.val()
+  myData.mobileValue = mobile.val()
+  myData.codeValue = code.val()
+  myData.statusValue = status.val()
+  myData.payValue = $('#pay').val()
+  myData.typeValue = type.val()
+  myData.schoolValue = school.val()
+  myData.levelValue = level.val()
+  myData.majorValue = major.val()
+  myData.addressValue = address.val()
+
+  let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/
+  if(myData.mobileValue == '') {
+    alert('电话号码不能为空')
+    return
+  } else if(!phoneReg.test(myData.mobileValue)){
+    alert('电话号码格式不正确，请检查后再保存')
+    return
+  }
+
+  let codeReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|x|X)$/
+  if(myData.codeValue == '') {
+    alert('身份证不能为空')
+    return
+  } else if(!codeReg.test(myData.codeValue)){
+    alert('身份证格式不正确，请检查后再保存')
+    return
+  }
+  console.log(myData)
+
 }
 </script>
 
