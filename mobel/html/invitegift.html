@@ -472,11 +472,7 @@
 		let totoqrode = $('.totoqrode')
 		totoqrode.click(function(){
 			let phone = {php echo json_encode($_W["member"]["mobile"])};
-			if(phone == '') {
-				location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
-			} else {
 				location.href = '{php echo $this->createMobileUrl("qrcode");}'
-			}
 		})
 	});
 </script>

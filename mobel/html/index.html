@@ -395,7 +395,7 @@
 			let schoolHzitem = $('.school_hz_box .school_item')
 			schoolHzitem.click(function(){
 					// 传入学校ID
-					let id = schoolHzitem.attr('data-id')
+					let id = $(this).attr('data-id')
 					let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
 					location.href = url
 				

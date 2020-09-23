@@ -167,42 +167,14 @@
                 主考院校一览
               </div>
               <div class="self_school">
+                {loop $school_list_3 $item}
                 <div class="self_school_item">
                   <div class="self_school_img">
-                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
+                    <img src="{$_W['attachurl']}{$item['logo']}" alt="">
                   </div>
-                  <p class="school_name">广东外语外贸学院</p>
+                  <p class="school_name">{$item['name']}</p>
                 </div>
-                <div class="self_school_item">
-                  <div class="self_school_img">
-                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
-                  </div>
-                  <p class="school_name">广东外语外贸学院</p>
-                </div>
-                <div class="self_school_item">
-                  <div class="self_school_img">
-                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
-                  </div>
-                  <p class="school_name">广东外语外贸学院</p>
-                </div>
-                <div class="self_school_item">
-                  <div class="self_school_img">
-                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
-                  </div>
-                  <p class="school_name">广东外语外贸学院</p>
-                </div>
-                <div class="self_school_item">
-                  <div class="self_school_img">
-                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
-                  </div>
-                  <p class="school_name">广东外语外贸学院</p>
-                </div>
-                <div class="self_school_item">
-                  <div class="self_school_img">
-                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/school_1.png" alt="">
-                  </div>
-                  <p class="school_name">广东外语外贸学院</p>
-                </div>
+                {/loop}
                 <div class="clear"></div>
               </div>
             </div>
@@ -214,17 +186,23 @@
               </div>
               <div class="self_major">
                <div class="self_major_box">
-                 <p class="self_major_title">本科专业</p>
+                 <p class="self_major_title">专科专业</p>
                  <div class="self_major_items">
-                   <a href="javascript::;" class="self_major_item">行政专业</a>
-                   <a href="javascript::;" class="self_major_item">汉语言大学</a>
+                   {loop $pro_list $item}
+                    {if $item[lid] == 1}
+                     <a href="javascript::;" class="self_major_item">{$item[name]}</a>
+                     {/if}
+                   {/loop}
                  </div>
                </div>
                <div class="self_major_box">
-                 <p class="self_major_title">专科专业</p>
+                 <p class="self_major_title">本科专业</p>
                  <div class="self_major_items">
-                   <a href="javascript::;" class="self_major_item">行政专业</a>
-                   <a href="javascript::;" class="self_major_item">汉语言大学</a>
+                  {loop $pro_list $item}
+                  {if $item[lid] == 2}
+                   <a href="javascript::;" class="self_major_item">{$item[name]}</a>
+                   {/if}
+                 {/loop}
                  </div>
                 </div>
               </div>
@@ -266,6 +244,8 @@
   
   <script>
     $(function(){
+      let school3 = {php echo json_encode($pro_list)};
+      console.log(school3)
       $(window).scroll(
         function(){ 
           let windowHt = $(this).scrollTop()

@@ -67,7 +67,7 @@
                 <div>
                   <div class="school_major_item">
                     <div class="school_major_head">
-                     <span class="text_title">广东生态工程职业学院</span>
+                     <span class="text_title">{$school['name']}</span>
                     </div>
                     <div class="school_table">
                       <table>
@@ -79,40 +79,40 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <!-- 判断是否有高起专层次 -->
+                          {if $school[lid][1][id] == 1}
                           <tr>
                             <td>高起专</td>
-                            <td class="table_major">会计、工商企业管理、行政管理、阿斯顿发生、噶的大、额嘎达</td>
-                            <td><span>2800</span></td>
+                            <td class="table_major" id="level1">
+
+                            </td>
+                            <td><span>{$school[lid][1][price]}</span></td>
                           </tr>
-                          
+                          {/if}
                         </tbody>
                         <tbody>
+                           <!-- 判断是否有专升本层次 -->
+                          {if $school[lid][2][id] == 2}
                           <tr>
                             <td>专升本</td>
-                            <td class="table_major">会计、工商企业管理、行政管理</td>
-                            <td><span>2800</span></td>
+                            <td class="table_major" id="level2"></td>
+                            <td><span>{$school[lid][2][price]}</span></td>
                           </tr>
-                          
+                          {/if}
                         </tbody>
                       </table>
                       <ul class="bottom_text">
                         <li class="bottom_text_li">书杂费:
-                          <span>300</span>
+
+                          {if !empty($school[lid][1])}<span>{$school[lid][1][oprice]}</span>
+                          {else}<span>{$school[lid][2][oprice]}</span>
+                          {/if}
                         </li>
-                        <li class="bottom_text_li">学制:
+                        <!-- <li class="bottom_text_li">学制:
                           <span>3</span>
-                        </li>
-                        <li class="bottom_text_li">考区: 
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>、
-                          <span>温江</span>
+                        </li> -->
+                        <li class="bottom_text_li" id="addrBox">考区: 
+                          
                         </li>
                       </ul>
                     </div>
@@ -195,6 +195,8 @@
             return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];}); 
             }
           let strrr = {php echo json_encode($school)};
+          let addr = {php echo json_encode($addr)};
+          console.log(strrr)
           let schollText = $('.detail_content_head .text')
           let contenttext = '{php echo json_encode($school['content'])}'
           let text = escape2Html(contenttext)
@@ -442,6 +444,84 @@
             location.href = url
           }
         )
+
+        // 初始化时学校信息的渲染
+        let level1Box = $('#level1')
+        let level2Box = $('#level2')
+        let html = ''
+        let level1Data = []
+        let level2Data = []
+        let levelData = strrr.lid
+        let addrData = JSON.parse(strrr.area)
+        console.log(addrData)
+        console.log(levelData[2])
+
+        // 高起专和专升本都存在情况下
+        if (levelData[2] && levelData[1]) {
+          for(let i = 1; i < 3; i++) {
+            let majorUrl = '{php echo $this->createMobileUrl("adultuserform", array("at"=>"pro"));}' + '&lid=' + levelData[i].id + '&id=' + '{php echo $_GPC["id"];}'
+            console.log(levelData[i])
+            $.get(majorUrl,function(data){
+              console.log('发送请求专业信息,都存在')
+            }).then(res => {
+              let resData = JSON.parse(res)
+              if(i == 1) {
+                for(let j = 0;j < resData.length; j ++) {
+                  let html = ''
+                  html = `
+                    <span>${resData[j].name}</span>、
+                  `
+                  level1Box.append(html)
+                }
+              } else{
+                for(let j = 0;j < resData.length; j ++) {
+                  let html = ''
+                  html = `
+                    <span>${resData[j].name}</span>、
+                  `
+                  level2Box.append(html)
+                }
+              }
+            })
+          }
+        } else if(levelData[2] || levelData[1]){
+          for(key in levelData) {
+            console.log(key)
+            let majorUrl = '{php echo $this->createMobileUrl("adultuserform", array("at"=>"pro"));}' + '&lid=' + levelData[key].id + '&id=' + '{php echo $_GPC["id"];}'
+            $.get(majorUrl,function(data){
+                console.log('发送请求专业信息')
+              }).then(res => {
+                let resData = JSON.parse(res)
+                let html = ''
+                    html = `
+                      <span>${resData[0].name}</span>、
+                    `
+                    level1Box.append(html)
+                    level2Box.append(html)
+            })
+          }
+        }
+
+        // 循环出地址
+        let addrArr = []
+        let addrBox = $('#addrBox')
+        let addrHtml = ''
+        for(let i = 0; i < addrData.length; i++){
+          addrArr.push(addrData[i].tid)
+        }
+        console.log(addrArr)
+        // 根据获取的地址循环出真正的地址
+        for(let i = 0; i < addrArr.length; i++){
+          for(let j = 0; j < addr.length; j++) {
+            if(addrArr[i] == addr[j].id) {
+              addrHtml = `
+                <span>${addr[j].ext_name}</span>、
+              `
+              
+            }
+          }
+          addrBox.append(addrHtml)
+        }
       })
     </script>
 {template $template.'/_footerv2'}

@@ -78,113 +78,8 @@
 				</div>
 				<div class="clear"></div>
 			</li>
-			<li>
-				<div class="left">
-					{php echo $font['teacherQQ'] ? $font['teacherQQ'] : '讲师QQ'}：
-				</div>
-				<div class="right">
-					<input type="text" name="qq" id="qq" value="{$teacherlog['qq']}{if !empty($teacherlog['qq']) && $teacherlog['status']==1}[不可修改]{/if}" {if !empty($teacherlog['qq']) && $teacherlog['status']==1}readonly{/if} />
-				</div>
-				<div class="clear"></div>
-			</li>
-			<li>
-				<div class="left">
-					{php echo $font['qqGroup'] ? $font['qqGroup'] : 'QQ群'}：
-				</div>
-				<div class="right">
-					<input type="text" name="qqgroup" id="qqgroup" value="{$teacherlog['qqgroup']}{if !empty($teacherlog['qqgroup']) && $teacherlog['status']==1}[不可修改]{/if}" {if !empty($teacherlog['qqgroup']) && $teacherlog['status']==1}readonly{/if} />
-				</div>
-				<div class="clear"></div>
-			</li>
-			<li>
-				<div class="left">
-					{php echo $font['teacherDesc'] ? $font['teacherDesc'] : '讲师介绍'}：
-				</div>
-				<div class="right">
-					<textarea name="teacherdes" id="teacherdes">{$teacherlog['teacherdes']}</textarea>
-				</div>
-				<div class="clear"></div>
-			</li>
 		</ul>
 	</article>
-	<section class="logo-license">
-		<div class="half">
-			<a class="logo" id="up-photo">
-				<img id="teacherphoto_show" src="{php echo $teacherlog['teacherphoto'] ? $_W['attachurl'].$teacherlog['teacherphoto'] : MODULE_URL.'template/mobile/'.$template.'/images/applyteacher-avatar.png';}"/>
-			</a>
-			<p>{php echo $font['teacherPhoto'] ? $font['teacherPhoto'] : '上传讲师头像'}</p>
-			<img id="view" class="img">
-			<input type="file" id="teacherphoto_file" style="position:absolute;top:0;right:0;bottom:0;padding:0;margin:0;height:110px;width:100%;cursor:pointer;border:solid 1px #ddd;opacity:0;" />
-			<input type="hidden" name="teacherphoto" id="teacherphoto_hide" value="{$teacherlog['teacherphoto']}"/>
-			<div class="cover-wrap">
-				<div class="clipBgn" id="clipBgn" style="margin-top:0;width:100%;height:90%;">
-					<div id="clipArea"></div>
-					<div class="clipButton">
-						<a href="javascript:;" id="bigImg">放大</a>
-						<a href="javascript:;" id="smallImg">缩小</a>
-						<a href="javascript:;" id="clipBtn">保存</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="half">
-			<div class="uploader blue">
-				<input type="text" class="filename" readonly value="{php echo $font['teacherQrcode'] ? $font['teacherQrcode'] : '微信二维码'}"/>
-				<a class="license">
-					<img id="qrcode_url_show" src="{php echo $teacherlog['weixin_qrcode'] ? $_W['attachurl'].$teacherlog['weixin_qrcode'] : MODULE_URL.'template/mobile/'.$template.'/images/applyteacher-qrcode.png';}"/>
-				</a>
-				<input id="uploadFile2" name="uploadFile" class="file-3" type="file" size="30" onchange="uploadImage(2);" accept="image/*" />
-				<input type="hidden" name="weixin_qrcode" id="qrcode_url_hide" value="{$teacherlog['weixin_qrcode']}"/>
-			</div>
-		</div>
-		<div class="clear"></div>
-		<div class="help-block">
-			{php echo $font['photoDesc'] ? $font['photoDesc'] : '头像和二维码建议尺寸200*200像素，格式为jpg'}
-		</div>
-	</section>
-	<section class="applyteacher_main">
-		<div class="title">{php echo $font['descTitle'] ? $font['descTitle'] : '讲师特权'}</div>
-		<div class="vip_main">
-			<div class="vip">
-				<div class="ico1"><i class="fa fa-qrcode"></i></div>
-				<div class="text">
-					<div class="t1">{php echo $font['incomeTitle'] ? $font['incomeTitle'] : '课程收入'}</div>
-					<div class="t2">{php echo $font['incomeDesc'] ? $font['incomeDesc'] : '课程每出售一次，即可收入课程佣金'}</div>
-				</div>
-			</div>
-			<div class="vip">
-				<div class="ico2"><i class="fa fa-cny"></i></div>
-				<div class="text">
-					<div class="t1">{php echo $font['cashTitle'] ? $font['cashTitle'] : '自由提现'}</div>
-					<div class="t2">{php echo $font['cashDesc'] ? $font['cashDesc'] : '收入存入账户，可自由申请提现'}</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	{if $setting['teacher_agreement']}
-	<section class="teacher_agreement">
-		<input type="checkbox" name="teacher_agreement" value="1" />
-		我已阅读并同意<a href="javascript:;" class="btn-agreement">《讲师注册(隐私)协议》</a>
-	</section>
-	<div class="act-group-notice-mask" style="display:none;">
-		<div class="act-group-notice">
-			<div class="close">
-				<img src="{MODULE_URL}template/mobile/default/images/btn-close.png?v=6" width="32" height="32">
-			</div>
-			<h3 class="notice-title">讲师注册(隐私)协议</h3>
-			<ul class="notice-body">
-				{php echo htmlspecialchars_decode($setting['teacher_agreement'])}
-			</ul>
-		</div>
-	</div>
-	<script type="text/javascript">
-	$(".btn-agreement").click(function(){
-		$('.act-group-notice-mask').fadeIn(200).unbind('click').click(function(){
-			$(this).fadeOut(100);
-		})
-	})
-	</script>
-	{/if}
 	<article class="btn-1" style="text-align: center;">
 		<button onclick="return checksubmit();">提交申请</button>
 	</article>
@@ -213,28 +108,6 @@
             alert("请填写手机号码");
             return false;
         }
-        if (teacherdes == "") {
-            alert("请填写讲师介绍");
-           return false;
-        }
-		if (teacherphoto == "") {
-            alert("请上传讲师相片");
-            return false;
-        }
-
-		{if $setting['teacher_agreement']}
-			var agreement = false;
-			$("input[name='teacher_agreement']").each(function () {
-				if ($(this).is(":checked")) {
-					agreement = true;
-				}
-			});
-			if(!agreement){
-				alert("请阅读并同意讲师注册(隐私)协议");
-				return false;
-			}
-		{/if}
-
         document.getElementById("loadingToast").style.display = 'block';
         return true;
     }

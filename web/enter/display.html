@@ -67,26 +67,33 @@
                 <input type="hidden" name="c" value="site" />
                 <input type="hidden" name="a" value="entry" />
                 <input type="hidden" name="m" value="fy_lessonv2" />
-                <input type="hidden" name="do" value="school" />
+                <input type="hidden" name="do" value="enter" />
                 <input type="hidden" name="op" value="display" />
                 <div class="form-group">
 									<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">电话号码</label>
 									<div class="col-sm-2 col-lg-3">
-										<input class="form-control" name="name" id="" type="text" value="{$_GPC['name']}">
+										<input class="form-control" name="mobile" id="phone_number" type="text" value="">
 									</div>
 									<div class="col-sm-1 col-lg-1">
-										<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;
+										<button class="btn btn-default" onclick="selectPhone(event)"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;
 									</div>
 									<label class="col-xs-12 col-sm-2 col-md-1 col-lg-1 control-label" style="width:100px;">状态查询</label>
 									<div class="col-sm-3 col-lg-3">
-										<select name="lid" class="form-control">
-											<option value="">无</option>
-											<option value="1">报名未缴费</option>
-											<option value="2">咨询未缴费</option>
-											<option value="3">已缴费</option>
+										<select name="status" class="form-control">
+											<option value="" selected>无</option>
+											<option value="0">意向学员</option>
+											<option value="1">已报名</option>
+											<option value="2">已缴费(全款)</option>
+											<option value="3">已缴费(分期)</option>
+											<option value="4">已结业</option>
 										</select>
 									</div>
-									<a href="{php echo $this->createWebUrl('school', array('op'=>'post'));}" class="btn btn-success"><i class="fa fa-plus"></i>添加报名信息</a>
+									<div class="col-sm-1 col-lg-1">
+										<button class="btn btn-default"><i class="fa fa-search"></i>状态查询</button>&nbsp;&nbsp;
+									</div>
+								</div>
+								<div class="col-sm-1 col-lg-1">
+									<a href="{php echo $this->createWebUrl('enter', array('op'=>'display'));}">	<button type="button" class="btn btn-success remark_btn_show">全部显示</button></a>
 								</div>
             </form>
         </div>
@@ -118,7 +125,15 @@
 							<!-- 对应层次，已删除 4-->
 							<td style="text-align:left;">
 								{if $item['status'] == 0}
+									意向学员
+								{else if $item['status'] == 1}
 									已报名
+								{else if $item['status'] == 2}
+									已缴费(全款)
+								{else if $item['status'] == 3}
+									已缴费(分期)
+								{else if $item['status'] == 4}
+									已结业
 								{/if}
 							</td>
 							<!-- 备注-->
@@ -174,7 +189,7 @@
 									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="javascript:;">功能列表 <span class="caret"></span></a>
 									<ul class="dropdown-menu dropdown-menu-left" role="menu" style="z-index:99999">
 										<li><a href="{php echo $this->createWebUrl('enter', array('op'=>'studentdetail', 'id'=>$item[id]));}"><i class="fa fa-edit"></i> 编辑学员信息</a></li>
-										<li><a href="" onclick="return confirm('确认删除此学员信息吗？');return false;"><i class="fa fa-remove"></i> &nbsp;删除信息</a></li>
+									<li><a href="javascript::;" onclick="deleteThis(this,{$item['id']})"><i class="fa fa-remove"></i> &nbsp;删除信息</a></li>
 									</ul>
 								</div>
 							</td>
@@ -203,8 +218,6 @@
 	// 备注信息的显示
 	$('.remark').on('click','.remark_btn_show',function(){
 			let $this = $(this)
-			console.log('找到了？')
-			console.log($this)
 			// 其他窗口的关闭
 			$('.remark_input').fadeOut() // 修改信息窗口关闭
 			$('.school_msg').fadeOut() // 报读信息窗口关闭
@@ -267,7 +280,6 @@
 								</div>
 				`
 				let parent = $this.parent().parent()
-					console.log(parent)
 					parent.html('')
 					parent.append(chtml)
 			}
@@ -319,4 +331,46 @@
 			return checkids;
 		}
 	}
+
+	function deleteThis(thisItem,id){ // 传入当前对象和对应的此项ID
+		var msg = "确定删除？"
+		// 弹出确认框，确认删除则发送删除请求，进项下一步
+		if (confirm(msg)==true){ 
+			console.log('确定')
+			let delUrl = '{php echo $this->createWebUrl("enter", array("at"=>"del","method"=>"ajaxgetlist"));}'
+			$.post(delUrl,{id:id},function(data){
+				console.log('删除选项')
+			}).then(res => {
+				let resData = JSON.parse(res)
+				if(resData.code == 1) { // 删除成功，隐藏此项选项
+					$(thisItem).parent().parent().parent().parent().parent().css('display','none')
+					alert('删除成功')
+				} else { // 删除失败的情况
+					alert('删除失败，请联系管理员')
+				}
+			})
+			return true
+		}else{ 
+			console.log('取消')
+			return false
+		} 
+	}
+
+	// 根据电话号码查数据
+	function selectPhone(e){
+		let phoneNumber = $('#phone_number').val()
+		let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/
+		if(!phoneReg.test(phoneNumber)){
+			alert('请输入正确的电话号码格式')
+			e.preventDefault() // 阻止表单提交
+			return false
+		}
+	}
+
+</script>
+<script>
+	$(function(){
+		let enter = {php echo json_encode($list)};
+		console.log(enter)
+	})
 </script>

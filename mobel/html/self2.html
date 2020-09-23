@@ -183,12 +183,7 @@
         },
         // 签到功能判定权限，没绑定手机号，不能参加签到活动
         tosignin() {
-          let _this = this
-          if(_this.phone == '') {
-            location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
-          } else {
             location.href = '{php echo $this->createMobileUrl("signin");}'
-          }
         }
       },
       computed: {
