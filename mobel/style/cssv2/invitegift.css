@@ -1,11 +1,7 @@
 @charset "UTF-8";
-.iconfont {
-	display: inline-block;
-	font-family: "iconfont";
-	font-size: 16px;
-	font-style: normal;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+p span{
+	margin: 0;
+	padding: 0;
 }
 html,body {
 	height: 100%;
@@ -588,14 +584,14 @@ a img {
 .integral_lt .view1 {
 	position: relative;
 }
-.integral_lt .view1::after {
+/* .integral_lt .view1::after {
 	content: "";
     background: url(../../images/index/my_invite_headicon.png) no-repeat;
     background-size: 100% 100%;
     width: .24rem;
     height: .24rem;
     position: absolute;
-}
+} */
 
 .nodata {
 	width: 70%;

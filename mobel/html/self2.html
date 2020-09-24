@@ -74,7 +74,7 @@
                 <van-icon name="like-o" color="#F07A7A" size="20"></van-icon>
                 <span>我的邀请</span>
               </p>
-              <p><span class="point_num">0</span>个</p>
+              <p><span class="point_num">{{invite_count}}</span>个</p>
             </div>
           </div>
         </div>
@@ -158,7 +158,8 @@
           phone: null,
           point: null,
           phonShow: false,
-          advertingShow: true
+          advertingShow: true,
+          invite_count: 0
         }
       },
       created () {
@@ -169,6 +170,7 @@
         // 初始化时需要的数据
         dataFirst () {
           let _this = this
+          this.invite_count = {php echo $invite_count};
           let arr = {php echo json_encode($_W["fans"])};
           // 获取积分和手机号
           _this.point = {php echo json_encode($_W["member"]["credit1"])};

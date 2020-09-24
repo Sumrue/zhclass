@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Description:
+ * @Author: Ophites
+ * @Date: 2020-09-24 09:33:48
+ * @LastEditors: Ophites
+ * @LastEditTime: 2020-09-24 09:38:57
+ */
+
 checkauth();
 
 $memberid = $_W['member']['uid'];
@@ -10,21 +18,21 @@ $font = json_decode($comsetting['font'], true);
 
 
 $ucenter_bg = cache_load('fy_lessonv2_'.$uniacid.'_ucenter_bg');
-if(!$ucenter_bg){
-	$ucenter_bg_data = pdo_get($this->table_banner, array('uniacid'=>$uniacid,'banner_type'=>7,'is_pc'=>0,'is_show'=>1), array('picture'));
-	$ucenter_bg = $ucenter_bg_data ? $_W['attachurl'].$ucenter_bg_data['picture'] : MODULE_URL."template/mobile/{$template}/images/agency-top.jpg?v=2";
-	cache_write('fy_lessonv2_'.$uniacid.'_ucenter_bg', $ucenter_bg);
+if (!$ucenter_bg) {
+    $ucenter_bg_data = pdo_get($this->table_banner, array('uniacid'=>$uniacid,'banner_type'=>7,'is_pc'=>0,'is_show'=>1), array('picture'));
+    $ucenter_bg = $ucenter_bg_data ? $_W['attachurl'].$ucenter_bg_data['picture'] : MODULE_URL."template/mobile/{$template}/images/agency-top.jpg?v=2";
+    cache_write('fy_lessonv2_'.$uniacid.'_ucenter_bg', $ucenter_bg);
 }
 
 
 $memberinfo = pdo_fetch("SELECT uid,mobile,credit1,credit2,nickname,avatar FROM " .tablename($this->table_mc_members). " WHERE uid=:uid LIMIT 1", array(':uid'=>$memberid));
 $memberinfo['credit1'] = intval($memberinfo['credit1']);
 
-if(empty($memberinfo['avatar'])){
-	$avatar = MODULE_URL."template/mobile/{$template}/images/default_avatar.jpg";
-}else{
-	$inc = strstr($memberinfo['avatar'], "http://") || strstr($memberinfo['avatar'], "https://");
-	$avatar = $inc ? $memberinfo['avatar'] : $_W['attachurl'].$memberinfo['avatar'];
+if (empty($memberinfo['avatar'])) {
+    $avatar = MODULE_URL."template/mobile/{$template}/images/default_avatar.jpg";
+} else {
+    $inc = strstr($memberinfo['avatar'], "http://") || strstr($memberinfo['avatar'], "https://");
+    $avatar = $inc ? $memberinfo['avatar'] : $_W['attachurl'].$memberinfo['avatar'];
 }
 
 /* 签到判断 */
@@ -51,7 +59,7 @@ $collect_lesson = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename($this->tab
 $collect_teacher = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename($this->table_lesson_collect) . " WHERE uid=:uid AND ctype=:ctype", array(':uid'=>$memberid, ':ctype'=>2));
 
 /* 机构名下讲师数量 */
-$company_teachers = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename($this->table_teacher) . " WHERE uniacid=:uniacid AND company_uid=:company_uid", array('uniacid'=>$uniacid,':company_uid'=>$memberid));
+$company_teachers = pdo_fetchcolumn("SELECT COUNT(*) FROM " . tablename($this->table_teacher) . " WHERE uniacid=:uniacid AND company_uid=:company_uid", array(':uniacid'=>$uniacid,':company_uid'=>$memberid));
 
 /* 可用优惠券数量 */
 $coupon_count = pdo_fetchcolumn("SELECT COUNT(*) FROM " .tablename($this->table_member_coupon). " WHERE uniacid=:uniacid AND uid=:uid AND status=:status", array(':uniacid'=>$uniacid,':uid'=>$memberid,':status'=>0));
@@ -60,34 +68,34 @@ $coupon_count = pdo_fetchcolumn("SELECT COUNT(*) FROM " .tablename($this->table_
 $self_menu = $site_common->getSelfMenu();
 
 /* 手动更新会员头像 */
-if($_GPC['updateInfo']){
-	$fans = pdo_fetch("SELECT openid FROM " .tablename($this->table_fans). " WHERE uid=:uid", array(':uid'=>$memberid));
-	if(!empty($fans['openid'])){
-		load()->classs('weixin.account');
-		$accObj = WeixinAccount::create($_W['acid']);
-		$access_token = $accObj->fetch_token();
+if ($_GPC['updateInfo']) {
+    $fans = pdo_fetch("SELECT openid FROM " .tablename($this->table_fans). " WHERE uid=:uid", array(':uid'=>$memberid));
+    if (!empty($fans['openid'])) {
+        load()->classs('weixin.account');
+        $accObj = WeixinAccount::create($_W['acid']);
+        $access_token = $accObj->fetch_token();
 
-		$url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$fans['openid']."&lang=zh_CN";
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=".$access_token."&openid=".$fans['openid']."&lang=zh_CN";
         $output = ihttp_get($url);
-		$res = json_decode($output['content'], true);
-		if($res['subscribe']==0){
-			message("获取头像需要关注公众号，请关注后重试", $this->createMobileUrl('follow'), "error");
-		}
-		$data = array(
-			'nickname' => $res['nickname'],
-			'avatar'   => $res['headimgurl']
-		);
+        $res = json_decode($output['content'], true);
+        if ($res['subscribe']==0) {
+            message("获取头像需要关注公众号，请关注后重试", $this->createMobileUrl('follow'), "error");
+        }
+        $data = array(
+            'nickname' => $res['nickname'],
+            'avatar'   => $res['headimgurl']
+        );
 
-		if($_GPC['back_do']=='mylesson'){
-			$jump_url = $this->createMobileUrl('mylesson');
-		}else{
-			$jump_url = $this->createMobileUrl('self');
-		}
+        if ($_GPC['back_do']=='mylesson') {
+            $jump_url = $this->createMobileUrl('mylesson');
+        } else {
+            $jump_url = $this->createMobileUrl('self');
+        }
 
-		pdo_update($this->table_mc_members, $data, array('uid'=>$memberid));
-		message("更新成功", $jump_url, "success");
-	}
+        pdo_update($this->table_mc_members, $data, array('uid'=>$memberid));
+        message("更新成功", $jump_url, "success");
+    }
 }
+$invite_count=pdo_fetchcolumn("SELECT count(*) FROM " .tablename($this->table_member). " a LEFT JOIN " .tablename($this->table_mc_members). " b ON a.uid=b.uid WHERE a.uniacid=:uniacid AND a.parentid =:parentid", [':uniacid'=>$uniacid,':parentid'=>$memberid]);
 // 新个人中心页面
 include $this->template("../mobile/{$template}/self2");
-?>

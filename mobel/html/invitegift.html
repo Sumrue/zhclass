@@ -41,6 +41,39 @@
 				top: 1.6rem;
 				right: 1.3rem;
 			}
+			.my_invite_item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.item_left_head{
+				width: 4.5rem;
+				display: flex;
+				align-items: center;
+			}
+			.item_head_img {
+				width: .7rem;
+				height: .7rem;
+				border-radius: 50%;
+			}
+			.item_head_img > img {
+				width: 100%;
+				border-radius: 50%;
+			}
+			.item_head_name {
+				line-height: 1;
+				margin-left: .15rem;
+			}
+			.item_addtime {
+				font-size: .24rem;
+				line-height: 1.5;
+			}
+			.more_bottom {
+				text-align: center;
+				color: rgb(230, 101, 101);
+				line-height: 1.5;
+				border: none;
+			}
 		</style>
   </head>
 	<body data-weui-theme="light">
@@ -120,7 +153,7 @@
 											<img data-v-90ad5ac0="" src="{MODULE_URL}template/mobile/{$template}/images/index/invite_friend_head.png" alt="">
 										</div> 
 										<a href="" class="enrolled">
-											已邀请<span>0</span>位好友
+											已邀请<span>{$invite_count}</span>位好友
 										</a>
 									</div>
 								</div>
@@ -231,23 +264,49 @@
 								<div class="integral">
 									<div class="integral_lt">
 										<div class="view1" id="dig2">获得总积分</div>
-										<div class="view2">123</div>
+										<div class="view2">{$_W["member"]["credit1"]}</div>
 									</div>
 									<div class="integral_rt">
 										<div class="view1">累计到账积分</div>
-										<div class="view2">0</div>
+										<div class="view2">{$_W["member"]["credit1"]}</div>
 									</div>
 								</div>
 								<div class="view3">
-									共邀请 <span>0</span> 人
+									共邀请 <span>{$invite_count}</span> 人
 								</div>
 							</div>
 
 							<div class="my_invite_items">
-								<div class="nodata">
-									<img src="{MODULE_URL}template/mobile/{$template}/images/index/invite_no-data.png" alt="">
-									<p>暂无邀请学员～<br>快去邀请好友赚积分吧</p>
+								{if $invite_count !=null}
+									{loop $list $item}
+									<div class="rank_list_item my_invite_item">
+										<div class="item_left_head">
+											<div class="item_head_img">
+												<img src="{$item[avatar]}" alt="">
+											</div>
+											<div class="item_head_name">
+												<p>{$item[nickname]}</p>
+											</div>
+										</div>
+										<div class="item_addtime">
+											<p>加入时间:</p>
+											<p>{$item[addtime]}</p>
+										</div>
+									</div>
+									{/loop}
+								{else}
+									<div class="nodata">
+										<img src="{MODULE_URL}template/mobile/{$template}/images/index/invite_no-data.png" alt="">
+										<p>暂无邀请学员～<br>快去邀请好友赚积分吧</p>
+									</div>
+								{/if}
+
+								{if $invite_count >= 20}
+								<div class="rank_list_item more_bottom">
+									<p>--- 哇咔咔 我可是有底线的 ---</p>
+									<p>仅显示最新20条</p>
 								</div>
+								{/if}
 							</div>
 							<div class="footer"><button class="totoqrode"><a href="javascript::;">生成邀请专属海报</a></button> <button class="nowinvi_btn">立即邀请</button></div>
 							<div class="js_dialog" id="iosDialog2" style="display: none;">
@@ -286,6 +345,8 @@
 <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		let inviteList = {php echo json_encode($list)};
+		console.log(inviteList)
 		// 动态渲染排行榜html
 				// 邀请人数排行榜
 		let rankListItemData = [

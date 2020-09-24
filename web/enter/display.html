@@ -179,7 +179,6 @@
 									<p>报读学院: <span>{$item['sname']}</span></p>
 									<p>报读层次: <span>{$item['lname']}</span></p>
 									<p>报读专业: <span>{$item['pname']}</span></p>
-									<p>考试区县: <span>{$item['mobile']}</span></p>
 									<button type="button" class="btn btn-danger school_msg_close">关闭 X</button>
 								</div>
 							</td>
@@ -343,7 +342,7 @@
 			}).then(res => {
 				let resData = JSON.parse(res)
 				if(resData.code == 1) { // 删除成功，隐藏此项选项
-					$(thisItem).parent().parent().parent().parent().parent().css('display','none')
+					$(thisItem).parent().parent().parent().parent().parent().remove()
 					alert('删除成功')
 				} else { // 删除失败的情况
 					alert('删除失败，请联系管理员')

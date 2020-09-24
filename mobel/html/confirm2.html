@@ -103,11 +103,14 @@
     .van-tabbar-item--active{
       color: #646566;
     }
+    .buygift {
+      color: #ee6060;
+    }
   </style>
 	<body>
     
 		<div class="page-container" id="page-container">
-      {if $enter['name'] !== ''}
+      {if $enter}
       <div class="header_msg">
         亲：报名信息以实际报名后的信息为准，若要修改请联系报考老师哟。
       </div>
@@ -120,7 +123,7 @@
         <div class="my_msg">
           <p><span>姓名:</span>{{userData.name}}</p>
           <p><span>手机号:</span>{{userData.phone}}</p>
-          <p><span>证件号:</span>{{idcardCm}}</p>
+          <p><span>证件号:</span>{{userData.idcard}}</p>
         </div>
         <div class="my_head">
           <img :src="userHead" alt="">
@@ -140,13 +143,20 @@
           <p><span>学校:</span>{{userData.school}}</p>
           <p><span>专业:</span>{{userData.major}}[{{userData.level}}]</p>
           <p><span>报读类型:</span>{{userData.type}}</p>
-          <p><span>我的状态:</span>意向学员 <van-icon name="question-o" color="#00aeef" size="14" @click="toast()"/></p>
+          <p><span>我的状态:</span>
+            <i v-if="userData.status == 0">意向学员</i>
+            <i v-else-if="userData.status == 1">已报名</i>
+            <i v-else-if="userData.status == 2">已缴费(全款)</i>
+            <i v-else-if="userData.status == 3">已缴费(分期)</i>
+            <i v-else>已结业</i>
+            <van-icon name="question-o" color="#00aeef" size="14" @click="toast()"/>
+          </p>
           <p><span>备注:</span></p>
+          <p class="buygift" v-if="userData.idcard == ''">您已购买成考辅导大礼包</p>
         </div>
       </div>
-      {else}     
-      <van-empty image="error" description="无报名信息" />
       {/if}
+      <van-empty image="error" description="无报名信息" v-if="dataTF"/></van-empty>
       <van-tabbar @change="onChange">
         <van-tabbar-item icon="wap-home-o" class="tabbar" name="index">主页</van-tabbar-item>
         <van-tabbar-item icon="gift-o" class="tabbar" name="gift">邀请有礼</van-tabbar-item>
@@ -165,6 +175,7 @@
         data (){
 					return {
             userHead: '',
+            dataTF: false,
             userData: {
               name: '',
               phone: null,
@@ -173,7 +184,9 @@
               type: '',
               level: '',
               major: '',
-              grade: ''
+              grade: '',
+              addr: '',
+              status: null
             }
           }
 				},
@@ -184,7 +197,18 @@
         methods: {
           // 点击问好小图标时所弹出的信息
           toast(){
-            this.$toast('已报名，未缴费')
+            let _this = this
+            if(_this.userData.status == 0 ) {
+              _this.$toast('已提交报名信息')
+            } else if(_this.userData.status == 1) {
+              _this.$toast('已报名，未缴费')
+            } else if(_this.userData.status == 2) {
+              _this.$toast('已缴费，全款')
+            } else if(_this.userData.status == 3) {
+              _this.$toast('已缴费，分期')
+            } else {
+              _this.$toast('已结业')
+            }
           },
           // 报读流程的弹出
           flow(){
@@ -199,13 +223,20 @@
             _this.userHead = {php echo json_encode($_W["fans"]["avatar"])};
             let confirmData = {php echo json_encode($enter)};
             console.log(confirmData)
-            _this.userData.name = confirmData.name
-            _this.userData.phone = confirmData.mobile
-            _this.userData.idcard = confirmData.code
-            _this.userData.school = confirmData.sname
-            _this.userData.level = confirmData.lname
-            _this.userData.major = confirmData.pname
-            _this.userData.type = confirmData.cname
+            if (confirmData == false) {
+              _this.dataTF = true
+            } else {
+              _this.dataTF = false
+              _this.userData.name = confirmData.name
+              _this.userData.phone = confirmData.mobile
+              _this.userData.idcard = confirmData.code
+              _this.userData.school = confirmData.sname
+              _this.userData.level = confirmData.lname
+              _this.userData.major = confirmData.pname
+              _this.userData.type = confirmData.cname
+              _this.userData.addr = confirmData.addr
+              _this.userData.status = confirmData.status
+            }
           },
           onChange(name) {
             if(name == 'index') {

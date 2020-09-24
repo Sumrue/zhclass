@@ -100,7 +100,11 @@
       methods: {
         // 判断地址是否为空，为空则显示空信息
         dataCreated() {
+          let enter = {php echo json_encode($enter)};
           let _this = this
+          _this.bookAddress.name = enter.name
+          _this.bookAddress.phone = enter.mobile
+          _this.bookAddress.address = enter.addr
           if(_this.bookAddress.address !== '') {
             _this.bookTF = true
           }

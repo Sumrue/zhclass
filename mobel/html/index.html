@@ -78,26 +78,6 @@
 		navItem.eq(panelBoxOnIndex).addClass('nav_item_on').siblings().removeClass('nav_item_on') //  
 		panelBox.eq(panelBoxOnIndex).addClass('panel_box_on').siblings().removeClass('panel_box_on') // 显示隐藏对应主面板
 
-
-		// 报名成功轮播
-		let banner = function(){
-      let bannerApplyItems = $('.banner_apply_box')
-      let itemIndex = $('.banner_tt_i').length
-      let newItemIndex = itemIndex/3
-      let itemHt = $('.banner_apply_item').height()
-      var n = 0
-      setInterval(() => {
-        n ++
-        if(n>newItemIndex-1) {
-          n = 0
-          bannerApplyItems.css('top',0)
-        }
-        bannerApplyItems.animate(
-          {top: -itemHt*n}
-        )
-      },1500);
-     }
-		banner()
 		
 // 数字滚动效果
 		// 成人教育报名人数滚动效果
@@ -457,6 +437,26 @@
 				}
 				//显示字数
 			});
+
+			// 报名成功轮播
+		let banner = function(){
+      let bannerApplyItems = $('.banner_apply_box')
+			// let itemIndex = $('.banner_tt_i').length // 同时初始化时无法动态获取，直接限制
+      // let newItemIndex = itemIndex/3 同时初始化时无法动态获取，直接限制
+      // let itemHt = $('.banner_apply_item').height() 同时初始化时无法动态获取，直接限制
+      var n = 0
+      setInterval(() => {
+				n ++
+        if(n>20) {
+          n = 0
+          bannerApplyItems.css('top',0)
+        }
+        bannerApplyItems.animate(
+          {top: (-.5*n) + 'rem'}
+        )
+      },2000);
+     }
+		banner()
 
 		// 获取滚动事件 
 		$(window).scroll(
