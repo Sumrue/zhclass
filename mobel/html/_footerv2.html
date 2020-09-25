@@ -30,7 +30,7 @@
 				<img src="{$navigation['diynav']['selected_icon']}" class="weui-tabbar__icon" />
 			<p class="weui-tabbar__label">{$navigation['diynav']['nav_name']}</p>
 		</a>
-		<a href="tel:15198246419" class="weui-tabbar__item {if $foot_params['search']}weui-bar__item_on{/if}">
+		<a href="tel:{$extra_config['mobile']}" class="weui-tabbar__item {if $foot_params['search']}weui-bar__item_on{/if}">
 				<img src="{$navigation['search']['selected_icon']}" class="weui-tabbar__icon" />
 			<p class="weui-tabbar__label">{$navigation['search']['nav_name']}</p>
 		</a>

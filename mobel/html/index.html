@@ -82,11 +82,17 @@
 // 数字滚动效果
 		// 成人教育报名人数滚动效果
 		let numRoll = function(){
+			let exedata = {php echo json_encode($extra_config[enter][0])}; // 获取后台设置的值
+			let res = [] // 传入值数组
+			// 将后台接收到的数据转化成数组放入res当中
+			let resNum = exedata.split('')
+			for (let i = 0 ;i < resNum.length; i++) {
+				res.splice(i, 1, parseInt(resNum[i]))
+			}
 			let rollItems = $('.roll_small_items')
 			rollItems.css('marginTop',0)
 			let rollBox = $('.roll_box')
-					// 根据传入值滚动
-			let res = [1,3,2,6]
+			// 根据传入数组启动动画
 			rollItems.each(
 				function(index){
 					let $this = $(this)
@@ -103,11 +109,18 @@
 
 		// 开放教育报名人数滚动效果
 		let openNumRoll = function(){
+			let exedata = {php echo json_encode($extra_config[enter][1])}; // 获取后台设置的值
+			let res = [] // 传入值数组
+			// 将后台接收到的数据转化成数组放入res当中
+			let resNum = exedata.split('')
+			for (let i = 0 ;i < resNum.length; i++) {
+				res.splice(i, 1, parseInt(resNum[i]))
+			}
+
 			let rollItems = $('.openroll_small_items')
 			rollItems.css('marginTop',0)
 			let rollBox = $('.openroll_box')
-					// 根据传入值滚动
-			let res = [4,6,9,0]
+			// 根据传入的res来启动动画
 			rollItems.each(
 				function(index){
 					let $this = $(this)
@@ -124,11 +137,17 @@
 
 		// 自我考试报名人数滚动效果
 		let selfNumRoll = function(){
+			let exedata = {php echo json_encode($extra_config[enter][2])}; // 获取后台设置的值
+			let res = [] // 传入值数组
+			// 将后台接收到的数据转化成数组放入res当中
+			let resNum = exedata.split('')
+			for (let i = 0 ;i < resNum.length; i++) {
+				res.splice(i, 1, parseInt(resNum[i]))
+			}
 			let rollItems = $('.selfroll_small_items')
 			rollItems.css('marginTop',0)
 			let rollBox = $('.selfroll_box')
 					// 根据传入值滚动
-			let res = [4,6,5,0]
 			rollItems.each(
 				function(index){
 					let $this = $(this)
@@ -145,11 +164,16 @@
 
 		// 网络教学报名人数滚动效果
 		let onlineNumRoll = function(){
+			let exedata = {php echo json_encode($extra_config[enter][3])}; // 获取后台设置的值
+			let res = [] // 传入值数组
+			// 将后台接收到的数据转化成数组放入res当中
+			let resNum = exedata.split('')
+			for (let i = 0 ;i < resNum.length; i++) {
+				res.splice(i, 1, parseInt(resNum[i]))
+			}
 			let rollItems = $('.onlineroll_small_items')
 			rollItems.css('marginTop',0)
 			let rollBox = $('.onlineroll_box')
-					// 根据传入值滚动
-			let res = [1,3,5,2]
 			rollItems.each(
 				function(index){
 					let $this = $(this)
