@@ -125,23 +125,23 @@
 							<!-- 对应层次，已删除 4-->
 							<td style="text-align:left;">
 								{if $item['status'] == 0}
-									意向学员
+									<span style="color: rgb(22, 180, 228);">意向学员</span>
 								{else if $item['status'] == 1}
-									已报名
+									 <span style="color: rgb(226, 150, 10);">已报名</span>
 								{else if $item['status'] == 2}
-									已缴费(全款)
+									<span style="color: rgba(226, 222, 10, 0.801);">已缴费(全款)</span>
 								{else if $item['status'] == 3}
-									已缴费(分期)
+								 <span style="color: rgba(226, 222, 10, 0.795);">已缴费(分期)</span>
 								{else if $item['status'] == 4}
-									已结业
+									<span style="color: rgb(226, 176, 10);">已结业</span>
 								{/if}
 							</td>
 							<!-- 备注-->
 							<td style="text-align:left;" class="remark">
-								{if $item['remark'] !== null}
-								<button type="button" class="btn btn-success remark_btn_show">查看</button>
-								{else}
+								{if $item['remark'] == null}
 								<button type="button" class="btn btn-success">无备注</button>
+								{else}
+								<button type="button" class="btn btn-success remark_btn_show">查看</button>
 								{/if}
 								<button type="button" class="btn btn-info change_remark">
 									{if $item['remark'] == null}
@@ -187,7 +187,7 @@
 								<div class="btn-group btn-group-sm">
 									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="javascript:;">功能列表 <span class="caret"></span></a>
 									<ul class="dropdown-menu dropdown-menu-left" role="menu" style="z-index:99999">
-										<li><a href="{php echo $this->createWebUrl('enter', array('op'=>'studentdetail', 'id'=>$item[id]));}"><i class="fa fa-edit"></i> 编辑学员信息</a></li>
+										<li><a href="{php echo $this->createWebUrl('enter', array('op'=>'studentdetail', 'id'=>$item[id]));}" target="view_frame"><i class="fa fa-edit"></i> 编辑学员信息</a></li>
 									<li><a href="javascript::;" onclick="deleteThis(this,{$item['id']})"><i class="fa fa-remove"></i> &nbsp;删除信息</a></li>
 									</ul>
 								</div>

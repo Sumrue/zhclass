@@ -1,0 +1,70 @@
+<style type="text/css">
+    .w100{min-width:100px;}
+    .w110{min-width:110px;}
+    .w130{min-width:130px;}
+    </style>
+    <div class="main">
+        <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">手机端页面文字</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">咨询电话</label>
+                        <div class="col-sm-9">
+                            <input type="number" name="mobile" value="{$extra['mobile']}" id="mobileInput" onblur="checkMobile(id,value)"class="form-control">
+                            <div class="help-block">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">已报名人数</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon w100">成人高考</span>
+                                <input type="number" name="enter[0]" value="{$extra['enter'][0]}" id="apply_num1" onblur="inputVal(id, value)" class="form-control apply_num" />
+                                <span class="input-group-addon w100">开放教育</span>
+                                <input type="number" name="enter[1]" value="{$extra['enter'][1]}" id="apply_num2" onblur="inputVal(id, value)" class="form-control apply_num" />
+                                <span class="input-group-addon w100">自学考试</span>
+                                <input type="number" name="enter[2]" value="{$extra['enter'][2]}" id="apply_num3" onblur="inputVal(id, value)" class="form-control apply_num" />
+                                <span class="input-group-addon w100">网络教育</span>
+                                <input type="number" name="enter[3]" value="{$extra['enter'][3]}" id="apply_num4" onblur="inputVal(id ,value)" class="form-control apply_num" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <input type="hidden" name="id" value="{$comsetting['id']}" />
+                <input type="submit" name="submit" value="保存设置" class="btn btn-primary col-lg-1" />
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </form>
+    </div>
+    <script>
+        // 检查报名人数
+        function inputVal(id,val) { // input获取当前失去焦点的对象的属性值，传递过来，可根据当前传递过来的id来查找对应的对象，从而设置值
+            let myId = $('#'+ id) // 获取当前的input对象
+            if(val == '') { // 输入内容为空时，设置默认值，弹出提示框
+                myId.val(9999)
+                alert('不能为空')
+            } else if(val.length !== 4){ // 限制只能是4位数的数字
+                myId.val(9999)
+                alert('输入数字必须为4位数')
+            }
+            
+        }
+
+        // 检查手机号码
+        function checkMobile(id,val){
+            let mobileReg = /^1[3456789]\d{9}$/ //手机正则
+            let myMobile = $('#' + id)
+            // 验证，有误则默认为上一条正确的电话号码
+            if(val == '') {
+                myMobile.val(15198246419)
+                alert('电话号码不能为空，请填写完整')
+            } else if(!mobileReg.test(val)){ 
+                myMobile.val(15198246419)
+                alert('请输入正确的电话号码')
+            }
+        }
+    </script>
