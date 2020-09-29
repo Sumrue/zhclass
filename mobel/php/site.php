@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Description:
+ * @Author: Ophites
+ * @Date: 2020-09-02 09:58:50
+ * @LastEditors: Ophites
+ * @LastEditTime: 2020-09-24 16:47:38
+ */
+
 defined('IN_IA') or exit('Access Denied');
 
 include_once dirname(__FILE__).'/inc/common/AliyunVod.php';
@@ -308,8 +316,9 @@ class fy_lessonv2ModuleSite extends WeModuleSite
     {
         $this->__web(__FUNCTION__);
     }
-    public function doWebTest()
+    public function doWebEnter()
     {
+        $this->__web(__FUNCTION__);
     }
     /***************************** Mobile方法 *********************************/
 
@@ -554,55 +563,80 @@ class fy_lessonv2ModuleSite extends WeModuleSite
         $this->__mobile(__FUNCTION__);
     }
     // 新添加页面php开始
-    public function doMobileMajorintroduce() {
+    public function doMobileMajorintroduce()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileApplyform() {
+    public function doMobileApplyform()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileSelectplan() {
+    public function doMobileSelectplan()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileInvitegift() {
+    public function doMobileInvitegift()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileStrategy() {
+    public function doMobileStrategy()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileSchooldetail() {
+    public function doMobileSchooldetail()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileCitydetail() {
+    public function doMobileCitydetail()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileAdultactivity1() {
+    public function doMobileAdultactivity1()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileAdultactivity2() {
+    public function doMobileAdultactivity2()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileAdultuserform() {
+    public function doMobileAdultuserform()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileOpenform() {
+    public function doMobileOpenform()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileConfirmform() {
+    public function doMobileConfirmform()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileConfirm2() {
+    public function doMobileConfirm2()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileSelf2() {
+    public function doMobileSelf2()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileShoppingmall() {
+    public function doMobileShoppingmall()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileMygoods() {
+    public function doMobileMygoods()
+    {
         $this->__mobile(__FUNCTION__);
     }
-	public function doMobileAddress() {
+    public function doMobileAddress()
+    {
+        $this->__mobile(__FUNCTION__);
+    }
+    public function doMobileLastuser()
+    {
+        $this->__mobile(__FUNCTION__);
+    }
+    public function doMobileTeacherinvite()
+    {
         $this->__mobile(__FUNCTION__);
     }
     // 新添加结束
@@ -648,7 +682,7 @@ class fy_lessonv2ModuleSite extends WeModuleSite
         
         $sharelink = unserialize($comsetting['sharelink']);
         $shareurl = $_W['siteroot'] .'app/'. $this->createMobileUrl('index', array('uid'=>$_W['member']['uid']));
-
+        $extra_config=json_decode($setting['extra'], true);
         /* 检查是否允许非微信端访问 */
         if (!$setting['visit_limit'] && $_GPC['do']!='error') {
             $dos = array('crontab', 'notice','downloadfile','livenotify');
@@ -715,6 +749,46 @@ class fy_lessonv2ModuleSite extends WeModuleSite
                     'uptime'	=> 0,
                     'addtime'	=> time(),
                 );
+                if (!empty($recmember['parentid_teacher'])) {
+                    $teacherid=$recmember['parentid_teacher'];
+                    $uniacid=$_W['uniacid'];
+                    $teacher = pdo_fetch("SELECT * FROM " .tablename($this->table_teacher). " WHERE uniacid=:uniacid AND id=:id", array(':uniacid'=>$uniacid, ':id'=>$teacherid));
+                    if (!empty($teacher)) {
+                        $insertarr['parentid_teacher']=$teacherid;
+                        $order_old = pdo_get($this->table_teacher_order, array('uid'=>$uid));
+                        if (empty($order_old)) {
+                            $teacher_price = pdo_get($this->table_teacher_price, array('uniacid'=>$uniacid, 'teacherid'=>$teacherid));
+                            if (empty($teacher_price)) {
+                                $teacher_price = array(
+                                    'uniacid'		 => $uniacid,
+                                    'teacherid'		 => $teacherid,
+                                    'price'			 => 1,
+                                    'integral'		 => 1,
+                                    'validity_time'  => 3650,
+                                    'teacher_income' => 1,
+                                    'update_time'	 => time(),
+                                );
+                                $teacher_price['addtime'] = time();
+                                pdo_insert($this->table_teacher_price, $teacher_price);
+                            }
+                            /* 构造订单信息 */
+                            $orderdata = array(
+                                'uniacid'		 => $uniacid,
+                                'ordersn'		 => 'T'.date('Ymd').substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(1000, 9999)),
+                                'uid'			 => $uid,
+                                'ordertime'		 => $teacher_price['validity_time'],
+                                'price'			 => $teacher_price['price'],
+                                'integral'		 => $teacher_price['integral'],
+                                'teacherid'		 => $teacherid,
+                                'teacher_name'	 => $teacher['teacher'],
+                                'teacher_income' => $teacher_price['teacher_income'],
+                                'addtime'		 => time(),
+                                'update_time'    => time(),
+                            );
+                            pdo_insert($this->table_teacher_order, $orderdata);
+                        }
+                    }
+                }
                 pdo_insert($this->table_member, $insertarr);
                 $source_id = pdo_insertid();
                 $member = pdo_fetch("SELECT * FROM " . tablename($this->table_member) . " WHERE uid=:uid", array(':uid'=>$uid));

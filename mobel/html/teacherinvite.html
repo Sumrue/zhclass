@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/weui.css?v={$versions}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/self2.css" />
+		<title>
+      我的邀请
+		</title>
+  </head>
+  <style>
+    .campus {
+      font-size: .34rem;
+      font-weight: 600;
+      color: rgba(23,6,6,.8);
+    }
+    #to_paper {
+      width: 2rem;
+    }
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <div class="head">
+        <div class="head_left">
+          <div class="head_header">
+            <img :src="myHeader" alt="">
+          </div>
+          <div class="my_msg">
+            <span class="campus">金牛校区</span>
+            <p class="teacher_name" style="font-size: .32rem;">程老师</p>
+          </div>
+        </div>
+        <div class="head_right">
+          <a class="signin" href="{php echo $this->createMobileUrl('qrcode');}" id="to_paper">
+            <van-icon name="friends-o" size="20" class="icon" color="#fff">
+            </van-icon>
+            <span style="color: #fff;">邀请海报</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="main_container">
+        <div class="card">
+          <div class="card_title">
+            <div class="title">我的邀请</div>
+          </div>
+          <div class="my_point">
+            <div>
+              <p>
+                <van-icon name="cluster-o" color="#F07A7A" size="20"></van-icon>
+                <span>邀请总数</span>
+              </p>
+              <p><span class="point_num">{$invite[all]}</span></p>
+            </div>
+            <div>
+              <p style="margin-bottom: 0;">
+                <span>昨日新增：</span><span style="font-weight: 600; color: rgba(23,6,6,.8);">{$invite[1day]}</span>
+              </p>
+              <p style="margin-bottom: 0;">
+                <span>上周新增：</span><span style="font-weight: 600; color: rgba(23,6,6,.8);">{$invite[7day]}</span>
+              </p>
+              <p style="margin-bottom: 0;">
+                <span>上月新增：</span><span style="font-weight: 600; color: rgba(23,6,6,.8);">{$invite[30day]}</span>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card_title">
+            <div class="title">最新邀请</div>
+            <van-button type="primary" size="small" style="float: right;" color="#F07A7A" @click="studentShow = false" v-if="studentShow">隐藏数据</van-button>
+            <van-button type="primary" size="small" style="float: right;" color="#F07A7A" @click="studentShow = true" v-if="!studentShow">显示数据</van-button>
+          </div>
+          <div class="menu_list" v-show="studentShow">
+            
+            <div class="card_title">
+              <p>邀请一</p>
+            </div>
+            <div class="card_title">
+              <p>2</p>
+            </div>
+            <div class="card_title">
+              <p>3</p>
+            </div>
+            
+          </div>
+
+          <!-- 清除浮动 -->
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          myHeader: '',
+          studentShow: true
+        }
+      },
+      created () {
+        this.addhead()
+      },
+      methods: {
+        addhead() {
+          let arr = {php echo json_encode($_W["fans"])};
+          this.myHeader = arr.avatar
+          let data = {php echo json_encode($invite)};
+          console.log(data)
+        }
+      },
+      computed: {
+      
+      }
+  })
+</script>
+</body>
+</html>
