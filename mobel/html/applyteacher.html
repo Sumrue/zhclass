@@ -50,6 +50,20 @@
 			</li>
 			<li>
 				<div class="left">
+					校区：
+				</div>
+				<div class="right">
+					<select name="cate_id" style="width: 98%;padding: 8px 5px; border: 1px solid #eee;outline: none;" id="campus">
+						<option value="" selected>--- 请选择校区 ---</option>
+						{loop $category_list $key $item}
+							<option value="{$key}">{$item}</option>
+						{/loop}
+					</select>
+				</div>
+				<div class="clear"></div>
+			</li>
+			<li>
+				<div class="left">
 					{php echo $font['mobile'] ? $font['mobile'] : '手机号码'}：
 				</div>
 				<div class="right">
@@ -96,16 +110,21 @@
 <script type="text/javascript">
 	function checksubmit() {
         var teacher = $("#teacher").val();
-		var mobile = $("#mobile").val();
+				var mobile = $("#mobile").val();
         var teacherdes = $("#teacherdes").val();
         var teacherphoto = $("input[name='teacherphoto']").val();
+				var campus = $('#campus').val();
 
         if (teacher == "") {
             alert("请填写讲师名称");
             return false;
         }
-		if (mobile == "") {
+				if (mobile == "") {
             alert("请填写手机号码");
+            return false;
+        }
+				if (campus == "") {
+            alert("校区不能为空");
             return false;
         }
         document.getElementById("loadingToast").style.display = 'block';
@@ -212,6 +231,12 @@
 			}
 		})
 	}
+</script>
+<script>
+	$(function(){
+		let campus = {php echo json_encode($category_list)};
+		console.log(campus)
+	})
 </script>
 
 <script type="text/javascript">
