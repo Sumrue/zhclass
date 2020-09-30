@@ -96,20 +96,21 @@
             <div class="title">个人业务</div>
           </div>
           <div class="menu_list">
-            
+            {if $teacher}
             <a class="item" href="{php echo $this->createMobileUrl('teacherinvite');}">
               <div class="head_icon">
                 <van-icon name="cluster-o" size="21" color="#FF6B67"/>
               </div>
               <span class="item_name">我的邀请</span>
             </a>
-
+            {else}
             <a class="item" href="{php echo $this->createMobileUrl('confirm2');}">
               <div class="head_icon">
                 <van-icon name="description" size="21" color="#FF6B67"/>
               </div>
               <span class="item_name">报名信息</span>
             </a>
+            {/if}
             <a class="item" @click="showErroMsg">
               <div class="head_icon">
                 <van-icon name="cash-back-record" size="21" color="#FF6B67"/>
@@ -239,8 +240,6 @@
       created () {
         let _this = this
         _this.dataFirst()
-        let banner = {php echo json_encode($banner)};
-        console.log(banner)
       },
       methods: {
         // 初始化时需要的数据

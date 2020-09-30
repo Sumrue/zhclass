@@ -57,7 +57,7 @@
           <van-cell title="专业" :value="contentData.major" />
         </van-cell-group>
         <van-cell-group v-if="!giftShow">
-          <van-cell title="学费" value="7900" label="是否可分期（是）"/>
+          <van-cell title="学费" :value="pay" label="是否可分期（是）"/>
         </van-cell-group>
         <van-cell-group>
           <van-cell title="层次" :value="contentData.level" />
@@ -90,7 +90,7 @@
           报名成功后将会有专业老师与您联系，帮助您办理就读手续，办理成功后系统将自动返还积分到您的账号当中，请到个人中心查看积分情况，以实际到账为准。积分可用于兑换各种精美礼品。
         </p>
         <p v-else>
-          支付成功后礼包将于今日发货，请填写好您的收货地址。
+          支付成功后将会尽快为您发货，请填写好您的收货地址。
         </p>
         <p v-if="giftShow" style="font-size: 16px;margin: 10px 0;">您的收货地址是：<span style="color: #d61838ba;">{{address}}</span></p>
       </div>
@@ -120,6 +120,7 @@
             idData:[
             ],
             phone: '',
+            pay: '',
             postData: {
               name: '',
               idcard: '',
@@ -143,6 +144,15 @@
           _this.idData = JSON.parse(window.sessionStorage.getItem('userId'))
           _this.contentData = JSON.parse(window.sessionStorage.getItem('userData'))
           let gift = '{php echo $_GPC["gift"]}'
+          // 获取对应学校数据，然后根据lid查出对应的学费
+          let sessonPay = {php echo json_encode($school[lid])};
+          let lid = '{php echo $_GPC["lid"]}'
+          let data = JSON.parse(sessonPay)
+          for(key in data) {
+            if(key == lid){
+              _this.pay = data[key].price
+            }
+          }
           if(gift !== '') { // 如果礼品参数存在，则是礼包流程，显示礼包购买信息确认页面
             _this.giftShow = true
           }

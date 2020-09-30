@@ -87,7 +87,15 @@
             </div>
             {/if}
           </div>
-
+          
+          {if $enter["status"] !== 2 || $enter["status"] !== 3}
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;">*</span>年级</label>
+						<div class="col-sm-9">
+							<input type="text" name="grade" id="grade" class="form-control" value="" />
+						</div>
+          </div>
+          {/if}
           <!-- 报考类型 -->
 					<div class="form-group">
 						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>报考类型</label>

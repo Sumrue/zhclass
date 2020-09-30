@@ -25,6 +25,35 @@
     #to_paper {
       width: 2rem;
     }
+
+    .my_invite_item {
+				display: flex;
+        height: .9rem;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.item_left_head{
+				width: 4.5rem;
+				display: flex;
+				align-items: center;
+			}
+			.item_head_img {
+				width: .7rem;
+				height: .7rem;
+				border-radius: 50%;
+			}
+			.item_head_img > img {
+				width: 100%;
+				border-radius: 50%;
+			}
+			.item_head_name {
+				line-height: 1;
+				margin-left: .15rem;
+			}
+			.item_addtime {
+				font-size: .2rem;
+				line-height: 1.5;
+			}
   </style>
 	<body>
 		<div class="page-container" id="page-container">
@@ -34,8 +63,8 @@
             <img :src="myHeader" alt="">
           </div>
           <div class="my_msg">
-            <span class="campus">金牛校区</span>
-            <p class="teacher_name" style="font-size: .32rem;">程老师</p>
+            <span class="campus">{$teacher[name]}</span>
+            <p class="teacher_name" style="font-size: .32rem;">{$teacher[teacher]}</p>
           </div>
         </div>
         <div class="head_right">
@@ -82,23 +111,35 @@
             <van-button type="primary" size="small" style="float: right;" color="#F07A7A" @click="studentShow = true" v-if="!studentShow">显示数据</van-button>
           </div>
           <div class="menu_list" v-show="studentShow">
-            
+            {loop $list $item}
             <div class="card_title">
-              <p>邀请一</p>
+              <div class="my_invite_item">
+                <div class="item_left_head">
+                  <div class="item_head_img">
+                    <img src="{$item[avatar]}" alt="">
+                  </div>
+                  <div class="item_head_name">
+                    <p>{$item[nickname]}</p>
+                  </div>
+                </div>
+                <div class="item_addtime">
+                  <p>加入时间:</p>
+                  <p>{$item[addtime]}</p>
+                </div>
+              </div>
             </div>
-            <div class="card_title">
-              <p>2</p>
-            </div>
-            <div class="card_title">
-              <p>3</p>
-            </div>
-            
-          </div>
-
+            {/loop}
           <!-- 清除浮动 -->
           <div class="clear"></div>
+          <p style="text-align: center;font-size: .24rem;color: #F07A7A;">最多显示最新20条邀请数据，更多数据请后台查看</p>
         </div>
       </div>
+      <van-tabbar @change="onChange">
+        <van-tabbar-item icon="wap-home-o" class="tabbar" name="index">主页</van-tabbar-item>
+        <van-tabbar-item icon="gift-o" class="tabbar" name="gift">邀请有礼</van-tabbar-item>
+        <van-tabbar-item icon="shopping-cart-o" class="tabbar" name="shop">积分商城</van-tabbar-item>
+        <van-tabbar-item icon="contact" class="tabbar" name="self">个人中心</van-tabbar-item>
+      </van-tabbar>
     </div>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
@@ -121,9 +162,24 @@
         addhead() {
           let arr = {php echo json_encode($_W["fans"])};
           this.myHeader = arr.avatar
-          let data = {php echo json_encode($invite)};
+          let data = {php echo json_encode($list)};
           console.log(data)
-        }
+        },
+        onChange(name) {
+            if(name == 'index') {
+              let url = '{php echo $this->createMobileUrl("index", array("do"=>"index"));}'
+              location.href = url
+            } else if(name == 'gift') {
+              let url = '{php echo $this->createMobileUrl("invitegift", array("do"=>"invitegift"));}'
+              location.href = url
+            } else if(name == 'shop') {
+              let url = '{php echo $this->createMobileUrl("shoppingmall", array("do"=>"shoppingmall"));}'
+              location.href = url
+            } else {
+              let url = '{php echo $this->createMobileUrl("self2", array("do"=>"self2"));}'
+              location.href = url
+            }
+          }
       },
       computed: {
       

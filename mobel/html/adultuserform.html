@@ -637,7 +637,7 @@
 							console.log('299礼包')
 							_this.show = true // 299礼包弹出层弹出
 						} else {
-							let url ='{php echo $this->createMobileUrl("confirmform", array("do"=>"confirmform"));}'
+							let url ='{php echo $this->createMobileUrl("confirmform", array("do"=>"confirmform"));}' + "&sid=" + _this.schoolId + "&lid=" + _this.levelId
 							location.href = url
 							if( _this.typeId == 'adult' ){ // 成人高考
 								console.log('提交类型为成人高考')
