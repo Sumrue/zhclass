@@ -81,21 +81,21 @@
             <div class="pay_box">
               <label class="col-sm-3" style="text-align: right;  color: red;height: 34px;line-height: 34px;">缴费金额</label>
               <div class="input-group col-sm-3">
-                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="0" id="pay">
+                <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" value="{$enter[price]}" id="pay">
                 <span class="input-group-addon">元</span>
               </div>
             </div>
             {/if}
           </div>
-          
-          {if $enter["status"] !== 2 || $enter["status"] !== 3}
-          <div class="form-group">
+
+          <!-- 当初始时状态不是已缴费才会在后面显示 -->
+          <div class="form-group grade_box">
             <label class="col-xs-12 col-sm-3 col-md-2 control-label center"><span style="color:red;">*</span>年级</label>
 						<div class="col-sm-9">
-							<input type="text" name="grade" id="grade" class="form-control" value="" />
+							<input type="text" name="grade" id="grade" class="form-control" value="{$enter['grade']}" />
 						</div>
           </div>
-          {/if}
+          
           <!-- 报考类型 -->
 					<div class="form-group">
 						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>报考类型</label>
@@ -150,6 +150,16 @@
 							</select>
 						</div>
           </div>
+
+          <div class="form-group grade_box">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label center">是否更新金额</label>
+						<div class="col-sm-9">
+							<td><input type="checkbox" name="update" value="0" id="payCheack"></td>
+            </div>
+          </div>
+          <div class="form-group grade_box">
+            <label class="col-12" style="color:rgb(235, 52, 52);">注意：勾选此选项保存后，将会自动按照1：1比例发放积分到学员账户当中，请确认好缴费金额。如果只是更改金额而不发放积分的话请勿勾选，默认不勾选。</label>
+          </div>
           
 				</div>
 			</section>
@@ -191,6 +201,7 @@ function check_area(label,id){
 		}
 	}
 }
+
 function check_pro(label,id){
 	var par=$(label).closest("div[id^='pro_item_']").attr("id");
 	var pro_item=$("#pro_new").children();
@@ -261,6 +272,16 @@ $(function() {
 	});
 
 	$('.tab-group').tabify();
+
+  // 年级的显示隐藏
+  let myStatus = $('#status').val() 
+  if(myStatus == 2 || myStatus == 3) {
+    $('.grade_box').css('display','block')
+    $('.pay_box').css('display','block')
+  } else {
+    $('.grade_box').css('display','none')
+    $('.pay_box').css('display','none')
+  }
 });
 // 获取各个的值
 let name = $('#name')
@@ -282,8 +303,10 @@ function statusChange() {
   // 当选中状态为缴费状态时，金额窗口则显示
   if(val == 2 || val == 3) {
     $('.pay_box').css('display','block')
+    $('.grade_box').css('display','block')
   } else {
     $('.pay_box').css('display','none')
+    $('.grade_box').css('display','none')
   }
 }
 // 报读类型改变时 
@@ -503,6 +526,13 @@ function add_school(){
   let mylid = level.val()
   let mypid = major.val()
   let myaid = address.val()
+  let mygrade = $('#grade').val()
+  let cheack = $('#payCheack').prop("checked")
+  let payCheack = 0
+  if(cheack == true) {
+    payCheack = 1
+  }
+  console.log(payCheack)
 
   let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/
   if(mymobile == '') {
@@ -521,10 +551,9 @@ function add_school(){
     alert('身份证格式不正确，请检查后再保存')
     return
   }
-  let param = '&lid=' + mylid + '&name=' + myname + '&mobile=' + mymobile + '&code=' + mycode + '&status=' + mystatus + '&price=' + myprice + '&sid=' + mysid + '&pid=' + mypid + '&aid=' + myaid
   let postUrl = '{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"post","method"=>"ajaxgetlist"));}'
   $.post(postUrl,{
-    lid: mylid, name:myname, mobile:mymobile, code:mycode, status:mystatus, price:myprice, sid:mysid, pid:mypid, aid:myaid, id:myid
+    lid: mylid, name:myname, mobile:mymobile, code:mycode, status:mystatus, price:myprice, sid:mysid, pid:mypid, aid:myaid, id:myid, grade:mygrade, update:payCheack
   },function(data){
     console.log('提交请求')
   }).then(res => {

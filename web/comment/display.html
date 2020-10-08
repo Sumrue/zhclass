@@ -26,30 +26,7 @@
                 <input type="hidden" name="m" value="fy_lessonv2" />
                 <input type="hidden" name="do" value="comment" />
                 <input type="hidden" name="op" value="display" />
-                <div class="form-group">
-                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">订单编号</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <input class="form-control" name="ordersn" type="text" value="{$_GPC['ordersn']}">
-                    </div>
-                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">课程名称</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <input class="form-control" name="bookname" type="text" value="{$_GPC['bookname']}">
-                    </div>
-                </div>
-                <div class="form-group">
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">用户昵称</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <input class="form-control" name="nickname" id="" type="text" value="{$_GPC['nickname']}">
-                    </div>
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">回复状态</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <select name="reply" class="form-control">
-							<option value="">请选择...</option>
-							<option value="0" {if in_array($_GPC['reply'], array('0'))}selected{/if}>未回复</option>
-							<option value="1" {if $_GPC['reply']==1}selected{/if}>已回复</option>
-						</select>
-                    </div>
-                </div>
+                
 				<div class="form-group">
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">审核状态</label>
                     <div class="col-sm-2 col-lg-3">
@@ -58,15 +35,6 @@
 							<option value="0" {if in_array($_GPC['status'], array('0'))}selected{/if}>待审核</option>
 							<option value="1" {if $_GPC['status']==1}selected{/if}>已审核</option>
 							<option value="-1" {if $_GPC['status']==-1}selected{/if}>审核未通过</option>
-						</select>
-                    </div>
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">评价结果</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <select name="grade" class="form-control">
-							<option value="">请选择...</option>
-							<option value="1" {if $_GPC['grade']==1}selected{/if}>好评</option>
-							<option value="2" {if $_GPC['grade']==2}selected{/if}>中评</option>
-							<option value="3" {if $_GPC['grade']==3}selected{/if}>差评</option>
 						</select>
                     </div>
                 </div>
@@ -87,8 +55,6 @@
             <table class="table table-hover" style="margin-bottom:20px;">
                 <thead class="navbar-inner">
                 <tr>
-                    <th style="width:15%;">订单遍号</th>
-                    <th style="width:20%;">课程名称</th>
                     <th style="width:12%;text-align:center;">评价/回复</th>
 					<th style="width:23%;">评价内容</th>
                     <th style="width:9%;text-align:center;">状态</th>
@@ -99,13 +65,7 @@
                 <tbody>
                 {loop $list $item}
                 <tr>
-                    <td>{php echo $item['ordersn']?$item['ordersn']:'免费课程';}</td>
-                    <td>{$item['bookname']}</td>
                     <td align="center">
-						{if $item['grade']==1}<span class="label" style="background-color:#FB5B5B;">好评</span>
-						{elseif $item['grade']==2}<span class="label" style="background-color:#D99810;">中评</span>
-						{elseif $item['grade']==3}<span class="label" style="background-color:#555555;">差评</span>{/if}
-						
 						{if !empty($item['reply'])}
 						<span class="label label-success m-r-5" data-toggle="tooltip" data-placement="bottom" data-original-title="{$item['reply']}">已回复</span>
 						{else}

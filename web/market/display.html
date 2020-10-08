@@ -1,56 +1,6 @@
 <div class="main">
 	<form action="" method="post" class="form-horizontal form-validate">
 		<div class="page-heading">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-sm-9 col-xs-12">
-						<h4>购买课程积分抵扣</h4>
-						<span> 开启积分抵扣, 课程最多抵扣的数目需要在课程的【营销设置】中单独设置</span>
-					</div>
-					<div class="col-sm-2 pull-right" style="padding-top:10px;text-align: right">
-						<input type="hidden" class="js-switch" name="deduct_switch" value="{$market['deduct_switch']}">
-						<div id="deduct-switchery" class="switchery {if $market['deduct_switch']}checked{/if}"><small></small></div>
-					</div>
-				</div>
-				<div class="form-group" id="creditdeduct-switch" {if !$market['deduct_switch']}style="display:none"{/if}>
-					<label class="col-sm-2 control-label">积分抵扣比例</label>
-					<div class="col-sm-5">
-						<div class="input-group">
-							<span class="input-group-addon">1个积分 抵扣</span>
-							<input type="text" name="deduct_money" value="{$market['deduct_money']}" class="form-control">
-							<span class="input-group-addon">元</span>
-						</div>
-						<span class="help-block">积分抵扣比例设置</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-sm-9 col-xs-12">
-						<h4>学习时长兑换积分</h4>
-						<span> 开启学习时长兑换积分, 用户学习时长将可以兑换积分。学习时长支持记录(非内嵌代码方式)的音频、视频章节和图文章节</span>
-					</div>
-					<div class="col-sm-2 pull-right" style="padding-top:10px;text-align: right">
-						<input type="hidden" class="js-switch" id="duration-switch" name="duration[switch]" value="{$duration['switch']}">
-						<div id="duration-switchery" class="switchery {if $duration['switch']}checked{/if}"><small></small></div>
-					</div>
-				</div>
-				<div class="form-group" id="duration-div" {if !$duration['switch']}style="display:none"{/if}>
-					<label class="col-sm-2 control-label">积分兑换设置</label>
-					<div class="col-sm-8">
-						<div class="input-group">
-							<span class="input-group-addon">学习1分钟兑换</span>
-							<input type="text" name="duration[exchange_credit1]" value="{$duration['exchange_credit1']}" class="form-control">
-							<span class="input-group-addon">积分</span>
-							<span class="input-group-addon">每天最多可兑换</span>
-							<input type="text" name="duration[max_exchange_minute]" value="{$duration['max_exchange_minute']}" class="form-control">
-							<span class="input-group-addon">分钟</span>
-						</div>
-						<span class="help-block">积分、分钟必须为正整数</span>
-					</div>
-				</div>
-			</div>
 			
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -58,12 +8,8 @@
 						<h4>每日签到奖励积分</h4>
 						<span> 开启每天签到奖励积分, 用户每天签到都可获得一定的积分奖励</span>
 					</div>
-					<div class="col-sm-2 pull-right" style="padding-top:10px;text-align: right">
-						<input type="hidden" class="js-switch" id="signin-switch" name="signin[switch]" value="{$signin['switch']}">
-						<div id="signin-switchery" class="switchery {if $signin['switch']}checked{/if}"><small></small></div>
-					</div>
 				</div>
-				<div class="form-group" id="signin-div" {if !$signin['switch']}style="display:none"{/if}>
+				<div class="form-group" id="signin-div">
 					<label class="col-sm-2 control-label">签到奖励设置</label>
 					<div class="col-sm-8">
 						<div class="input-group">

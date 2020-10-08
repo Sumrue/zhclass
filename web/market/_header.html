@@ -7,34 +7,7 @@
 </style>
 <ul class="nav nav-tabs">
 	<li {if $op=='display'}class="active" {/if}>
-		<a href="{php echo $this->createWebUrl('market');}">积分设置</a>
-	</li>
-	<li {if $op=='coupon' ||  $op=='addCoupon'}class="active" {/if}>
-		<a href="{php echo $this->createWebUrl('market', array('op'=>'coupon'));}">优惠券管理</a>
-	</li>
-	<li {if $op=='couponRule'}class="active" {/if}>
-		<a href="{php echo $this->createWebUrl('market', array('op'=>'couponRule'));}">优惠券规则</a>
-	</li>
-	<li {if $op=='sendCoupon'}class="active" {/if}>
-		<a href="{php echo $this->createWebUrl('market', array('op'=>'sendCoupon'));}">发放优惠券</a>
-	</li>
-	<li {if $op=='couponLog' || $op=='couponDetail'}class="active" {/if}>
-		<a href="{php echo $this->createWebUrl('market', array('op'=>'couponLog'));}">优惠券记录</a>
-	</li>
-	<li {if in_array($op, array('discount','addDiscount','discountLesson','addDiscountLesson'))}class="active" {/if}>
-		<a href="{php echo $this->createWebUrl('market', array('op'=>'discount'));}">	
-			{if $op=='addDiscount' && !$_GPC['discount_id']}
-				添加限时活动
-			{elseif $op=='addDiscount' && $_GPC['discount_id']}
-				编辑限时活动
-			{elseif $op=='discountLesson'}
-				限时活动课程
-			{elseif $op=='addDiscountLesson'}
-				添加课程到活动
-			{else}
-				限时折扣
-			{/if}
-		</a>
+		<a href="{php echo $this->createWebUrl('market');}">签到积分设置</a>
 	</li>
 	<li {if $op=='signin'}class="active" {/if}>
 		<a href="{php echo $this->createWebUrl('market', array('op'=>'signin'));}">积分签到明细</a>

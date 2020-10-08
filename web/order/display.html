@@ -80,20 +80,12 @@
                 <input type="hidden" name="do" value="order" />
                 <input type="hidden" name="op" value="display" />
                 <div class="form-group">
-                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">订单信息</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <input class="form-control" name="keyword" type="text" value="{$_GPC['keyword']}" placeholder="订单编号/课程名称">
-                    </div>
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">用户信息</label>
                     <div class="col-sm-2 col-lg-3">
                         <input class="form-control" name="nickname" type="text" value="{$_GPC['nickname']}" placeholder="昵称/姓名/手机号码">
                     </div>
                 </div>
                 <div class="form-group">
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">推荐人uid</label>
-                    <div class="col-sm-2 col-lg-3">
-                        <input class="form-control" name="rec_uid" type="text" value="{$_GPC['rec_uid']}" placeholder="推荐人uid">
-                    </div>
                     <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">订单状态</label>
                     <div class="col-sm-8 col-lg-3 col-xs-12">
                         <select name="status" class="form-control">
@@ -104,40 +96,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">支付方式</label>
-                    <div class="col-sm-8 col-lg-3 col-xs-12">
-                        <select name="paytype" class="form-control">
-                            <option value="">不限</option>
-							{loop $orderPayType $key $item}
-							<option value="{$key}" {if $_GPC['paytype'] == "$key"} selected="selected" {/if}>{$item}</option>
-							{/loop}
-                        </select>
-                    </div>
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 100px;">核销状态</label>
-                    <div class="col-sm-8 col-lg-3 col-xs-12">
-                        <select name="is_verify" class="form-control">
-                            <option value="">不限</option>
-							<option value="0" {if $_GPC['is_verify'] == '0'} selected="selected" {/if}>未核销</option>
-							<option value="1" {if $_GPC['is_verify'] == 1} selected="selected" {/if}>已核销</option>
-							<option value="2" {if $_GPC['is_verify'] == 2} selected="selected" {/if}>核销完成</option>
-                        </select>
-                    </div>
-                </div>
 				<div class="form-group">
-					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">订单有效期</label>
-                    <div class="col-sm-8 col-lg-3 col-xs-12">
-                        <select name="validity" class="form-control">
-                            <option value="">全部</option>
-                            <option value="2" {if $_GPC['validity'] == 2} selected="selected" {/if}>已过期</option>
-                        </select>
-                    </div>
-                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width: 100px;">时间类型</label>
-					<div class="col-sm-8 col-lg-3 col-xs-12">
-						<label class="radio-inline" style="padding-top:0;"><input type="radio" name="timetype" value="1" {if $timetype==1}checked{/if}>下单</label>
-						<label class="radio-inline" style="padding-top:0;"><input type="radio" name="timetype" value="2" {if $timetype==2}checked{/if}>付款</label>
-						{php echo tpl_form_field_daterange('time', array('starttime'=>($starttime ? date('Y-m-d', $starttime) : false),'endtime'=> ($endtime ? date('Y-m-d', $endtime) : false)));}
-					</div>
                     <div class="col-sm-3 col-lg-3">
                         <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;&nbsp;
 						<button type="submit" name="export" value="1" class="btn btn-success">导出 Excel</button>
@@ -181,9 +140,8 @@
 					<th style="width:60px;">全选</th>
                     <th style="width:15%;">订单编号</th>
                     <th style="width:18%;">昵称/姓名/手机号码</th>
-                    <th style="width:18%;">课程名称</th>
+                    <th style="width:18%;">礼包名称</th>
                     <th style="width:8%;">价格</th>
-					<th style="width:9%;">会员状态</th>
                     <th style="width:8%;">订单状态</th>
                     <th style="width:10%;">下单时间</th>
                     <th style="width:10%; text-align:right;">操作</th>
@@ -211,12 +169,6 @@
 						
 					</td>
                     <td>{$item['price']} 元</td>
-					<td>
-						<a href="{php echo $this->createWebUrl('viporder', array('op'=>'createOrder', 'uid'=>$item['uid']));}" target="_blank">
-                        {if $item['vip'] == 0}<span class="label label-default">普通</span>{/if}
-						{if $item['vip'] == 1}<span class="label label-primary">VIP</span>{/if}
-						</a>
-                    </td>
                     <td>
                         {if $item['status'] == 0}<span class="label label-danger">待付款</span>{/if}
 						{if $item['status'] >0}

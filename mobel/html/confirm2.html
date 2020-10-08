@@ -142,6 +142,7 @@
         <div class="list_detail">
           <p><span>学校:</span>{{userData.school}}</p>
           <p><span>专业:</span>{{userData.major}}[{{userData.level}}]</p>
+          <p v-if="userData.status == 2 || userData.status == 3"><span>年级:</span>{{userData.grade}}</p>
           <p><span>报读类型:</span>{{userData.type}}</p>
           <p><span>我的状态:</span>
             <i v-if="userData.status == 0">意向学员</i>
@@ -151,8 +152,7 @@
             <i v-else>已结业</i>
             <van-icon name="question-o" color="#00aeef" size="14" @click="toast()"/>
           </p>
-          <p><span>备注:</span></p>
-          <p class="buygift" v-if="userData.idcard == ''">您已购买成考辅导大礼包</p>
+          <p v-if="userData.status == 2 || userData.status == 3"><span>缴费金额:</span>{{userData.price}}</p> 
         </div>
       </div>
       {/if}
@@ -186,7 +186,9 @@
               major: '',
               grade: '',
               addr: '',
-              status: null
+              status: null,
+              grade: '',
+              price: null,
             }
           }
 				},
@@ -203,9 +205,9 @@
             } else if(_this.userData.status == 1) {
               _this.$toast('已报名，未缴费')
             } else if(_this.userData.status == 2) {
-              _this.$toast('已缴费，全款')
+              _this.$toast('已报名且成功缴费，缴费形式:全款')
             } else if(_this.userData.status == 3) {
-              _this.$toast('已缴费，分期')
+              _this.$toast('已报名且成功缴费，缴费形式:分期')
             } else {
               _this.$toast('已结业')
             }
@@ -236,6 +238,8 @@
               _this.userData.type = confirmData.cname
               _this.userData.addr = confirmData.addr
               _this.userData.status = confirmData.status
+              _this.userData.grade = confirmData.grade
+              _this.userData.price = confirmData.price
             }
           },
           onChange(name) {
