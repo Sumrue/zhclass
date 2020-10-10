@@ -1,6 +1,7 @@
 <ul class="nav nav-tabs">
-    <li {if $_GPC['do']=='agent' || $_GPC['do']=='team'} class="active"{/if}><a href="{php echo $this->createWebUrl('agent');}">分销(用户)管理</a></li>
-	<li {if $_GPC['do']=='commission' && $op=='level'} class="active"{/if}><a href="{php echo $this->createWebUrl('commission', array('op'=>'level'));}">分销商等级</a></li>
 	<li {if $_GPC['do']=='comsetting' && $op=='display'}class="active"{/if}><a href="{php echo $this->createWebUrl('comsetting');}">分销设置</a></li>
 	<li {if $_GPC['do']=='poster'}class="active"{/if}><a href="{php echo $this->createWebUrl('poster');}">分销海报</a></li>
+	{if $_W['username'] !== '四川联合教育运营'}
+	<li {if $_GPC['do']=='agent' || $_GPC['do']=='team'} class="active"{/if}><a href="{php echo $this->createWebUrl('agent');}">分销(用户)管理</a></li>
+	{/if}
 </ul>

@@ -138,7 +138,7 @@
                 <thead class="navbar-inner">
                 <tr>
 					<th style="width:60px;">全选</th>
-                    <th style="width:15%;">订单编号</th>
+                    <th style="width:15%;">收货地址</th>
                     <th style="width:18%;">昵称/姓名/手机号码</th>
                     <th style="width:18%;">礼包名称</th>
                     <th style="width:8%;">价格</th>
@@ -151,7 +151,7 @@
                 {loop $list $item}
                 <tr>
 					<td><input type="checkbox" name="ids[]" value="{$item['id']}"></td>
-                    <td>{$item['ordersn']}</td>
+                    <td>{$item[addr]}</td>
                     <td>
 						<a href="{php echo $this->createWebUrl('agent', array('op'=>'detail','uid'=>$item['uid']));}" target="_blank">{$item['nickname']}<br/>{$item['realname']}，{$item['mobile']}</a>
 					</td>

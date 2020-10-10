@@ -78,6 +78,7 @@
                 <tbody>
 					
 					{loop $list $teacher}
+					{if $teacher['teacher'] !== '杜老师'}
 					{if $teacher['teacher'] !== '系统礼包299'}
           <tr>
 						<td>{$teacher['id']}</td>
@@ -110,6 +111,7 @@
 							</div>
 						</td>
 					</tr>
+					{/if}
 					{/if}
 					{/loop}
 				</tbody>

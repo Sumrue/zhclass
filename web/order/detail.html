@@ -12,12 +12,12 @@
 				<th class="text-left" colspan="3">订单信息</th>
 			</tr>
 			<tr>
-				<td class="table-label">订单遍号</td>
+				<td class="table-label">订单编号</td>
 				<td class="ng-binding">{$order['ordersn']}</td>
 				<td class="text-right"><div class="link-group"><a href="javascript:;"></a></div></td>
 			</tr>
 			<tr>
-				<td class="table-label">课程名称</td>
+				<td class="table-label">订单名称</td>
 				<td class="ng-binding">{$order['bookname']}</td>
 				<td class="text-right"><div class="link-group"><a href="javascript:;"></a></div></td>
 			</tr>
@@ -144,6 +144,12 @@
 				<td class="ng-binding">{php echo date('Y-m-d H:i:s', $order['addtime'])}</td>
 				<td class="text-right"><div class="link-group"><a href="javascript:;"></a></div></td>
 			</tr>
+			<tr>
+				<td class="table-label">收货地址</td>
+				<td class="ng-binding">{$order[addr]}</td>
+				<td class="text-right"><div class="link-group"><a href="javascript:;"></a></div></td>
+			</tr>
+			
 			{if $order['paytime']>0}
 			<tr>
 				<td class="table-label">付款时间</td>
@@ -228,4 +234,10 @@ $("#submit-form").click(function(){
 	$("#form-validity").submit();
 	$("#form-remark").submit();
 });
+</script>
+<script>
+	$(function(){
+		let data = {php echo json_encode($_W)};
+		console.log(data)
+	})
 </script>

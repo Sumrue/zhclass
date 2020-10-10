@@ -8,7 +8,7 @@
 		<input type="hidden" name="op" value="detail" />
 		<div class='panel panel-default'>
 			<div class='panel-heading'>
-				分销商详细信息
+				用户详细信息
 			</div>
 			<div class='panel-body'>
 
@@ -30,95 +30,33 @@
                         <div class="input-group">
 							<span class="input-group-addon">粉丝昵称</span>
 							<input type="text" name="nickname" class="form-control" value="{$member['nickname']}">
-
-							<span class="input-group-addon">真实姓名</span>
-							<input type="text" name="realname" class="form-control" value="{$member['realname']}">
-
 							<span class="input-group-addon">手机号码</span>
 							<input type="text" name="mobile" class="form-control" value="{$member['mobile']}">
                         </div>
                     </div>
 				</div>
 				
+				
 				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">VIP等级</label>
-					<div class="col-sm-9">
-						{if !empty($viplist)}
-							{loop $viplist $item}
-							<div class="input-group" style="margin-top:7px;">
-								<span class="input-group-addon">{$item['level_name']} - 有效期：</span>
-								{php echo tpl_form_field_date("validity[$item[id]]", $item['validity'],true);}
-							</div>
-							{/loop}
-						{else}
-							<input type="text" class="form-control" value="无" readonly/>
-						{/if}
-						<span class="help-block"><a href="{php echo $this->createWebUrl('viporder', array('op'=>'createOrder', 'uid'=>$member['uid']));}" style="color:#1377ce;" target="_blank">开通会员VIP</a></span>
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">上级ID</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="parentid" id="parentid" class="form-control" value="{$member['parentid']}" style="display:inline-block;width:88%;" readonly />&nbsp;&nbsp;<a id="removeread" href="javascript:;">显示修改</a>
+						<span class="help-block">上级ID为0时表示为总店推荐</span>
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">上级会员ID</label>
-					<div class="col-sm-9 col-xs-12">
-						<input type="text" name="parentid" id="parentid" class="form-control" value="{$member['parentid']}" style="display:inline-block;width:88%;" readonly />&nbsp;&nbsp;<a id="removeread" href="javascript:;">显示修改</a>
-						<span class="help-block">上级会员ID为0时表示为总店推荐</span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分销等级</label>
-					<div class="col-sm-9 col-xs-12">
-						<select name="agent_level" class="form-control">
-							<option value="0" {if $member['agent_level']==0}selected{/if}>默认级别</option>
-							{loop $levelList $key $level}
-							<option value="{$key}" {if $member['agent_level']==$key}selected{/if}>{$level}</option>
-							{/loop}
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">购买订单总额</label>
-					<div class="col-sm-9 col-xs-12">
-						<div class='form-control-static'> {$member['payment_amount']} 元</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">购买订单数量</label>
-					<div class="col-sm-9 col-xs-12">
-						<div class='form-control-static'> {$member['payment_order']} 单</div>
-					</div>
-				</div>
+				
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">加入时间</label>
 					<div class="col-sm-9 col-xs-12">
 						<div class='form-control-static'>{php echo date('Y-m-d H:i:s', $member['addtime']);}</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分销商状态</label>
-					<div class="col-sm-9 col-xs-12">
-						<label class="radio-inline"><input type="radio" name="status" value="1" {if $member['status']==1}checked{/if}><span class="label label-success">{$agentStatusList[1]}</span></label>
-						<label class="radio-inline"><input type="radio" name="status" value="0" {if $member['status']=='0'}checked{/if}><span class="label label-default">{$agentStatusList[0]}</span></label>
-						<div class="help-block">{$agentStatusList[0]}状态的分销商将不能发展下级成员，需要达到分销条件后方可转为正常状态。</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">权限设置</label>
-					<div class="col-sm-9 col-xs-12">
-						{loop $userStatusList $key $item}
-						<label class="radio-inline"><input type="radio" name="blacklist" value="{$key}" {if $member['blacklist']==$key}checked{/if}>{$item}</label>
-						{/loop}
-					</div>
-				</div>
+			
 				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">备注信息</label>
 					<div class="col-sm-9 col-xs-12">
 						<textarea class="form-control" name="remark" style="height:80px;">{$member['remark']}</textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分销链接</label>
-					<div class="col-sm-9">
-						<div style="padding-top:8px;font-size: 14px;"><a href="javascript:;" id="copy-btn">{$_W['siteroot']}app/{php echo substr($this->createMobileUrl('index', array('uid'=>$member['uid'])), 2);}</a></div>
 					</div>
 				</div>
 			</div>
