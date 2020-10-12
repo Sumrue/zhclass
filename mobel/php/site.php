@@ -114,61 +114,57 @@ class fy_lessonv2ModuleSite extends WeModuleSite
                 'url'	=> $this->createWebUrl('enter'),
                 'icon'  => 'fa fa-university',
             ),
+            // array(
+            //     'title' => '视频管理',
+            //     'url'	=> $this->createWebUrl('video'),
+            //     'icon'  => 'fa fa-play-circle',
+            // ),
             array(
-                'title' => '视频管理',
-                'url'	=> $this->createWebUrl('video'),
-                'icon'  => 'fa fa-play-circle',
-            ),
-            array(
-                'title' => '课程管理',
+                'title' => '礼包管理',
                 'url'	=> $this->createWebUrl('lesson'),
                 'icon'  => 'fa fa-mortar-board',
             ),
+            // array(
+            //     'title' => '课程分类',
+            //     'url'	=> $this->createWebUrl('category'),
+            //     'icon'  => 'fa fa-list',
+            // ),
+            // array(
+            //     'title' => '推荐板块',
+            //     'url'	=> $this->createWebUrl('recommend'),
+            //     'icon'  => 'fa fa-heart',
+            // ),
             array(
-                'title' => '课程分类',
-                'url'	=> $this->createWebUrl('category'),
-                'icon'  => 'fa fa-list',
-            ),
-            array(
-                'title' => '推荐板块',
-                'url'	=> $this->createWebUrl('recommend'),
-                'icon'  => 'fa fa-heart',
-            ),
-            array(
-                'title' => '讲师管理',
+                'title' => '老师管理',
                 'url'	=> $this->createWebUrl('teacher'),
                 'icon'  => 'fa fa-user-md',
             ),
             array(
-                'title' => '营销管理',
+                'title' => '签到设置',
                 'url'	=> $this->createWebUrl('market'),
                 'icon'  => 'fa fa-gift',
             ),
             array(
-                'title' => '课程订单',
+                'title' => '礼包订单',
                 'url'	=> $this->createWebUrl('order'),
                 'icon'  => 'fa fa-list-ol',
             ),
-            array(
-                'title' => 'VIP服务',
-                'url'	=> $this->createWebUrl('viporder', array('status'=>1)),
-                'icon'  => 'fa fa-diamond',
-            ),
+            
             array(
                 'title' => '评价管理',
                 'url'	=> $this->createWebUrl('comment'),
                 'icon'  => 'fa fa-comment-o',
             ),
             array(
-                'title' => '分销管理',
-                'url'	=> $this->createWebUrl('agent'),
+                'title' => '分销设置',
+                'url'	=> $this->createWebUrl('comsetting'),
                 'icon'  => 'wi wi-user-group',
             ),
-            array(
-                'title' => '财务管理',
-                'url'	=> $this->createWebUrl('finance'),
-                'icon'  => 'fa fa-money',
-            ),
+            // array(
+            //     'title' => '财务管理',
+            //     'url'	=> $this->createWebUrl('finance'),
+            //     'icon'  => 'fa fa-money',
+            // ),
             array(
                 'title' => '文章公告',
                 'url'	=> $this->createWebUrl('article'),
@@ -181,14 +177,14 @@ class fy_lessonv2ModuleSite extends WeModuleSite
             ),
         );
 
-        $module = pdo_get('modules', array('name'=>'fy_lessonv2'), array('webapp_support'));
-        if ($module['webapp_support']==2) {
-            $menus[] = array(
-                'title' => 'PC端设置',
-                'url'	=> $this->createWebUrl('pcmanage'),
-                'icon'  => 'fa fa-laptop',
-            );
-        }
+        // $module = pdo_get('modules', array('name'=>'fy_lessonv2'), array('webapp_support'));
+        // if ($module['webapp_support']==2) {
+        //     $menus[] = array(
+        //         'title' => 'PC端设置',
+        //         'url'	=> $this->createWebUrl('pcmanage'),
+        //         'icon'  => 'fa fa-laptop',
+        //     );
+        // }
 
         $menus[] = array(
             'title' => '清空缓存',
@@ -639,6 +635,10 @@ class fy_lessonv2ModuleSite extends WeModuleSite
     {
         $this->__mobile(__FUNCTION__);
     }
+    public function doMobileGoodsorder()
+    {
+        $this->__mobile(__FUNCTION__);
+    }
     // 新添加结束
     /************************************************ 公共方法 ************************************ */
     public function __web($f_name)
@@ -678,7 +678,7 @@ class fy_lessonv2ModuleSite extends WeModuleSite
         $common = json_decode($setting['common'], true);
         $login_visit = json_decode($setting['login_visit']); /* 需登录访问页面 */
         $template = $setting['template'] ? $setting['template'] : 'default';
-        $module_title = $_W['current_module']['title'] ? $_W['current_module']['title'] : '微课堂V2';
+        $module_title = $_W['current_module']['title'] ? $_W['current_module']['title'] : '四川联合教育';
         
         $sharelink = unserialize($comsetting['sharelink']);
         $shareurl = $_W['siteroot'] .'app/'. $this->createMobileUrl('index', array('uid'=>$_W['member']['uid']));

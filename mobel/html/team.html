@@ -13,7 +13,6 @@
 <link href="{MODULE_URL}template/mobile/{$template}/style/cssv2/commission.css?v={$versions}" rel="stylesheet" />
 
 <div class="header-2 cbox">
-	<a href="javascript:history.go(-1);" class="ico go-back"></a>
 	<div class="flex title">{$title}</div>
 </div>
 
@@ -22,17 +21,11 @@
 </div>
 
 <div class="team_tab">
-	{if $level==1 || empty($level)}
-    <div class="team_nav team_navon" style='width:100%'>一级会员</div>
-	{elseif $level==2}
-    <div class="team_nav team_navon" style='width:50%'>二级会员</div>
-	{elseif $level==3}
-    <div class="team_nav team_navon" style='width:33.3%'>三级会员</div>
-	{/if}
+    <div class="team_nav team_navon" style='width:100%'>一级成员</div>
 </div>
 <div class="team_list_head">
         <div class="info">成员信息</div>
-        <div class="num">{php echo $font['his_commission'] ? $font['his_commission'] : 'Ta的佣金/成员';}</div>
+        <div class="num">{php echo $font['his_commission'] ? $font['his_commission'] : 'Ta的成员';}</div>
 </div>
 <div id="teamlist">
 	{if empty($teamlist)}
@@ -96,7 +89,7 @@ $(function () {
 		}
 			chtml += '	<div class="img"><img src="' +result[j].avatar+ '"></div>';
 			chtml += '	<div class="info"><div class="member-info"><span>[uid:' + +result[j].uid + ']</span>' +result[j].nickname+ '</div><span>' +result[j].addtime+ '</span></div>';
-			chtml += '	<div class="num">+' +result[j].commission+ '<br><span>' +result[j].recnum+ ' 个成员</span></div>';
+			chtml += '	<div class="num"><span>' +result[j].recnum+ ' 个成员</span></div>';
 			chtml += '</div>'; 
         }
 		mainDiv.append(chtml);

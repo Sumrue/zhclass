@@ -30,6 +30,30 @@
       display:block;
       border-radius: 5px;
     }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 8rem;
+    }
+    .block {
+      width: 5rem;
+      object-fit: cover;
+    }
+    .block>img{
+      width: 100%;
+    }
+    #followMsg{
+      width: 95%;
+      margin: 0 auto;
+      height: .7rem;
+      line-height: .7rem;
+      font-size: .3rem;
+      font-weight: 600;
+      text-align: center;
+      color: #fff;
+    }
   </style>
 	<body>
 		<div class="page-container" id="page-container">
@@ -96,6 +120,12 @@
             <div class="title">个人业务</div>
           </div>
           <div class="menu_list">
+            <a class="item" href="javascript::;" v-if="follow == 0" @click="picShow">
+              <div class="head_icon">
+                <van-icon name="scan" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">关注公众号</span>
+            </a>
             {if $teacher}
             <a class="item" href="{php echo $this->createMobileUrl('teacherinvite');}">
               <div class="head_icon">
@@ -111,6 +141,12 @@
               <span class="item_name">报名信息</span>
             </a>
             {/if}
+            <a class="item" href="{php echo $this->createMobileUrl('goodsorder');}">
+              <div class="head_icon">
+                <van-icon name="logistics" size="21" color="#FF6B67"/>
+              </div>
+              <span class="item_name">我的订单</span>
+            </a>
             <a class="item" @click="showErroMsg">
               <div class="head_icon">
                 <van-icon name="cash-back-record" size="21" color="#FF6B67"/>
@@ -216,7 +252,17 @@
           <div class="clear"></div>
         </div>
       </div>
+      <van-overlay :show="followShow" @click="followShow = false">
+        <div id="followMsg">
+          <p>长按图片关注公众号，点击空白处关闭</p>
+        </div>
+        <div class="wrapper" @click.stop>
+          <div class="block" />
+            <img src="{MODULE_URL}template/mobile/{$template}/images/sclhjyewm.jpg" alt="">
+          </div>
+      </van-overlay>
     </div>
+  </div>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
@@ -234,7 +280,9 @@
           point: null,
           phonShow: false,
           advertingShow: true,
-          invite_count: 0
+          invite_count: 0,
+          follow: 1,
+          followShow: false
         }
       },
       created () {
@@ -245,8 +293,10 @@
         // 初始化时需要的数据
         dataFirst () {
           let _this = this
-          this.invite_count = {php echo $invite_count};
+          _this.invite_count = {php echo $invite_count};
           let arr = {php echo json_encode($_W["fans"])};
+          let follow = {php echo json_encode($follow)};
+          _this.follow = follow
           // 获取积分和手机号
           _this.point = {php echo json_encode($_W["member"]["credit1"])};
           _this.phone = {php echo json_encode($_W["member"]["mobile"])};
@@ -257,6 +307,7 @@
           if(_this.phone !== '') {
             _this.phonShow = true // 如果为空时，绑定按钮显示
           }
+          
         },
         // 签到功能判定权限，没绑定手机号，不能参加签到活动
         tosignin() {
@@ -270,6 +321,10 @@
               icon: 'like-o',
             }
           )
+        },
+        // 二维码显示
+        picShow() {
+          this.followShow = true
         }
       },
       computed: {

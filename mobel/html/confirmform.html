@@ -256,14 +256,14 @@
               }).then(res=>{
                 //提交后弹出成功信息
                 _this.$toast.success({
-                  message: '报名成功',
+                  message: '提交成功',
                   onClose: function(){
-                    location.href = "{php echo $this->createMobileUrl('index');}"
+                  // 获取收货地址和用户信息，提交订单  此处参数对应的是后台课程的编号，对应才能生成订单
+                  location.href = '{php echo $this->createMobileUrl("addtoorder", array("spec_id"=>"8579","id"=>"6112"));}'
                   }
                 });
               })
-              // 获取收货地址和用户信息，提交订单
-              location.href = '{php echo $this->createMobileUrl("addtoorder", array("spec_id"=>"8579","id"=>"6112"));}'
+              
             }
           }
         }

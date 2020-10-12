@@ -12,6 +12,17 @@
 						<input type="text" name="sitename" value="{$setting['sitename']}" class="form-control" />
 					</div>
 				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">管理员openid</label>
+					<div class="col-sm-9">
+						<input type="text" name="manageopenid" value="{$setting['manageopenid']}" class="form-control">
+						<div class="help-block">
+							新订单提醒管理员，多个管理员openid之间用英文状态逗号“,”隔开 </br>
+							注：获取管理员openid  平台入口->粉丝管理->找到对应人员->点击发送消息->粉丝编号(openid)</br>
+							当管理员无法接受到订单或者申请信息时，请检查管理员openid是否与设置的一致
+						</div>
+					</div>
+				</div>
 			</div>	
 		</div>
 
