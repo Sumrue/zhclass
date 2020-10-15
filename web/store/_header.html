@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+	<li {if $op=='display'}class="active"{/if}><a href="{php echo $this->createWebUrl('store');}">商品列表</a></li>
+	<li {if $op=='goodsorderlist'}class="active"{/if}><a href="{php echo $this->createWebUrl('store', array('op'=>'goodsorderlist'));}">商品订单</a></li>
+	{if $op=='post'}
+	<li {if $op=='post'}class="active"{/if}><a href="{php echo $this->createWebUrl('store', array('op'=>'post','id'=>$_GPC['id']));}">{if $_GPC['aid']>0}编辑{else}添加{/if}商品</a></li>
+	{/if}
+</ul>

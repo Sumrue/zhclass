@@ -1,0 +1,17 @@
+{template 'common/header'}
+{template 'web/store/_header'}
+
+{if $op == 'display'}
+
+	{template 'web/store/display'}
+
+{elseif $op == 'post'}
+
+	{template 'web/store/post'}
+{elseif $op == 'goodsorderlist'}
+
+	{template 'web/store/goodsorderlist'}
+
+{/if}
+
+{template 'common/footer'}

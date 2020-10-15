@@ -158,49 +158,24 @@ a img {
         </van-swipe>   
         <div class="goods_box_title"><van-icon name="fire" color="#f85731" size="25"></van-icon>热门礼品兑换</div>
         <div class="goods_list_items">
-          <div class="goods_items" @click="toDetail(goodsID)">
-            <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
-              <p class="des">上进青年风衣</p>
-              <div class="point">
-                <div class="points">
-                  <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
-                  <span>66666</span>
+          <template v-for="item in listData" :key="item.id">
+            <div class="goods_items" @click="toDetail(item.id)" v-if="item.hot == 1">
+              <img :src="'{$_W['attachurl']}' + item.images" alt="">
+                <p class="des">{{item.name}}</p>
+                <div class="point">
+                  <div class="points">
+                    <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
+                    <span>{{item.price}}</span>
+                  </div>
+                  <div class="num">
+                    剩余<span>{{item.quantity}}</span>
+                  </div>
                 </div>
-                <div class="num">
-                  剩余<span>47</span>个
-                </div>
-              </div>
-              <van-icon name="hot" class="hot_icon" color="#f85731" size="30"></van-icon>
-          </div>
-          <div class="goods_items">
-            <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
-              <p class="des">上进青年风衣</p>
-              <div class="point">
-                <div class="points">
-                  <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
-                  <span>66666</span>
-                </div>
-                <div class="num">
-                  剩余<span>47</span>个
-                </div>
-              </div>
-              <van-icon name="hot" class="hot_icon" color="#f85731" size="30"></van-icon>
-          </div>
-          <div class="goods_items">
-            <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
-              <p class="des">上进青年风衣</p>
-              <div class="point">
-                <div class="points">
-                  <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
-                  <span>66666</span>
-                </div>
-                <div class="num">
-                  剩余<span>47</span>个
-                </div>
-              </div>
-              <van-icon name="hot" class="hot_icon" color="#f85731" size="30"></van-icon>
-          </div>
-      
+                <van-icon name="hot" class="hot_icon" color="#f85731" size="30"></van-icon>
+            </div>
+          </template>
+          
+
 
 
           <div class="clear"></div>
@@ -208,45 +183,22 @@ a img {
 
         <div class="goods_box_title"><van-icon name="shopping-cart" color="#f85731" size="25"></van-icon>全部礼品</div>
         <div class="goods_list_items">
-          <div class="goods_items">
-            <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
-              <p class="des">上进青年风衣</p>
+          
+          <div class="goods_items" v-for="item in listData" :key="item.id" @click="toDetail(item.id)">
+            <img :src="'{$_W['attachurl']}' + item.images" alt="">
+              <p class="des">{{item.name}}</p>
               <div class="point">
                 <div class="points">
                   <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
-                  <span>66666</span>
+                  <span>{{item.price}}</span>
                 </div>
                 <div class="num">
-                  剩余<span>47</span>个
+                  剩余<span>{{item.quantity}}</span>
                 </div>
               </div>
           </div>
-          <div class="goods_items">
-            <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
-              <p class="des">上进青年风衣</p>
-              <div class="point">
-                <div class="points">
-                  <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
-                  <span>66666</span>
-                </div>
-                <div class="num">
-                  剩余<span>47</span>个
-                </div>
-              </div>
-          </div>
-          <div class="goods_items">
-            <img src="{MODULE_URL}template/mobile/{$template}/images/index/shoppingmall/hotgoods.jpg" alt="">
-              <p class="des">上进青年风衣</p>
-              <div class="point">
-                <div class="points">
-                  <van-icon name="gold-coin" color="#f85731" size="18"></van-icon>
-                  <span>66666</span>
-                </div>
-                <div class="num">
-                  剩余<span>47</span>个
-                </div>
-              </div>
-          </div>
+
+          
           <div class="clear"></div>
         </div>
       </div>
@@ -262,13 +214,24 @@ a img {
       el: '#page-container',
       data () {
         return {
-          goodsID: 1
+          goodsID: 1,
+          listData: []
         }
+      },
+      created() {
+        let listData = {php echo json_encode($list)};
+        this.listData = listData
+        console.log(listData)
       },
       methods: {
         toDetail (id) {
-          let url = '{php echo $this->createMobileUrl("mygoods", array("do"=>"mygoods"));}' + '&goodsid=' + id
+          let url = '{php echo $this->createMobileUrl("mygoods", array("do"=>"mygoods"));}' + '&id=' + id
           location.href = url
+        },
+        // 商品列表数据获取
+        listData () {
+          let listData = {php echo json_encode($list)};
+          console.log(listData)
         }
       }
   })

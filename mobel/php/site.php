@@ -140,8 +140,8 @@ class fy_lessonv2ModuleSite extends WeModuleSite
                 'icon'  => 'fa fa-user-md',
             ),
             array(
-                'title' => '签到设置',
-                'url'	=> $this->createWebUrl('market'),
+                'title' => '积分商城',
+                'url'	=> $this->createWebUrl('store'),
                 'icon'  => 'fa fa-gift',
             ),
             array(
@@ -165,6 +165,11 @@ class fy_lessonv2ModuleSite extends WeModuleSite
             //     'url'	=> $this->createWebUrl('finance'),
             //     'icon'  => 'fa fa-money',
             // ),
+            array(
+                'title' => '签到设置',
+                'url'	=> $this->createWebUrl('market'),
+                'icon'  => 'fa fa-gift',
+            ),
             array(
                 'title' => '文章公告',
                 'url'	=> $this->createWebUrl('article'),

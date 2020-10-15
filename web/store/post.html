@@ -1,0 +1,78 @@
+<div class="main">
+	<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+		<div class="panel panel-default">
+			<div class="panel-heading">商品管理</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><strong style="color:red;">* </strong>商品名称</label>
+					<div class="col-sm-8 col-xs-12">
+						<input type="text" class="form-control"  name="name" value="{$goods['name']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><strong style="color:red;">* </strong>商品描述</label>
+					<div class="col-sm-8 col-xs-12">
+						<input type="text" class="form-control"  name="describe" value="{$goods['describe']}">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><strong style="color:red;">* </strong>商品价格</label>
+					<div class="col-sm-8 col-xs-12">
+						<input type="number" class="form-control" name="price" value="{$goods['price']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><strong style="color:red;">* </strong>数量</label>
+					<div class="col-sm-8 col-xs-12">
+						<input type="number" class="form-control"  name="quantity" value="{$goods['quantity']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-10 col-sm-4 col-md-3 col-lg-2 control-label">热门商品</label>
+					<div class="col-lg-1 col-md-1 col-sm-2 col-xs-2" style="margin-top: 6px;">
+						<input type="checkbox"  value="{$goods['hot']}" class="cheack_hot" name="hot" onclick="cheackHot(event.target,value)">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><strong style="color:red;">* </strong>商品缩略图</label>
+					<div class="col-sm-8 col-xs-12">
+						{php echo tpl_form_field_image('images', $goods['images']);}
+						<span class="help-block"></span>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-12">
+						<input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+						<input type="hidden" name="token" value="{$_W['token']}">
+						<input type="hidden" name="aid" value="{$aid}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+// 设置热销产品cheackbox是否为选中状态
+ $(function(){
+	 let cheackHot = $('.cheack_hot')
+	 if(cheackHot.val() == 1) { // 判断value = 1时为选中状态
+		cheackHot.attr('checked','1') // 设置选中
+	 }
+	 let data = cheackHot.val()
+	 console.log(data)
+ })
+
+// 根据热销产品选中状态 设置val值
+function cheackHot(event,value){
+	if(value == 0 || '') {
+		$(event).val(1)
+	} else {
+		$(event).val(0)
+	}
+}
+
+
+</script>

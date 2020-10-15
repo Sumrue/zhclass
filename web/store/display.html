@@ -1,0 +1,89 @@
+<link href="{MODULE_URL}template/web/style/fycommon.css" rel="stylesheet">
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="fy_lessonv2" />
+                <input type="hidden" name="do" value="store" />
+                <input type="hidden" name="op" value="display" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">商品名称</label>
+                    <div class="col-sm-2 col-lg-3">
+                        <input class="form-control" name="name" type="text" value="{$_GPC['keyword']}">
+                    </div>
+                </div>
+				<div class="form-group">
+				
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label" style="width:100px;">商品状态</label>
+                    <div class="col-sm-8 col-lg-3 col-xs-12">
+                        <select name="hot" class="form-control">
+                            <option value="">不限</option>
+							<option value="1" {if $_GPC['hot'] == 1} selected="selected"{/if}>热门</option>
+							<option value="0" {if $_GPC['hot'] == '0'}selected="selected"{/if}>普通</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-3 col-lg-3" style="width: 18%;">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>&nbsp;&nbsp;&nbsp;
+						<a href="{php echo $this->createWebUrl('store', array('op'=>'post'));}" class="btn btn-success"><i class="fa fa-plus"></i> 添加商品</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <form action="" method="post" class="form-horizontal form" >
+        <div class="table-responsive panel-body">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+					<tr>
+						<th style="width:100px;">商品图</th>
+						<th style="width:20%;">商品名称</th>
+						<th style="width:30%;">商品描述</th>
+						<th style="width:10%;">价格</th>
+						<th style="width:8%;">剩余数量</th>
+						<th style="width:8%;">热门</th>
+						<th style="text-align:right;">操作</th>
+					</tr>
+                </thead>
+                <tbody>
+					{loop $list $item}
+					<tr>
+						<td><img src="{$_W['attachurl']}{$item['images']}" alt="" style="width: 65px; height: 65px;"></td>
+						<td>{$item['name']}</td>
+						<td>
+                            {$item['describe']}
+						</td>
+						<td>{$item['price']}积分</td>
+						<td>{$item['quantity']}</td>
+						<td>
+                            {if $item['hot'] == 1}
+                            <span style="color: rgb(170, 12, 12);">是</span>
+                            {else}
+                            <span>否</span>
+                            {/if}
+                        </td>
+						<td style="text-align:right;">
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('store', array('op'=>'post','aid'=>$item['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])))}" data-toggle="tooltip" data-placement="bottom" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('store', array('op'=>'delete','aid'=>$item['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])))}" data-toggle="tooltip" data-placement="bottom" data-original-title="删除" onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="fa fa-times"></i></a>
+						</td>
+					</tr>
+					{/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+    </form>
+</div>
+<script>
+    $(function(){
+        let data = {php echo json_encode($list)};
+        console.log(data)
+    })
+</script>
