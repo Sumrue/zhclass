@@ -472,13 +472,11 @@ a img {
 
 .rank_content_lt {
 	float: left;
-	line-height: .4rem;
 }
 .rank_content_rt {
 	float: right;
 	height:100%;
 	line-height: .5rem;
-	margin-top: -.3rem;
 }
 .rank_content_rt img{
 	display: block;

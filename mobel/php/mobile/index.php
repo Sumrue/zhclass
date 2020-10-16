@@ -1,14 +1,10 @@
 <?php
-/**
- * 微课堂首页
- * ============================================================================
- * 版权所有 2015-2020 风影科技，并保留所有权利。
- * 网站地址: https://www.fylesson.com
- * ----------------------------------------------------------------------------
- * 这不是一个自由软件，未购买授权用户无论是否用于商业行为都是侵权行为！
- * 允许已购买用户对程序代码进行修改并在授权域名下使用，但是不允许对程序代码以
- * 任何形式任何目的进行二次发售，作者将依法保留追究法律责任的权力和最终解释权。
- * ============================================================================
+/*
+ * @Description:
+ * @Author: Ophites
+ * @Date: 2020-09-02 10:03:40
+ * @LastEditors: Ophites
+ * @LastEditTime: 2020-10-15 14:51:02
  */
 if (!$userAgent && in_array('index', $login_visit)) {
     checkauth();
@@ -23,7 +19,6 @@ if ($uid && !$_GPC['uid']) {
     header("Location:".$_W['siteurl'].'&uid='.$uid);
     exit();
 }
-
 /* 开屏广告 */
 $avd = $this->readCommonCache('fy_lesson_'.$uniacid.'_start_adv');
 if (empty($avd)) {
@@ -280,5 +275,7 @@ if (empty($memberinfo['avatar'])) {
     $inc = strstr($memberinfo['avatar'], "http://") || strstr($memberinfo['avatar'], "https://");
     $avatar = $inc ? $memberinfo['avatar'] : $_W['attachurl'].$memberinfo['avatar'];
 }
-$school_list=pdo_fetchall("SELECT id,logo,name FROM " .tablename("fy_lesson_school"). " WHERE uniacid='{$uniacid}' ORDER BY displayorder DESC, id DESC LIMIT");
+$school_list=pdo_fetchall("SELECT id,logo,name FROM " .tablename("fy_lesson_school"). " WHERE uniacid='{$uniacid}' and cid=1 ORDER BY displayorder DESC, id DESC");
+$school_list_3=pdo_fetchall("SELECT id,logo,name FROM " .tablename("fy_lesson_school"). " WHERE uniacid='{$uniacid}' and cid=3 ORDER BY displayorder DESC, id DESC");
+$pro_list=pdo_fetchall("SELECT id,name,lid FROM " .tablename("fy_lesson_school_pro"). " WHERE uniacid='{$uniacid}' ORDER BY displayorder DESC, id DESC");;
 include $this->template("../mobile/{$template}/index");

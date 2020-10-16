@@ -88,12 +88,7 @@
 				<div class="panel_box">
 					<div class="panel panel_on">
 						<div class="panerl_one">
-							<!-- 邀约限时活动广告 -->
-							<!-- <div class="advert">
-								<p>
-									8月9日19:00 - 9月10日16:00期间，邀请好友报读缴费，额外奖励<span>15000积分</span></p>
-							</div> -->
-							<!-- 主要内容区 -->
+
 							<div class="content_box">
 								<div class="rules">活动规则</div>
 								<div class="content">
@@ -160,7 +155,7 @@
 							</div>
 							<div class="rank_list">
 								<div class="rank_navbar">
-									<div class="rank_nav_item rank_nav_on">邀请奖励排行榜</div>
+									<div class="rank_nav_item rank_nav_on">积分奖励排行榜</div>
 									<div class="rank_nav_item">邀请人数排行榜</div>
 								</div>
 								<div class="rank_panel_box ">
@@ -169,49 +164,13 @@
 									<div class="rank_panel rank_panel_on ranking_gift">
 										<div class="rank_list_title">
 											<span class="rank_rank">排名</span>
-											<span class="rank_user">邀请奖励</span>
-											<span class="rank_result">兑换记录</span>
+											<span class="rank_user">用户</span>
+											<span class="rank_result">获取总积分</span>
 										</div>
 										<div class="rank_list_items">
-											<div class="rank_list_my">
-												<span class="rank_top_list">1000+</span>
-												<div class="rank_msg">
-													<div class="rank_item_head"><img src="{php echo $userMsg['headimgurl']}" alt=""></div>
-													<div class="rank_item_content">
-														<div class="rank_content_lt">
-															<p>{php echo $userMsg['nickname']}</p>
-															<p class="bulu">奖励积分:<span>{php echo $userMsg2['credit1'];}</span></p>
-														</div>
-														<div class="rank_content_rt">
-															<span>兑换礼品</span>
-															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
-														</div>
-														<div class="clear"></div>
-													</div>
-												</div>
-											</div>
-	
-											<!-- <div class="rank_list_item">
-												<div class="ranking">
-													<img src="{MODULE_URL}template/mobile/{$template}/images/index/ranking_first.png" alt="" class="ranking_top_pic">
-												</div>
-												<div class="rank_msg">
-													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
-													<div class="rank_item_content">
-														<div class="rank_content_lt">
-															<p>夏***</p>
-															<p class="bulu">奖励之谜:<span>0</span></p>
-														</div>
-														<div class="rank_content_rt">
-															<span>兑换礼品</span>
-															<img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg" alt="">
-														</div>
-														<div class="clear"></div>
-													</div>
-												</div>
-												<div class="clear"></div>
-											</div> -->
-	
+											
+											<!-- 模板插入 -->
+											
 										</div>
 									</div>
 
@@ -223,24 +182,7 @@
 											<span class="rank_result">邀请成绩</span>
 										</div>
 										<div class="rank_list_items">
-											<div class="rank_list_my">
-												<span class="rank_top_list">1000+</span>
-												<div class="rank_msg">
-													<div class="rank_item_head"><img src="{php echo $userMsg['headimgurl']}" alt=""></div>
-													<div class="rank_item_content"><span>{php echo $userMsg['nickname']}</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
-												</div>
-											</div>
-											
-											<!-- <div class="rank_list_item">
-												<div class="ranking">
-													<img src="{MODULE_URL}template/mobile/{$template}/images/index/ranking_first.png" alt="" class="ranking_top_pic">
-												</div>
-												<div class="rank_msg">
-													<div class="rank_item_head"><img src="{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png" alt=""></div>
-													<div class="rank_item_content"><span>夏**</span><span class="invite_num bulu">邀请: <i>0</i></span></div>
-												</div>
-											</div> -->
-	
+											<!-- 模板插入 -->
 										</div>
 									</div>
 								</div>
@@ -263,11 +205,11 @@
 							<div class="my_invite_head">
 								<div class="integral">
 									<div class="integral_lt">
-										<div class="view1" id="dig2">获得总积分</div>
-										<div class="view2">{$_W["member"]["credit1"]}</div>
+										<div class="view1" id="dig2">总积分</div>
+										<div class="view2">{$credit_me}</div>
 									</div>
 									<div class="integral_rt">
-										<div class="view1">累计到账积分</div>
+										<div class="view1">当前积分</div>
 										<div class="view2">{$_W["member"]["credit1"]}</div>
 									</div>
 								</div>
@@ -345,33 +287,21 @@
 <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		let inviteList = {php echo json_encode($list)};
-		console.log(inviteList)
+		let inviteList = {php echo json_encode($list)};	
 		// 动态渲染排行榜html
 				// 邀请人数排行榜
-		let rankListItemData = [
-			{ranking: 1,name: '大开口',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 1,name: '打发',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 2,name: '噶服务',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 2,name: '大会上',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 3,name: '华盛顿法',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 4,name: '华东师范',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 5,name: '嘎达是',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 6,name: '啊哈斯',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 7,name: 'gas的',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-			{ranking: 8,name: '阿萨德高升',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 20},
-		]
+		let rankListItemData = {php echo json_encode($invite_list)};
 		let rankListItems = $('.rank_people>.rank_list_items')
 		let rankListItemHtml = ''
 		for (let i = 0; i < rankListItemData.length; i++) {
-			let myname  = rankListItemData[i].name
+			let myname  = rankListItemData[i].nickname
 			rankListItemHtml += `
 				<div class="rank_list_item">
 					<div class="ranking">
-						<div class="ranking_num">${rankListItemData[i].ranking}</div>
+						<div class="ranking_num">${i + 1}</div>
 					</div>
 					<div class="rank_msg">
-						<div class="rank_item_head"><img src="${rankListItemData[i].headPic}" alt=""></div>
+						<div class="rank_item_head"><img src="${rankListItemData[i].avatar}" alt=""></div>
 						<div class="rank_item_content"><span>${myname.slice(0,1)}**</span><span class="invite_num bulu">邀请: <i>${rankListItemData[i].invite}</i></span></div>
 					</div>
 				</div>
@@ -379,38 +309,25 @@
 		}
 		rankListItems.append(rankListItemHtml)
 
-				// 邀请兑换排行榜
-		let invitGiftNum = [
-			{ranking: 1,name: '大开adf口',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 1,name: '打asdf发',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 2,name: '噶asdf服务',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 2,name: '大adf会上',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 3,name: 'afd华盛顿法',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 4,name: '华asdf东师范',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 5,name: 'adsf嘎达是',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 6,name: '啊asdf哈斯',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 7,name: 'gagas的s的',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'},
-			{ranking: 8,name: '阿安抚萨德高升',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324, goodsPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_detal_phone.jpg'}
-		]
+		// 邀请兑换排行榜
+		let invitGiftNum = {php echo json_encode($credit_list)};
 		let goodsRankingItems = $('.ranking_gift>.rank_list_items')
 		let goodsRankingItemHtml = ''
-		for(let i = 0; i < invitGiftNum.length; i++){
-			let myname = invitGiftNum[i].name
+		for(let i = 0; i < 10; i++){
+			let myname = invitGiftNum[i].nickname
 			goodsRankingItemHtml += `
 				<div class="rank_list_item">
 					<div class="ranking">
-						<div class="ranking_num">${invitGiftNum[i].ranking}</div>
+						<div class="ranking_num">${i+1}</div>
 					</div>
 					<div class="rank_msg">
-						<div class="rank_item_head"><img src="${invitGiftNum[i].headPic}" alt=""></div>
+						<div class="rank_item_head"><img src="${invitGiftNum[i].avatar}" alt=""></div>
 						<div class="rank_item_content">
 							<div class="rank_content_lt">
 								<p>${myname.slice(0,1)}**</p>
-								<p class="bulu">奖励积分:<span>${invitGiftNum[i].invite}</span></p>
 							</div>
 							<div class="rank_content_rt">
-								<span>兑换礼品</span>
-								<img src="${invitGiftNum[i].goodsPic}" alt="">
+								<p class="bulu"><span>${parseInt(invitGiftNum[i].credit)}积分</span></p>
 							</div>
 							<div class="clear"></div>
 						</div>
@@ -422,31 +339,19 @@
 		goodsRankingItems.append(goodsRankingItemHtml)
 
 		// 轮播，兑换数据渲染
-		let bannerData = [
-			{ranking: 1,name: '大开adf口',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1324,goodsName: '老腊adfasdfsd肉'},
-			{ranking: 1,name: '啊啊地方',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1234,goodsName: '老腊sadfasdfasdgasd肉2'},
-			{ranking: 1,name: '阿斯顿发送到',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 513,goodsName: '老gasdfasdf腊肉3'},
-			{ranking: 1,name: 'gadfly',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 132,goodsName: '老腊阿达水电费肉4dgadabad'},
-			{ranking: 1,name: '阿斯蒂芬',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 51,goodsName: '老腊asdfasfa肉5'},
-			{ranking: 1,name: '发斯蒂芬',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 123,goodsName: '老腊肉6'},
-			{ranking: 1,name: 'gas的',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 5123,goodsName: '老腊肉7'},
-			{ranking: 1,name: '阿斯蒂芬',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 5123,goodsName: '老腊肉8'},
-			{ranking: 1,name: '阿斯蒂芬',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 1234,goodsName: '老阿斯顿发送到腊肉9'},
-			{ranking: 1,name: '阿斯顿发斯蒂芬',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 5245,goodsName: '老腊肉10'},
-			{ranking: 1,name: '阿斯蒂芬',headPic: '{MODULE_URL}template/mobile/{$template}/images/index/rank_msg_head.png',invite: 6622,goodsName: '老腊肉1阿阿斯达斯阿斯蒂芬顿发斯蒂芬0'}
-		]
+		let bannerData = {php echo json_encode($goods_list)};
 
 		let bannerItems = $('.banner_apply_box')
 		bannerItemHtm = ''
 		for(let i = 0; i < bannerData.length; i++){
-			let myname = bannerData[i].name
-			let goodName = bannerData[i].goodsName
+			let myname = bannerData[i].nickname
+			let goodName = bannerData[i].name
 			bannerItemHtm += `
 				<li class="banner_apply_item banner_tt_i">
 					<div class="img_box">
-						<img src="${bannerData[i].headPic}" alt="">
+						<img src="${bannerData[i].avatar}" alt="">
 					</div>
-					<div class="apply_text"><span class="apply_name">${myname.slice(0,1)}**</span> <span class="banner_goods_text"> 成功用${bannerData[i].invite}积分兑换了${goodName.slice(0,8)}</span></div>
+					<div class="apply_text"><span class="apply_name">${myname.slice(0,1)}**</span> <span class="banner_goods_text"> 成功用${bannerData[i].credit}积分兑换了${goodName.slice(0,8)}</span></div>
 				</li>
 			`
 		}

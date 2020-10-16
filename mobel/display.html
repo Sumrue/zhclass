@@ -13,15 +13,6 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-xs-12 col-sm-3 col-md-2 control-label">留言设置</label>
-					<div class="col-sm-9">
-						<label class="radio-inline"><input type="checkbox" name="audit_evaluate" value="1" {if $setting['audit_evaluate']==1}checked{/if} /> 审核留言</label>
-						<span class="help-block">
-							勾选审核留言后，用户留言需后台审核通过后才显示前台在留言列表里。<br/>
-						</span>
-					</div>
-				</div>
-				<div class="form-group">
 					<label class="col-xs-12 col-sm-3 col-md-2 control-label">管理员openid</label>
 					<div class="col-sm-9">
 						<input type="text" name="manageopenid" value="{$setting['manageopenid']}" class="form-control">
@@ -30,6 +21,32 @@
 							注：获取管理员openid  平台入口->粉丝管理->找到对应人员->点击发送消息->粉丝编号(openid)</br>
 							当管理员无法接受到订单或者申请信息时，请检查管理员openid是否与设置的一致
 						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">课程页关注设置</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<span class="input-group-addon">关注标题</span>
+							<input type="text" name="lesson_follow_title" value="{$setting['lesson_follow_title']}" class="form-control" />
+							<span class="input-group-addon">关注描述</span>
+							<input type="text" name="lesson_follow_desc" value="{$setting['lesson_follow_desc']}" class="form-control" />
+						</div>
+						<span class="help-block">
+							1、课程页强制关注公众号，关注标题默认为“长按指纹识别二维码，关注公众号”；<br/>
+							2、关注描述默认为“关注后继续学习，可接收最新课程通知”
+						</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号二维码</label>
+					<div class="col-sm-9">
+						{php echo tpl_form_field_image('qrcode', $setting['qrcode']);}
+						<span class="help-block">
+							{if file_exists($wxapp_follow)}
+						<a href="{$wxapp_follow}" target="_blank" style="color:#428bca;">查看关注公众号的小程序码</a>。
+						{/if}
+							如关注公众号的小程序码异常，请点击“<a href="{php echo $this->createWebUrl('setting', array('op'=>'updateWxappCode'))}" style="color:#428bca;">更新小程序码</a>”，使用前请在小程序平台打开“设置~关注公众号~公众号关注组件”。</span>
 					</div>
 				</div>
 			</div>	

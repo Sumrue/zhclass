@@ -149,13 +149,7 @@ a img {
   </style>
 	<body>
 		<div class="page-container" id="page-container">
-      <div class="goods_container">
-        <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-          <van-swipe-item>1</van-swipe-item>
-          <van-swipe-item>2</van-swipe-item>
-          <van-swipe-item>3</van-swipe-item>
-          <van-swipe-item>4</van-swipe-item>
-        </van-swipe>   
+      <div class="goods_container">  
         <div class="goods_box_title"><van-icon name="fire" color="#f85731" size="25"></van-icon>热门礼品兑换</div>
         <div class="goods_list_items">
           <template v-for="item in listData" :key="item.id">

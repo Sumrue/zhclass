@@ -135,7 +135,7 @@
 		}
 		openNumRoll()
 
-		// 自我考试报名人数滚动效果
+		// 自学考试报名人数滚动效果
 		let selfNumRoll = function(){
 			let exedata = {php echo json_encode($extra_config[enter][2])}; // 获取后台设置的值
 			let res = [] // 传入值数组
@@ -250,7 +250,7 @@
           console.log('获取数据失败')  //没有数据后，禁止请求获取数据
         }
       }).then(res=>{
-          let voiceData = JSON.parse(res)
+					let voiceData = JSON.parse(res)
           let data = voiceData.list
           let voiceMsg = $('.voice_msg_ul')
           let voiceItem = $('.voice_li')
@@ -303,42 +303,6 @@
     }
     voiceGetData()
 		
-		// 提交评论
-		let voiceSubmit = $('.voice_message_btn')
-		voiceSubmit.click(function(){
-			// 注册手机号后才可以提交评论
-			let phone = {php echo json_encode($_W['member']['mobile'])};
-			if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
-			location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
-			}else {
-				// 获取留言框中的内容
-				let content = $('.voice_box').val()
-				let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}"
-				if(content == '') {
-					console.log('无内容')
-					return
-				} else {
-				$.post(voicePostAjaxurl,{
-						content: content
-					},function (data) {
-						console.log('提交的评论' + data)
-				}).then(res=>{
-					voiceGetData() // 成功提交后，数据重新渲染
-					let $toast = $('#toast')
-					if ($toast.css('display') != 'none') return;
-						$toast.fadeIn(100);
-						setTimeout(function () {
-								$toast.fadeOut(100);
-						}, 2000);
-				})
-				// 提交后清空
-				$('.voice_box').val('')
-				// 隐藏按钮，避免恶意提交
-				$('.voice_message_btn').css('display','none')
-				}
-			}
-		})
-
 	// 点击切换顶部导航
 		// 点击
     navItem.click(
@@ -394,29 +358,43 @@
 				switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
 			})
 
-			// 点击学校跳转至学校详情页
-			let schoolHzitem = $('.school_hz_box .school_item')
-			schoolHzitem.click(function(){
-					// 传入学校ID
-					let id = $(this).attr('data-id')
-					let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
-					location.href = url
-				
-			})
+			// 报名成功轮播
+		let banner = function(){
+      let bannerApplyItems = $('.banner_apply_box')
+			// let itemIndex = $('.banner_tt_i').length // 同时初始化时无法动态获取，直接限制
+      // let newItemIndex = itemIndex/3 同时初始化时无法动态获取，直接限制
+      // let itemHt = $('.banner_apply_item').height() 同时初始化时无法动态获取，直接限制
+      var n = 0
+      setInterval(() => {
+				n ++
+        if(n>20) {
+          n = 0
+          bannerApplyItems.css('top',0)
+        }
+        bannerApplyItems.animate(
+          {top: (-.5*n) + 'rem'}
+        )
+      },2000);
+     }
+		banner()
+	}) // $(func) 结束
 
+		// 监听评论功能输入时的输入限制显示
+		$(".voice_box").on('input propertychange', function () {
+			//获取输入内容
+			let userDesc = $(this).val();
+			//判断字数
+			let len = userDesc.length
+			if (len<=50) {
+				$(".main_num").html(len + '/50')
+			} else {
+					return
+			}
+			//显示字数
+		});
 
-			// 主页成人高考礼包跳转
-			let adultApplyBtn = $('.apply_gift_buy')
-			adultApplyBtn.click(
-				function(){
-						// 根据商品ID来创建订单，跳转至订单页面
-						let url = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","exist299"=>"true","cid"=>"1"));}'
-						location.href = url
-				}
-			)
-			
 		// 常见问题手风情效果
-			$('.weui-cell').click(
+		$('.weui-cell').click(
 				function(){
 					let collapseCount = $(this).parent().children('.collapse_content') // 获取当前需要展开或者关闭的内容框
 					let boxHt = collapseCount.children('.padding_box').height() // 动态获取盒子高度，方便内容过多时挤出去。需要设置默认高度时可以设置这个为固定值，例如60
@@ -445,41 +423,82 @@
 							)
 					}
 				}
-			)		
-		
-		// 监听评论功能输入时的输入限制显示
-			$(".voice_box").on('input propertychange', function () {
-				//获取输入内容
-				let userDesc = $(this).val();
-				//判断字数
-				let len = userDesc.length
-				if (len<=50) {
-					$(".main_num").html(len + '/50')
-				} else {
-						return
-				}
-				//显示字数
-			});
+			)
 
-			// 报名成功轮播
-		let banner = function(){
-      let bannerApplyItems = $('.banner_apply_box')
-			// let itemIndex = $('.banner_tt_i').length // 同时初始化时无法动态获取，直接限制
-      // let newItemIndex = itemIndex/3 同时初始化时无法动态获取，直接限制
-      // let itemHt = $('.banner_apply_item').height() 同时初始化时无法动态获取，直接限制
-      var n = 0
-      setInterval(() => {
-				n ++
-        if(n>20) {
-          n = 0
-          bannerApplyItems.css('top',0)
-        }
-        bannerApplyItems.animate(
-          {top: (-.5*n) + 'rem'}
-        )
-      },2000);
-     }
-		banner()
+	// 提交留言
+		function sendMsg(event){
+			// 注册手机号后才可以提交评论
+			let phone = {php echo json_encode($_W['member']['mobile'])};
+			if(phone == '') { // 手机号不存在，即没有注册，则跳转至注册页面
+			location.href = '{php echo $this->createMobileUrl("writemsg", array("do"=>"writemsg","op"=>"modifyMobile"));}'
+			}else {
+				// 获取留言框中的内容
+				let content = $(event).parent().find('.voice_box').val()
+				// 成功的弹出框
+				let $toast = $(event).parent().siblings('#toast')
+				// 成功后内容框
+				let tostMsg = $('.weui-toast_msg')
+				// 失败的弹出框
+				let $iosDialog2 = $(event).parent().siblings('#iosDialog2')
+				// 失败弹出后关闭按钮
+				let iosDialog2Close = $(event).parent().siblings('#iosDialog2').find('#iosDialog2_close')
+
+				// 请求地址
+				let voicePostAjaxurl = "{php echo $this->createMobileUrl('evaluate', array('op'=>'free','method'=>'ajaxgetlist'));}"
+				// 判断输入框内容是否为空，为空时则不发送请求
+				if(content == '') {
+					console.log('无内容')
+					return
+				} else{
+				$.post(voicePostAjaxurl,{
+						content: content
+					},function (data) {
+						console.log('留言提交')
+				}).then(res=>{
+					let resData = JSON.parse(res) // 转化数据
+					
+					if (resData.code == 1) { // 留言成功
+						tostMsg.text(resData.msg)
+						if ($toast.css('display') != 'none') return;
+							$toast.fadeIn(100);
+							setTimeout(function () {
+									$toast.fadeOut(100);
+							}, 2000);
+					} else if (resData.code == 0) { // 留言失败
+						$iosDialog2.fadeIn(200)
+						iosDialog2Close.click(function(){
+							$iosDialog2.fadeOut(200)
+						})
+					} else {
+						alert('未知错误，请联系网站管理员')
+					}
+				})
+				// 提交后清空
+				$('.voice_box').val('')
+				}
+			}
+		}
+
+		// 点击学校跳转至学校详情页
+		let schoolHzitem = $('.school_hz_box .school_item')
+		schoolHzitem.click(function(){
+				// 传入学校ID
+				let id = $(this).attr('data-id')
+				let url = '{php echo $this->createMobileUrl("schooldetail", array("do"=>"schooldetail"));}' + '&id=' + id
+				location.href = url
+			
+		})
+
+
+		// 主页成人高考礼包跳转
+		let adultApplyBtn = $('.apply_gift_buy')
+		adultApplyBtn.click(
+			function(){
+					// 根据商品ID来创建订单，跳转至订单页面
+					let url = '{php echo $this->createMobileUrl("adultuserform", array("do"=>"adultuserform","type"=>"adult","exist299"=>"true","cid"=>"1"));}'
+					location.href = url
+			}
+		)
 
 		// 获取滚动事件 
 		$(window).scroll(
@@ -517,6 +536,5 @@
 
 			}
 		)
-	})
 </script>
 {template $template.'/_footerv2'}
