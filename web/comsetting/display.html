@@ -28,19 +28,25 @@
 							<input type="text" name="rec_income[credit1]" class="form-control" value="{$rec_income['credit1']}" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
 							<span class="input-group-addon">积分</span>
                         </div>
-                        <span class="help-block">0为不开启奖励；每直接推荐一个下级成员，给予推荐人的奖励。</span>
+                        <span class="help-block">0为不开启奖励；每直接推荐一个下级成员，给予推荐人的奖励。不能留空</span>
                     </div>
 				</div>
 
 				<div class="form-group">
-                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员海报缓存</label>
-                    <div class="col-sm-9">
-                        <label class="radio-inline"><input type="radio" name="qrcode_cache" value="1" id="selfsale1" {if $comsetting['qrcode_cache'] == 1}checked="true"{/if} /> 开启缓存</label>
-                        &nbsp;
-                        <label class="radio-inline"><input type="radio" name="qrcode_cache" value="0" id="selfsale2"  {if empty($comsetting) || $comsetting['qrcode_cache'] == 0}checked="true"{/if} /> 关闭缓存</label>
-                        <span class="help-block">开启缓存会员海报，可以大幅度的减少会员生成海报对服务器的压力，在调试会员海报的时候可以关闭缓存</span>
-                    </div>
-                </div>
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">会员海报缓存</label>
+					<div class="col-sm-9">
+							<label class="radio-inline"><input type="radio" name="qrcode_cache" value="1" id="selfsale1" {if $comsetting['qrcode_cache'] == 1}checked="true"{/if} /> 开启缓存</label>
+							&nbsp;
+							<label class="radio-inline"><input type="radio" name="qrcode_cache" value="0" id="selfsale2"  {if empty($comsetting) || $comsetting['qrcode_cache'] == 0}checked="true"{/if} /> 关闭缓存</label>
+							<span class="help-block">开启缓存会员海报，可以大幅度的减少会员生成海报对服务器的压力，在调试会员海报的时候可以关闭缓存</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<input type="hidden" name="token" value="{$_W['token']}">
+						<input type="submit" name="submit" value="保存设置" class="btn btn-primary">
+					</div>
+				</div>
 			</div>
         </div>
 	</form>

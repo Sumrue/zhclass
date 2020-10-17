@@ -36,20 +36,20 @@
               <!-- 上进礼包 -->
               <div class="school_gift">
                 <div class="gift_title">
-                  <span class="sale_price">299</span>元(原价<span class="price">720</span>元)
+                  <span class="sale_price">{php echo intval($goods_config['price'])}</span>元(原价<span class="price">{$goods_config['oldprice']}</span>元)
                 </div>
                 <div class="gift_text">
                   <p>
                     <i class="star"><img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/star.png" alt=""></i>
-                    <span>考前辅导课(原价600, 抢购价199)</span>
+                    <span>{$goods_config['goodsdec1']}</span>
                   </p>
                   <p>
                     <i class="star"><img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/star.png" alt=""></i>
-                    <span>三本辅导教材(原价120, 抢购价100)</span>
+                    <span>{$goods_config['goodsdec2']}</span>
                   </p>
                   <p>
                     <i class="star"><img src="{MODULE_URL}template/mobile/{$template}/images/index/school_detail/star.png" alt=""></i>
-                    <span>成考过295分, 奖励三年全额奖学金</span>
+                    <span>{$goods_config['goodsdec3']}</span>
                   </p>
                   <p class="bottom_text">(上述考分不含政策性加分)</p>
                 </div>

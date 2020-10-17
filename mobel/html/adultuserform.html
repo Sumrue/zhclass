@@ -291,16 +291,14 @@
 			<van-overlay :show="show">
 				<div class="content">
 					<div class="gift299">
-						<p class="p1">上进辅导礼包</p>
-						<p class="p2">备考科目:(数学、语文、专科外语)</p>
+						<p class="p1">{$goods_config['bookname']}</p>
 						<div class="text">
-							<div>考前辅导课(原价600, 抢购价199)</div>
-							<div>三本教材(原价114, 抢购价100)</div>
-							<div>成考分过295分,奖励三年全额奖学金券(不含政策加分)</div>
+							<div>{$goods_config['goodsdec1']}</div>
+							<div>{$goods_config['goodsdec2']}</div>
+							<div>{$goods_config['goodsdec3']}</div>
 						</div>
 						<div class="btn_box">
-							<!-- <button class="close" @click="show = false">自信裸考</button> -->
-							<button class="buy_it" @click="giftBuy()">¥299 购买上进礼包</button>
+							<button class="buy_it" @click="giftBuy()">¥{php echo intval($goods_config['price'])} 购买礼包</button>
 						</div>
 						<p class="txt_bottom">自愿购买，购买后不予退还</p>
 					</div>

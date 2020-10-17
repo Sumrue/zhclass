@@ -151,7 +151,7 @@ class fy_lessonv2ModuleSite extends WeModuleSite
             ),
             
             array(
-                'title' => '评价管理',
+                'title' => '留言管理',
                 'url'	=> $this->createWebUrl('comment'),
                 'icon'  => 'fa fa-comment-o',
             ),
@@ -174,6 +174,11 @@ class fy_lessonv2ModuleSite extends WeModuleSite
                 'title' => '文章公告',
                 'url'	=> $this->createWebUrl('article'),
                 'icon'  => 'fa fa-volume-up',
+            ),
+            array(
+                'title' => '页面基础设置',
+                'url'	=> $this->createWebUrl('pagesetting'),
+                'icon'  => 'fa fa-cog',
             ),
             array(
                 'title' => '基本设置',
@@ -318,6 +323,14 @@ class fy_lessonv2ModuleSite extends WeModuleSite
         $this->__web(__FUNCTION__);
     }
     public function doWebEnter()
+    {
+        $this->__web(__FUNCTION__);
+    }
+    public function doWebStore()
+    {
+        $this->__web(__FUNCTION__);
+    }
+    public function doWebPagesetting()
     {
         $this->__web(__FUNCTION__);
     }

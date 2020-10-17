@@ -1,0 +1,77 @@
+<style>
+    </style>
+    <div class="main">
+        <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">礼包信息设置</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">价格</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" name="price" class="form-control" value="{$lesson['price']}">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">原价</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="input-group">
+                                <input type="number" name="oldprice" class="form-control" value="{$goods['oldprice']}">
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">礼包名称</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="input-group">
+                                <input type="text" name="bookname" class="form-control" value="{$lesson['bookname']}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">礼包描述一</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="input-group">
+                                <input type="text" name="goodsdec1" class="form-control" value="{$goods['goodsdec1']}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">礼包描述二</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="input-group">
+                                <input type="text" name="goodsdec2" class="form-control" value="{$goods['goodsdec2']}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">礼包描述三</label>
+                        <div class="col-sm-8 col-xs-12">
+                            <div class="input-group">
+                                <input type="text" name="goodsdec3" class="form-control" value="{$goods['goodsdec3']}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                            <input type="submit" name="submit" value="保存设置" class="btn btn-primary">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(function(){
+            let data = {php echo json_encode($goods)};
+            console.log(data)
+        })
+    </script>
