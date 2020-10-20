@@ -2,7 +2,10 @@
 <div class="open_education">
   <!-- newBanner -->
   <div class="new_banner">
-    <img src="{MODULE_URL}template/mobile/default/images/index/open_education/new_banner_pic.jpg" alt="">
+    {php $banner_open=$site_common->getAllBanner(1);}
+    {loop $banner_open $item}
+    <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+    {/loop}
     {template $template.'/banner/banner_apply'}
     <div class="opennum_roll">
       <div class="opentext">已报名人数: </div>
@@ -176,7 +179,10 @@
               <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_fee.png" alt="">
             </div>
             <div class="charge_pic_box">
-              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_charge.png" alt="">
+              {php $banner_open_major=$site_common->getAllBanner(9);}
+              {loop $banner_open_major $item}
+              <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+              {/loop}
             </div>
           </div>
 

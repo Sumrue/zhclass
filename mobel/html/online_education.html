@@ -1,16 +1,12 @@
-<style>
-  .online_banner_image {
-    width: 100%;
-    height: 3.73rem;
-  }
-  .online_banner_image img{
-    width: 100%;
-  }
-</style>
 <!-- 网络教学 -->
 <div class="online_eduction">
   <div class="online_banner">
-    <a href="" class="online_banner_image"><img src="{MODULE_URL}template/mobile/default/images/index/open_education/new_banner_pic.jpg" alt=""></a>
+    <a href="" class="online_banner_image">
+      {php $banner_online=$site_common->getAllBanner(3);}
+      {loop $banner_online $item}
+      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+      {/loop}
+    </a>
     {template $template.'/banner/banner_apply'}
     <!-- 数字滚动 -->
     <div class="onlinenum_roll">
@@ -184,7 +180,10 @@
               <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_fee.png" alt="">
             </div>
             <div class="charge_pic_box">
-              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_charge.png" alt="">
+              {php $banner_online_major=$site_common->getAllBanner(8);}
+              {loop $banner_online_major $item}
+              <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+              {/loop}
             </div>
           </div>
 

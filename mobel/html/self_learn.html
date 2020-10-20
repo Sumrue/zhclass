@@ -2,7 +2,10 @@
   <div class="self_learn">
     <!-- newBanner -->
     <div class="new_banner2">
-      <img src="{MODULE_URL}template/mobile/default/images/index/open_education/new_banner_pic.jpg" alt="">
+      {php $banner_self=$site_common->getAllBanner(2);}
+      {loop $banner_self $item}
+      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+      {/loop}
       {template $template.'/banner/banner_apply'}
       <div class="selfnum_roll">
         <div class="selftext">已报名人数: </div>

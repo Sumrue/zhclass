@@ -4,11 +4,10 @@
  * @Author: Ophites
  * @Date: 2020-09-24 09:33:48
  * @LastEditors: Ophites
- * @LastEditTime: 2020-09-24 09:38:57
+ * @LastEditTime: 2020-10-12 11:22:58
  */
-
 checkauth();
-
+$follow=$site_common->is_follow();
 $memberid = $_W['member']['uid'];
 $site_common->check_black_list('visit', $memberid);
 
@@ -97,5 +96,10 @@ if ($_GPC['updateInfo']) {
     }
 }
 $invite_count=pdo_fetchcolumn("SELECT count(*) FROM " .tablename($this->table_member). " a LEFT JOIN " .tablename($this->table_mc_members). " b ON a.uid=b.uid WHERE a.uniacid=:uniacid AND a.parentid =:parentid", [':uniacid'=>$uniacid,':parentid'=>$memberid]);
+$banner = $this->readCommonCache('fy_lesson_'.$uniacid.'_ucenter_banner');
+if (empty($banner)) {
+    $banner = pdo_fetchall("SELECT * FROM " .tablename($this->table_banner). " WHERE uniacid=:uniacid AND is_show=:is_show AND is_pc=:is_pc AND banner_type=:banner_type ORDER BY displayorder DESC", array(':uniacid'=>$uniacid,':is_show'=>1,':is_pc'=>0, 'banner_type'=>7));
+    cache_write('fy_lesson_'.$uniacid.'_ucenter_banner', $banner);
+}
 // 新个人中心页面
 include $this->template("../mobile/{$template}/self2");

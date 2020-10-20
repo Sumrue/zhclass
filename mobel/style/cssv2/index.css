@@ -2350,7 +2350,8 @@ margin-right: .3rem;
 /* 开放教育 */
 .new_banner>img {
   width: 100%;
-  object-fit: cover;
+	object-fit: cover;
+	display: block;
 }
 .open_education_switch {
   position: relative;
@@ -2542,7 +2543,8 @@ margin-right: .3rem;
 /* 自我考试 */
 .new_banner2>img {
   width: 100%;
-  object-fit: cover;
+	object-fit: cover;
+	display: block;
 }
 .new_banner2 .banner_apply_num {
   left: .2rem;
@@ -2703,6 +2705,13 @@ margin-right: .3rem;
 }
 
 /* 网络教学 */
+.online_banner_image {
+	width: 3.75rem;
+}
+.online_banner_image img{
+	width: 100%;
+	display: block;
+}
 
 /* 网络教学数字滚动 */
 .onlinenum_roll {

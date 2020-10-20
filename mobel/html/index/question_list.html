@@ -1,112 +1,25 @@
 <div class="question_list">
+  {loop $question $key $item}
   <div class="weui-cells">
     <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
         <div class="weui-cell__hd" class="my_collapse_picbox">
-            <div class="my_collapse_num">1</div>
+            <div class="my_collapse_num">{php echo ($key + 1)}</div>
             <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
         </div>
         <div class="weui-cell__bd">
-            <p>自考会不会比较好</p>
+            <p>{$item['title']}</p>
         </div>
         <div class="weui-cell__ft left_icon"></div>
     </a>
     <div class="collapse_content">
         <div class="padding_box">
-            <p>自考与成考都属于国民系列的学历，均是国家认可的学历。</p>
+            <p>{$item['answer']}</p>
         </div>
     </div>
   </div>
-  <div class="weui-cells">
-    <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
-        <div class="weui-cell__hd" class="my_collapse_picbox">
-            <div class="my_collapse_num">2</div>
-            <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
-        </div>
-        <div class="weui-cell__bd">
-            <p>有课上吗？</p>
-        </div>
-        <div class="weui-cell__ft left_icon"></div>
-    </a>
-    <div class="collapse_content">
-        <div class="padding_box">
-            <p> 有的。购买了上进礼包后，会同步有辅导课赠送。
-            </p>
-        </div>
-    </div>
-  </div>
-  <div class="weui-cells">
-    <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
-        <div class="weui-cell__hd" class="my_collapse_picbox">
-            <div class="my_collapse_num">3</div>
-            <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
-        </div>
-        <div class="weui-cell__bd">
-            <p>考不上怎么办？</p>
-        </div>
-        <div class="weui-cell__ft left_icon"></div>
-    </a>
-    <div class="collapse_content">
-        <div class="padding_box">
-            <p> 考试不难的，只要去考，认真答完试卷基本都能通过。
-            </p>
-        </div>
-    </div>
-  </div>
-  <div class="weui-cells">
-    <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
-        <div class="weui-cell__hd" class="my_collapse_picbox">
-            <div class="my_collapse_num">4</div>
-            <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
-        </div>
-        <div class="weui-cell__bd">
-            <p>应该很难考的吧，没考上可以不读吧？
-            </p>
-        </div>
-        <div class="weui-cell__ft left_icon"></div>
-    </a>
-    <div class="collapse_content">
-        <div class="padding_box">
-            <p> 考试不难的，成考的通过率有98%，若真的没考上，可以选择不读。
-            </p>
-        </div>
-    </div>
-  </div>
-  <div class="weui-cells">
-    <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
-        <div class="weui-cell__hd" class="my_collapse_picbox">
-            <div class="my_collapse_num">5</div>
-            <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
-        </div>
-        <div class="weui-cell__bd">
-            <p>可以自选居住地的考点吗？
-            </p>
-        </div>
-        <div class="weui-cell__ft left_icon"></div>
-    </a>
-    <div class="collapse_content">
-        <div class="padding_box">
-            <p>选择了哪个城市就在哪个城市参考。
-     
-            </p>
-        </div>
-    </div>
-  </div>
-  <div class="weui-cells">
-    <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
-        <div class="weui-cell__hd" class="my_collapse_picbox">
-            <div class="my_collapse_num">6</div>
-            <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
-        </div>
-        <div class="weui-cell__bd">
-            <p>中专可以升大专吗？</p>
-        </div>
-        <div class="weui-cell__ft left_icon"></div>
-    </a>
-    <div class="collapse_content">
-        <div class="padding_box">
-            <p>中专已取得毕业证的同学可以报读成人大专。
-            </p>
-        </div>
-    </div>
-  </div>
+  {/loop}
 </div>
+<script>
+    let data = {php echo json_encode($question)};
+    console.log(data)
+</script>

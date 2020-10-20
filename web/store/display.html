@@ -22,7 +22,7 @@
                         <select name="hot" class="form-control">
                             <option value="">不限</option>
 							<option value="1" {if $_GPC['hot'] == 1} selected="selected"{/if}>热门</option>
-							<option value="0" {if $_GPC['hot'] == '0'}selected="selected"{/if}>普通</option>
+							<option value="0" {if $_GPC['hot'] == 0} selected="selected"{/if}>普通</option>
                         </select>
                     </div>
                 </div>

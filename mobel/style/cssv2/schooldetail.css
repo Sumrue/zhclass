@@ -1,9 +1,6 @@
 .panel_on {
   display: block !important;
 }
-.school_detail {
-  margin-bottom: 1.2rem;
-}
 .school_detail .top_pic {
   width: 100%;
 }
