@@ -2348,7 +2348,7 @@ margin-right: .3rem;
 }
 
 /* 开放教育 */
-.new_banner>img {
+.new_banner > a >img {
   width: 100%;
 	object-fit: cover;
 	display: block;

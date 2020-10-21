@@ -69,7 +69,7 @@
 									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="javascript:;">功能列表 <span class="caret"></span></a>
 									<ul class="dropdown-menu dropdown-menu-left" role="menu" style="z-index:99999">
 										<li><a href="{php echo $this->createWebUrl('school', array('at'=>add,'op'=>'pro', 'id'=>$parent['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])));}"><i class="fa fa-edit"></i> &nbsp;编辑专业</a></li>
-										<li><a href="{php echo $this->createWebUrl('school', array('at'=>del,'op'=>'del','id'=>$parent['id']));}" onclick="return confirm('确认删除此学校吗？');return false;"><i class="fa fa-remove"></i> &nbsp;删除专业</a></li>
+										<li><a href="{php echo $this->createWebUrl('school', array('at'=>del,'op'=>'pro','id'=>$parent['id']));}" onclick="return confirm('确认删除此学校吗？');return false;"><i class="fa fa-remove"></i> &nbsp;删除专业</a></li>
 									</ul>
 								</div>
 							</td>

@@ -103,7 +103,7 @@
 							<div class="btn-group btn-group-sm">
 								<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="javascript:;">功能列表 <span class="caret"></span></a>
 								<ul class="dropdown-menu dropdown-menu-left" role="menu" style='z-index: 99999'>
-									<li><a href="{php echo $this->createWebUrl('teacher', array('op'=>'post','id'=>$teacher['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])));}"><i class="fa fa-pencil"></i> 编辑讲师</a></li>
+									<li><a href="{php echo $this->createWebUrl('teacher', array('op'=>'post','id'=>$teacher['id'],'refurl'=>base64_encode($_SERVER['QUERY_STRING'])));}"><i class="fa fa-pencil"></i> 审核老师</a></li>
 									<li><a href="{php echo $this->createWebUrl('teacher', array('op'=>'order','teacher_name'=>$teacher['teacher']));}"><i class="fa fa-user-plus"></i> 查看学员</a></li>
 									<li><a href="{php echo $this->createWebUrl('teacher', array('op'=>'qrcode', 'teacherid'=>$teacher['id']));}"><i class="fa fa-download"></i> 讲师二维码</a></li>
 									<li><a href="{php echo $this->createWebUrl('teacher', array('op'=>'delTeacher', 'id'=>$teacher['id']));}" onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="fa fa-times"></i> &nbsp;删除讲师</a></li>

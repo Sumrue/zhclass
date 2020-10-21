@@ -4,7 +4,9 @@
   <div class="new_banner">
     {php $banner_open=$site_common->getAllBanner(1);}
     {loop $banner_open $item}
-    <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+    <a href="{$item[link]}">
+      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+    </a>
     {/loop}
     {template $template.'/banner/banner_apply'}
     <div class="opennum_roll">
