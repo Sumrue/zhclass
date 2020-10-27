@@ -4,7 +4,9 @@
     <div class="new_banner2">
       {php $banner_self=$site_common->getAllBanner(2);}
       {loop $banner_self $item}
-      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+      <a href="{$item[link]}">
+        <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+      </a>
       {/loop}
       {template $template.'/banner/banner_apply'}
       <div class="selfnum_roll">
@@ -144,7 +146,7 @@
                     <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/ks.png" alt="">
                   </div>
                   <p class="self_advantage_title">快速领证</p>
-                  <p class="self_advantage_des">广东自考一年可考三次，最多考16科，如果顺利一年可考完全部科目，毕业时间最短。</p>
+                  <p class="self_advantage_des">四川自考一年可考2次，最多考16科，如果顺利一年可考完全部科目，毕业时间最短。</p>
                 </li>
                 <li class="self_advantage_item">
                   <div class="self_advantage_logo">
@@ -158,7 +160,7 @@
                     <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/zd.png" alt="">
                   </div>
                   <p class="self_advantage_title">重点院校</p>
-                  <p class="self_advantage_des">暨南大学、华南师范大学、广东外语外贸大学、华南农业大学等近20余所高校。</p>
+                  <p class="self_advantage_des">国家开放大学、西南财经大学、四川农业大学、成都文理学院等院校。</p>
                 </li>
               </ul>
             </div>
@@ -191,21 +193,25 @@
                <div class="self_major_box">
                  <p class="self_major_title">专科专业</p>
                  <div class="self_major_items">
-                   {loop $pro_list $item}
-                    {if $item[lid] == 1}
-                     <a href="javascript::;" class="self_major_item">{$item[name]}</a>
-                     {/if}
-                   {/loop}
+                     <a href="javascript::;" class="self_major_item">计算机信息管理</a>
+                     <a href="javascript::;" class="self_major_item">建筑工程技术</a>
+                     <a href="javascript::;" class="self_major_item">机电一体化技术</a>
+                     <a href="javascript::;" class="self_major_item">建筑工程管理</a>
+                     <a href="javascript::;" class="self_major_item">工商企业管理</a>
+                     <a href="javascript::;" class="self_major_item">工程造价</a>
+                     <div class="clear"></div>
                  </div>
                </div>
                <div class="self_major_box">
                  <p class="self_major_title">本科专业</p>
                  <div class="self_major_items">
-                  {loop $pro_list $item}
-                  {if $item[lid] == 2}
-                   <a href="javascript::;" class="self_major_item">{$item[name]}</a>
-                   {/if}
-                 {/loop}
+                   <a href="javascript::;" class="self_major_item">土木工程</a>
+                   <a href="javascript::;" class="self_major_item">行政管理</a>
+                   <a href="javascript::;" class="self_major_item">工商管理</a>
+                   <a href="javascript::;" class="self_major_item">学前教育</a>
+                   <a href="javascript::;" class="self_major_item">法学</a>
+                   <a href="javascript::;" class="self_major_item">社会工作</a>
+                   <div class="clear"></div>
                  </div>
                 </div>
               </div>
@@ -219,11 +225,11 @@
                 {template $template.'/index/voice2'}
                 <div class="man_footer">
                   <p>
-                    Copyright: 四川联合教育
+                    Copyright: 联合教育
                   <br>
-                    承办单位: 四川联合教育
+                    承办单位: 四川联合教育集团
                   <br>
-                    邮编: 611060 川ICP0508323
+                    邮编: 610000 川ICP0508888
                   </p>
                 </div>
               </div>
@@ -235,7 +241,27 @@
         <div class="switch_content">
           <div class="dream_build_box">
             <div class="self_qs">
-              {template $template.'/index/question_list'}
+              <div class="question_list">
+                {loop $question[3] $key $item}
+                <div class="weui-cells">
+                  <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                      <div class="weui-cell__hd" class="my_collapse_picbox">
+                          <div class="my_collapse_num">{php echo ($key + 1)}</div>
+                          <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                      </div>
+                      <div class="weui-cell__bd">
+                          <p>{$item['title']}</p>
+                      </div>
+                      <div class="weui-cell__ft left_icon"></div>
+                  </a>
+                  <div class="collapse_content">
+                      <div class="padding_box">
+                          <p>{$item['answer']}</p>
+                      </div>
+                  </div>
+                </div>
+                {/loop}
+              </div>
             </div>
           </div>
         </div>

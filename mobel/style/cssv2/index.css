@@ -1908,6 +1908,7 @@ ope .btn_home.btn_home_on {
 
 .foure_advantage_item {
 	font-size: .23rem;
+	height: 2.3rem;
 	line-height: .38rem;
 	word-break: break-all
 }
@@ -2541,7 +2542,10 @@ margin-right: .3rem;
 }
 
 /* 自我考试 */
-.new_banner2>img {
+.new_banner2>a {
+width: 100%;
+}
+.new_banner2>a>img {
   width: 100%;
 	object-fit: cover;
 	display: block;
@@ -2658,20 +2662,21 @@ margin-right: .3rem;
 }
 
 .self_major_item {
-  margin-right: .24rem;
-  text-align: center;
+	float: left;
+	width: 33%;
+	line-height: .5rem;
   color: #2b90fc;
   font-size: .24rem;
 }
 
 /* 院校一览 */
 .self_school {
-  padding: .95rem .4rem .3rem .4rem;
+	padding: .95rem .4rem .3rem .4rem;
+	display: flex;
 }
 
 .self_school_item {
-  width: 25%;
-  float: left;
+	flex: 1;
   text-align: center;
   margin-bottom: .5rem;
   font-size: .24rem;
@@ -2708,9 +2713,13 @@ margin-right: .3rem;
 .online_banner_image {
 	width: 3.75rem;
 }
-.online_banner_image img{
+.online_banner_image {
+	width: 100%;
+}
+.online_banner_image>img{
 	width: 100%;
 	display: block;
+	object-fit: cover;
 }
 
 /* 网络教学数字滚动 */

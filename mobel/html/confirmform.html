@@ -84,7 +84,7 @@
         />
         </van-cell-group>
       </div>
-      <div id="confirm_text">
+      <!-- <div id="confirm_text">
         <p id="title">备注：</p>
         <p v-if="!giftShow">
           报名成功后将会有专业老师与您联系，帮助您办理就读手续，办理成功后系统将自动返还积分到您的账号当中，请到个人中心查看积分情况，以实际到账为准。积分可用于兑换各种精美礼品。
@@ -93,7 +93,7 @@
           支付成功后将会尽快为您发货，请填写好您的收货地址。
         </p>
         <p v-if="giftShow" style="font-size: 16px;margin: 10px 0;">您的收货地址是：<span style="color: #d61838ba;">{{address}}</span></p>
-      </div>
+      </div> -->
       <div style="margin: 16px;" v-if="!giftShow">
         <van-button round block color="linear-gradient(to right, #ff6034, #ee0a24)" @click="confirmBtn">
           确认
@@ -214,7 +214,7 @@
               _this.$toast.success({
                 message: '报名成功',
                 onClose: function(){
-                  location.href = "{php echo $this->createMobileUrl('index');}"
+                  location.href = "{php echo $this->createMobileUrl('hint',array('type'=>'apply'));}"
                 }
               });
             })

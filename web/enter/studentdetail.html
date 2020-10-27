@@ -144,7 +144,7 @@
 
           <!-- 考试区县 -->
           <div class="form-group">
-            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>考试区县</label>
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red;font-weight:bolder;">*</span>校区</label>
 						<div class="col-sm-3">
 							<select name="cid" class="form-control" id="address">
 							</select>
@@ -159,6 +159,13 @@
           </div>
           <div class="form-group grade_box">
             <label class="col-12" style="color:rgb(235, 52, 52);">注意：勾选此选项保存后，将会自动按照1：1比例发放积分到学员账户当中，请确认好缴费金额。如果只是更改金额而不发放积分的话请勿勾选，默认不勾选。</label>
+          </div>
+
+          <div class="form-group grade_box">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label center">是否发送缴费成功信息</label>
+						<div class="col-sm-9">
+							<td><input type="checkbox" name="payup" value="0" id="payup"></td>
+            </div>
           </div>
           
 				</div>
@@ -414,7 +421,6 @@ $(function() {
 // 初始化时的数据构成
 $(function(){
   let enter = {php echo json_encode($enter)};
-  console.log(enter)
   let addrData = {php echo json_encode($addr)};
   let addr_last = []
   let myschoolID = $('#school').val()
@@ -532,8 +538,13 @@ function add_school(){
   if(cheack == true) {
     payCheack = 1
   }
-  console.log(payCheack)
 
+  let sendpayMsg = $('#payup').prop("checked")
+  let payup = 0
+  if(sendpayMsg == true) {
+    payup = 1
+  }
+  console.log(payup)
   let phoneReg = /^1(3|4|5|6|7|8|9)\d{9}$/
   if(mymobile == '') {
     alert('电话号码不能为空')
@@ -553,7 +564,7 @@ function add_school(){
   }
   let postUrl = '{php echo $this->createWebUrl("enter", array("op"=>"studentdetail","at"=>"post","method"=>"ajaxgetlist"));}'
   $.post(postUrl,{
-    lid: mylid, name:myname, mobile:mymobile, code:mycode, status:mystatus, price:myprice, sid:mysid, pid:mypid, aid:myaid, id:myid, grade:mygrade, update:payCheack
+    lid: mylid, name:myname, mobile:mymobile, code:mycode, status:mystatus, price:myprice, sid:mysid, pid:mypid, aid:myaid, id:myid, grade:mygrade, update:payCheack,payup:payup
   },function(data){
     console.log('提交请求')
   }).then(res => {

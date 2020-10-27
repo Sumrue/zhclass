@@ -62,7 +62,7 @@
 					</div>
 					<div id="area_copy" style="display: none;">
 						<div class="form-group">
-							<label class="col-xs-12 col-sm-3 col-md-2 control-label center">考区</label>
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label center">校区</label>
 							<div class="col-sm-9 col-xs-12 flex">
 								<div class="row row-fix tpl-category-container" style="margin-left: -25px;width: 100%;">
 									<div class="col-sm-4">
@@ -96,7 +96,7 @@
 							<div id="area_item_{$key}">
 								<div class="form-group">
 									<input type="hidden" id="area_id" value="{$item['id']}" />
-									<label class="col-xs-12 col-sm-3 col-md-2 control-label center">考区</label>
+									<label class="col-xs-12 col-sm-3 col-md-2 control-label center">校区</label>
 									<div class="col-sm-9 col-xs-12 flex">
 										<div class="row row-fix tpl-category-container" style="margin-left: -25px;width: 100%;">
 											<div class="col-sm-4">
@@ -130,14 +130,14 @@
 												</select>
 											</div>
 										</div>
-										<div class="col-sm-3 col-xs-12 flex flex-end"><button type="button" onclick="del_area({$akey});">删除考区</button></div>
+										<div class="col-sm-3 col-xs-12 flex flex-end"><button type="button" onclick="del_area({$akey});">删除校区</button></div>
 									</div>
 								</div>
 							</div>
 							{/loop}
 						</div>
 						<div class="form-group add-areal">
-							<button type="button" onclick="add_area({$key});" class="btn btn-primary">添加考区</button>
+							<button type="button" onclick="add_area({$key});" class="btn btn-primary">添加校区</button>
 						</div>
 					</div>
 					<div class="form-group">
@@ -414,7 +414,7 @@ function render_pro(label,id,level=1){
 		for(var i in addr){
 			if(addr[i].pid==id){
 				if(addr[i].id==ad_pro){
-				chtml += '<option value="' + addr[i].id+'" selected>' + addr[i].name + '</option>';
+				chtml += '<option value="' + addr[i].id+'">' + addr[i].name + '</option>';
 				}else{
 					chtml += '<option value="' + addr[i].id+'">' + addr[i].name + '</option>';
 				}

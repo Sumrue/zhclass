@@ -4,7 +4,7 @@
  * @Author: Ophites
  * @Date: 2020-09-02 10:03:40
  * @LastEditors: Ophites
- * @LastEditTime: 2020-10-15 14:51:02
+ * @LastEditTime: 2020-10-24 10:10:24
  */
 if (!$userAgent && in_array('index', $login_visit)) {
     checkauth();
@@ -277,5 +277,12 @@ if (empty($memberinfo['avatar'])) {
 }
 $school_list=pdo_fetchall("SELECT id,logo,name FROM " .tablename("fy_lesson_school"). " WHERE uniacid='{$uniacid}' and cid=1 ORDER BY displayorder DESC, id DESC");
 $school_list_3=pdo_fetchall("SELECT id,logo,name FROM " .tablename("fy_lesson_school"). " WHERE uniacid='{$uniacid}' and cid=3 ORDER BY displayorder DESC, id DESC");
-$pro_list=pdo_fetchall("SELECT id,name,lid FROM " .tablename("fy_lesson_school_pro"). " WHERE uniacid='{$uniacid}' ORDER BY displayorder DESC, id DESC");;
+$pro_list=pdo_fetchall("SELECT id,name,lid FROM " .tablename("fy_lesson_school_pro"). " WHERE uniacid='{$uniacid}' ORDER BY displayorder DESC, id DESC");
+$question_list=pdo_fetchall("SELECT id,title,answer,cid FROM " .tablename("fy_lesson_question"). " WHERE uniacid='{$uniacid}' ORDER BY displayorder DESC, id DESC");
+foreach ($question_list as $key=>$value) {
+    if (!isset($question[$value['cid']])) {
+        $question[$value['cid']]=[];
+    }
+    $question[$value['cid']][]=$value;
+}
 include $this->template("../mobile/{$template}/index");

@@ -12,7 +12,7 @@
 							<input type="text" name="buysucc" value="{$tplmessage['buysucc']}" class="form-control" />
 							<a href="{php echo $this->createWebUrl('setting', array('op'=>'templateformat', 'tpl_code'=>'buysucc'));}" class="input-group-addon">点击配置模版</a>
 						</div>
-						<span class="help-block">用户支付成功后模版消息通知，选择编号TM00976(购买成功通知)</span>
+						<span class="help-block">用户支付成功后模版消息通知</span>
 					</div>
 				</div>
 				
@@ -23,7 +23,7 @@
 							<input type="text" name="newjoin" value="{$tplmessage['newjoin']}" class="form-control" />
 							<a href="{php echo $this->createWebUrl('setting', array('op'=>'templateformat', 'tpl_code'=>'newjoin'));}" class="input-group-addon">点击配置模版</a>
 						</div>
-						<span class="help-block">成功推荐下级加入时，给推荐上级提醒，选择编号OPENTM207685059(成员加入提醒)</span>
+						<span class="help-block">成功推荐下级加入时，给推荐上级提醒</span>
 					</div>
 				</div>
 				<div class="form-group">
@@ -33,7 +33,7 @@
 							<input type="text" name="neworder" value="{$tplmessage['neworder']}" class="form-control" />
 							<a href="{php echo $this->createWebUrl('setting', array('op'=>'templateformat', 'tpl_code'=>'neworder'));}" class="input-group-addon">点击配置模版</a>
 						</div>
-						<span class="help-block">用户下新订单后通知管理员，选择编号OPENTM417875155(新订单通知)</span>
+						<span class="help-block">用户下新订单后通知管理员</span>
 					</div>
 				</div>
 				
@@ -44,7 +44,7 @@
 							<input type="text" name="apply_teacher" value="{$tplmessage['apply_teacher']}" class="form-control" />
 							<a href="{php echo $this->createWebUrl('setting', array('op'=>'templateformat', 'tpl_code'=>'apply_teacher'));}" class="input-group-addon">点击配置模版</a>
 						</div>
-						<span class="help-block">用户申请讲师入驻时通知管理员审核，选择编号OPENTM408471635(等待审核通知)</span>
+						<span class="help-block">用户申请讲师入驻时通知管理员审核</span>
 					</div>
 				</div>
 				<div class="form-group">
@@ -54,7 +54,26 @@
 							<input type="text" name="teacher_notice" value="{$tplmessage['teacher_notice']}" class="form-control" />
 							<a href="{php echo $this->createWebUrl('setting', array('op'=>'templateformat', 'tpl_code'=>'teacher_notice'));}" class="input-group-addon">点击配置模版</a>
 						</div>
-						<span class="help-block">管理员审核讲师申请结果通知讲师，选择编号OPENTM408894858(审核结果通知)</span>
+						<span class="help-block">管理员审核讲师申请结果通知讲师</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">签到成功通知</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<input type="text" name="signin_notice" value="{$tplmessage['signin_notice']}" class="form-control" />
+						</div>
+						<span class="help-block">签到成功后发送的模板消息</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">缴费成功通知</label>
+					<div class="col-sm-9">
+						<div class="input-group">
+							<input type="text" name="paymoney_notice" value="{$tplmessage['paymoney_notice']}" class="form-control" />
+						</div>
+						<span class="help-block">成功缴费后发送的模板消息</span>
 					</div>
 				</div>
 				

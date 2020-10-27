@@ -22,10 +22,19 @@
   <div class="main">
     <form method="post" class="form-horizontal form">
           <div class="panel panel-default">
-              
               <div class="panel-body">
-          
-          
+                <div class="form-group">
+                  <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类选择</label>
+									<div class="col-sm-2 col-lg-3">
+											<select name="cid" class="form-control col-sm-9">
+												<option value="">请选择问题分类</option>
+												<option value="1" {if $question['cid']==1}selected{/if}>成人高考</option>
+												<option value="2" {if $question['cid']==2}selected{/if}>开放教育</option>
+												<option value="3" {if $question['cid']==3}selected{/if}>自学考试</option>
+												<option value="4" {if $question['cid']==4}selected{/if}>网络教育</option>
+											</select>
+									</div>
+                </div>
           <div class="form-group">
                       <label class="col-xs-12 col-sm-3 col-md-2 control-label">常见问题</label>
             <div class="col-sm-9">
@@ -65,6 +74,7 @@
                   <thead class="navbar-inner">
                   <tr>
                       <th style="width:23%;">常见问题标题</th>
+                      <th style="width:23%;">问题分类</th>
                       <th style="width:9%;">加入日期</th>
                       <th style="width:9%;text-align:right;">操作</th>
                   </tr>
@@ -73,7 +83,19 @@
                   {loop $list $item}
                   <tr>
             <td class="descript" data-toggle="tooltip" data-placement="bottom" data-original-title="{$item['content']}">{$item['title']}</td>
-                    
+                      <td>
+                        {if $item['cid'] == 1}
+                        <span style="color: rgb(255, 17, 0);">成人高考</span>
+                        {elseif $item['cid'] == 2}
+                        <span style="color: rgb(255, 208, 0);">开放教育</span>
+                        {elseif $item['cid'] == 3}
+                        <span style="color: rgb(43, 255, 0);">自学考试</span>
+                        {elseif $item['cid'] == 4}
+                        <span style="color: rgb(0, 119, 255);">网络教育</span>
+                        {else}
+                        <span>未分类</span>
+                        {/if}
+                      </td>
                       <td>{$item['addtime']}</td>
                       <td style="text-align:right;">
               <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('pagesetting', array('op'=>'questionpost','at'=>'add','id'=>$item['id']))}" data-toggle="tooltip" data-placement="bottom" data-original-title="编辑"><i class="fa fa-edit"></i></a>
@@ -109,4 +131,9 @@
     console.log('取消')
   }
  }
+
+ $(function(){
+   let data = {php echo json_encode($list)};
+   console.log(data)
+ })
   </script>

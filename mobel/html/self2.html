@@ -295,6 +295,7 @@
           let _this = this
           _this.invite_count = {php echo $invite_count};
           let arr = {php echo json_encode($_W["fans"])};
+          console.log(arr)
           let follow = {php echo json_encode($follow)};
           _this.follow = follow
           // 获取积分和手机号

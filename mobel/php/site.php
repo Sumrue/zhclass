@@ -4,7 +4,7 @@
  * @Author: Ophites
  * @Date: 2020-09-02 09:58:50
  * @LastEditors: Ophites
- * @LastEditTime: 2020-09-24 16:47:38
+ * @LastEditTime: 2020-10-16 15:58:08
  */
 
 defined('IN_IA') or exit('Access Denied');
@@ -657,6 +657,10 @@ class fy_lessonv2ModuleSite extends WeModuleSite
     {
         $this->__mobile(__FUNCTION__);
     }
+    public function doMobileHint()
+    {
+        $this->__mobile(__FUNCTION__);
+    }
     // 新添加结束
     /************************************************ 公共方法 ************************************ */
     public function __web($f_name)
@@ -701,6 +705,7 @@ class fy_lessonv2ModuleSite extends WeModuleSite
         $sharelink = unserialize($comsetting['sharelink']);
         $shareurl = $_W['siteroot'] .'app/'. $this->createMobileUrl('index', array('uid'=>$_W['member']['uid']));
         $extra_config=json_decode($setting['extra'], true);
+        $goods_config=json_decode($setting['goods'], true);
         /* 检查是否允许非微信端访问 */
         if (!$setting['visit_limit'] && $_GPC['do']!='error') {
             $dos = array('crontab', 'notice','downloadfile','livenotify');
