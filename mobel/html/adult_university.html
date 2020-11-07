@@ -135,7 +135,22 @@
           {template $template.'/index/school_cooperate'}
           <!-- 院校地址选取 -->
           <!-- 证书展示 -->
-          {template $template.'/index/certificate'}
+          {php $banner_adult_certif=$site_common->getAllBanner(4);}
+          <div class="adult_certificate">
+            <div class="adult_certificate_box">
+              <p class="adult_certificate_title">名校授权 高质量教学</p>
+              <div class="swiper-container student_show_swiper">
+                <div class="swiper-wrapper">
+                  <!--图片一-->
+                  {loop $banner_adult_certif $item}
+                  <div class="swiper-slide">
+                      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+                  </div>
+                  {/loop}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -149,10 +164,10 @@
             </div>
             <div class="dream_build_des">
               <p>
-                筑梦计划, 是为响应国家号召, 提高全民素质, 推动广东省产业升级, 推出的新生代上进青年培养计划。
+                筑梦计划, 是为响应国家号召, 提高全民素质, 推动四川省产业升级, 推出的新生代上进青年培养计划。
               </p>
               <p>
-                是由远智教育联合华南农业大学、广东金融学院等高校, 共同实施的公益助学项目, 旨在帮助那些曾经与大学失之交臂, 又努力奋斗的上进青年, 实现大学梦, 回报社会。实施以来已成功帮助100000人成功报读大专或本科学历。
+                是由联合教育联合西南财经大学、四川农业大学、电子科技大学、成都文理学院等高校, 共同实施的公益助学项目, 旨在帮助那些曾经与大学失之交臂, 又努力奋斗的上进青年, 实现大学梦, 回报社会。实施以来已成功帮助100000人成功报读大专或本科学历。
               </p>
             </div>
           </div>

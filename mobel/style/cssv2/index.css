@@ -1604,12 +1604,35 @@ ope .btn_home.btn_home_on {
 	width: 100%;
 	max-width: 640px;
 }
-
+.adult_university {
+	background-color: #ffde00;
+}
 
 /* banner */
 .banner {
-	width: 100%;
+    width: 100%;
+    padding: 0 .1rem;
+    box-sizing: border-box;
+    position: relative;
+    background: #ffde00;
+}
+.swiper_index_banner {
+	width: 7.3rem;
+	overflow: hidden;
+}
+.index_banner_box {
 	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.index_banner_item {
+	width: 7.5rem;
+	float: left;
+}
+
+.index_banner_item img {
+	width: 100%;
+	border-radius: 100% 100% 100% 100% / 0% 0% 30% 30%;
 }
 
 .banner .swiper-slide img {
@@ -1735,7 +1758,8 @@ ope .btn_home.btn_home_on {
 }
 .switch_item {
   position: absolute;
-  background-color: #FDE1D6;
+	background-color: #ff5d00;
+	color: #fff;
   top: 0;
 	z-index: 10;
 }
@@ -1761,7 +1785,7 @@ ope .btn_home.btn_home_on {
 	border-radius: 1px;
 }
 .switch_item_nav_on {
-	background-color: #F16622;
+	background-color: #1f6bdc;
 	position: relative;
 	
 }
@@ -1778,9 +1802,7 @@ ope .btn_home.btn_home_on {
 .main_content_box {
 	height: 100%;
 }
-.switch_item_nav_on::after {
-	
-}
+
 		/* 切换内容框 */
 .main_content {
 	width: 100%;
@@ -1800,228 +1822,164 @@ ope .btn_home.btn_home_on {
 	margin: 0 auto;
 }
 	/* 切换内容框2021级招生样式 */
-.apply_gift_box {
-	background: url(../../images/index/2021bg.png);
-	background-size: 100%;
-	height: 5rem;
-	text-align: center;
-}
-.apply_gift_title {
-    font-size: 22px;
-		color: #f31539;
-		font-weight: 900;
-    padding-top: .5rem;
-    line-height: 1;
-}
-.apply_gift_box ul {
-	width: 5rem;
-	height: 2rem;
-	margin: auto;
-	margin-top: .1rem;
-}
-.apply_gift_box ul li {
-	display: flex;
-	padding: .1rem 0;
-}
-.apply_gift_box li p {
-	display: inline-block;
-	font-size: 14px;
-	line-height: 1;
-}
-
-.apply_gift_box li img {
-	width: .3rem;
-	height: .28rem;
-	margin-right: 2px;
-	margin-bottom: -2px;
-}
-#attention1 {
-	font-size: 12px;
-	color:rgb(54, 54, 54, 0.6);
-}
-
-.apply_gift_buy {
-	width: 3.4rem;
-	margin: 5px auto;
-	height: .7rem;
-	line-height: .7rem;
-	color: #ffffff;
-	font-size: 17px;
-	font-weight: 700;
-	font-family: TrebuchetMS !important;
-	text-align: center;
-	background-color: #ee5d4c;
-	background-image: -webkit-gradient(linear,left top,left bottom,from(#ff8400),to(#fb3203));
-	background-image: linear-gradient(180deg,#ff8400,#fb3203);
-	border-bottom: .06rem solid #b92300;
-	border-radius: .5rem;
-}
-
-.apply_gift_box > p{
-	font-size: 12px;
-}
-
-	/* 四大优势 */
-.foure_advantage {
-	overflow: hidden;
-}
-.foure_advantage_title {
-	width: 100%;
-	text-align: center;
-	margin-top: 35px;
-	background-position: .5rem 0;
-}
-.foure_advantage_title img{
-	width: 100%;
-}
-
-.foure_advantage_item {
-	float: left;
-	width: 47%;
-	background-color:#fff;
-	margin-left: 8px;
-	border: solid 1px #f0560a;
-	box-sizing: border-box;
-	padding: 10px 10px;
-	border-radius: .1rem;
-	margin-top: 10px;
-	position: relative;
-}
-.left_advantage {
-	width: 55%;
-}
-
-.left_advantage img {
-	width: 100%;
-}
-
-.right_advantage {
-	width: 13%;
-	position: absolute;
-	top: 0;
-	right: 10px;
-}
-
-.right_advantage img {
-	width: 100%;
-}
-
-.foure_advantage_item {
-	font-size: .23rem;
-	height: 2.3rem;
-	line-height: .38rem;
-	word-break: break-all
-}
-
-	/* 合作院校 */
-.school_cooperate {
-	margin-top: .5rem;
-}
-.school_item {
-	width: 17%;
-	float: left;
-	height: 1.65rem;
-	text-align: center;
-	margin: 5px 8px 5px 0;
-	padding: 5px 10px;
-	background-color: #fff;
-	box-shadow:  2px 3px 2px rgba(0,0,0,.3);
-	border-radius: 3px;
-}
-
-@media(max-width: 372px){
-	.school_item {
-		width: 16%;
-		margin: 5px 7px 5px 0;
-	}
-}
-
-.school_item_pic {
-	width: 100%;
-	margin: 0 auto;
-}
-.school_item_pic img{
-	width: .84rem;
-	height: .84rem;
-}
-
-.school_item p {
-	font-size: 11px;
-	font-weight: 700;
-	color: #363636;
-}
-
-.school_item_btn {
-		width: 50%;
-    height: .6rem;
-    border-bottom: 3px solid #b92300;
-    border-radius: .3rem;
-    color: #fff;
-    font-weight: 700;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#ff8400),to(#fb3203));
-    background-image: linear-gradient(180deg,#ff8400,#fb3203);
-    line-height: .6rem;
-    text-align: center;
-    margin: .2rem auto 0;
-}
-
-	/* 学校地点选择 */
-	.city_select_box {
+	.foure_advantage {
 		overflow: hidden;
 	}
-	.city_select_item {
-		width: 1.2rem;
-		height: 1.2rem;
-		margin-right: .2225rem;
-		margin-top: .2rem;
-		float: left;
-		border-radius: 3px;
-	}
-
-	.city_select_item .city_text {
+	.foure_advantage_title {
 		width: 100%;
-		height: .75rem;
-		line-height: .75rem;
-		border-bottom: 3px solid #b5280b;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#fe6734),to(#f0560a));
-		background-image: linear-gradient(180deg,#fe6734,#f0560a);
-		color: #fff;
 		text-align: center;
-		border-radius: 2px;
+		margin-top: 35px;
+		background-position: .5rem 0;
 	}
-
-	.city_text_icon {
-		width: .15rem;
-		height: 100%;
-		align-items: center;
-		display: flex;
-		float: right;
-		margin-right: 5px;
-	}
-
-	.city_text_icon img{
+	.foure_advantage_title img{
 		width: 100%;
 	}
+	
+	/* 礼包展示 */
+	.apply_gift {
+    width: 98%;
+    margin: .3rem auto 0;
+    position: relative;
+  }
+  .apply_gift_box {
+    width: 100%;
+    border: 3px solid #fa802b;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
 
-	.city_select_item_bg {
-		margin-right: .18rem;
-		width: 1.60rem;
-		height: 1.2rem;
-		background-color: salmon;
-		display: flex;
-		align-items: center;
-		background-image: url(../../images/index/city_bg1.png);
-		background-size: 100% 100%;
-	}
+  }
+  .apply_gift_main {
+    width: 100%;
+    border-radius: 10px;
+  }
+  .apply_gift_main_lt,.apply_gift_main_rt {
+    position: absolute;
+    width: .18rem;
+    height: 1.11rem;
+    z-index: 2;
+  }
+  .apply_gift_main_lt{
+    left: 1.11rem;
+    bottom: -.7rem;
+  }
+  .apply_gift_main_rt {
+    right: 1.11rem;
+    bottom: -.7rem;
+  }
+	/* 四大优势 */
+	.foure_advantage {
+    width: 98%;
+    margin: .3rem auto 0;
+  }
+  .foure_advantage_box {
+    width: 100%;
+    border: 3px solid #fa802b;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
 
-	.city_select_item_bg .city_text {
-		width: 1.2rem;
-		margin: 0 auto;
-		border: none;
-		background: transparent;
-	}
+  }
+  .foure_advantage_main {
+    width: 100%;
+    border-radius: 10px;
+  }
 
+	/* 合作院校 */
+	.school_cooperate {
+    width: 98%;
+    margin: .3rem auto 0;
+    position: relative;
+  }
+
+  .school_cooperate_box {
+    width: 100%;
+    border: 3px solid #fa802b;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+
+  }
+  .school_item_box {
+    display: flex;
+    display: -webkit-flex; /* Safari */
+    flex-wrap: wrap;
+    margin-bottom: .5rem;
+  }
+  .school_cooperate_title {
+    text-align: center;
+    font-size: .52rem;
+    font-weight: 800;
+    color: #1f6bdc;
+    margin: .7rem 0 .2rem;
+  }
+  .school_item {
+    width: 1.3rem;
+    height: 1.76rem;
+    text-align: center;
+    margin: .2rem .3rem;
+    padding: 5px 10px;
+    background-color: #fff;
+    box-shadow:  0 6px 10px rgba(0,0,0,.3);
+    border-radius: 6px;
+  }
+
+  .school_item_pic>img{
+    width: .77rem;
+    height: .77rem;
+  }
+
+  .school_cooperate_main_lt,.school_cooperate_main_rt,.school_cooperate_main_tlt,.school_cooperate_main_trt {
+    position: absolute;
+    width: .18rem;
+    height: 1.11rem;
+    z-index: 2;
+  }
+  .school_cooperate_main_lt{
+    left: 1.11rem;
+    bottom: -.7rem;
+  }
+  .school_cooperate_main_rt {
+    right: 1.11rem;
+    bottom: -.7rem;
+  }
+  .school_cooperate_main_tlt{
+    left: 1.11rem;
+    top: -.7rem;
+  }
+  .school_cooperate_main_trt {
+    right: 1.11rem;
+    top: -.7rem;
+  }
 	/* 证书展示 */
+	.adult_certificate {
+    width: 98%;
+    margin: .3rem auto 0.3rem;
+    position: relative;
+  }
+
+  .adult_certificate_box {
+    width: 100%;
+    border: 3px solid #fa802b;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+
+  }
+  .adult_certificate_title {
+    text-align: center;
+    font-size: .52rem;
+    font-weight: 800;
+    color: #1f6bdc;
+    margin: .7rem 0 .2rem;
+  }
+
+  .adult_certificate .swiper-wrapper img {
+    width: 100%;
+    border-radius: 6px;
+    transform: scale(.8);
+    box-shadow:  0 6px 10px rgba(0,0,0,.5);
+  }
 .certificate {
 	z-index: -1;
 }

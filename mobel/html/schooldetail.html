@@ -27,7 +27,6 @@
         <div class="school_detail_navbar">
           <div class="school_navbar_item school_navbar_on">招生主页</div>
           <div class="school_navbar_item">学校介绍</div>
-          <div class="school_navbar_item">常见问题</div>
         </div>
 
         <div class="school_panel">
@@ -108,9 +107,6 @@
                           {else}<span>{$school[lid][2][oprice]}</span>
                           {/if}
                         </li>
-                        <!-- <li class="bottom_text_li">学制:
-                          <span>3</span>
-                        </li> -->
                         <li class="bottom_text_li" id="addrBox">考区: 
                           
                         </li>
@@ -167,29 +163,7 @@
             <!-- 邀请好友广告位 -->
             <div></div>
           </div>
-          <div class="panel">
-            <div class="question_list">
-              {loop $question $key $item}
-              <div class="weui-cells">
-                <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
-                    <div class="weui-cell__hd" class="my_collapse_picbox">
-                        <div class="my_collapse_num">{php echo ($key + 1)}</div>
-                        <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
-                    </div>
-                    <div class="weui-cell__bd">
-                        <p>{$item['title']}</p>
-                    </div>
-                    <div class="weui-cell__ft left_icon"></div>
-                </a>
-                <div class="collapse_content">
-                    <div class="padding_box">
-                        <p>{$item['answer']}</p>
-                    </div>
-                </div>
-              </div>
-              {/loop}
-            </div>
-          </div>
+          
         </div>
         <!-- 留言区 -->
         <div class="school_voice_msg">
@@ -348,14 +322,17 @@
           let insertDiv =  function(res){
             let storeItems = $('.good_story_items')
             let html = ''
+            let articleurl = "{php echo $this->createMobileUrl('article');}";
             for(let i = 0; i<res.length; i++){
               html += `
                 <li class="good_story_item">
+                  <a href="${articleurl}&aid=${res[i].id}">
                       <div class="pic">
                         <img src="${res[i].images}" alt="">
                       </div>
                       <p class="text">${res[i].title}</p>
                       <p class="date">${res[i].addtime}</p>
+                    </a>
                 </li>
               `
             }
@@ -515,39 +492,39 @@
       //显示字数
     });
 
-    // 常见问题展开关闭代码
-    let wuiCell = $('.weui-cell')
-    let leftIcon = $('.left_icon')
-    wuiCell.click(
-    function(){
-      let collapseCount = $(this).parent().children('.collapse_content') // 获取当前需要展开或者关闭的内容框
-      let boxHt = collapseCount.children('.padding_box').height() // 动态获取盒子高度，方便内容过多时挤出去。需要设置默认高度时可以设置这个为固定值，例如60
-      let collIcon = $(this).children('.left_icon')
-      let collapseHt = collapseCount.height() // 获取当前内容框的高度，是否展开
+    // // 常见问题展开关闭代码
+    // let wuiCell = $('.weui-cell')
+    // let leftIcon = $('.left_icon')
+    // wuiCell.click(
+    // function(){
+    //   let collapseCount = $(this).parent().children('.collapse_content') // 获取当前需要展开或者关闭的内容框
+    //   let boxHt = collapseCount.children('.padding_box').height() // 动态获取盒子高度，方便内容过多时挤出去。需要设置默认高度时可以设置这个为固定值，例如60
+    //   let collIcon = $(this).children('.left_icon')
+    //   let collapseHt = collapseCount.height() // 获取当前内容框的高度，是否展开
 
-      // 首先将其他已展开或未展开的内容框重置为零，即手风琴效果，如不需要手风琴效果就可以去掉下面重置两项
-      collapseCount.parent().siblings().children('.collapse_content').animate( // 重置其他的选项
-          {height: 0},
-          {duration: 200}
-      )
-      leftIcon.addClass('weui-cell__ft').removeClass('weui-cell__ft_on') // 变化前箭头全部重置为初始状态
+    //   // 首先将其他已展开或未展开的内容框重置为零，即手风琴效果，如不需要手风琴效果就可以去掉下面重置两项
+    //   collapseCount.parent().siblings().children('.collapse_content').animate( // 重置其他的选项
+    //       {height: 0},
+    //       {duration: 200}
+    //   )
+    //   leftIcon.addClass('weui-cell__ft').removeClass('weui-cell__ft_on') // 变化前箭头全部重置为初始状态
 
-      // 判断当前是否展开，即高度是否为零，已展开点击栏目时关闭
-      if(collapseHt !== 0) { // 已展开时
-          collIcon.removeClass('weui-cell__ft_on').addClass('weui-cell__ft') // 加入箭头向下的样式移除原样式
-          collapseCount.animate(
-              {height: 0},
-              {duration: 200}
-          )
-      } else {
-          collIcon.addClass('weui-cell__ft_on').removeClass('weui-cell__ft')
-          collapseCount.animate(
-              {height: boxHt + 35}, // 有个BUG，必须要加20 不然盒子展开少一截，我也不知道错在哪儿。。。。。
-              {duration: 200}
-          )
-        }
-      }
-    )
+    //   // 判断当前是否展开，即高度是否为零，已展开点击栏目时关闭
+    //   if(collapseHt !== 0) { // 已展开时
+    //       collIcon.removeClass('weui-cell__ft_on').addClass('weui-cell__ft') // 加入箭头向下的样式移除原样式
+    //       collapseCount.animate(
+    //           {height: 0},
+    //           {duration: 200}
+    //       )
+    //   } else {
+    //       collIcon.addClass('weui-cell__ft_on').removeClass('weui-cell__ft')
+    //       collapseCount.animate(
+    //           {height: boxHt + 35}, // 有个BUG，必须要加20 不然盒子展开少一截，我也不知道错在哪儿。。。。。
+    //           {duration: 200}
+    //       )
+    //     }
+    //   }
+    // )
 
     // 学校介绍内容的展开关闭
     let schoolText  = $('.school_detail_content .text')

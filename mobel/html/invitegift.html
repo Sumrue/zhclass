@@ -285,7 +285,31 @@
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
 <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+{php echo register_jssdk(false);}
 <script type="text/javascript">
+$(function(){
+	let uid = {php echo json_encode($_W[fans][uid])};
+	let fans = {php echo json_encode($_W)};
+		console.log(fans)
+		wx.ready(function(){
+
+			//分享给朋友
+			wx.onMenuShareAppMessage({
+					title: '四川联合教育邀请函', // 分享标题
+					desc: '四川联合教育邀请函', // 分享描述
+					link: '{$_W["siteroot"]}/app/index.php?i=1&c=entry&do=index&m=fy_lessonv2' + '&uid=' + uid, // 分享链接
+					imgUrl: '{MODULE_URL}template/mobile/default/images/share_gift.jpeg', // 分享图标
+			});
+
+			// 分享到朋友圈
+			wx.onMenuShareTimeline({
+					title: '四川联合教育邀请函', // 分享标题
+					link: '{$_W["siteroot"]}/app/index.php?i=1&c=entry&do=index&m=fy_lessonv2' + '&uid=' + uid, // 分享链接
+					imgUrl: '{MODULE_URL}template/mobile/default/images/share_gift.jpeg', // 分享图标
+			});
+		});
+	})
+
 	$(function(){
 		let inviteList = {php echo json_encode($list)};	
 		// 动态渲染排行榜html

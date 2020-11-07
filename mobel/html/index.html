@@ -478,7 +478,7 @@
 		}
 
 		// 点击学校跳转至学校详情页
-		let schoolHzitem = $('.school_hz_box .school_item')
+		let schoolHzitem = $('.school_cooperate_box>.school_item_box>.school_item')
 		schoolHzitem.click(function(){
 				// 传入学校ID
 				let id = $(this).attr('data-id')
@@ -489,7 +489,7 @@
 
 
 		// 主页成人高考礼包跳转
-		let adultApplyBtn = $('.apply_gift_buy')
+		let adultApplyBtn = $('.apply_gift_box')
 		adultApplyBtn.click(
 			function(){
 					// 根据商品ID来创建订单，跳转至订单页面

@@ -146,10 +146,28 @@ a img {
       top: .2rem;
       left: .1rem;
     }
+
+    .shopbanner img{
+      display: block;
+    }
+
+    .my-swipe .van-swipe-item {
+      line-height: 0;
+    }
   </style>
 	<body>
+    {php $banner_shop=$site_common->getAllBanner(6);}
 		<div class="page-container" id="page-container">
       <div class="goods_container">  
+        <van-swipe class="my-swipe" :autoplay="3000">
+          {loop $banner_shop $item}
+          <van-swipe-item>
+            <a href="{$item[link]}" class="shopbanner">
+              <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+            </a>
+          </van-swipe-item>
+          {/loop}
+        </van-swipe>
         <div class="goods_box_title"><van-icon name="fire" color="#f85731" size="25"></van-icon>热门礼品兑换</div>
         <div class="goods_list_items">
           <template v-for="item in listData" :key="item.id">

@@ -10,82 +10,10 @@
 		<meta name="x5-fullscreen" content="true">
     <meta name="x5-page-mode" content="app">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/hint.css">
 		<title>
       温馨提示
     </title>
-    <style>
-      /* 样式重置 */
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button,img{padding: 0; margin: 0;}
-h1,h2,h3,h4,h5,h6{font-size: 100%;font-weight: normal;}
-html{width:100%;height: 100%;}
-body{width:100%;height: 100%;}
-ul,ul li{ list-style:none}
-a:link {color: #2b90fc} /* a标签未点击时的样式 */
-a{text-decoration:none;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);  }
-a:focus{ outline:none; -moz-outline:none;}
-a:visited{ outline:none; -moz-outline:none;} 
-select,select:focus{ outline:none}
-input,textarea,select{font-family:"Microsoft Yahei"; line-height:normal; outline:none;resize:none;}
-input[type="button"],input[type="radio"],input[type="checkbox"],select{-webkit-appearance:none;}
-/*table的border合并*/
-table{border-collapse:collapse;} 
-button{ outline:none;}
-/* 清除浮动 */
-.clear { *zoom: 1; }
-.clear:before, .clear:after { display: table; line-height: 0; content: "";}
-.clear:after { clear: both; }
-
-
-/* 全局样式 */
-body {color: #93b18b;font-size: 14px;font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif; background-color: #f0eada;}
-
-.fl {
-	float: left;
-}
-.fr {
-	float: right;
-}
-.text-center{
-	text-align: center;
-}
-.fixdivbox {
-  height: 1rem;
-}
-
-.head_img {
-  width: 100%;
-  height: 4rem;
-  overflow: hidden;
-}
-
-.head_img img {
-  width: 100%;
-}
-
-.head {
-  width: 100%;
-  font-size: .32rem;
-  font-weight: 500;
-  text-align: center;
-}
-
-.main_table>table,.main_table tr,.main_table td {
-  border: 1px solid #93b18b;
-}
-.main_table {
-  width: 100%;
-  padding: 0 10px;
-  margin-top: 10px;
-  box-sizing: border-box;
-}
-.main_table>table {
-  width: 100%;
-}
-
-.main_table td {
-  padding: 8px 15px;
-}
-    </style>
   </head>
 	<body>
     {if $_GPC['type'] == 'apply'}
@@ -116,34 +44,27 @@ body {color: #93b18b;font-size: 14px;font-family: -apple-system, BlinkMacSystemF
         <div class="main_table">
           <table>
             <tr>
-              <td>1.我要打5个</td>
+              <td>1.请保管好自己的账号和密码切勿泄露</td>
             </tr>
             <tr>
-              <td>2.我要打5个</td>
+              <td>
+                2.请线下到你所选择的校区缴费,或直接联系院校老师咨询就读详情。
+                {if empty($teacher)}
+                <p>
+                  <span>咨询老师:</span><a href="tel:{$extra_config['mobile']}">{$extra_config['mobile']}</a>
+                </p>
+                {else}
+                <p>
+                  <span>{$teacher[teacher]}:</span><a href="tel:{$teacher[mobile]}">{$teacher[mobile]}</a>
+                </p>
+                {/if}
+              </td>
             </tr>
             <tr>
-              <td>3.我要打5个</td>
+              <td>3.耐心等待入学通知的信息</td>
             </tr>
             <tr>
-              <td>4.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
+              <td>4.请随时关注班主任在班级群发的任何有关学习信息和校区活动信息</td>
             </tr>
           </table>
         </div>
@@ -182,42 +103,22 @@ body {color: #93b18b;font-size: 14px;font-family: -apple-system, BlinkMacSystemF
           <img src="{MODULE_URL}template/mobile/{$template}/images/inht.jpg" alt="">
         </div>
         <div class="head">
-          教材兑换陈公公
+          教材兑换成功
           <br/>
           请注意以下事项!!
         </div>
         <div class="main_table">
           <table>
             <tr>
-              <td>1.我要打5个</td>
+              <td>1.请保管好自己的账号密码切勿泄露</td>
             </tr>
             <tr>
-              <td>2.我要打5个</td>
+              <td>2.请耐心等待入学通知的信息</td>
             </tr>
             <tr>
-              <td>3.我要打5个</td>
+              <td>3.请随时关注班主任在班级群发的任何有关学习信息和校区活动信息</td>
             </tr>
-            <tr>
-              <td>4.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
-            <tr>
-              <td>5.我要打5个</td>
-            </tr>
+            
           </table>
         </div>
       
@@ -235,7 +136,6 @@ body {color: #93b18b;font-size: 14px;font-family: -apple-system, BlinkMacSystemF
       <div class="fixdivbox"></div>
     </div>
     {/if}
-<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
 <script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>

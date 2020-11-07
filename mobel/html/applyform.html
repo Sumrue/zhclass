@@ -218,7 +218,6 @@
 						return Reg.test(val)
 					},
 					formSubmit(val) {
-						console.log(val)
 						this.$notify({ type: 'warning', message: '请先将信息填写完整'})
 					},
 					// 验证通过后提交信息
@@ -235,7 +234,6 @@
 							city: _this.city,
 							testing: _this.testing
 						}
-            console.log(userMsg)
             let url = '{php echo $this->createMobileUrl("selectplan", array("do"=>"selectplan"));}'
             window.location.href = url
 					},

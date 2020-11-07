@@ -141,17 +141,12 @@
               <span class="item_name">报名信息</span>
             </a>
             {/if}
+
             <a class="item" href="{php echo $this->createMobileUrl('goodsorder');}">
               <div class="head_icon">
-                <van-icon name="logistics" size="21" color="#FF6B67"/>
+                <van-icon name="cart-circle-o" size="21" color="#FF6B67" :badge="paynum"></van-icon>
               </div>
               <span class="item_name">我的订单</span>
-            </a>
-            <a class="item" @click="showErroMsg">
-              <div class="head_icon">
-                <van-icon name="cash-back-record" size="21" color="#FF6B67"/>
-              </div>
-              <span class="item_name">缴费管理</span>
             </a>
             <a class="item" href="{php echo $this->createMobileUrl('address');}">
               <div class="head_icon">
@@ -282,7 +277,8 @@
           advertingShow: true,
           invite_count: 0,
           follow: 1,
-          followShow: false
+          followShow: false,
+          paynum: ''
         }
       },
       created () {
@@ -295,7 +291,6 @@
           let _this = this
           _this.invite_count = {php echo $invite_count};
           let arr = {php echo json_encode($_W["fans"])};
-          console.log(arr)
           let follow = {php echo json_encode($follow)};
           _this.follow = follow
           // 获取积分和手机号
@@ -307,8 +302,17 @@
           // 手机号是否注册
           if(_this.phone !== '') {
             _this.phonShow = true // 如果为空时，绑定按钮显示
+          } else {
+            _this.phonShow = false
           }
-          
+
+          // 是否有未支付订单
+          let mynopay = {php echo json_encode($mylessonlist)};
+          if(mynopay.length == 0) {
+            _this.paynum = ''
+          } else {
+            _this.paynum = mynopay.length
+          }
         },
         // 签到功能判定权限，没绑定手机号，不能参加签到活动
         tosignin() {

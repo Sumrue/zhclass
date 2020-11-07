@@ -35,12 +35,25 @@
         <van-tab title="课程礼包订单">
           <van-card
             num="1"
-            price="299"
+            price="{$goods[price]}"
             desc="考前辅导课 三本教材"
-            title="助学礼包"
+            title="{$goods[bookname]}"
             thumb="{MODULE_URL}template/mobile/{$template}/images/order_book.jpeg"
             v-if="giftOrder"
           >
+        </van-card>
+
+          <van-card
+            num="1"
+            price="{$goods[price]}"
+            desc="考前辅导课 三本教材"
+            title="{$goods[bookname]}"
+            thumb="{MODULE_URL}template/mobile/{$template}/images/order_book.jpeg"
+            v-else-if="mylesson"
+          >
+          <template #footer>
+            <van-button size="normal" color="#EE0C24" @click="topay">立即支付</van-button>
+          </template>
         </van-card>
           <van-empty image="error" description="暂无订单" v-else/>
         </van-tab>
@@ -77,7 +90,9 @@
           active: 0,
           giftOrder: true,
           goodsOrder: true,
-          goodsListData: []
+          goodsListData: [],
+          mylesson: true,
+          orderId: ''
         }
       },
       created() {
@@ -94,15 +109,25 @@
           let _this = this
           // 判断是否有礼包订单
           let mygiftOrder = {php echo json_encode($pay_order)};
-          console.log(mygiftOrder)
           if(mygiftOrder > 0) { // 大于零就是有订单
             _this.giftOrder = true
           } else {
             _this.giftOrder = false
           }
+          // 未支付订单
+          let mylesson = {php echo json_encode($mylessonlist)};
+          if(mylesson.length !== 0) { // 未支付订单存在时
+            _this.mylesson = true // 显示未支付订单详情
+            _this.orderId = mylesson[0].id
+          } else { // 不存在订单，隐藏
+            _this.mylesson = false
+          }
+
+
+          let oldgoodData = {php echo json_encode($goods)};
+          console.log(oldgoodData)
           // 兑换商品数据  order_list
           let goodsListData = {php echo json_encode($order_list)};
-          console.log(goodsListData)
           // 判断是否有兑换记录
           if(goodsListData == '' || goodsListData.length == 0) { // 无兑换数据
             _this.goodsOrder = false
@@ -117,6 +142,11 @@
           if(show == 1) {
             this.active = 1
           }
+        },
+        topay() {
+          let orderid = this.orderId
+          let url = '{php echo $this->createMobileUrl("pay", array("ordertype"=>"buylesson"));}' + '&orderid=' + orderid
+          location.href = url
         }
       }
   })

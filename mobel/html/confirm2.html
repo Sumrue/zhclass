@@ -132,7 +132,6 @@
       <div class="title_box">
         <div class="title">
           <span class="title_lf">报读信息:</span>
-          <span class="title_rt" @click="flow()">报读流程<van-icon name="arrow" size="10"/></span>
         </div>
       </div>
       <div class="list_container">
@@ -211,13 +210,6 @@
             } else {
               _this.$toast('已结业')
             }
-          },
-          // 报读流程的弹出
-          flow(){
-            this.$dialog.alert({
-              title: '报读流程',
-              message: '首先->然后->再然后',
-            })
           },
           dataBegin() {
             let _this = this
