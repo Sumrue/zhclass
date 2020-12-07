@@ -1,38 +1,11 @@
-<div class="swiper_index_banner">
-	<ul class="index_banner_box">
+<div class="swiper-container adult_banner_swiper">
+	<div class="swiper-wrapper">
 		{loop $banner $item}
-			<li class="index_banner_item">
+			<div class="swiper-slide">
 				<a href="{$item['link']}">
-					<img class="swiper-lazy" src="{$_W['attachurl']}{$item['picture']}">
+					<img class="swiper-lazy adult_banner_img" src="{$_W['attachurl']}{$item['picture']}">
 				</a>
-			</li>
+			</div>
 		{/loop}
-		<div class="clear"></div>
-	</ul>
+	</div>
 </div>
-
-<script>
-	$(function(){
-		let indexBanner = function(){
-			let indexBannerItem = $('.index_banner_item')
-			let indexBannerBox = $('.index_banner_box')
-			let indexBannerItemWd = indexBannerItem.width()
-			let indexBannerBoxWd = $('.index_banner_box').width()
-			let indexBannerItemIndex = indexBannerItem.length
-			indexBannerBoxWd = indexBannerItemIndex*indexBannerItemWd
-			indexBannerBox.css('width',indexBannerBoxWd)
-			let n = 0
-			setInterval(() => {
-				n ++
-        if(n>indexBannerItemIndex-1) {
-          n = 0
-          indexBannerBox.css('left',0)
-        }
-        indexBannerBox.animate(
-          {left: -indexBannerItemWd*n}
-        )
-			}, 1500);
-		}
-		indexBanner()
-	})
-</script>

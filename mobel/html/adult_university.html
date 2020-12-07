@@ -135,22 +135,7 @@
           {template $template.'/index/school_cooperate'}
           <!-- 院校地址选取 -->
           <!-- 证书展示 -->
-          {php $banner_adult_certif=$site_common->getAllBanner(4);}
-          <div class="adult_certificate">
-            <div class="adult_certificate_box">
-              <p class="adult_certificate_title">名校授权 高质量教学</p>
-              <div class="swiper-container student_show_swiper">
-                <div class="swiper-wrapper">
-                  <!--图片一-->
-                  {loop $banner_adult_certif $item}
-                  <div class="swiper-slide">
-                      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
-                  </div>
-                  {/loop}
-                </div>
-              </div>
-            </div>
-          </div>
+          {template $template.'/index/certificate'}
         </div>
       </div>
 

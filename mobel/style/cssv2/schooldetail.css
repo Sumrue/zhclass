@@ -31,9 +31,9 @@
 .school_navbar_on::after {
   content: "";
   position: absolute;
-  width: 1.2rem;
+  width: .6rem;
   height: 2px;
-  left: 1.25rem;
+  left: .9rem;
   bottom: .04rem;
   background-color: #F25562;
   border-radius: 2px;
@@ -172,17 +172,16 @@
   -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,.06), 0 2px 3px 0 rgba(0,0,0,.04), 0 4px 6px 0 rgba(0,0,0,.04);
   box-shadow: 0 2px 3px 0 rgba(0,0,0,.06), 0 2px 3px 0 rgba(0,0,0,.04), 0 4px 6px 0 rgba(0,0,0,.04);
 }
-.good_story_item .pic {
+.good_story_item>.pic {
   width: 3.1rem;
   height: 3.1rem;
 }
-.good_story_item .pic>img{
+.good_story_item>.pic img{
   width: 100%;
-  height: 3.1rem;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-.good_story_item .text {
+.good_story_item>.text {
   font-size: .26rem;
   margin: .2rem 0 .3rem .1rem;
   color: rgba(23,6,6,.8);
@@ -192,7 +191,7 @@
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
-.good_story_item .date {
+.good_story_item>.date {
   position: absolute;
   font-size: .24rem;
   color: rgb(0,0,0,.4);

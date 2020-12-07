@@ -2,12 +2,18 @@
 <div class="open_education">
   <!-- newBanner -->
   <div class="new_banner">
-    {php $banner_open=$site_common->getAllBanner(1);}
-    {loop $banner_open $item}
-    <a href="{$item[link]}">
-      <img src="{$_W['attachurl']}{$item[picture]}" alt="">
-    </a>
-    {/loop}
+    <div class="swiper-container open_banner_swiper">
+      <div class="swiper-wrapper">
+        {php $banner_open=$site_common->getAllBanner(1);}
+        {loop $banner_open $item}
+          <div class="swiper-slide">
+            <a href="{$item[link]}">
+              <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+            </a>
+          </div>
+          {/loop}
+      </div>
+    </div>
     {template $template.'/banner/banner_apply'}
     <div class="opennum_roll">
       <div class="opentext">已报名人数: </div>
@@ -293,63 +299,58 @@
 </div>
 
 <script>
-  $(function(){
-    $(window).scroll(
-      function(){
-        let windowHt = $(this).scrollTop()
-        let headerHt = $('#header').height()
-        // 开放教育页导航设置
-        let contentCenterHt = $('.main_content_open').height()
-        let mainContentBox3Wd = $('.main_content_open .main_content').height()
-        let switchItem3 = $('.main_content_open .switch_item') // 通用第一个导航到顶部设置
-        let newBanner = $('.new_banner')
-        let openItem = $('.open_switch_items')
-        let bannerOpenHt = $('.new_banner').height()
-        if(windowHt >  headerHt + bannerOpenHt){ 
-          switchItem3.addClass('fixed')
-        } else if(windowHt <  headerHt + bannerOpenHt) {
-          switchItem3.removeClass('fixed')
-				}
-
-        // 留言框导航的显示隐藏
-        if(windowHt > headerHt + bannerOpenHt + contentCenterHt) {
-          openItem.addClass('fixed')
-        } else if(windowHt < headerHt + bannerOpenHt + contentCenterHt) {
-          openItem.removeClass('fixed')
-        }
+$(window).scroll(
+    function(){
+      let windowHt = $(this).scrollTop()
+      let headerHt = $('#header').height()
+      // 开放教育页导航设置
+      let contentCenterHt = $('.main_content_open').height()
+      let mainContentBox3Wd = $('.main_content_open .main_content').height()
+      let switchItem3 = $('.main_content_open .switch_item') // 通用第一个导航到顶部设置
+      let newBanner = $('.new_banner')
+      let openItem = $('.open_switch_items')
+      let bannerOpenHt = $('.new_banner').height()
+      if(windowHt >  headerHt + bannerOpenHt){ 
+        switchItem3.addClass('fixed')
+      } else if(windowHt <  headerHt + bannerOpenHt) {
+        switchItem3.removeClass('fixed')
       }
-    )
 
-    // 设置导航下划线初始的宽度，为导航块的60%
-    let openSwitchItem = $('.open_switch_item')
-    let openSwitchItemLine = $('.open_switch_line')
+      // 留言框导航的显示隐藏
+      if(windowHt > headerHt + bannerOpenHt + contentCenterHt) {
+        openItem.addClass('fixed')
+      } else if(windowHt < headerHt + bannerOpenHt + contentCenterHt) {
+        openItem.removeClass('fixed')
+      }
+    }
+)
+// 设置导航下划线初始的宽度，为导航块的60%
+let openSwitchItem = $('.open_switch_item')
+let openSwitchItemLine = $('.open_switch_line') 
+// 点击切换
+openSwitchItem.click(function(){
+  let $this = $(this)
+  let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
+  $this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
+  let index = $this.index() // 获取下标
 
-    
-    // 点击切换
-    openSwitchItem.click(function(){
-      let $this = $(this)
-			let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
-			$this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
-			let index = $this.index() // 获取下标
+  // 内容区域切换
+  switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
+})
 
-			// 内容区域切换
-			switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
-		})
-
-    // 学院介绍内容变多变少按钮
-    let openEducationText = $('.open_education_referral .content_text')
-    // 展开
-    $('.open_more .down').click(function(){
-      openEducationText.css('height','100%')
-      $(this).addClass('hide')
-      $('.open_more .up').removeClass('hide')
-    })
-    // 收起
-    $('.open_more .up').click(function(){
-      openEducationText.css('height','3rem')
-      $(this).addClass('hide')
-      $('.open_more .down').removeClass('hide')
-      $('html, body, .section').animate({scrollTop: 0},450)
-    })
-  })
+// 学院介绍内容变多变少按钮
+let openEducationText = $('.open_education_referral .content_text')
+// 展开
+$('.open_more .down').click(function(){
+  openEducationText.css('height','100%')
+  $(this).addClass('hide')
+  $('.open_more .up').removeClass('hide')
+})
+// 收起
+$('.open_more .up').click(function(){
+  openEducationText.css('height','3rem')
+  $(this).addClass('hide')
+  $('.open_more .down').removeClass('hide')
+  $('html, body, .section').animate({scrollTop: 0},450)
+})
 </script>

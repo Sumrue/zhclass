@@ -1,14 +1,20 @@
-  <!-- 自学考试 -->
-  <div class="self_learn">
-    <!-- newBanner -->
-    <div class="new_banner2">
-      {php $banner_self=$site_common->getAllBanner(2);}
-      {loop $banner_self $item}
-      <a href="{$item[link]}">
-        <img src="{$_W['attachurl']}{$item[picture]}" alt="">
-      </a>
-      {/loop}
-      {template $template.'/banner/banner_apply'}
+ <!-- 自学考试 -->
+ <div class="self_learn">
+  <!-- newBanner -->
+  <div class="new_banner2">
+    <div class="swiper-container self_banner_swiper">
+      <div class="swiper-wrapper">
+        {php $banner_self=$site_common->getAllBanner(2);}
+        {loop $banner_self $item}
+        <div class="swiper-slide">
+          <a href="{$item[link]}">
+            <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+          </a>
+        </div>
+        {/loop}
+      </div>
+    </div>
+    {template $template.'/banner/banner_apply'}
       <div class="selfnum_roll">
         <div class="selftext">已报名人数: </div>
         <ul class="selfroll_box">
@@ -272,20 +278,18 @@
   </div>
   
   <script>
-    $(function(){
-      $(window).scroll(
-        function(){ 
-          let windowHt = $(this).scrollTop()
-          let headerHt = $('#header').height()
-          let bannerHt = $('.new_banner2').height()
-          let switchItem = $('.self_learn .switch_item')
-          // 中部内容切换导航到顶部时固定顶部，header消失
-          if(windowHt >  headerHt + bannerHt){ 
-            switchItem.addClass('fixed')
-          } else if(windowHt <  headerHt + bannerHt) {
-            switchItem.removeClass('fixed')
-          }
-        }
-      )
-    })
+  $(window).scroll(
+    function(){ 
+      let windowHt = $(this).scrollTop()
+      let headerHt = $('#header').height()
+      let bannerHt = $('.new_banner2').height()
+      let switchItem = $('.self_learn .switch_item')
+      // 中部内容切换导航到顶部时固定顶部，header消失
+      if(windowHt >  headerHt + bannerHt){ 
+        switchItem.addClass('fixed')
+      } else if(windowHt <  headerHt + bannerHt) {
+        switchItem.removeClass('fixed')
+      }
+    }
+  )
   </script>
