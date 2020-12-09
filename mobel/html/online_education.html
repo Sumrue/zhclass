@@ -219,7 +219,7 @@
       <div class="switch_content">
         <div class="dream_build_box">
           <!-- 原先介绍头部图片及文字介绍 -->
-          <div class="open_education_referral">
+          <div class="open_education_referral online_education_referral">
             <div class="title_img"><img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_ referral.png" alt=""></div>
             <p class="content_text">
                 远程教育是学生与教师、学生与教育组织之间主要采取多种媒体方式进行系统教学和通信联系的教育形式，是将课程传送给校园外的一处或多处学生的教育。
@@ -257,9 +257,9 @@
     <div class="open_education_switch">
       <div class="open_switch_cbox"></div>
       <div class="open_switch_items online_switch_voice">
-        <div class="open_switch_item open_switch_item_on">留言区
+        <div class="open_switch_item open_switch_item_on online_switch_item">留言区
         </div>
-        <div class="open_switch_item">常见问题</div>
+        <div class="open_switch_item online_switch_item">常见问题</div>
         <div class="open_switch_line"></div>
       </div>
     </div>
@@ -299,21 +299,21 @@
 </div>
 
 <script>
-$(window).scroll(
+  $(window).scroll(
     function(){
       let windowHt = $(this).scrollTop()
       let headerHt = $('#header').height()
       // 开放教育页导航设置
       let contentCenterHt = $('.main_content_online').height()
       let mainContentBox3Wd = $('.main_content_online .main_content').height()
-      let switchItem3 = $('.main_content_online .switch_item') // 通用第一个导航到顶部设置
+      let switchItem4 = $('.main_content_online .switch_item') // 通用第一个导航到顶部设置
       let newBanner = $('.online_banner')
       let openItem = $('.online_switch_voice')
       let bannerOpenHt = $('.online_banner').height()
       if(windowHt >  headerHt + bannerOpenHt){ 
-        switchItem3.addClass('fixed')
+        switchItem4.addClass('fixed')
       } else if(windowHt <  headerHt + bannerOpenHt) {
-        switchItem3.removeClass('fixed')
+        switchItem4.removeClass('fixed')
       }
 
       // 留言框导航的显示隐藏
@@ -324,11 +324,32 @@ $(window).scroll(
       }
     }
 )
-// 设置导航下划线初始的宽度，为导航块的60%
-let openSwitchItem = $('.open_switch_item')
-let openSwitchItemLine = $('.open_switch_line')
+
+  // // 学院介绍内容变多变少按钮
+  let onlineEducationText = $('.online_eduction .content_text')
+  // 展开
+  $('.online_more .down').click(
+    function() {
+      onlineEducationText.css('height','100%')
+      $(this).addClass('hide')
+      $('.online_more .up').removeClass('hide')
+    }
+  )
+    // 收起
+  $('.online_more .up').click(
+    function() {
+      onlineEducationText.css('height','3rem')
+      $(this).addClass('hide')
+      $('.online_more .down').removeClass('hide')
+      $('html, body').animate({scrollTop: 0},450)
+    }
+  )
+
+  // 设置导航下划线初始的宽度，为导航块的60%
+let onlineSwitchItem = $('.online_switch_item')
+let onlineSwitchItemLine = $('.online_switch_item') 
 // 点击切换
-openSwitchItem.click(function(){
+onlineSwitchItem.click(function(){
   let $this = $(this)
   let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
   $this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
@@ -338,19 +359,4 @@ openSwitchItem.click(function(){
   switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
 })
 
-  // 学院介绍内容变多变少按钮
-  let openEducationText = $('.online_eduction .content_text')
-// 展开
-$('.online_more .down').click(function(){
-  openEducationText.css('height','100%')
-  $(this).addClass('hide')
-  $('.online_more .up').removeClass('hide')
-})
-// 收起
-$('.online_more .up').click(function(){
-  openEducationText.css('height','3rem')
-  $(this).addClass('hide')
-  $('.online_more .down').removeClass('hide')
-  $('html, body, .section').animate({scrollTop: 0},450)
-})
 </script>
