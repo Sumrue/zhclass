@@ -2723,7 +2723,7 @@ margin-right: .3rem;
 
 .online_banner_swiper img{
 	width: 100%;
-	object-fit: cover;
+	display: block;
 }
 
 /* 网络教学数字滚动 */
