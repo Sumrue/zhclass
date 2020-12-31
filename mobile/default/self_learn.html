@@ -1,0 +1,295 @@
+ <!-- 自学考试 -->
+ <div class="self_learn">
+  <!-- newBanner -->
+  <div class="new_banner2">
+    <div class="swiper-container self_banner_swiper">
+      <div class="swiper-wrapper">
+        {php $banner_self=$site_common->getAllBanner(2);}
+        {loop $banner_self $item}
+        <div class="swiper-slide">
+          <a href="{$item[link]}">
+            <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+          </a>
+        </div>
+        {/loop}
+      </div>
+    </div>
+    {template $template.'/banner/banner_apply'}
+      <div class="selfnum_roll">
+        <div class="selftext">已报名人数: </div>
+        <ul class="selfroll_box">
+          <li class="selfroll_item">
+            <ul class="selfroll_small_items">
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+            </ul>
+          </li>
+          <li class="selfroll_item">
+            <ul class="selfroll_small_items">
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+            </ul>
+          </li>
+          <li class="selfroll_item">
+            <ul class="selfroll_small_items">
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+            </ul>
+          </li>
+          <li class="selfroll_item">
+            <ul class="selfroll_small_items">
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>0</li>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="main_content_box main_content_self">
+      <!-- 切换按钮 -->
+      <div class="content_switch">
+        <div class="switch_cbox"></div>
+        <div class="switch_item">
+          <div class="switch_item_nav switch_item_nav_on">
+            2020招生
+            <div class="switch_item_line"></div>
+          </div>
+          <div class="switch_item_nav">常见问题</div>
+        </div>
+      </div>
+      <div class="main_content">
+        <!-- 2020招生 -->
+        <div class="switch_content block ">
+          <div class="switch_content_2011box self_box">
+            <!-- 四大优势 -->
+            <div class="self_card">
+              <div class="card_top">
+                四大优势
+              </div>
+              <ul class="self_foure_advantage">
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/wp.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">文凭质量</p>
+                  <p class="self_advantage_des">自考文凭国家承认，电子注册，由于考试难度大，社会认可度高。</p>
+                </li>
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/ks.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">快速领证</p>
+                  <p class="self_advantage_des">四川自考一年可考2次，最多考16科，如果顺利一年可考完全部科目，毕业时间最短。</p>
+                </li>
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/sx.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">手续方便</p>
+                  <p class="self_advantage_des">凭身份证、毕业证可报名参考，无需单位证明、街道证明、手续简便。</p>
+                </li>
+                <li class="self_advantage_item">
+                  <div class="self_advantage_logo">
+                    <img src="{MODULE_URL}template/mobile/default/images/index/self_learn/zd.png" alt="">
+                  </div>
+                  <p class="self_advantage_title">重点院校</p>
+                  <p class="self_advantage_des">国家开放大学、西南财经大学、四川农业大学、成都文理学院等院校。</p>
+                </li>
+              </ul>
+            </div>
+
+
+            <!-- 院校一览 -->
+            <div class="self_card">
+              <div class="card_top">
+                主考院校一览
+              </div>
+              <div class="self_school">
+                {loop $school_list_3 $item}
+                <div class="self_school_item">
+                  <div class="self_school_img">
+                    <img src="{$_W['attachurl']}{$item['logo']}" alt="">
+                  </div>
+                  <p class="school_name">{$item['name']}</p>
+                </div>
+                {/loop}
+                <div class="clear"></div>
+              </div>
+            </div>
+
+            <!-- 招生专业 -->
+            <div class="self_card">
+              <div class="card_top">
+                招生专业一览
+              </div>
+              <div class="self_major">
+               <div class="self_major_box">
+                 <p class="self_major_title">专科专业</p>
+                 <div class="self_major_items">
+                     <a href="javascript::;" class="self_major_item">计算机信息管理</a>
+                     <a href="javascript::;" class="self_major_item">建筑工程技术</a>
+                     <a href="javascript::;" class="self_major_item">机电一体化技术</a>
+                     <a href="javascript::;" class="self_major_item">建筑工程管理</a>
+                     <a href="javascript::;" class="self_major_item">工商企业管理</a>
+                     <a href="javascript::;" class="self_major_item">工程造价</a>
+                     <div class="clear"></div>
+                 </div>
+               </div>
+               <div class="self_major_box">
+                 <p class="self_major_title">本科专业</p>
+                 <div class="self_major_items">
+                   <a href="javascript::;" class="self_major_item">土木工程</a>
+                   <a href="javascript::;" class="self_major_item">行政管理</a>
+                   <a href="javascript::;" class="self_major_item">工商管理</a>
+                   <a href="javascript::;" class="self_major_item">学前教育</a>
+                   <a href="javascript::;" class="self_major_item">法学</a>
+                   <a href="javascript::;" class="self_major_item">社会工作</a>
+                   <div class="clear"></div>
+                 </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="self_card">
+              <div class="card_top">
+                留言区
+              </div>
+              <div class="self_voice_message">
+                {template $template.'/index/voice2'}
+                <div class="man_footer">
+                  <p>
+                    Copyright: 联合教育
+                  <br>
+                    承办单位: 四川联合教育集团
+                  <br>
+                    邮编: 610000 川ICP0508888
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- 常见问题 -->
+        <div class="switch_content">
+          <div class="dream_build_box">
+            <div class="self_qs">
+              <div class="question_list">
+                {loop $question[3] $key $item}
+                <div class="weui-cells">
+                  <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                      <div class="weui-cell__hd" class="my_collapse_picbox">
+                          <div class="my_collapse_num">{php echo ($key + 1)}</div>
+                          <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                      </div>
+                      <div class="weui-cell__bd">
+                          <p>{$item['title']}</p>
+                      </div>
+                      <div class="weui-cell__ft left_icon"></div>
+                  </a>
+                  <div class="collapse_content">
+                      <div class="padding_box">
+                          <p>{$item['answer']}</p>
+                      </div>
+                  </div>
+                </div>
+                {/loop}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 广告位 -->
+      <div></div>
+    </div>
+  </div>
+  
+  <script>
+  $(window).scroll(
+    function(){ 
+      let windowHt = $(this).scrollTop()
+      let headerHt = $('#header').height()
+      let bannerHt = $('.new_banner2').height()
+      let switchItem = $('.self_learn .switch_item')
+      // 中部内容切换导航到顶部时固定顶部，header消失
+      if(windowHt >  headerHt + bannerHt){ 
+        switchItem.addClass('fixed')
+      } else if(windowHt <  headerHt + bannerHt) {
+        switchItem.removeClass('fixed')
+      }
+    }
+  )
+  </script>

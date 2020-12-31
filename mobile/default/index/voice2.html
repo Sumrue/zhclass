@@ -1,0 +1,34 @@
+<div class="voice_message">
+  <div class="voice_message_swiper">
+    <ul class="voice_msg_ul">
+    </ul>
+  </div>
+  <div class="voice_message_item voice_enter_box">
+    <div class="message_item_pic fl">
+      <img src="{MODULE_URL}template/mobile/default/images/voice_message_lefticon.jpeg" alt="">
+    </div>
+    <div class="message_item fr voice_enter">
+      <p class="voice_message_line"></p>
+      <textarea maxlength="50" placeholder="说上两句吧..." class="voice_box"></textarea>
+      <span class="main_num">0/50</span>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="voice_message_btn" onclick="sendMsg(event.target)">提交留言</div>
+</div>
+<div id="toast" style="display: none;">
+  <div class="weui-mask_transparent"></div>
+  <div class="weui-toast">
+      <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+      <p class="weui-toast__content weui-toast_msg">留言成功</p>
+  </div>
+</div>
+<div class="js_dialog" id="iosDialog2" style="display: none;">
+  <div class="weui-mask"></div>
+  <div class="weui-dialog">
+      <div class="weui-dialog__bd">评论内容不得少于10个字符</div>
+      <div class="weui-dialog__ft">
+          <a href="javascript:" class="weui-dialog__btn weui-dialog__btn_primary" id="iosDialog2_close">知道了</a>
+      </div>
+  </div>
+</div>

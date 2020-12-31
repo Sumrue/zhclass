@@ -22,7 +22,9 @@
   <div class="main">
     <form method="post" class="form-horizontal form">
           <div class="panel panel-default">
+              
               <div class="panel-body">
+          
                 <div class="form-group">
                   <label class="col-xs-12 col-sm-3 col-md-2 control-label">分类选择</label>
 									<div class="col-sm-2 col-lg-3">
@@ -83,6 +85,7 @@
                   {loop $list $item}
                   <tr>
             <td class="descript" data-toggle="tooltip" data-placement="bottom" data-original-title="{$item['content']}">{$item['title']}</td>
+                    
                       <td>
                         {if $item['cid'] == 1}
                         <span style="color: rgb(255, 17, 0);">成人高考</span>

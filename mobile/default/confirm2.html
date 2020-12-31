@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+		<title>
+      我的报读信息
+		</title>
+  </head>
+  <style>
+    body {
+      font-family: -apple-system,BlinkMacSystemFont,Helvetica Neue,Helvetica,Segoe UI,Arial,Roboto,PingFang SC,Hiragino Sans GB,Microsoft Yahei,sans-serif;
+    }
+    p,span {
+      margin: 0;
+      padding: 0;
+    }
+    #page-container {
+      max-width: 640px;
+      font-size: .28rem;
+      background-color: #f8f7f7;
+      color: #2a2a2a;
+    }
+    .header_msg {
+      width: 100%;
+      text-align: left;
+      padding: 0 .2rem;
+      color: #eead60;
+      background-color: #fdf0e1;
+      box-sizing: border-box;
+    }
+    .title {
+      width: 100%;
+      height: .6rem;
+      margin: 0 auto;
+      line-height: .7rem;
+      color: #999;
+      font-size: .24rem;
+      padding: 0 .2rem;
+      box-sizing: border-box;
+    }
+    .title_rt {
+      float: right;
+      color: #00aeef;
+    }
+    .list_container {
+      width: 100%;
+      padding: .2rem .2rem;
+      box-sizing: border-box;
+      background-color: #fff;
+      font-size: .24rem;
+      overflow: hidden;
+    }
+    .my_msg {
+      width: 5rem;
+      float: left;
+    }
+    .my_msg p {
+      margin-bottom: .05rem;
+    }
+    .my_msg span {
+      margin-right: .2rem;
+    } 
+    .my_head {
+      float: right;
+      width: 1.15rem;
+      margin-right: .3rem;
+    }
+    .my_head>img {
+      width: 100%;
+    }
+    .list_container span {
+      color: #999;
+    }
+    .list_detail {
+      padding: .24rem 0;
+      border-top: 1px dotted #e7e7e7;
+      border-bottom: 1px dotted #e7e7e7;
+    }
+    .list_detail span{
+      margin-right: .4rem;
+    }
+    .list_detail>p {
+      margin-bottom: .05rem;
+    }
+    .list_title {
+      height: .6rem;
+      line-height: .6rem;
+      font-size: .30rem;
+      font-weight: 500;
+    }
+    .list_title span{
+      color: #2a2a2a;
+    }
+    .van-tabbar-item--active{
+      color: #646566;
+    }
+    .buygift {
+      color: #ee6060;
+    }
+  </style>
+	<body>
+    
+		<div class="page-container" id="page-container">
+      {if $enter}
+      <div class="header_msg">
+        亲：报名信息以实际报名后的信息为准，若要修改请联系报考老师哟。
+      </div>
+      <div class="title_box">
+        <div class="title">
+          <span class="title_lf">我的基本信息:</span>
+        </div>
+      </div>
+      <div class="list_container">
+        <div class="my_msg">
+          <p><span>姓名:</span>{{userData.name}}</p>
+          <p><span>手机号:</span>{{userData.phone}}</p>
+          <p><span>证件号:</span>{{userData.idcard}}</p>
+        </div>
+        <div class="my_head">
+          <img :src="userHead" alt="">
+        </div>
+      </div>
+      <div class="title_box">
+        <div class="title">
+          <span class="title_lf">报读信息:</span>
+        </div>
+      </div>
+      <div class="list_container">
+        <div class="list_title">
+          <span>{{userData.school}}</span>
+        </div>
+        <div class="list_detail">
+          <p><span>学校:</span>{{userData.school}}</p>
+          <p><span>专业:</span>{{userData.major}}[{{userData.level}}]</p>
+          <p v-if="userData.status == 2 || userData.status == 3"><span>年级:</span>{{userData.grade}}</p>
+          <p><span>报读类型:</span>{{userData.type}}</p>
+          <p><span>我的状态:</span>
+            <i v-if="userData.status == 0">意向学员</i>
+            <i v-else-if="userData.status == 1">已报名</i>
+            <i v-else-if="userData.status == 2">已缴费(全款)</i>
+            <i v-else-if="userData.status == 3">已缴费(分期)</i>
+            <i v-else>已结业</i>
+            <van-icon name="question-o" color="#00aeef" size="14" @click="toast()"/>
+          </p>
+          <p v-if="userData.status == 2 || userData.status == 3"><span>缴费金额:</span>{{userData.price}}</p> 
+        </div>
+      </div>
+      {/if}
+      <van-empty image="error" description="无报名信息" v-if="dataTF"/></van-empty>
+      <van-tabbar @change="onChange">
+        <van-tabbar-item icon="wap-home-o" class="tabbar" name="index">主页</van-tabbar-item>
+        <van-tabbar-item icon="gift-o" class="tabbar" name="gift">邀请有礼</van-tabbar-item>
+        <van-tabbar-item icon="shopping-cart-o" class="tabbar" name="shop">积分商城</van-tabbar-item>
+        <van-tabbar-item icon="contact" class="tabbar" name="self">个人中心</van-tabbar-item>
+      </van-tabbar>
+    </div>
+</body>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+		var vm = new Vue({
+        el: '#page-container',
+        data (){
+					return {
+            userHead: '',
+            dataTF: false,
+            userData: {
+              name: '',
+              phone: null,
+              idcard: '',
+              school: '',
+              type: '',
+              level: '',
+              major: '',
+              grade: '',
+              addr: '',
+              status: null,
+              grade: '',
+              price: null,
+            }
+          }
+				},
+				created () {
+          // 初始化数据获取
+          this.dataBegin()
+				},
+        methods: {
+          // 点击问好小图标时所弹出的信息
+          toast(){
+            let _this = this
+            if(_this.userData.status == 0 ) {
+              _this.$toast('已提交报名信息')
+            } else if(_this.userData.status == 1) {
+              _this.$toast('已报名，未缴费')
+            } else if(_this.userData.status == 2) {
+              _this.$toast('已报名且成功缴费，缴费形式:全款')
+            } else if(_this.userData.status == 3) {
+              _this.$toast('已报名且成功缴费，缴费形式:分期')
+            } else {
+              _this.$toast('已结业')
+            }
+          },
+          dataBegin() {
+            let _this = this
+            // 头像获取
+            _this.userHead = {php echo json_encode($_W["fans"]["avatar"])};
+            let confirmData = {php echo json_encode($enter)};
+            console.log(confirmData)
+            if (confirmData == false) {
+              _this.dataTF = true
+            } else {
+              _this.dataTF = false
+              _this.userData.name = confirmData.name
+              _this.userData.phone = confirmData.mobile
+              _this.userData.idcard = confirmData.code
+              _this.userData.school = confirmData.sname
+              _this.userData.level = confirmData.lname
+              _this.userData.major = confirmData.pname
+              _this.userData.type = confirmData.cname
+              _this.userData.addr = confirmData.addr
+              _this.userData.status = confirmData.status
+              _this.userData.grade = confirmData.grade
+              _this.userData.price = confirmData.price
+            }
+          },
+          onChange(name) {
+            if(name == 'index') {
+              let url = '{php echo $this->createMobileUrl("index", array("do"=>"index"));}'
+              location.href = url
+            } else if(name == 'gift') {
+              let url = '{php echo $this->createMobileUrl("invitegift", array("do"=>"invitegift"));}'
+              location.href = url
+            } else if(name == 'shop') {
+              let url = '{php echo $this->createMobileUrl("shoppingmall", array("do"=>"shoppingmall"));}'
+              location.href = url
+            } else {
+              let url = '{php echo $this->createMobileUrl("self2", array("do"=>"self2"));}'
+              location.href = url
+            }
+          }
+        },
+        computed: {
+          idcardCm () { // 身份证处理
+            let idcard = this.userData.idcard
+            let str1 = idcard.substring(0,6)
+            let str2 = idcard.substring(14,18)
+            let str = str1 + '********' + str2
+            return str
+          }
+        }
+    })
+</script> 
+</html>

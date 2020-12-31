@@ -1,0 +1,100 @@
+{template $template.'/_headerv2'}
+<link href="{MODULE_URL}template/mobile/{$template}/style/cssv2/commission.css?v={$versions}" rel="stylesheet" />
+<style type="text/css">
+.window-content{
+	top: 25%;
+	height: 9rem;
+    overflow-y: auto;
+}
+.window-container .window-content p{
+	font-size:.9rem;
+	text-align: left;
+}
+</style>
+
+<div class="header-2 cbox">
+	<a href="{php echo $this->createMobileUrl('invitegift')}" class="ico go-back"></a>
+	<div class="flex title">{$title}</div>
+	<a href="{php echo $this->createMobileUrl('index', array('t'=>1))}" class="ico go-index"></a>
+</div>
+
+<div>
+	<div class="qrcode_wrap">
+		<div class="qrcode_inner">
+			<img id="spreadImg" class="c-ww394 c-br20" src="{$imagepath}">
+		</div>
+	</div>
+	<div class="qrcode_footer">
+		<p class="tips">长按上方图片保存，分享给朋友</p>
+		<div id="scroll" class="qrcode_thum_wrap" style="overflow: auto;">
+			{loop $poster_list $key $item}
+			<div class="qrcode_thum" onclick="cutPoster({$key});">
+				{if $item['poster_default']}
+					<img src="{MODULE_URL}template/mobile/default/images/posterbg.jpg">
+				{else}
+					<img src="{$_W['attachurl']}{$item['poster_bg']}">
+				{/if}
+				{if $key==$poster_no}
+				<img src="{MODULE_URL}template/mobile/default/images/qrcode_checked_icon.png" class="checked">
+				{/if}
+			</div>
+			{/loop}
+		</div>
+	</div>
+
+	<div id="loadingToast" style="display:none;">
+		<div class="weui-mask_transparent"></div>
+		<div class="weui-toast">
+			<i class="weui-loading weui-icon_toast"></i>
+			<p class="weui-toast__content">加载数据中</p>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		var poster_height = document.body.clientHeight - 195;
+		$("#spreadImg").css('height', poster_height + 'px');
+	})
+
+	function cutPoster(poster_no){
+		$("#loadingToast").show();
+		var url = "{php echo $setting['poster_type']==2 ? $this->createMobileUrl('qrcoderec') : $this->createMobileUrl('qrcode');}";
+		window.location.href = url + "&poster_no=" + poster_no;
+	}
+
+	$("#sale_desc").click(function(){
+		var sale_title = "{$sale_desc[0]}";
+		var sale_content = <?php echo json_encode($sale_desc); ?>;
+		var sale_rule = "";
+		for(var i=0; i<sale_content.length; i++){
+			if(i>0){
+				sale_rule += sale_content[i] + "<br/>";
+			}
+		}
+
+		$(this).openWindow(sale_title, sale_rule,'["确定"]','javascript:;','javascript:;');
+	});
+
+	wx.ready(function(){
+		var shareData = {
+			title: "{$sharelink['title']}",
+			desc: "{$sharelink['desc']}",
+			link: "{$shareurl}",
+			imgUrl: "{$_W['attachurl']}{$sharelink['images']}",
+			trigger: function (res) {},
+			complete: function (res) {},
+			success: function (res) {},
+			cancel: function (res) {},
+			fail: function (res) {}
+		};
+		wx.onMenuShareTimeline(shareData);
+		wx.onMenuShareAppMessage(shareData);
+		wx.onMenuShareQQ(shareData);
+		wx.onMenuShareWeibo(shareData);
+		wx.onMenuShareQZone(shareData);
+		
+	});
+</script>
+
+{template $template.'/_footerv2'}

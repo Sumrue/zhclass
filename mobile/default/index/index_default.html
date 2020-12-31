@@ -1,0 +1,407 @@
+<!-- 搜索框 -->
+<div class="index-search">
+	<form action="{php echo $this->createMobileUrl('search');}" method="GET">
+		<input type="hidden" name="i" value="{$uniacid}"/>
+		<input type="hidden" name="c" value="entry"/>
+		<input type="hidden" name="do" value="search"/>
+		<input type="hidden" name="clear" value="1"/>
+		<input type="hidden" name="m" value="fy_lessonv2"/>
+		<div class="index-header-search">
+			<div class="u-search">
+				<i class="fa fa-search"></i>
+				<input type="search" name="keyword" class="search_input z-abled" autocorrect="off" placeholder="{php echo $index_page['searchBox'] ? $index_page['searchBox'] : '搜索您感兴趣的课程';}">
+			</div>
+		</div>
+	</form>
+</div>
+<!-- /搜索框 -->
+
+<!-- 广告轮播图 -->
+{if !empty($banner)}
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+		<!--图片一-->
+		{loop $banner $item}
+		<div class="swiper-slide">
+			<a href="{$item['link']}">
+				<img class="swiper-lazy" src="{$_W['attachurl']}{$item['picture']}">
+			</a>
+		</div>
+		{/loop}
+		<!--图片一end-->
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
+{/if}
+<!-- /广告轮播图 -->
+
+<!-- 分类 -->
+{if !empty($category_list)}
+<div class="grid_wrap bor_no">
+	{loop $category_list $item}
+	<a class="grid_item" href="{php echo $item['link'] ? $item['link'] : $this->createMobileUrl('search', array('cat_id'=>$item['id'], 'clear'=>1));}">
+		<div class="grid_hd">
+			<img src="{$_W['attachurl']}{$item['ico']}" alt="{$item['name']}" />
+		</div>
+		<div class="grid_bd">
+			<p>{$item['name']}</p>
+		</div>
+	</a>
+	{/loop}
+	{if !empty($allCategoryIco)}
+	<a class="grid_item" href="{php echo $this->createMobileUrl('search',array('op'=>'allcategory', 'clear'=>1));}">
+		<div class="grid_hd">
+			<img src="{$allCategoryIco}" alt="全部分类">
+		</div>
+		<div class="grid_bd">
+			<p>全部分类</p>
+		</div>
+	</a>
+	{/if}
+</div>
+{/if}
+<!-- /分类 -->
+
+<!-- 公告 -->
+{if !empty($articlelist) && is_array($articlelist)}
+<div class="article_div flex0_1">
+	<i class="flex_g0 icon_new"></i>
+	<ul class="article_div_list flex_all">
+		{loop $articlelist $article}
+		<li>
+			<a href="{php echo $this->createMobileUrl('article', array('op'=>'display','aid'=>$article['id']));}">{$article['title']}</a>
+		</li>
+		{/loop}
+	</ul>
+	<a class="flex_g0 more icon_right" href="{php echo $this->createMobileUrl('article', array('op'=>'list'));}">更多</a>
+</div>
+<script type="text/javascript">
+    var scroll_height = "40px"; //优惠活动滚动距离
+    var tsq;
+    var showidx = 0;
+
+    var new_scroll = function () {
+      var len = $(".article_div_list li").length;
+      var m = $(".article_div_list li");
+      clearInterval(tsq);
+      if (len > 1) {
+        tsq = setInterval(function () {
+          m.eq(showidx).animate({
+            top: "-=" + scroll_height
+          }, 500, 'linear', function () {
+            $(this).css("top", scroll_height);
+          });
+          showidx++;
+          if (showidx == len) {
+            showidx = 0;
+          }
+          m.eq(showidx).animate({
+            top: "-=" + scroll_height
+          }, 500, 'linear');
+        }, 5000);
+      }
+    }();
+</script>
+{/if}
+<!-- /公告 -->
+
+<!-- 限时折扣 -->
+{if !empty($discount_banner)}
+<div class="swiper-container" style="margin-top:10px;">
+	<div class="swiper-wrapper">
+		<!--图片一-->
+		{loop $discount_banner $item}
+		<div class="swiper-slide">
+			<a href="{$item['link']}">
+				<img class="swiper-lazy" src="{$_W['attachurl']}{$item['picture']}">
+			</a>
+		</div>
+		{/loop}
+		<!--图片一end-->
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
+{/if}
+<!-- /限时折扣 -->
+
+<!-- 推荐讲师 -->
+{if $recommend_teacher}
+<div class="index_unit">
+	<div class="index_title flex1">
+		<div class="img flex0">
+			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/index_teacher_list.png" style="width: 19px;">
+		</div>
+		<div class="flex_all index_teacher_title">{php echo $index_page['teacher'] ? $index_page['teacher'] : '名师风采';}</div>
+		<a href="{php echo $this->createMobileUrl('teacherlist');}" class="more icon_right">查看全部</a>
+	</div>
+
+	<div style="overflow:hidden;">
+		<div class="teacher_swiper">
+			<div class="swiper-wrapper">
+				{loop $recommend_teacher $teacher}
+				<div class="swiper-slide">
+					<a href="{php echo $this->createMobileUrl('teacher', array('teacherid'=>$teacher['id']));}">
+						<div class="img-box">
+							<div class="img"><img src="{$_W['attachurl']}{$teacher['teacherphoto']}"></div>
+							<!-- <div class="job"></div> -->
+						</div>
+						<div class="name">{$teacher['teacher']}</div>
+					</a>
+				</div>
+				{/loop}
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var teacherSwiper = new Swiper('.teacher_swiper', {
+		slidesPerView: 3,
+		autoplay: 3500,
+		autoplayDisableOnInteraction: false,
+		spaceBetween: $(".teacher_swiper").width() * 0.08,
+	});
+</script>
+{/if}
+<!-- /推荐讲师 -->
+
+<!-- 最新课程 -->
+{if $setting['show_newlesson'] && $newlesson}
+<div class="index_unit">
+	<div class="index_title flex1">
+		<div class="img flex0">
+			<img class="flex_g0" src="{MODULE_URL}template/mobile/{$template}/images/index_new_lesson.png" style="width: 19px;" />
+		</div>
+		<div class="flex_all index_newlesson_title">{php echo $index_page['newLesson'] ? $index_page['newLesson'] : '最新更新';}</div>
+	</div>
+
+	{loop $newlesson $item}
+	<a href="{php echo $this->createMobileUrl('lesson', array('op'=>'display', 'id'=>$item['id']));}" class="new_lesson flex0_1">
+		<div class="new_lesson_a flex_g0">
+			<div class="img-box flex_g0">
+				<div class="img">
+					<img class="lazy" data-original="{$_W['attachurl']}{$item['images']}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" />
+				</div>
+				<div class="learned">{if $item['price']>0}{php echo $item['buynum']+$item['virtual_buynum'];}{else}{php echo $item['buynum']+$item['virtual_buynum']+$item['visit_number'];}{/if}{php echo $index_page['studyNum'] ? $index_page['studyNum'] : '人已学习';}</div>
+				{if !empty($item['ico_name'])}
+					<i class="ico_common {$item['ico_name']}"></i>
+				{/if}
+			</div>
+		</div>
+
+		<div class="flex_all flex10">
+			<div>
+				<div class="new_lesson_title">{$item['bookname']}</div>
+				<div class="new_lesson_info">{$item['section']['title']}</div>
+			</div>
+			<div class="new_lesson_bottom flex1">
+				<span class="time">{$item['tran_time']}更新</span>
+				{if $setting['lesson_vip_status']!=1}
+				<span class="price ios-system">{php echo $item['price']>0 ? '¥ '.$item['price'] : '免费';}</span>
+				{/if}
+			</div>
+		</div>
+	</a>
+	{/loop}
+</div>
+{/if}
+<!-- /最新课程 -->
+
+<!-- 课程板块遍历 -->
+{if !empty($list)}
+	{loop $list $rec}
+	<div class="index_unit">
+		<div class="index_title flex1">
+			<div class="img flex0">
+				<img class="flex_g0" src="{php echo $rec['icon'] ? $_W['attachurl'].$rec['icon'] : MODULE_URL.'template/mobile/'.$template.'/images/index_default_rec_icon.png'}" style="width: 19px;" />
+			</div>
+			<div class="flex_all index_recommend_title">{$rec['rec_name']}</div>
+			<a href="{php echo $this->createMobileUrl('recommend', array('recid'=>$rec['recid']));}" class="more icon_right index_recommend_more">查看更多</a>
+		</div>
+		
+		{if $rec['show_style']==1}
+		<!-- 单图文 -->
+		<div class="small_grid">
+			{loop $rec['lesson'] $item}
+			<a href="{php echo $this->createMobileUrl('lesson', array('op'=>'display', 'id'=>$item['id']))}" class="small_grid_a">
+				<div class="img-box">
+					<div class="img">
+						<img class="lazy" data-original="{$_W['attachurl']}{$item['images']}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" />
+					</div>
+					<div class="learned">
+						{if $item['price']>0}
+							{php echo $item['buynum']+$item['virtual_buynum'];}
+						{else}
+							{php echo $item['buynum']+$item['virtual_buynum']+$item['visit_number'];}
+						{/if}
+						{php echo $index_page['studyNum'] ? $index_page['studyNum'] : '人已学习';}
+					</div>
+					{if !empty($item['ico_name'])}
+						<i class="ico_common {$item['ico_name']}"></i>
+					{/if}
+				</div>
+				<div class="grid_title flex1">
+					{if !$item['section_status']}<i class="section-status-btn">已完结</i>{/if} {$item['bookname']}
+				</div>
+				<div class="grid_info flex0">
+				{if $setting['lesson_vip_status']!=1}
+					{if $item['price']==0}
+					<span class="free flex_g0 index_free_lesson">免费课程</span>
+					{else}
+					<span class="price flex_g0 index_price_lesson ios-system">¥ {$item['price']}</span>
+					{/if}
+					<span class="mar5 ios-system">|</span>
+				{/if}
+				{if $item['count']}
+					<span class="index_section_number">{$item['count']}节</span>
+				{/if}
+				</div>
+			</a>
+			{/loop}
+		</div>
+
+		{elseif $rec['show_style']==2}
+		<!-- 专题+图文 -->
+			<a href="{php echo $this->createMobileUrl('lesson', array('op'=>'display', 'id'=>$rec['lesson'][0]['id']));}" class="big_grid">
+				<div class="img-box big-img-box">
+					<div class="img">
+						<img class="lazy" data-original="{$_W['attachurl']}{$rec['lesson'][0]['images']}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" />
+					</div>
+					<div class="learned">
+						{if $rec['lesson'][0]['price']>0}
+							{php echo $rec['lesson'][0]['buynum']+$rec['lesson'][0]['virtual_buynum'];}
+						{else}
+							{php echo $rec['lesson'][0]['buynum']+$rec['lesson'][0]['virtual_buynum']+$rec['lesson'][0]['visit_number'];}
+						{/if}
+						{php echo $index_page['studyNum'] ? $index_page['studyNum'] : '人已学习';}
+					</div>
+					{if !empty($rec['lesson'][0]['ico_name'])}
+						<i class="ico_common {$rec['lesson'][0]['ico_name']}"></i>
+					{/if}
+				</div>
+				<div class="grid_title flex1">
+					<span class="overhidden flex_all">
+						{if !$rec['lesson'][0]['section_status']}<i class="section-status-btn">已完结</i>{/if} {$rec['lesson'][0]['bookname']}
+					</span>
+					<span class="teacher">{$rec['lesson'][0]['teacher']['teacher']}</span>
+				</div>
+				<div class="grid_info flex0">
+				{if $setting['lesson_vip_status']!=1}
+					{if $rec['lesson'][0]['price']==0}
+					<span class="free flex_g0 index_free_lesson ios-system">免费课程</span>
+					{else}
+					<span class="price flex_g0 index_price_lesson ios-system">¥ {$rec['lesson'][0]['price']}</span>
+					{/if}
+					<span class="mar5 ios-system">|</span>
+				{/if}
+				{if $rec['lesson'][0]['count']}
+					<span class="index_section_number">{$rec['lesson'][0]['count']}节</span>
+				{/if}
+				</div>
+			</a>
+
+			<div class="small_grid">
+				{loop $rec['lesson'] $key $item}
+				  {if $key>0}
+					<a href="{php echo $this->createMobileUrl('lesson', array('op'=>'display', 'id'=>$item['id']))}" class="small_grid_a">
+						<div class="img-box">
+							<div class="img">
+								<img class="lazy" data-original="{$_W['attachurl']}{$item['images']}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" />
+							</div>
+							<div class="learned">
+								{if $item['price']>0}
+									{php echo $item['buynum']+$item['virtual_buynum'];}
+								{else}
+									{php echo $item['buynum']+$item['virtual_buynum']+$item['visit_number'];}
+								{/if}
+								{php echo $index_page['studyNum'] ? $index_page['studyNum'] : '人已学习';}
+							</div>
+							{if !empty($item['ico_name'])}
+								<i class="ico_common {$item['ico_name']}"></i>
+							{/if}
+						</div>
+						<div class="grid_title flex1">
+							{if !$item['section_status']}<i class="section-status-btn">已完结</i>{/if} {$item['bookname']}
+						</div>
+						<div class="grid_info flex0">
+						{if $setting['lesson_vip_status']!=1}
+							{if $item['price']==0}
+							<span class="free flex_g0 index_free_lesson ios-system">免费课程</span>
+							{else}
+							<span class="price flex_g0 index_price_lesson ios-system">¥ {$item['price']}</span>
+							{/if}
+							<span class="mar5 ios-system">|</span>
+						{/if}
+						{if $item['count']}
+							<span class="index_section_number">{$item['count']}节</span>
+						{/if}
+						</div>
+					</a>
+				  {/if}
+				{/loop}
+			</div>
+
+		{elseif $rec['show_style']==3}
+		<!-- 单专题 -->
+			{loop $rec['lesson'] $item}
+			<a href="{php echo $this->createMobileUrl('lesson', array('op'=>'display', 'id'=>$item['id']))}" class="big_grid">
+				<div class="img-box big-img-box">
+					<div class="img">
+						<img class="lazy" data-original="{$_W['attachurl']}{$item['images']}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC" />
+					</div>
+					<div class="learned">
+						{if $item['price']>0}
+							{php echo $item['buynum']+$item['virtual_buynum'];}
+						{else}
+							{php echo $item['buynum']+$item['virtual_buynum']+$item['visit_number'];}
+						{/if}
+						{php echo $index_page['studyNum'] ? $index_page['studyNum'] : '人已学习';}
+					</div>
+					{if !empty($item['ico_name'])}
+						<i class="ico_common {$item['ico_name']}"></i>
+					{/if}
+				</div>
+				<div class="grid_title flex1">
+					<span class="overhidden flex_all">
+						{if !$item['section_status']}<i class="section-status-btn">已完结</i>{/if} {$item['bookname']}
+					</span>
+					<span class="teacher">{$item['teacher']['teacher']}</span>
+				</div>
+				<div class="grid_info flex0">
+				{if $setting['lesson_vip_status']!=1}
+					{if $item['price']==0}
+					<span class="free flex_g0 index_free_lesson ios-system">免费课程</span>
+					{else}
+					<span class="price flex_g0 index_price_lesson ios-system">¥ {$item['price']}</span>
+					{/if}
+					<span class="mar5 ios-system">|</span>
+				{/if}
+				{if $item['count']}
+					<span class="index_section_number">{$item['count']}节</span>
+				{/if}
+				</div>
+			</a>
+			{/loop}
+		{elseif $rec['show_style']==4}
+		<!-- 单标题 -->
+		<div>
+			<ul class="article_title_grid">
+				{loop $rec['lesson'] $item}
+				<li>
+					<a href="{php echo $this->createMobileUrl('lesson', array('op'=>'display', 'id'=>$item['id']));}">
+						<i class="index-book-ico"></i> {$item['bookname']}
+					</a>
+				</li>
+				{/loop}
+			</ul>
+		</div>
+		{/if}
+	</div>
+	{/loop}
+{/if}
+<!-- /课程板块遍历 -->
+
+{if !empty($config['index_slogan'])}
+<div class="slogan_wrap">
+	<div class="slogan_bd" style="background-image:url({$_W['attachurl']}{$config['index_slogan']});"></div>
+</div>
+{/if}

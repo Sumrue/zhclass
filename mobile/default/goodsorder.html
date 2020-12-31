@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/weui.css?v={$versions}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/self2.css" />
+		<title>
+      我的订单
+		</title>
+  </head>
+  <style>
+    
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <van-nav-bar 
+        title="我的订单" 
+        left-text="返回" 
+        left-arrow 
+        @click-left="onClickLeft"
+      >
+        <template #right>
+          <a href=""><van-icon name="service-o" size="18" /></a>
+        </template>
+      </van-nav-bar>
+      <van-tabs v-model="active">
+        <van-tab title="课程礼包订单">
+          <van-card
+            num="1"
+            price="{$goods[price]}"
+            desc="考前辅导课 三本教材"
+            title="{$goods[bookname]}"
+            thumb="{MODULE_URL}template/mobile/{$template}/images/order_book.jpeg"
+            v-if="giftOrder"
+          >
+        </van-card>
+
+          <van-card
+            num="1"
+            price="{$goods[price]}"
+            desc="考前辅导课 三本教材"
+            title="{$goods[bookname]}"
+            thumb="{MODULE_URL}template/mobile/{$template}/images/order_book.jpeg"
+            v-else-if="mylesson"
+          >
+          <template #footer>
+            <van-button size="normal" color="#EE0C24" @click="topay">立即支付</van-button>
+          </template>
+        </van-card>
+          <van-empty image="error" description="暂无订单" v-else/>
+        </van-tab>
+        <van-tab title="积分礼品订单">
+          <template v-for="item in goodsListData" :key="item.id">
+            <van-card
+              :num="item.goodsquantity"
+              :price="item.price"
+              :desc="item.describe"
+              :title="item.name"
+              :thumb="'{$_W['attachurl']}' + item.images"
+              v-if="goodsOrder"
+            >
+              <template #footer>
+                兑换时间:<span>{{item.goodsaddtime}}</span>
+              </template>
+            </van-card>
+          </template>
+          
+          <van-empty image="error" description="暂无订单" v-if="!goodsOrder"/>
+        </van-tab>
+      </van-tabs>
+    </div>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          active: 0,
+          giftOrder: true,
+          goodsOrder: true,
+          goodsListData: [],
+          mylesson: true,
+          orderId: ''
+        }
+      },
+      created() {
+        this.dataGet()
+        this.pageShow()
+      },
+      methods: {
+        // 返回键
+        onClickLeft() {
+          location.href = '{php echo $this->createMobileUrl("self2");}'
+        },
+        // 初始化数据获取
+        dataGet() {
+          let _this = this
+          // 判断是否有礼包订单
+          let mygiftOrder = {php echo json_encode($pay_order)};
+          if(mygiftOrder > 0) { // 大于零就是有订单
+            _this.giftOrder = true
+          } else {
+            _this.giftOrder = false
+          }
+          // 未支付订单
+          let mylesson = {php echo json_encode($mylessonlist)};
+          if(mylesson.length !== 0) { // 未支付订单存在时
+            _this.mylesson = true // 显示未支付订单详情
+            _this.orderId = mylesson[0].id
+          } else { // 不存在订单，隐藏
+            _this.mylesson = false
+          }
+
+
+          let oldgoodData = {php echo json_encode($goods)};
+          console.log(oldgoodData)
+          // 兑换商品数据  order_list
+          let goodsListData = {php echo json_encode($order_list)};
+          // 判断是否有兑换记录
+          if(goodsListData == '' || goodsListData.length == 0) { // 无兑换数据
+            _this.goodsOrder = false
+          } else { // 有兑换数据时
+            _this.goodsListData = goodsListData
+          }
+          
+        },
+        // 设置默认显示页，链接中有show参数则自动显示为商品兑换订单列表
+        pageShow() {
+          let show = {php echo json_encode($_GPC['show'])};
+          if(show == 1) {
+            this.active = 1
+          }
+        },
+        topay() {
+          let orderid = this.orderId
+          let url = '{php echo $this->createMobileUrl("pay", array("ordertype"=>"buylesson"));}' + '&orderid=' + orderid
+          location.href = url
+        }
+      }
+  })
+</script> 
+</body>
+</html>

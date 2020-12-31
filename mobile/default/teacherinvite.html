@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/weui.css?v={$versions}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/self2.css" />
+		<title>
+      我的邀请
+		</title>
+  </head>
+  <style>
+    .campus {
+      font-size: .34rem;
+      font-weight: 600;
+      color: rgba(23,6,6,.8);
+    }
+    #to_paper {
+      width: 2rem;
+    }
+
+    .my_invite_item {
+				display: flex;
+        height: .9rem;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.item_left_head{
+				width: 4.5rem;
+				display: flex;
+				align-items: center;
+			}
+			.item_head_img {
+				width: .7rem;
+				height: .7rem;
+				border-radius: 50%;
+			}
+			.item_head_img > img {
+				width: 100%;
+				border-radius: 50%;
+			}
+			.item_head_name {
+				line-height: 1;
+				margin-left: .15rem;
+			}
+			.item_addtime {
+				font-size: .2rem;
+				line-height: 1.5;
+			}
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <div class="head">
+        <div class="head_left">
+          <div class="head_header">
+            <img :src="myHeader" alt="">
+          </div>
+          <div class="my_msg">
+            <span class="campus">{$teacher[name]}</span>
+            <p class="teacher_name" style="font-size: .32rem;">{$teacher[teacher]}</p>
+          </div>
+        </div>
+        <div class="head_right">
+          <a class="signin" href="{php echo $this->createMobileUrl('qrcode');}" id="to_paper">
+            <van-icon name="friends-o" size="20" class="icon" color="#fff">
+            </van-icon>
+            <span style="color: #fff;">邀请海报</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="main_container">
+        <div class="card">
+          <div class="card_title">
+            <div class="title">我的邀请</div>
+          </div>
+          <div class="my_point">
+            <div>
+              <p>
+                <van-icon name="cluster-o" color="#F07A7A" size="20"></van-icon>
+                <span>邀请总数</span>
+              </p>
+              <p><span class="point_num">{$invite[all]}</span></p>
+            </div>
+            <div>
+              <p style="margin-bottom: 0;">
+                <span>昨日新增：</span><span style="font-weight: 600; color: rgba(23,6,6,.8);">{$invite[1day]}</span>
+              </p>
+              <p style="margin-bottom: 0;">
+                <span>上周新增：</span><span style="font-weight: 600; color: rgba(23,6,6,.8);">{$invite[7day]}</span>
+              </p>
+              <p style="margin-bottom: 0;">
+                <span>上月新增：</span><span style="font-weight: 600; color: rgba(23,6,6,.8);">{$invite[30day]}</span>
+              </p>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card_title">
+            <div class="title">最新邀请</div>
+            <van-button type="primary" size="small" style="float: right;" color="#F07A7A" @click="studentShow = false" v-if="studentShow">隐藏数据</van-button>
+            <van-button type="primary" size="small" style="float: right;" color="#F07A7A" @click="studentShow = true" v-if="!studentShow">显示数据</van-button>
+          </div>
+          <div class="menu_list" v-show="studentShow">
+            {loop $list $item}
+            <div class="card_title">
+              <div class="my_invite_item">
+                <div class="item_left_head">
+                  <div class="item_head_img">
+                    <img src="{$item[avatar]}" alt="">
+                  </div>
+                  <div class="item_head_name">
+                    <p>{$item[nickname]}</p>
+                  </div>
+                </div>
+                <div class="item_addtime">
+                  <p>加入时间:</p>
+                  <p>{$item[addtime]}</p>
+                </div>
+              </div>
+            </div>
+            {/loop}
+          <!-- 清除浮动 -->
+          <div class="clear"></div>
+          <p style="text-align: center;font-size: .24rem;color: #F07A7A;">最多显示最新20条邀请数据，更多数据请后台查看</p>
+        </div>
+      </div>
+      <van-tabbar @change="onChange">
+        <van-tabbar-item icon="wap-home-o" class="tabbar" name="index">主页</van-tabbar-item>
+        <van-tabbar-item icon="gift-o" class="tabbar" name="gift">邀请有礼</van-tabbar-item>
+        <van-tabbar-item icon="shopping-cart-o" class="tabbar" name="shop">积分商城</van-tabbar-item>
+        <van-tabbar-item icon="contact" class="tabbar" name="self">个人中心</van-tabbar-item>
+      </van-tabbar>
+    </div>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          myHeader: '',
+          studentShow: true
+        }
+      },
+      created () {
+        this.addhead()
+      },
+      methods: {
+        addhead() {
+          let arr = {php echo json_encode($_W["fans"])};
+          this.myHeader = arr.avatar
+          let data = {php echo json_encode($list)};
+          console.log(data)
+        },
+        onChange(name) {
+            if(name == 'index') {
+              let url = '{php echo $this->createMobileUrl("index", array("do"=>"index"));}'
+              location.href = url
+            } else if(name == 'gift') {
+              let url = '{php echo $this->createMobileUrl("invitegift", array("do"=>"invitegift"));}'
+              location.href = url
+            } else if(name == 'shop') {
+              let url = '{php echo $this->createMobileUrl("shoppingmall", array("do"=>"shoppingmall"));}'
+              location.href = url
+            } else {
+              let url = '{php echo $this->createMobileUrl("self2", array("do"=>"self2"));}'
+              location.href = url
+            }
+          }
+      },
+      computed: {
+      
+      }
+  })
+</script>
+</body>
+</html>

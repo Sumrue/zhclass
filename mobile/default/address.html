@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/weui.css?v={$versions}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+		<title>
+      地址管理
+		</title>
+  </head>
+  <style>
+    body {
+      font-size: .28rem;
+      background-color: #ececeede;
+      height: 100%;
+    }
+    .msg {
+      width: 96%;
+      margin: .3rem auto;
+      padding: .3rem .5rem;
+      box-sizing: border-box;
+      color: rgba(0, 0, 0, 0.795);
+      background-color: #fff;
+      border-radius: 10px;
+    }
+    .my_msg {
+      font-size: .36rem;
+      margin-bottom: .2rem;
+    }
+    .name {
+      margin-right: .2rem;
+    }
+    .address_msg {
+      color: rgb(221, 117, 117);
+    }
+  </style>
+	<body>
+		<div class="page-container" id="page-container">
+      <van-nav-bar
+        title="地址管理"
+        left-text="返回"
+        right-text="主页"
+        left-arrow
+        @click-left="onClickLeft"
+        @click-right="onClickRight"
+      >
+      </van-nav-bar>
+      <van-tabs v-model="active">
+        <van-tab title="教材收货地址">
+          <div class="msg" v-if="bookTF">
+            <p class="my_msg"><span class="name">{{bookAddress.name}}</span><span>{{bookAddress.phone}}</span></p>
+            <p class="address_msg">{{bookAddress.address}}</p>
+          </div>
+          <van-empty image="error" description="暂未添加地址" v-else/>
+        </van-tab>
+        <van-tab title="兑换商品收货地址">
+          <div class="msg" v-if="goodsTF">
+            <p class="my_msg"><span class="name">{{goodsAddress.name}}</span><span>{{goodsAddress.phone}}</span></p>
+            <p class="address_msg">{{goodsAddress.address}}</p>
+          </div>
+          <van-empty image="error" description="暂未添加地址" v-else/>
+        </van-tab>
+      </van-tabs>
+    </div>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          active: 0,
+          bookAddress: {
+            name: '',
+            phone: '',
+            address: ''
+          },
+          goodsAddress: {
+            name: '',
+            phone: '',
+            address: ''
+          },
+          bookTF: false,
+          goodsTF: false
+        }
+      },
+      created () {
+        this.dataCreated()
+      },
+      methods: {
+        // 判断地址是否为空，为空则显示空信息
+        dataCreated() {
+          let enter = {php echo json_encode($enter)};
+          let _this = this
+          _this.bookAddress.name = enter.name
+          _this.bookAddress.phone = enter.mobile
+          _this.bookAddress.address = enter.addr
+          if(_this.bookAddress.address !== '') {
+            _this.bookTF = true
+          }
+          if(_this.goodsAddress.address !== '') {
+            _this.goodsTF = true
+          }
+        },
+        onClickLeft() {
+          location.href = '{php echo $this->createMobileUrl("self2")}'
+        },
+        onClickRight() {
+          location.href = '{php echo $this->createMobileUrl("index")}'
+        },
+      }
+  })
+</script> 
+</body>
+</html>

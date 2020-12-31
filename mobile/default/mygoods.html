@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="full-screen" content="yes">
+		<meta name="browsermode" content="application">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="x5-fullscreen" content="true">
+    <meta name="x5-page-mode" content="app">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"/>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/{$template}/style/cssv2/mygoods.css">
+		<title>
+      商品兑换
+		</title>
+  </head>
+	<body>
+		<div class="page-container" id="page-container">
+      <div class="top_title">商品兑换</div>
+      <div class="goods_detail">
+        <div class="goods_img">
+          <img :src="'{$_W['attachurl']}' + goodsData.images" alt="">
+        </div>
+        <div class="goods_msg">
+          <p class="title">{{goodsData.name}}</p>
+          <p class="des">{{goodsData.describe}}</p>
+          <div class="point">
+            <div>
+              <van-icon name="gold-coin" color="#ee0a24" size="16"></van-icon>
+              {{computedPoint}}
+            </div>
+            <van-stepper v-model="value" min="1" max="10"  button-size="22"/>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div>
+        <div class="mes_title">请填写您的收货信息</div>
+        <van-form @failed="failedSubmit" @submit="sucessSubmit" :show-error='false'>
+          <!-- 姓名 -->
+          <van-cell-group>
+            <van-field 
+              v-model="name" 
+              label="姓名" 
+              placeholder="请输入您的姓名" 
+              maxlength = 8 
+              show-error=false
+              :rules="[{ required: true, message: '姓名不能为空' }]" 
+              input-align="right"
+              error-message-align="right"
+            />
+          </van-cell-group>
+
+          <van-cell-group>
+            <van-field 
+              v-model="phone"
+              label="电话号码" 
+              show-error="false"
+              input-align="right"
+              mame="phone"
+              readonly
+            />
+          </van-cell-group>
+
+          <van-cell-group>
+            <van-field 
+              v-model="address"
+              label="收货地址" 
+              placeholder="请输入您的详细地址"
+              show-error="false"
+              rows="1"
+              :rules="[{ required: true, message: '地址不能为空' }]"  
+              input-align="right"
+              maxlength='30'
+              error-message-align="right"
+              type="textarea"
+            />
+          </van-cell-group>
+
+          <van-cell-group>
+            <van-field
+              v-model="message"
+              rows="1"
+              autosize
+              label="备注"
+              maxlength='50'
+              show-word-limit
+              input-align="right"
+              type="textarea"
+              placeholder="请输入备注"
+            />
+          </van-cell-group>
+
+          <div style="margin: 16px;">
+            <van-button round block  color="#c22338" :disabled="btnTF">
+              立即兑换
+            </van-button>
+          </div>
+        </van-form>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/jquery.min.js?v={$versions}"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/js/m-fit.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/{$template}/style/jsv2/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script>
+  var vm = new Vue({
+      el: '#page-container',
+      data () {
+        return {
+          value: 1, // 购买数量
+          name: '',
+          phone: '',
+          address: '', // 收货地址
+          btnTF: false,
+          goodsPoint: 1, // 商品价格
+          mypoint: null, // 我的积分
+          goodsData: '', // 商品信息
+          message: '' // 备注
+        }
+      },
+      created () {
+        // 数据获取
+        this.getGoodsData()
+        // 页面初始化时就判断用户积分是否能兑换此礼品，不足则禁用按钮。
+        this.myPoint()
+      },
+      methods: {
+        // 初始化获取商品数据和用户数据
+        getGoodsData() {
+          // 获取用户联系方式
+          this.phone = {php echo json_encode($_W["member"]["mobile"])};
+          // 想要兑换的商品数据
+          let goods = {php echo json_encode($goods)};
+          this.goodsData = goods
+          this.goodsPoint = goods.price
+        },
+
+
+        // 信息提交
+        failedSubmit () { // 验证未通过时
+          this.$notify({ type: 'danger', message: '请正确填写收货信息' });
+        },
+
+        sucessSubmit () { // 验证通过时 提交订单，弹出成功提示，跳转至我的订单列表页
+          let _this = this
+          // 计算总积分
+          let allpoint = _this.value * _this.goodsPoint
+          // 发送请求地址
+          let ajaxUrl = '{php echo $this->createMobileUrl("mygoods", array("at"=>"check"));}'
+          
+          $.post(ajaxUrl,{ // 发送参数列表
+              goodsid:_this.goodsData.id,
+              goodsquantity: _this.value,
+              username:_this.name,
+              usermobile:_this.phone,
+              address:_this.address,
+              message:_this.message,
+              allpoint:allpoint
+              },function (data) {
+                console.log('发送请求')
+            }).then(res=>{
+              let resData = JSON.parse(res)
+              if(resData.code = 1) { // 兑换成功返回的信息
+                //提交后弹出成功信息
+                _this.$toast.success({
+                  message: resData.msg,
+                  onClose: function(){
+                    location.href = "{php echo $this->createMobileUrl('goodsorder',array('show'=>'1'));}"
+                  }
+                });
+              } else {
+                _this.$toast.fail({
+                  message: '兑换失败，请联系管理员',
+                });
+              }
+            })
+        },
+
+        // 积分比较，看用户积分是否足够兑换此商品
+        myPoint() {
+          let _this = this
+          // 获取个人积分
+          _this.mypoint = {php echo json_encode($_W["member"]["credit1"])};
+          // 比较我的积分是否能兑换此商品
+          if(_this.mypoint - _this.goodsPoint >= 0) {
+            _this.btnTF = false
+          } else {
+            _this.btnTF = true
+            _this.$notify({ type: 'warning', message: '您的积分不足，无法兑换此商品'})
+          }
+        }
+      },
+      computed: {
+        // 计算兑换所用总积分
+        computedPoint () {
+          return this.goodsPoint * this.value
+        }
+      },
+      watch: {
+        // 监听value数量变化，发生变化时，看积分是否足够，不足则禁用按钮。
+        value(val){
+          let allPoint = this.goodsPoint * val
+          if(allPoint > this.mypoint){ // 积分大于兑换总额，禁用按钮
+            this.btnTF = true
+            this.$notify({ type: 'warning', message: '积分不足'})
+          } else {
+            this.btnTF = false
+          }
+        }
+      }
+  })
+</script> 
+</html>

@@ -1,0 +1,16 @@
+{if !empty($discount_banner)}
+<div class="swiper-container" style="margin-top:10px;">
+	<div class="swiper-wrapper">
+		<!--图片一-->
+		{loop $discount_banner $item}
+		<div class="swiper-slide">
+			<a href="{$item['link']}">
+				<img class="swiper-lazy" src="{$_W['attachurl']}{$item['picture']}">
+			</a>
+		</div>
+		{/loop}
+		<!--图片一end-->
+	</div>
+	<div class="swiper-pagination"></div>
+</div>
+{/if}

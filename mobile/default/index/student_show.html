@@ -1,0 +1,17 @@
+<!-- 学员风采 -->
+<div class="student_show">
+  <div class="foure_advantage_title">
+    <img src="{MODULE_URL}template/mobile/default/images/index/student_show_title.png" alt="">
+  </div>
+  {php $banner_student=$site_common->getAllBanner(5);}
+  <!-- 学员风采通用轮播 -->
+  <div class="swiper-container student_show_swiper">
+    <div class="swiper-wrapper">
+      {loop $banner_student $item}
+        <div class="swiper-slide">
+          <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+        </div>
+      {/loop}
+    </div>
+  </div>
+</div>

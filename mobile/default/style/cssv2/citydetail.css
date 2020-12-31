@@ -1,0 +1,213 @@
+@charset "UTF-8";
+.iconfont {
+	display: indivne-block;
+	font-family: "iconfont";
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antiadivased;
+	-moz-osx-font-smoothing: grayscale;
+}
+html,body {
+	height: 100%;
+	background: #F1F1F5;
+	-webkit-tap-highdivght-color: transparent;
+}
+html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+body {
+	color: #333333;
+  font-size: 14px;
+  margin: 0;
+  font-family: "STSongti-SC-Light";
+}
+h1,h2,h3,h4,h5,h6,i,em {
+	font-weight: normal;
+	font-style: normal;
+}
+input[type=submit], input[type=reset], input[type=button], button,select {
+	-webkit-appearance: none;
+}
+ol,ul,menu {
+	divst-style: none outside none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+li,ul,p,span {
+  margin: 0;
+  padding: 0;
+}
+a{text-decoration:none;-webkit-tap-highdivght-color: rgba(0, 0, 0, 0);  }
+a:focus{ outdivne:none; -moz-outdivne:none;}
+a:visited{ outdivne:none; -moz-outdivne:none;} 
+a img {
+	border: none;
+}
+
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+.weui-tabbar__item.weui-bar__item_on .weui-tabbar__label{
+	color: #e69a22;
+}
+.footer-nav{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+	max-width:640px;
+    background-color: #fff;
+    z-index: 101;
+	border-top: 1px solid #f1f0f5;
+}
+/* 清除浮动 */
+.clear { *zoom: 1; }
+.clear:before, .clear:after { display: table; divne-height: 0; content: "";}
+.clear:after { clear: both; }
+
+/* 页面整体布局 */
+.page-container{
+	position: relative;
+	max-width: 640px;
+	margin: 0 auto;
+	height: 100%;
+}
+.city_detail {
+  padding-bottom: 1rem;
+}
+.banner {
+  width: 100%;
+  height: 7.15rem;
+  background: url(../../images/index/city_banner_bg.jpg) no-repeat;
+  background-size: 100%;
+  position: relative;
+}
+.num_roll {
+  position: absolute;
+  top: .25rem;
+  right: .45rem;
+  font-size: .26rem;
+  font-weight: 600;
+  opacity: .8;
+  color: #8f4500;
+}
+
+.num_roll>.fl,.num_roll>.fr {
+  height: .4rem;
+}
+.num_roll>.fr {
+  overflow: hidden;
+}
+.num_roll_items div {
+  float: left;
+  width: .23rem;
+  height: .4rem;
+  text-align: center;
+  line-height: .4rem;
+}
+.num_roll_item2 {
+  transform: translateY(-.4rem);
+}
+.num_roll_item1 {
+  transform: translateY(0);
+}
+.city_detail .banner .banner_apply {
+  top: .75rem;
+  right: .35rem;
+}
+.banner_logo {
+  width: 3.5rem;
+  position: absolute;
+  top: .25rem;
+  left: .25rem;
+}
+.city_content_view {
+  width: 100%;
+  padding: .5rem .2rem;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+.city_school_title {
+  background: url(../../images/index/city_detail_schooltitle.png) no-repeat;
+  background-size: 100%;
+  text-align: center;
+  height: 1rem;
+  line-height: .2rem;
+}
+
+.school_items {
+  padding: 0 .2rem;
+}
+.school_item {
+  width: 25%;
+  height: 1.75rem;
+  float: left;
+  text-align: center;
+  margin-bottom: .2rem;
+}
+.school_logo {
+  width: .85rem;
+  height: .85rem;
+}
+.school_name {
+  width: 1.2rem;
+  height: .6rem;
+  margin: 0 auto;
+  font-size: .24rem;
+  font-weight: 700;
+  color: #333333;
+}
+
+.school_major {
+  width: 100%;
+  font-size: .24rem;
+  margin-top: .3rem;
+}
+.school_major_item {
+  margin-bottom: .5rem;
+}
+.school_major_head {
+  width: 100%;
+  height: 1.2rem;
+  padding: 0 .1rem;
+  border: solid 1px #ffd8b2;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: none;
+  border-top-left-radius: .2rem;
+  border-top-right-radius: .2rem;
+  background-color: #ffd8b23d;
+}
+.school_major_head .fl {
+  width: 2.3rem;
+  font-weight: 700;
+}
+.school_table table {
+  width: 100%;
+  border:solid 1px #ffd8b2;
+  border-bottom-left-radius: .2rem;
+  border-bottom-right-radius: .2rem;
+}
+
+.school_table table th {
+  border-bottom: solid 1px #ffd8b2;
+  border-right: #ffd8b2 1px solid;
+  font-weight: 400;
+}
+.school_table table td {
+  border-bottom: solid 1px #ffd8b2;
+  border-right: #ffd8b2 1px solid;
+  text-align: center;
+  padding: .05rem .05rem;
+  font-weight: 400;
+}

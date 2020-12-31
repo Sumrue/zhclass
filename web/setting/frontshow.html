@@ -1,0 +1,52 @@
+<style type="text/css">
+	.must_info label{margin-left:0 !important;}
+	.input-group  img{width: 60px;}
+</style>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">网站名称</label>
+					<div class="col-sm-9">
+						<input type="text" name="sitename" value="{$setting['sitename']}" class="form-control" />
+					</div>
+				</div>
+			</div>	
+		</div>
+
+		<div class="form-group col-sm-12">
+			<input type="hidden" name="id" value="{$setting['id']}" />
+			<input type="submit" name="submit" value="保存设置" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+function changeUserInfo(status){
+	if(status==0){
+		document.getElementById("user_info").style.display = "none";
+	}else{
+		document.getElementById("user_info").style.display = "block";
+	}
+}
+function indexVerify(status){
+	if(status==0){
+		document.getElementById("index-close-box").style.display = "none";
+	}else{
+		document.getElementById("index-close-box").style.display = "block";
+	}
+}
+$("#loadcss").click(function(){
+	$.ajax({
+		type:"get",
+		url:"{php echo $this->createWebUrl('setting', array('op'=>'frontshow','loadcss'=>1))}",
+		data:{},
+		datatype: "json",
+		success:function(resdata){
+			var res =  JSON.parse(resdata);
+			document.getElementById('front_color').innerHTML = res;
+		},
+	 });
+});
+</script>

@@ -1,0 +1,353 @@
+<!-- 网络教学 -->
+<div class="online_eduction">
+  <div class="online_banner">
+    <div class="swiper-container online_banner_swiper">
+      <div class="swiper-wrapper">
+        {php $banner_online=$site_common->getAllBanner(3);}
+        {loop $banner_online $item}
+          <div class="swiper-slide">
+            <a href="{$item[link]}" class="online_banner_image">
+              <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+            </a>
+          </div>
+          {/loop}
+      </div>
+    </div>
+    {template $template.'/banner/banner_apply'}
+    <!-- 数字滚动 -->
+    <div class="onlinenum_roll">
+      <div class="onlinetext">已报名人数: </div>
+      <ul class="onlineroll_box">
+        <li class="onlineroll_item">
+          <ul class="onlineroll_small_items">
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+          </ul>
+        </li>
+        <li class="onlineroll_item">
+          <ul class="onlineroll_small_items">
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+          </ul>
+        </li>
+        <li class="onlineroll_item">
+          <ul class="onlineroll_small_items">
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+          </ul>
+        </li>
+        <li class="onlineroll_item">
+          <ul class="onlineroll_small_items">
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>0</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="main_content_box main_content_online">
+    <!-- 切换按钮 -->
+    <div class="content_switch">
+      <div class="switch_cbox"></div>
+      <div class="switch_item">
+        <div class="switch_item_nav switch_item_nav_on">
+          网络招生
+          <div class="switch_item_line"></div>
+        </div>
+        <div class="switch_item_nav">模式介绍</div>
+      </div>
+    </div>
+    <div class="main_content">
+      <!-- 2011级招生 -->
+      <div class="switch_content block ">
+        <div class="switch_content_2011box">
+
+          <!-- 学校优势 -->
+          <div class="open_education_advantage">
+            <div class="head_img">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_advantage.png" alt="">
+            </div>
+            <div class="content_view">
+              <div class="topView">
+                <div class="fl">
+                  <div class="view_title">
+                    <span class="view_title_num">1</span>
+                    <span class="iew_title_text">信誉高</span>
+                  </div>
+                  <p class="text">教育部直属,权威有保障</p>
+                </div>
+                <div class="fr">
+                  <div class="view_title">
+                    <span class="view_title_num">2</span>
+                    <span class="iew_title_text">低基础入学</span>
+                  </div>
+                  <p class="text">直接入学，不用参加考试</p>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="topView" style="margin-top: .2rem;">
+                <div class="fl">
+                  <div class="view_title">
+                    <span class="view_title_num">3</span>
+                    <span class="iew_title_text">投入时间少</span>
+                  </div>
+                  <p class="text">投入时间少,工作学习两不误</p>
+                </div>
+                <div class="fr">
+                  <div class="view_title">
+                    <span class="view_title_num">4</span>
+                    <span class="iew_title_text">学习无限制</span>
+                  </div>
+                  <p class="text">有网络就能上课,随时随地学习</p>
+                </div>
+                <div class="clear"></div>
+              </div>
+            
+              <div class="middView">
+                <div></div>
+                <div class="view_title">
+                  <span class="view_title_num">5</span>
+                  <span class="iew_title_text">学习模式灵活</span>
+                </div>
+                <p class="text">
+                  网络自主学习、远程学习支持服务与面授辅导相结合的新型学习模式
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 院校专业和收费 -->
+          <div class="open_education_charge">
+            <div class="head_img">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/open_title_fee.png" alt="">
+            </div>
+            <div class="charge_pic_box">
+              {php $banner_online_major=$site_common->getAllBanner(8);}
+              {loop $banner_online_major $item}
+              <img src="{$_W['attachurl']}{$item[picture]}" alt="">
+              {/loop}
+            </div>
+          </div>
+
+          <!-- 广告区域 -->
+          <div></div>
+        </div>
+      </div>
+
+      <!-- 院校介绍 -->
+      <div class="switch_content">
+        <div class="dream_build_box">
+          <!-- 原先介绍头部图片及文字介绍 -->
+          <div class="open_education_referral online_education_referral">
+            <div class="title_img"><img src="{MODULE_URL}template/mobile/default/images/index/online_referral.png" alt=""></div>
+            <p class="content_text">
+                远程教育是学生与教师、学生与教育组织之间主要采取多种媒体方式进行系统教学和通信联系的教育形式，是将课程传送给校园外的一处或多处学生的教育。
+              <br>
+                现代远程教育则是指通过音频、视频（直播或录像）以及包括实时和非实时在内的计算机技术把课程传送到校园外的教育。现代远程教育是随着现代信息技术的发展而产生的一种新型教育方式。
+              <br>
+                计算机技术、多媒体技术、通信技术的发展，特别是因特网(internet)的迅猛发展，使远程教育的手段有了质的飞跃，成为高新技术条件下的远程教育。
+              <br>
+                现代远程教育是以现代远程教育手段为主，兼容面授、函授和自学等传统教学形式，多种媒体优化组合的教育方式。
+              <br>
+                现代远程教育可以有效地发挥远程教育的特点，是一种相对于面授教育、师生分离、非面对面组织的教学活动，它是一种跨学校、跨地区的教育体制和教学模式，它的特点是：学生与教师分离；采用特定的传输系统和传播媒体进行教学；信息的传输方式多种多样；学习的场所和形式灵活多变。
+              <br>
+                与面授教育相比，远距离教育的优势在于它可以突破时空的限制；提供更多的学习机会；扩大教学规模；提高教学质量；降低教学的成本。基于远程教育的特点和优势，许多有识之士已经认识到发展远程教育的重要意义和广阔前景。
+          </div>
+          <div class="more online_more">
+            <div class="down">
+              <img src="{MODULE_URL}template/mobile/default/images/index/open_education/down_more.png" alt="">
+              <span>更多</span>
+            </div>
+            <div class="up hide">
+              收起
+            </div>
+          </div>
+          <!-- 学员故事 -->
+          {template $template.'/index/student_story'}
+          <!-- 学员风采 -->
+          {template $template.'/index/student_show'}
+          <!-- 广告位 -->
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="open_education_voice">
+    <div class="open_education_switch">
+      <div class="open_switch_cbox"></div>
+      <div class="open_switch_items online_switch_voice">
+        <div class="open_switch_item open_switch_item_on online_switch_item">留言区
+        </div>
+        <div class="open_switch_item online_switch_item">常见问题</div>
+        <div class="open_switch_line"></div>
+      </div>
+    </div>
+    <div class="main_content">
+      <div class="switch_content block">
+        <div class="switch_content_box">
+          <!-- 留言区内容 -->
+          {template $template.'/index/voice2'}
+        </div>
+      </div>
+      <!-- 常见问题 -->
+      <div class="switch_content">
+        <div class="question_list">
+          {loop $question[4] $key $item}
+          <div class="weui-cells">
+            <a class="weui-cell  weui-cell_access weui-cell_example" href="javascript:">
+                <div class="weui-cell__hd" class="my_collapse_picbox">
+                    <div class="my_collapse_num">{php echo ($key + 1)}</div>
+                    <img class="pic" src="{MODULE_URL}template/mobile/default/images/index/question_icon.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                </div>
+                <div class="weui-cell__bd">
+                    <p>{$item['title']}</p>
+                </div>
+                <div class="weui-cell__ft left_icon"></div>
+            </a>
+            <div class="collapse_content">
+                <div class="padding_box">
+                    <p>{$item['answer']}</p>
+                </div>
+            </div>
+          </div>
+          {/loop}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(window).scroll(
+    function(){
+      let windowHt = $(this).scrollTop()
+      let headerHt = $('#header').height()
+      // 开放教育页导航设置
+      let contentCenterHt = $('.main_content_online').height()
+      let mainContentBox3Wd = $('.main_content_online .main_content').height()
+      let switchItem4 = $('.main_content_online .switch_item') // 通用第一个导航到顶部设置
+      let newBanner = $('.online_banner')
+      let openItem = $('.online_switch_voice')
+      let bannerOpenHt = $('.online_banner').height()
+      if(windowHt >  headerHt + bannerOpenHt){ 
+        switchItem4.addClass('fixed')
+      } else if(windowHt <  headerHt + bannerOpenHt) {
+        switchItem4.removeClass('fixed')
+      }
+
+      // 留言框导航的显示隐藏
+      if(windowHt > headerHt + bannerOpenHt + contentCenterHt) {
+        openItem.addClass('fixed')
+      } else if(windowHt < headerHt + bannerOpenHt + contentCenterHt) {
+        openItem.removeClass('fixed')
+      }
+    }
+)
+
+  // // 学院介绍内容变多变少按钮
+  let onlineEducationText = $('.online_eduction .content_text')
+  // 展开
+  $('.online_more .down').click(
+    function() {
+      onlineEducationText.css('height','100%')
+      $(this).addClass('hide')
+      $('.online_more .up').removeClass('hide')
+    }
+  )
+    // 收起
+  $('.online_more .up').click(
+    function() {
+      onlineEducationText.css('height','3rem')
+      $(this).addClass('hide')
+      $('.online_more .down').removeClass('hide')
+      $('html, body').animate({scrollTop: 0},450)
+    }
+  )
+
+  // 设置导航下划线初始的宽度，为导航块的60%
+let onlineSwitchItem = $('.online_switch_item')
+let onlineSwitchItemLine = $('.online_switch_item') 
+// 点击切换
+onlineSwitchItem.click(function(){
+  let $this = $(this)
+  let switchContent = $this.parent().parent().parent().find('.switch_content') // 找到当前点击对象所对应的内容区域
+  $this.addClass('open_switch_item_on').siblings().removeClass('open_switch_item_on') // 选中样式的添加和移除
+  let index = $this.index() // 获取下标
+
+  // 内容区域切换
+  switchContent.eq(index).addClass('block').siblings().removeClass('block')  // 内容切换完成
+})
+
+</script>
